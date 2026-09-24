@@ -4,5 +4,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Trend.fs" />
+    <Compile Include="Policy.fs" />
   </ItemGroup>
 </Project>
