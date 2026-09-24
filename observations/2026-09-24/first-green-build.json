@@ -1,0 +1,122 @@
+{
+  "schemaVersion": "1.0.0",
+  "snapshotId": "dokimos-20260924-ci-36059140072",
+  "repository": "kemiller2002/dokimos",
+  "revision": {
+    "commit": "d580b45fea55c76f685225fb0789d9767c8a8760",
+    "ref": "main"
+  },
+  "collectedAt": "2026-09-24T21:05:37Z",
+  "collector": {
+    "name": "github-actions-ci-observation",
+    "version": "1",
+    "configurationId": ".github/workflows/ci.yml"
+  },
+  "observations": [
+    {
+      "metricId": "build.success",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 1,
+      "unit": "boolean-0-1",
+      "reason": null,
+      "provenance": {
+        "runId": 36059140072,
+        "jobId": 107833512446
+      }
+    },
+    {
+      "metricId": "build.compiler-errors",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 0,
+      "unit": "count",
+      "reason": null,
+      "provenance": {
+        "runId": 36059140072,
+        "jobId": 107833512446
+      }
+    },
+    {
+      "metricId": "build.compiler-warnings",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 0,
+      "unit": "count",
+      "reason": null,
+      "provenance": {
+        "runId": 36059140072,
+        "jobId": 107833512446
+      }
+    },
+    {
+      "metricId": "build.duration",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 10.64,
+      "unit": "seconds",
+      "reason": null,
+      "provenance": {
+        "runId": 36059140072,
+        "jobId": 107833512446,
+        "source": "dotnet build output"
+      }
+    },
+    {
+      "metricId": "tests.total",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 4,
+      "unit": "count",
+      "reason": null,
+      "provenance": {
+        "runId": 36059140072,
+        "jobId": 107833512446
+      }
+    },
+    {
+      "metricId": "tests.passed",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 4,
+      "unit": "count",
+      "reason": null,
+      "provenance": {
+        "runId": 36059140072,
+        "jobId": 107833512446
+      }
+    },
+    {
+      "metricId": "tests.failed",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 0,
+      "unit": "count",
+      "reason": null,
+      "provenance": {
+        "runId": 36059140072,
+        "jobId": 107833512446
+      }
+    },
+    {
+      "metricId": "finding.fs-record-inference",
+      "metricVersion": 1,
+      "scope": "src/Dokimos.Domain/Domain.fs",
+      "state": "available",
+      "value": 0,
+      "unit": "finding-present-0-1",
+      "reason": "Resolved by explicit Observation parameter types.",
+      "provenance": {
+        "runId": 36059140072,
+        "jobId": 107833512446
+      }
+    }
+  ]
+}
