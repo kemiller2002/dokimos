@@ -98,14 +98,14 @@ type ComparisonCompatibility =
     | IncompatibleMetricDefinition of metric: MetricId * leftVersion: MetricVersion * rightVersion: MetricVersion
 
 module Comparison =
-    let compatibility left right =
+    let compatibility (left: Observation) (right: Observation) =
         if left.Metric <> right.Metric then
             invalidArg "right" "Observations must describe the same metric."
 
         if left.MetricVersion = right.MetricVersion then Compatible
         else IncompatibleMetricDefinition(left.Metric, left.MetricVersion, right.MetricVersion)
 
-    let delta left right =
+    let delta (left: Observation) (right: Observation) =
         match compatibility left right, left.Measurement, right.Measurement with
         | Compatible, Available (oldValue, oldUnit), Available (newValue, newUnit) when oldUnit = newUnit ->
             Some(newValue - oldValue)
