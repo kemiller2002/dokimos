@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../Dokimos.Domain/Dokimos.Domain.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Trend.fs" />
+  </ItemGroup>
+</Project>
