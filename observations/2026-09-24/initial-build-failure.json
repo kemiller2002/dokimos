@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0.0",
+  "snapshotId": "dokimos-20260924-ci-36059054178",
+  "repository": "kemiller2002/dokimos",
+  "revision": {
+    "commit": "78778a3c969d8e100e57cd1d8117a24f0e828ddf",
+    "ref": "main"
+  },
+  "collectedAt": "2026-09-24T21:04:36Z",
+  "collector": {
+    "name": "github-actions-ci-observation",
+    "version": "1",
+    "configurationId": ".github/workflows/ci.yml"
+  },
+  "observations": [
+    {
+      "metricId": "build.success",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 0,
+      "unit": "boolean-0-1",
+      "reason": null,
+      "provenance": {
+        "runId": 36059054178,
+        "jobId": 107833228029,
+        "step": "Build"
+      }
+    },
+    {
+      "metricId": "build.compiler-errors",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 12,
+      "unit": "count",
+      "reason": null,
+      "provenance": {
+        "runId": 36059054178,
+        "jobId": 107833228029,
+        "source": "CI build log"
+      }
+    },
+    {
+      "metricId": "build.compiler-warnings",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 0,
+      "unit": "count",
+      "reason": null,
+      "provenance": {
+        "runId": 36059054178,
+        "jobId": 107833228029,
+        "source": "CI build log"
+      }
+    },
+    {
+      "metricId": "tests.passed",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "unavailable",
+      "value": null,
+      "unit": "count",
+      "reason": "Test step skipped because build failed.",
+      "provenance": {
+        "runId": 36059054178,
+        "jobId": 107833228029,
+        "step": "Test"
+      }
+    },
+    {
+      "metricId": "finding.fs-record-inference",
+      "metricVersion": 1,
+      "scope": "src/Dokimos.Domain/Domain.fs",
+      "state": "available",
+      "value": 1,
+      "unit": "finding-present-0-1",
+      "reason": "F# inferred Threshold for comparison parameters because record fields overlapped; CI emitted FS3566/FS0039.",
+      "provenance": {
+        "runId": 36059054178,
+        "jobId": 107833228029,
+        "lines": "105-109"
+      }
+    }
+  ]
+}
