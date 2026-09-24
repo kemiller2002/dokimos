@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "project": "Dokimos",
+  "updated": "2026-09-24",
+  "components": [
+    {
+      "name": "ordo-sde",
+      "version": "1.3.0",
+      "source": "kemiller2002/forma installed canonical snapshot",
+      "sourceManifest": ".sde/MANIFEST.json",
+      "status": "installed-from-canonical-repository-artifacts"
+    },
+    {
+      "name": "ros",
+      "version": "3.1.4",
+      "source": "kemiller2002/forma installed canonical artifacts",
+      "configuration": "ros.json",
+      "status": "installed-from-canonical-repository-artifacts"
+    },
+    {
+      "name": "forma",
+      "status": "required-for-results-ui",
+      "installation": "deferred-until-ui-slice"
+    },
+    {
+      "name": "folio",
+      "status": "required-for-printable-results",
+      "installation": "deferred-until-report-slice"
+    },
+    {
+      "name": "aegis-tutors",
+      "status": "integration-boundary-required",
+      "installation": "not-copied; security authority remains external"
+    },
+    {
+      "name": "praxis",
+      "status": "integration-boundary-required",
+      "installation": "not-copied; engineering-process telemetry authority remains external"
+    }
+  ]
+}
