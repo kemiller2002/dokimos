@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/snapshot/v1",
+  "title": "Dokimos Snapshot",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "snapshotId",
+    "repository",
+    "revision",
+    "collectedAt",
+    "collector",
+    "observations"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "snapshotId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "repository": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "object",
+      "required": [
+        "commit"
+      ],
+      "properties": {
+        "commit": {
+          "type": "string",
+          "minLength": 7
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "collectedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "collector": {
+      "type": "object",
+      "required": [
+        "name",
+        "version",
+        "configurationId"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "configurationId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "metricId",
+          "metricVersion",
+          "scope",
+          "state",
+          "provenance"
+        ],
+        "properties": {
+          "metricId": {
+            "type": "string"
+          },
+          "metricVersion": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "scope": {
+            "type": "string"
+          },
+          "state": {
+            "enum": [
+              "available",
+              "unavailable",
+              "failed"
+            ]
+          },
+          "value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "provenance": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}
