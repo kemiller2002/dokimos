@@ -5,8 +5,15 @@ open Xunit
 open Dokimos.Domain
 
 module Helpers =
-    let metric () = MetricId.tryCreate "complexity.cyclomatic" |> Result.get
-    let version n = MetricVersion.tryCreate n |> Result.get
+    let metric () =
+        match MetricId.tryCreate "complexity.cyclomatic" with
+        | Ok value -> value
+        | Error error -> failwith error
+
+    let version n =
+        match MetricVersion.tryCreate n with
+        | Ok value -> value
+        | Error error -> failwith error
 
     let observation version measurement =
         { Metric = metric ()
