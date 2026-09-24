@@ -7,6 +7,10 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Dokimos.Domain", "src\Dokim
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Dokimos.Domain.Tests", "tests\Dokimos.Domain.Tests\Dokimos.Domain.Tests.fsproj", "{D1494439-C584-44B0-A486-20E6B901DA02}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Dokimos.Core", "src\\Dokimos.Core\\Dokimos.Core.fsproj", "{A2494439-C584-44B0-A486-20E6B901DA03}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Dokimos.Core.Tests", "tests\\Dokimos.Core.Tests\\Dokimos.Core.Tests.fsproj", "{B3494439-C584-44B0-A486-20E6B901DA04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,5 +25,13 @@ Global
 		{D1494439-C584-44B0-A486-20E6B901DA02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1494439-C584-44B0-A486-20E6B901DA02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1494439-C584-44B0-A486-20E6B901DA02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2494439-C584-44B0-A486-20E6B901DA03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2494439-C584-44B0-A486-20E6B901DA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2494439-C584-44B0-A486-20E6B901DA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2494439-C584-44B0-A486-20E6B901DA03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3494439-C584-44B0-A486-20E6B901DA04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3494439-C584-44B0-A486-20E6B901DA04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3494439-C584-44B0-A486-20E6B901DA04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3494439-C584-44B0-A486-20E6B901DA04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
