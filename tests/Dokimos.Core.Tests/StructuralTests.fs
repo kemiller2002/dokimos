@@ -10,7 +10,7 @@ module StructuralTests =
         let first = Structural.measure "A.fs" source
         let second = Structural.measure "A.fs" source
         Assert.Equal(first, second)
-        Assert.Equal(4, first.NonBlankLines)
+        Assert.Equal(3, first.NonBlankLines)
         Assert.Equal(2, first.PublicDeclarations)
         Assert.Equal(1, first.MutableBindings)
 
