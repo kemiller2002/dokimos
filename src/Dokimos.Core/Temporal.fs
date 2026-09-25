@@ -21,7 +21,7 @@ type TemporalEvidence =
       RenameCount: int }
 
 module Temporal =
-    let summarize path changes =
+    let summarize (path: string) (changes: FileChange list) =
         let relevant =
             changes
             |> List.filter (fun change -> change.Path = path || change.PreviousPath = Some path)
@@ -53,7 +53,7 @@ type HotspotEvidence =
       Reasons: string list }
 
 module Hotspots =
-    let explain temporal structural =
+    let explain (temporal: TemporalEvidence) (structural: StructuralEvidence) =
         let reasons =
             [ if temporal.CommitCount >= 5 then "frequently-changed"
               if temporal.Churn >= 100 then "high-churn"
