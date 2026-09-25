@@ -8,5 +8,6 @@
     <Compile Include="Findings.fs" />
     <Compile Include="Temporal.fs" />
     <Compile Include="Regions.fs" />
+    <Compile Include="Structural.fs" />
   </ItemGroup>
 </Project>
