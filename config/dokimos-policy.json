@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "baseline": "BASELINE-0001",
+  "ratchets": [
+    {
+      "metricId": "build.compiler-errors",
+      "metricVersion": 1,
+      "bestAccepted": 0,
+      "preference": "lower-is-better",
+      "disposition": "fail"
+    },
+    {
+      "metricId": "build.compiler-warnings",
+      "metricVersion": 1,
+      "bestAccepted": 0,
+      "preference": "lower-is-better",
+      "disposition": "fail"
+    }
+  ],
+  "observedNotRatcheted": [
+    "tests.total",
+    "tests.passed"
+  ],
+  "unavailableBehavior": "not-evaluated"
+}
