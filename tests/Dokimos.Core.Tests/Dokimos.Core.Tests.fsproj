@@ -15,5 +15,6 @@
     <Compile Include="TrendTests.fs" />
     <Compile Include="PolicyTests.fs" />
     <Compile Include="FindingTests.fs" />
+    <Compile Include="TemporalTests.fs" />
   </ItemGroup>
 </Project>
