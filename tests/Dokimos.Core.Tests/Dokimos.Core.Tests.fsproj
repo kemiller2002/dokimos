@@ -17,5 +17,6 @@
     <Compile Include="FindingTests.fs" />
     <Compile Include="TemporalTests.fs" />
     <Compile Include="RegionTests.fs" />
+    <Compile Include="StructuralTests.fs" />
   </ItemGroup>
 </Project>
