@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "1.0.0",
+  "metrics": [
+    {
+      "id": "build.compiler-errors",
+      "version": 1,
+      "unit": "count",
+      "preference": "lower-is-better",
+      "scope": [
+        "repository"
+      ],
+      "definition": "Compiler errors emitted by the configured build."
+    },
+    {
+      "id": "build.compiler-warnings",
+      "version": 1,
+      "unit": "count",
+      "preference": "lower-is-better",
+      "scope": [
+        "repository"
+      ],
+      "definition": "Compiler warnings emitted by the configured build."
+    },
+    {
+      "id": "tests.total",
+      "version": 1,
+      "unit": "count",
+      "preference": "none",
+      "scope": [
+        "repository"
+      ],
+      "definition": "Tests executed in the observed test run. Count alone is not a quality score."
+    },
+    {
+      "id": "change.file-commits",
+      "version": 1,
+      "unit": "count",
+      "preference": "contextual",
+      "scope": [
+        "file"
+      ],
+      "definition": "Distinct commits touching a file in the selected window."
+    },
+    {
+      "id": "change.file-churn",
+      "version": 1,
+      "unit": "lines",
+      "preference": "contextual",
+      "scope": [
+        "file"
+      ],
+      "definition": "Added plus deleted lines for a file in the selected window."
+    },
+    {
+      "id": "change.region-commits",
+      "version": 1,
+      "unit": "count",
+      "preference": "contextual",
+      "scope": [
+        "region"
+      ],
+      "definition": "Distinct commits modifying a confidence-bearing region identity."
+    },
+    {
+      "id": "source.lines",
+      "version": 1,
+      "unit": "lines",
+      "preference": "contextual",
+      "scope": [
+        "file"
+      ],
+      "definition": "Physical source lines using normalized newline splitting."
+    },
+    {
+      "id": "source.nonblank-lines",
+      "version": 1,
+      "unit": "lines",
+      "preference": "contextual",
+      "scope": [
+        "file"
+      ],
+      "definition": "Nonblank physical source lines."
+    },
+    {
+      "id": "source.public-declarations",
+      "version": 1,
+      "unit": "count",
+      "preference": "contextual",
+      "scope": [
+        "file"
+      ],
+      "definition": "Conservative lexical indicator of module, type, and val declarations."
+    },
+    {
+      "id": "source.mutable-bindings",
+      "version": 1,
+      "unit": "count",
+      "preference": "contextual",
+      "scope": [
+        "file"
+      ],
+      "definition": "Lexical count of F# let mutable bindings."
+    },
+    {
+      "id": "source.broad-catch-indicators",
+      "version": 1,
+      "unit": "count",
+      "preference": "contextual",
+      "scope": [
+        "file"
+      ],
+      "definition": "Lexical broad-pattern indicators. This metric does not assert a defect."
+    }
+  ]
+}
