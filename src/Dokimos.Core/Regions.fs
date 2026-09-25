@@ -18,7 +18,7 @@ type RegionHistory =
       Churn: int }
 
 module Regions =
-    let summarize identity changes =
+    let summarize (identity: RegionIdentity) (changes: RegionChange list) =
         let matches =
             changes
             |> List.filter (fun change ->
@@ -33,5 +33,5 @@ module Regions =
                   Modifications = List.length matches
                   Churn = matches |> List.sumBy (fun x -> x.AddedLines + x.DeletedLines) }
 
-    let isRepeated minimumCommits history =
+    let isRepeated (minimumCommits: int) (history: RegionHistory) =
         history.DistinctCommits >= minimumCommits
