@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "1.0.0",
+  "snapshotId": "dokimos-20260924-ci-36060276183",
+  "repository": "kemiller2002/dokimos",
+  "revision": {
+    "commit": "0d02be1a1b6c9a52ac014d6c6a458e952a342475",
+    "ref": "main"
+  },
+  "collectedAt": "2026-09-24T21:15:58Z",
+  "collector": {
+    "name": "github-actions-ci-observation",
+    "version": "1",
+    "configurationId": ".github/workflows/ci.yml"
+  },
+  "observations": [
+    {
+      "metricId": "build.compiler-errors",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 0,
+      "unit": "count",
+      "reason": null,
+      "provenance": {
+        "runId": 36060276183,
+        "jobId": 107836781987
+      }
+    },
+    {
+      "metricId": "build.compiler-warnings",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 0,
+      "unit": "count",
+      "reason": null,
+      "provenance": {
+        "runId": 36060276183
+      }
+    },
+    {
+      "metricId": "tests.total",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 12,
+      "unit": "count",
+      "reason": "Count is evidence of executed tests, not a quality score.",
+      "provenance": {
+        "runId": 36060276183
+      }
+    },
+    {
+      "metricId": "tests.passed",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 12,
+      "unit": "count",
+      "reason": null,
+      "provenance": {
+        "runId": 36060276183
+      }
+    },
+    {
+      "metricId": "bootstrap.intermediate-red-runs",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 4,
+      "unit": "count",
+      "reason": "Observed dependency-order failures while referenced source/test files had not yet been committed. Classified separately from domain defects.",
+      "provenance": {
+        "runIds": [
+          36060194288,
+          36060200512,
+          36060220824,
+          36060264842
+        ]
+      }
+    }
+  ]
+}
