@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -22,3 +24,28 @@ jobs:
         run: dotnet build Dokimos.sln --configuration Release --no-restore
       - name: Test
         run: dotnet test Dokimos.sln --configuration Release --no-build
+      - name: Self-measure F# sources
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/dokimos/self-measure
+          if dotnet build Dokimos.sln --configuration Release --no-restore; then
+            while IFS= read -r file; do
+              safe=$(printf '%s' "$file" | tr '/.' '__')
+              dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- measure "$file" > "artifacts/dokimos/self-measure/$safe.json"
+            done < <(find src -type f -name '*.fs' | sort)
+          else
+            printf '{"state":"unavailable","reason":"build-failed"}\n' > artifacts/dokimos/self-measure/unavailable.json
+          fi
+      - name: Capture Git temporal evidence
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p artifacts/dokimos
+          git log --numstat --find-renames --format='commit %H %aI' -- src > artifacts/dokimos/git-history.txt
+      - name: Upload Dokimos evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dokimos-evidence-${{ github.sha }}
+          path: artifacts/dokimos
