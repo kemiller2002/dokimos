@@ -7,5 +7,6 @@
     <Compile Include="Policy.fs" />
     <Compile Include="Findings.fs" />
     <Compile Include="Temporal.fs" />
+    <Compile Include="Regions.fs" />
   </ItemGroup>
 </Project>
