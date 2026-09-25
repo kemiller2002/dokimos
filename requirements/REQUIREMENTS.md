@@ -115,7 +115,7 @@ Dokimos SHALL follow Ordo/SDE and ROS repository governance.
 
 Dokimos SHALL integrate with Praxis/ROS execution telemetry without duplicating its ownership.
 
-Security-specific analysis SHALL route to Aegis/Tutors rather than creating a competing security authority.
+Security-specific analysis SHALL route to Tutela rather than creating a competing security authority. Aegis is not the security authority; it owns unexpected operational-fault handling at architectural boundaries.
 
 UI SHALL consume Forma; printable reports SHALL consume Folio when those surfaces are implemented.
 
@@ -156,3 +156,15 @@ Every derived quality conclusion SHALL be traceable to observations and policy.
 Dokimos SHALL distinguish observation, inference, policy judgment, and recommendation.
 
 Aggregate scores, if introduced, MUST be decomposable and MUST NOT become the canonical source of truth.
+
+## R13 — Shared Echelon application foundations
+
+Dokimos SHALL use Aegis for unexpected operational failure at Git, filesystem, analyzer process, package/tool invocation, repository, network, persistence, and other external boundaries owned by its .NET/F# execution path. Expected quality findings, unavailable metrics, policy failures, threshold decisions, unsupported analyzers, and comparison outcomes SHALL remain typed Dokimos/Ordo domain outcomes rather than Aegis faults.
+
+Aegis fault classification SHALL preserve stable codes, redaction, idempotency/recovery posture, and deterministic tests. Raw technology exceptions SHALL NOT cross declared integration boundaries.
+
+When the human results UI is implemented, it SHALL consume a pinned Forma release and use existing Forma patterns/components/tokens before local equivalents. Application-specific quality meaning remains Dokimos-owned.
+
+Any printable, PDF, paginated, or print-preview quality report SHALL consume a pinned Folio release and use existing Folio document primitives before local print implementations.
+
+Aegis, Forma, and Folio dependencies SHALL be pinned to released versions or immutable artifacts. A missing shared capability SHALL be recorded as a gap in the owning shared repository rather than silently forked inside Dokimos.
