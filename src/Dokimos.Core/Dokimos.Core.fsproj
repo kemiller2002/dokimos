@@ -9,5 +9,6 @@
     <Compile Include="Temporal.fs" />
     <Compile Include="Regions.fs" />
     <Compile Include="Structural.fs" />
+    <Compile Include="Snapshots.fs" />
   </ItemGroup>
 </Project>
