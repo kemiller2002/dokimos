@@ -6,5 +6,6 @@
     <Compile Include="Trend.fs" />
     <Compile Include="Policy.fs" />
     <Compile Include="Findings.fs" />
+    <Compile Include="Temporal.fs" />
   </ItemGroup>
 </Project>
