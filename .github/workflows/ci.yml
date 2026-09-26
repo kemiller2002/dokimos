@@ -27,12 +27,19 @@ jobs:
       - name: Self-measure F# sources
         if: always()
         shell: bash
+        # Explicit measurement-actor declaration (R14.4): this job is CI automation.
+        # The measured code's author is never inferred from it.
+        env:
+          ROS_ACTOR_KIND: automation
+          ROS_ACTOR: github/github-actions
+          ROS_TELEMETRY_PROVIDER: github
+          ROS_TELEMETRY_RUNTIME: github-actions
         run: |
           mkdir -p artifacts/dokimos/self-measure
           if dotnet build Dokimos.sln --configuration Release --no-restore; then
             while IFS= read -r file; do
               safe=$(printf '%s' "$file" | tr '/.' '__')
-              dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- measure "$file" > "artifacts/dokimos/self-measure/$safe.json"
+              dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- measure "$file" --run-id "ci-${{ github.run_id }}-${{ github.run_attempt }}" --derived-from "git:commit/${{ github.sha }}" > "artifacts/dokimos/self-measure/$safe.json"
             done < <(find src -type f -name '*.fs' | sort)
           else
             printf '{"state":"unavailable","reason":"build-failed"}\n' > artifacts/dokimos/self-measure/unavailable.json

@@ -16,6 +16,10 @@ type CorrelationKind =
     | MaintainabilityHotspot
     | UnstablePublicSurface
     | UntestedHighChange
+    /// An evidence pattern often seen in generated changes. It is a heuristic
+    /// over signals, not an authorship claim: it never produces, implies, or
+    /// changes provenance (R14.6). Authorship comes only from recorded
+    /// provenance (see `Authorship`).
     | AgentGeneratedRiskPattern
     | PersistentDebtHotspot
 

@@ -1,3 +1,19 @@
+---
+title: Dokimos Requirements
+provenance:
+  contributions:
+    EXE-20260926T081023859Z-75aea576:
+      operations: [modified]
+      at: 2026-09-26T08:14:32.491Z
+      actor:
+        kind: agent
+        id: anthropic/claude-code
+        provider: anthropic
+        model: unknown
+        runtime: claude-code
+      reason: "Add R14 provenance of measurements and findings (FEAT-ECHELON-PROVENANCE)"
+---
+
 # Dokimos Requirements
 
 Status: initial approved baseline
@@ -168,3 +184,50 @@ When the human results UI is implemented, it SHALL consume a pinned Forma releas
 Any printable, PDF, paginated, or print-preview quality report SHALL consume a pinned Folio release and use existing Folio document primitives before local print implementations.
 
 Aegis, Forma, and Folio dependencies SHALL be pinned to released versions or immutable artifacts. A missing shared capability SHALL be recorded as a gap in the owning shared repository rather than silently forked inside Dokimos.
+
+## R14 — Provenance of measurements and findings
+
+Praxis owns the Echelon agent identity and provenance model (DF-ROS-2026-A036, DF-ROS-2026-A037; RQ-ROS-2026-A001 through RQ-ROS-2026-A019). Dokimos carries that model through its own records. It does not redefine what an actor, execution, contribution, operation, or "unknown" means, and it does not fork the Praxis schemas. This requirement refines R0.7, R3 (suppression author/actor), R8 (Praxis/ROS integration), and R10 (preservable unknown fields).
+
+R14.1 Four distinct roles. Dokimos SHALL keep these roles separate, each expressed with the Praxis operation vocabulary (RQ-ROS-2026-A014):
+- **artifact author**: the recorded originator (`created`) of the measured artifact (source file, commit, requirement);
+- **measurement actor**: the actor and execution that produced a snapshot or observation (`created` + `measured` on the snapshot's own provenance);
+- **remediation actor**: whoever changed code to address a finding (`remediated` on the finding's provenance);
+- **validation actor**: whoever confirmed a finding's state (`validated`), with `reviewed` and `resolved` recorded the same way.
+
+No role implies another. A measurement SHALL NOT be attributed to the author of the measured code because an agent performed the measurement, and the author of the code SHALL NOT be recorded as its measurer.
+
+R14.2 Interchange block. Snapshot and finding provenance SHALL be a `praxis.provenance/1` block (Praxis `schemas/provenance-interchange.schema.json`) embedded unchanged. Received blocks SHALL be classified with the Praxis receiving rules (RQ-ROS-2026-A015): *supported* blocks are preserved including unknown fields and tolerated operation codes; *unsupported* major versions are carried verbatim and never merged into; *malformed* blocks are rejected at the boundary with a clear error, never dropped or repaired.
+
+R14.3 Execution identity. Every measurement contribution SHALL be keyed by the execution that produced it (RQ-ROS-2026-A002, RQ-ROS-2026-A013): the declared invoking execution (`--execution` or `ROS_EXECUTION_ID`, an `EXE-…` or `EXT-…` key) when one is declared, otherwise the Dokimos run itself as `EXT-dokimos.<run-id>`. Two runs of the same agent SHALL produce two distinct keys.
+
+R14.4 Measurement actor from explicit declarations only (RQ-ROS-2026-A006, RQ-ROS-2026-A016). The measurement actor SHALL come from `--actor-json`, `--actor-kind`/`--actor-id`/`--provider`/`--model`/`--runtime`, or the environment variables `ROS_ACTOR_KIND`, `ROS_ACTOR`, `ROS_TELEMETRY_PROVIDER`, `ROS_TELEMETRY_MODEL`, and `ROS_TELEMETRY_RUNTIME`; explicit flags win over the environment. Otherwise the actor SHALL be recorded as `unknown`. Dokimos SHALL NOT guess an actor from ambient signals and SHALL NOT require Praxis to be installed.
+
+R14.5 Artifact authorship only from recorded provenance (RQ-ROS-2026-A008). The author of a measured artifact SHALL be read only from that artifact's own recorded provenance: an observation's `subjectProvenance` block, or a lineage reference in `derivedFrom` (for example `git:commit/<sha>` or a requirement id) resolved to that record's own recorded originator. It SHALL NOT be inferred from the measurement actor, Git author metadata, style, timestamps, file names, or any heuristic. Lineage is not authorship.
+
+R14.6 Heuristics are not provenance. Correlation kinds such as `AgentGeneratedRiskPattern` describe evidence patterns. They SHALL NOT produce, imply, or change provenance or authorship.
+
+R14.7 Finding lifecycle attribution (RQ-ROS-2026-A004). A finding lifecycle transition MAY carry a declared actor and execution. When it does, Dokimos SHALL append the matching `discovered`, `remediated`, `validated`, `resolved`, or `reviewed` contribution to the finding's provenance. The history is append-only: Dokimos SHALL NOT re-attribute a key, remove or reorder entries, or add a second or late `created`. A transition without a declared actor SHALL record nothing rather than invent one. `resolved` SHALL be recorded only for a `Resolved` transition and `discovered` only for an `Introduced` one.
+
+R14.8 Immutability and legacy evidence (RQ-ROS-2026-A007; R0.10). Historical snapshots and observations SHALL NOT be rewritten or backfilled with provenance. Snapshot documents with `schemaVersion` `1.0.0` remain valid and read as *unattributed*. Dokimos SHALL refuse to attach provenance to a `1.0.0` document.
+
+R14.9 Schema evolution. The snapshot schema `1.1.0` adds an optional root `provenance` block and an optional per-observation `subjectProvenance` block. `schemaVersion` SHALL accept both `1.0.0` and `1.1.0`, and a `1.0.0` document SHALL NOT carry root `provenance`. The existing collector and observation `provenance` fields keep their meaning: they describe the tool and method that calculated a metric, not the actor.
+
+R14.10 No credentials and no authority (RQ-ROS-2026-A010, RQ-ROS-2026-A017, RQ-ROS-2026-A019). Provenance SHALL NOT carry credentials; a credential-like value makes a block or declaration malformed. Recorded identity is self-reported. It SHALL NOT be treated as authentication, and it SHALL NOT change thresholds, gates, ratchets, finding severity, or the weight of evidence.
+
+R14.11 Conformance (RQ-ROS-2026-A018). Dokimos SHALL vendor the Praxis conformance fixtures unchanged, record their source commit and SHA-256, verify the hashes in tests, and prove its codec reaches the reference verdict and warning count for every case.
+
+R14.12 Suppressions. When suppressions are implemented (R3), the suppression author SHALL be recorded as a contribution on the suppression's own provenance, using the same actor and execution rules as R14.3 and R14.4.
+
+### R14 traceability
+
+| Requirement | Implementation | Tests |
+|---|---|---|
+| R14.1 | `src/Dokimos.Domain/Attribution.fs` (`ProvenanceRole`), `src/Dokimos.Core/SnapshotProvenance.fs`, `src/Dokimos.Core/FindingProvenance.fs` | `tests/Dokimos.Core.Tests/SnapshotProvenanceTests.fs`, `FindingProvenanceTests.fs` |
+| R14.2, R14.11 | `src/Dokimos.Core/ProvenanceInterchange.fs`, `tests/fixtures/praxis-provenance/` | `tests/Dokimos.Core.Tests/ProvenanceInterchangeTests.fs` |
+| R14.3, R14.4, R14.10 | `src/Dokimos.Core/MeasurementAttribution.fs`, `src/Dokimos.Cli/Program.fs` | `tests/Dokimos.Core.Tests/MeasurementAttributionTests.fs` |
+| R14.5 | `src/Dokimos.Core/SnapshotProvenance.fs` (`Authorship`) | `SnapshotProvenanceTests.fs`, `ProvenanceInterchangeTests.fs` (chain replay) |
+| R14.6 | `src/Dokimos.Core/Correlation.fs` | `tests/Dokimos.Core.Tests/CorrelationTests.fs` |
+| R14.7 | `src/Dokimos.Core/FindingProvenance.fs` | `FindingProvenanceTests.fs` |
+| R14.8, R14.9 | `schemas/dokimos-snapshot.schema.json`, `src/Dokimos.Core/SnapshotProvenance.fs` | `SnapshotProvenanceTests.fs` |
+| R14.12 | Not implemented yet; no suppression type exists | None yet |

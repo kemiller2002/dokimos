@@ -27,5 +27,9 @@
     <Compile Include="ApiHistoryTests.fs" />
     <Compile Include="CorrelationTests.fs" />
     <Compile Include="CorrelationLifecycleTests.fs" />
+    <Compile Include="ProvenanceInterchangeTests.fs" />
+    <Compile Include="MeasurementAttributionTests.fs" />
+    <Compile Include="SnapshotProvenanceTests.fs" />
+    <Compile Include="FindingProvenanceTests.fs" />
   </ItemGroup>
 </Project>

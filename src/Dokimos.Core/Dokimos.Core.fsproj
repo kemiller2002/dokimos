@@ -6,6 +6,11 @@
     <Compile Include="Trend.fs" />
     <Compile Include="Policy.fs" />
     <Compile Include="Findings.fs" />
+    <Compile Include="Json.fs" />
+    <Compile Include="ProvenanceInterchange.fs" />
+    <Compile Include="MeasurementAttribution.fs" />
+    <Compile Include="SnapshotProvenance.fs" />
+    <Compile Include="FindingProvenance.fs" />
     <Compile Include="Temporal.fs" />
     <Compile Include="Regions.fs" />
     <Compile Include="Structural.fs" />
