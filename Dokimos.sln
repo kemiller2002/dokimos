@@ -13,6 +13,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Dokimos.Core.Tests", "tests
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Dokimos.Cli", "src\\Dokimos.Cli\\Dokimos.Cli.fsproj", "{C4494439-C584-44B0-A486-20E6B901DA05}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Dokimos.Cli.Tests", "tests\\Dokimos.Cli.Tests\\Dokimos.Cli.Tests.fsproj", "{D5494439-C584-44B0-A486-20E6B901DA06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,5 +41,9 @@ Global
 		{C4494439-C584-44B0-A486-20E6B901DA05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4494439-C584-44B0-A486-20E6B901DA05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4494439-C584-44B0-A486-20E6B901DA05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5494439-C584-44B0-A486-20E6B901DA06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5494439-C584-44B0-A486-20E6B901DA06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5494439-C584-44B0-A486-20E6B901DA06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5494439-C584-44B0-A486-20E6B901DA06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
