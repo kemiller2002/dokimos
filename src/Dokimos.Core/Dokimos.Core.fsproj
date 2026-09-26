@@ -18,5 +18,6 @@
     <Compile Include="ApiHistory.fs" />
     <Compile Include="Correlation.fs" />
     <Compile Include="CorrelationLifecycle.fs" />
+    <Compile Include="RepositoryAnalysis.fs" />
   </ItemGroup>
 </Project>
