@@ -27,6 +27,8 @@
     <Compile Include="ApiHistoryTests.fs" />
     <Compile Include="CorrelationTests.fs" />
     <Compile Include="CorrelationLifecycleTests.fs" />
+    <Compile Include="RepositoryAnalysisTests.fs" />
+    <Compile Include="GitHistoryTests.fs" />
     <Compile Include="ProvenanceInterchangeTests.fs" />
     <Compile Include="MeasurementAttributionTests.fs" />
     <Compile Include="SnapshotProvenanceTests.fs" />

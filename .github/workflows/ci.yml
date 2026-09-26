@@ -50,6 +50,15 @@ jobs:
         run: |
           mkdir -p artifacts/dokimos
           git log --numstat --find-renames --format='commit %H %aI' -- src > artifacts/dokimos/git-history.txt
+      - name: Analyze repository with temporal evidence
+        if: always()
+        shell: bash
+        run: |
+          if [ -f artifacts/dokimos/git-history.txt ] && dotnet build Dokimos.sln --configuration Release --no-restore; then
+            dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- analyze src --git-history artifacts/dokimos/git-history.txt > artifacts/dokimos/repository-analysis.json
+          else
+            printf '{"state":"unavailable","reason":"analysis-prerequisite-failed"}\n' > artifacts/dokimos/repository-analysis.json
+          fi
       - name: Upload Dokimos evidence
         if: always()
         uses: actions/upload-artifact@v4

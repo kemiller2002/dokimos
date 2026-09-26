@@ -15,10 +15,20 @@ type MeasureOptions =
       SubjectProvenance: string option }
 
 module Program =
+    let options = JsonSerializerOptions(WriteIndented = true)
+
+    let sourceFiles root =
+        Directory.EnumerateFiles(root, "*.fs", SearchOption.AllDirectories)
+        |> Seq.filter (fun p -> not (p.Contains(string Path.DirectorySeparatorChar + "obj" + string Path.DirectorySeparatorChar)))
+        |> Seq.filter (fun p -> not (p.Contains(string Path.DirectorySeparatorChar + "bin" + string Path.DirectorySeparatorChar)))
+        |> Seq.sort
+        |> Seq.toList
+
     let private usage =
         String.concat
             Environment.NewLine
             [ "Usage: dokimos measure <source-file> [options]"
+              "       dokimos analyze <source-directory> [--git-history <numstat-file>]"
               ""
               "Provenance options (R14; explicit declarations only, otherwise 'unknown'):"
               "  --actor-json JSON          Praxis actor object for the measuring actor"
@@ -94,9 +104,15 @@ module Program =
 
         match provenance, subject options with
         | Ok block, Ok subjectBlock ->
-            let metrics = Structural.measure options.Path (File.ReadAllText options.Path)
+            let source = File.ReadAllText options.Path
+            let structural = Structural.measure options.Path source
+            let quality = FSharpQuality.measure options.Path source
+            let complexity = Complexity.measure options.Path source
+            // Heuristic indicators only; they never attribute authorship (R14.6).
+            let agent = AgentQuality.fromMetrics structural quality
+            let result = {| path = options.Path; structural = structural; quality = quality; complexity = complexity; agent = agent |}
 
-            match Json.parse (JsonSerializer.Serialize metrics) with
+            match Json.parse (JsonSerializer.Serialize result) with
             | Ok measured ->
                 let withSubject value =
                     match subjectBlock with
@@ -131,6 +147,17 @@ module Program =
                 Console.Error.WriteLine $"dokimos: {message}"
                 Console.Error.WriteLine usage
                 2
+        | ["analyze"; root] when Directory.Exists root ->
+            let sources = sourceFiles root |> List.map (fun path -> path, File.ReadAllText path)
+            let result = RepositoryAnalysis.analyze 6 Map.empty sources
+            Console.WriteLine(JsonSerializer.Serialize(result, options))
+            0
+        | ["analyze"; root; "--git-history"; historyPath] when Directory.Exists root && File.Exists historyPath ->
+            let sources = sourceFiles root |> List.map (fun path -> path, File.ReadAllText path)
+            let temporal = File.ReadAllText(historyPath) |> GitHistory.parse |> GitHistory.summarize
+            let result = RepositoryAnalysis.analyze 6 temporal sources
+            Console.WriteLine(JsonSerializer.Serialize(result, options))
+            0
         | _ ->
             Console.Error.WriteLine usage
             2
