@@ -52,6 +52,15 @@ jobs:
           else
             printf '{"state":"unavailable","reason":"analysis-prerequisite-failed"}\n' > artifacts/dokimos/repository-analysis.json
           fi
+      - name: Generate canonical Dokimos snapshot
+        if: always()
+        shell: bash
+        run: |
+          if [ -f artifacts/dokimos/git-history.txt ] && dotnet build Dokimos.sln --configuration Release --no-restore; then
+            dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- snapshot src --git-history artifacts/dokimos/git-history.txt --repository "$GITHUB_REPOSITORY" --revision "$GITHUB_SHA" --ref "$GITHUB_REF_NAME" > artifacts/dokimos/snapshot.json
+          else
+            printf '{"state":"unavailable","reason":"snapshot-prerequisite-failed"}\n' > artifacts/dokimos/snapshot.json
+          fi
       - name: Upload Dokimos evidence
         if: always()
         uses: actions/upload-artifact@v4
