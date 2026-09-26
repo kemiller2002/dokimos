@@ -18,7 +18,25 @@ module FSharpQuality =
     let measure path (source: string) =
         let lines = source.Replace("\r\n", "\n").Split('\n')
         let count predicate = lines |> Array.filter predicate |> Array.length
-        let trimmedContains (value: string) (line: string) = line.Trim().Contains(value, StringComparison.Ordinal)
+        let codeOnly (line: string) =
+            let mutable inString = false
+            let mutable escaped = false
+            let chars =
+                line.ToCharArray()
+                |> Array.map (fun ch ->
+                    if escaped then
+                        escaped <- false
+                        if inString then ' ' else ch
+                    elif ch = '\\' && inString then
+                        escaped <- true
+                        ' '
+                    elif ch = '"' then
+                        inString <- not inString
+                        ' '
+                    elif inString then ' '
+                    else ch)
+            String(chars)
+        let trimmedContains (value: string) (line: string) = codeOnly line |> _.Trim().Contains(value, StringComparison.Ordinal)
         { Path = path
           FunctionBindings = count (fun line -> line.TrimStart().StartsWith("let "))
           MatchExpressions = count (trimmedContains "match ")
