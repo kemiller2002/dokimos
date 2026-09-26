@@ -18,6 +18,12 @@ module Program =
     [<EntryPoint>]
     let main args =
         match args |> Array.toList with
+        | ["compare"; beforePath; afterPath] when File.Exists beforePath && File.Exists afterPath ->
+            let before = JsonSerializer.Deserialize<CanonicalSnapshot>(File.ReadAllText beforePath, options)
+            let after = JsonSerializer.Deserialize<CanonicalSnapshot>(File.ReadAllText afterPath, options)
+            let comparison = CanonicalComparison.compare before after
+            Console.WriteLine(JsonSerializer.Serialize(comparison, options))
+            0
         | ["measure"; path] when File.Exists path ->
             let source = File.ReadAllText path
             let structural = Structural.measure path source
@@ -46,5 +52,5 @@ module Program =
             Console.WriteLine(JsonSerializer.Serialize(Wire.repository result, options))
             0
         | _ ->
-            Console.Error.WriteLine("Usage: dokimos measure <source-file> | dokimos analyze <source-directory> [--git-history <numstat-file>] | dokimos snapshot <source-directory> --git-history <file> --repository <owner/repo> --revision <sha> --ref <ref>")
+            Console.Error.WriteLine("Usage: dokimos compare <before-snapshot> <after-snapshot> | dokimos measure <source-file> | dokimos analyze <source-directory> [--git-history <numstat-file>] | dokimos snapshot <source-directory> --git-history <file> --repository <owner/repo> --revision <sha> --ref <ref>")
             2
