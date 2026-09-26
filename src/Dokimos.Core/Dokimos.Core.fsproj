@@ -14,5 +14,6 @@
     <Compile Include="Architecture.fs" />
     <Compile Include="ChangeQuality.fs" />
     <Compile Include="Complexity.fs" />
+    <Compile Include="Debt.fs" />
   </ItemGroup>
 </Project>
