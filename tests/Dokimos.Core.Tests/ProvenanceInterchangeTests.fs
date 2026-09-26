@@ -96,7 +96,7 @@ module ProvenanceInterchangeTests =
         for directory in [ Path.Combine("tests", "fixtures", "praxis-provenance"); "schemas/praxis" ] do
             let source = json (File.ReadAllText(path (Path.Combine(directory, "SOURCE.json"))))
             Assert.Equal("kemiller2002/praxis", text "repository" source)
-            Assert.Equal("a42c44e8ae0e6e16fdd513141460b700e5fa6648", text "commit" source)
+            Assert.Equal("c2657efb4d54f11d0fd0617cc1bcd5b8418601d5", text "commit" source)
             let files = Json.members (field "files" source)
             Assert.NotEmpty(files)
 
@@ -106,7 +106,7 @@ module ProvenanceInterchangeTests =
     [<Fact>]
     let ``every vendored conformance case reaches the reference verdict and warning count`` () =
         let cases = fixture "cases.json" |> field "cases" |> items
-        Assert.True(cases.Length >= 40, "expected the full conformance set")
+        Assert.Equal(56, cases.Length)
 
         for case in cases do
             let verdict = ProvenanceInterchange.classify (field "block" case)
@@ -282,3 +282,102 @@ module ProvenanceInterchangeTests =
         // An unresolvable lineage reference yields no author rather than a guess.
         let unresolved = Authorship.viaLineage (fun _ -> None) observation |> unwrap
         Assert.Equal<(string * Contribution option) list>([ "git:commit/5e1f0c2", None ], unresolved)
+
+module ProvenanceRevisionTests =
+    let private agentBlock (entry: string) =
+        json ("""{"schema":"praxis.provenance/1","contributions":{""" + entry + "}}")
+
+    let private verdictName verdict =
+        match verdict with
+        | ProvenanceVerdict.Supported _ -> "supported"
+        | ProvenanceVerdict.Unsupported _ -> "unsupported"
+        | ProvenanceVerdict.Malformed _ -> "malformed"
+
+    let private creation = contribution "EXE-20260926T080000000Z-a1a1a1a1" [ ContributionOperation.Created ] "2026-09-26T08:00:00.000Z" codex
+
+    [<Fact>]
+    let ``rule 1: a trailing newline never matches a key, code, kind, or tag`` () =
+        for text in [ "EXE-1\n"; "CTB-1\n"; "EXT-dokimos.run-1\n" ] do
+            Assert.Equal(None, ContributionKey.tryParse text)
+
+        Assert.Equal(None, ContributionOperation.tryParse "created\n")
+        Assert.Equal(None, ActorKind.tryParse "x-bot\n")
+        Assert.Equal("malformed", verdictName (ProvenanceInterchange.classify (json """{"schema":"praxis.provenance/1\n","contributions":{}}""")))
+        Assert.True(Result.isError (ContributionKey.foreignExecution "dokimos" "run-1\n"))
+
+    [<Fact>]
+    let ``rule 2: timestamps are calendar-valid and ordered at millisecond precision without crashing`` () =
+        for invalid in [ "2026-02-30T08:00:00.000Z"; "2026-09-26T24:00:00.000Z"; "0000-01-01T00:00:00.000Z"; "2026-13-01T00:00:00Z"; "2026-09-26T08:00:60Z"; "2026-09-26T08:00:00.000Z\n" ] do
+            Assert.Equal(None, ProvenanceInterchange.parseTimestamp invalid)
+
+        Assert.True((ProvenanceInterchange.parseTimestamp "9999-12-31T23:59:59.999999999Z").IsSome)
+        Assert.True((ProvenanceInterchange.parseTimestamp "2024-02-29T00:00:00Z").IsSome)
+        Assert.Equal(ProvenanceInterchange.parseTimestamp "2026-09-26T08:00:00.0009Z", ProvenanceInterchange.parseTimestamp "2026-09-26T08:00:00.000Z")
+        Assert.Equal(ProvenanceInterchange.parseTimestamp "2026-09-26T08:00:00.1239Z", ProvenanceInterchange.parseTimestamp "2026-09-26T08:00:00.123Z")
+
+        // `last` 0.0001 ms "before" `at` is the same millisecond, so it does not precede it.
+        let sameMillisecond =
+            agentBlock """"EXE-1":{"operations":["created"],"at":"2026-09-26T08:00:00.0009Z","last":"2026-09-26T08:00:00.0001Z","actor":{"kind":"human","id":"kevin"}}"""
+
+        Assert.Equal("supported", verdictName (ProvenanceInterchange.classify sameMillisecond))
+
+    [<Fact>]
+    let ``rule 3: JSON null is never an absent field`` () =
+        let entry field = """"CTB-1":{"operations":["created"],"at":"2026-09-26T08:00:00.000Z","actor":{"kind":"human","id":"kevin"},""" + field + "}"
+
+        for field in [ "\"last\":null"; "\"reason\":null"; "\"evidence\":null" ] do
+            Assert.Equal("malformed", verdictName (ProvenanceInterchange.classify (agentBlock (entry field))))
+
+        Assert.Equal("malformed", verdictName (ProvenanceInterchange.classify (json """{"schema":null,"contributions":{}}""")))
+        Assert.Equal("malformed", verdictName (ProvenanceInterchange.classify (json """{"schema":"praxis.provenance/1","contributions":{},"derivedFrom":null}""")))
+        Assert.Equal("malformed", verdictName (ProvenanceInterchange.classify (agentBlock """"CTB-1":{"operations":["created"],"at":"2026-09-26T08:00:00.000Z","actor":{"kind":"human","id":"kevin","provider":null}}""")))
+
+    [<Fact>]
+    let ``rule 4: append never returns a block that classify rejects`` () =
+        let block = appendAll [ creation ]
+
+        // A credential in the incoming contribution is refused.
+        let secret = { contribution "CTB-20260926-5f2e19aa" [ ContributionOperation.Reviewed ] "2026-09-26T11:00:00.000Z" kevin with Reason = Some "token ghp_0123456789abcdefghijABCDEFGHIJ0123" }
+        Assert.True(Result.isError (ProvenanceInterchange.append block secret))
+
+        // A contribution dated before the creation is refused.
+        Assert.True(Result.isError (ProvenanceInterchange.append block (contribution "CTB-20260926-5f2e19aa" [ ContributionOperation.Reviewed ] "2026-09-26T07:00:00.000Z" kevin)))
+
+        // `created` merged into an existing non-creator entry is refused when earlier contributions exist.
+        let noOrigin =
+            appendAll
+                [ contribution "CTB-20260926-5f2e19aa" [ ContributionOperation.Reviewed ] "2026-09-26T07:00:00.000Z" kevin
+                  contribution "EXE-20260926T080000000Z-a1a1a1a1" [ ContributionOperation.Modified ] "2026-09-26T08:00:00.000Z" codex ]
+
+        Assert.True(Result.isError (ProvenanceInterchange.append noOrigin { creation with At = "2026-09-26T09:00:00.000Z" }))
+
+        // A successful append always classifies as supported.
+        for next in [ contribution "CTB-20260926-5f2e19aa" [ ContributionOperation.Reviewed ] "2026-09-26T11:00:00.000Z" kevin; { creation with Operations = [ ContributionOperation.Modified ]; At = "2026-09-26T09:00:00.000Z" } ] do
+            let appended, _ = ProvenanceInterchange.append block next |> unwrap
+            Assert.Equal("supported", verdictName (ProvenanceInterchange.classify appended))
+
+    [<Fact>]
+    let ``rule 5: same-key merge keeps incoming unknown fields, advances last, and refuses unknown identity`` () =
+        let block = appendAll [ creation ]
+
+        let incoming =
+            json """{"operations":["modified"],"at":"2026-09-26T08:30:00.000Z","last":"2026-09-26T09:30:00.000Z","actor":{"kind":"agent","id":"openai/codex","provider":"openai","model":"gpt-5-codex","runtime":"codex"},"attestation":{"type":"x-future"}}"""
+
+        let merged, changed = ProvenanceInterchange.appendJson block "EXE-20260926T080000000Z-a1a1a1a1" incoming |> unwrap
+        Assert.True(changed)
+        let entry = merged |> field "contributions" |> field "EXE-20260926T080000000Z-a1a1a1a1"
+        Assert.Equal("2026-09-26T09:30:00.000Z", text "last" entry)
+        Assert.Equal("""{"type":"x-future"}""", Json.serialize (field "attestation" entry))
+        Assert.Equal("2026-09-26T08:00:00.000Z", text "at" entry)
+        Assert.Empty(ProvenanceInterchange.preservationViolations block merged)
+
+        // The existing entry wins on conflict: an existing unknown field is not replaced.
+        let withField = ProvenanceInterchange.appendJson merged "EXE-20260926T080000000Z-a1a1a1a1" (incoming |> Json.setField "attestation" (Json.String "other")) |> unwrap |> fst
+        Assert.Equal("""{"type":"x-future"}""", withField |> field "contributions" |> field "EXE-20260926T080000000Z-a1a1a1a1" |> field "attestation" |> Json.serialize)
+
+        // An actor with unknown identity cannot extend an entry held by a known actor.
+        let anonymousAgent = { codex with Id = "unknown"; Model = Some "unknown" }
+        Assert.True(Result.isError (ProvenanceInterchange.append block { creation with Actor = anonymousAgent; Operations = [ ContributionOperation.Modified ]; At = "2026-09-26T09:00:00.000Z" }))
+
+        let automationBlock = appendAll [ contribution "EXT-dokimos.run-1" [ ContributionOperation.Created; ContributionOperation.Measured ] "2026-09-26T08:00:00.000Z" ci ]
+        Assert.True(Result.isError (ProvenanceInterchange.append automationBlock (contribution "EXT-dokimos.run-1" [ ContributionOperation.Measured ] "2026-09-26T09:00:00.000Z" Actor.unknown)))

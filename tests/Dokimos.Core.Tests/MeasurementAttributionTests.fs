@@ -100,8 +100,9 @@ module MeasurementAttributionTests =
     [<Fact>]
     let ``declarations that are not identities are refused rather than guessed`` () =
         Assert.True(Result.isError (resolve [ "ROS_ACTOR_KIND", "robot" ] ActorDeclaration.empty "run-1"))
-        Assert.True(Result.isError (resolve [ "ROS_EXECUTION_ID", "session-42" ] ActorDeclaration.empty "run-1"))
-        Assert.True(Result.isError (resolve [ "ROS_EXECUTION_ID", "CTB-20260926-1" ] ActorDeclaration.empty "run-1"))
+        Assert.True(Result.isError (resolve [ "ROS_ACTOR_KIND", "automation"; "ROS_EXECUTION_ID", "session-42" ] ActorDeclaration.empty "run-1"))
+        Assert.True(Result.isError (resolve [ "ROS_ACTOR_KIND", "automation"; "ROS_EXECUTION_ID", "CTB-20260926-1" ] ActorDeclaration.empty "run-1"))
+        Assert.True(Result.isError (resolve [] { ActorDeclaration.empty with Execution = Some "EXE-1\n" } "run-1"))
         Assert.True(Result.isError (resolve [] ActorDeclaration.empty "run with spaces"))
         Assert.True(Result.isError (resolve [ "ROS_ACTOR", "ghp_0123456789abcdefghijABCDEFGHIJ0123" ] ActorDeclaration.empty "run-1"))
 
@@ -115,3 +116,40 @@ module MeasurementAttributionTests =
         |> ignore
 
         Assert.Equal<string list>(ActorDeclaration.environmentVariables |> List.sort, seen |> Seq.toList |> List.sort)
+
+    [<Fact>]
+    let ``an identity-less process never inherits ROS_EXECUTION_ID from its environment (rule 8)`` () =
+        let actor, key = resolve [ "ROS_EXECUTION_ID", "EXE-20260926T081023859Z-75aea576" ] ActorDeclaration.empty "run-1" |> unwrap
+        Assert.Equal(Actor.unknown, actor)
+        Assert.Equal("EXT-dokimos.run-1", ContributionKey.value key)
+
+        // Provider/runtime alone are not an identity either.
+        let _, key =
+            resolve [ "ROS_TELEMETRY_PROVIDER", "anthropic"; "ROS_TELEMETRY_RUNTIME", "claude-code"; "ROS_EXECUTION_ID", "EXE-20260926T081023859Z-75aea576" ] ActorDeclaration.empty "run-1"
+            |> unwrap
+
+        Assert.Equal("EXT-dokimos.run-1", ContributionKey.value key)
+
+        // A declared kind or id (environment or flag) makes it honoured; an explicit --execution always is.
+        let _, byKind = resolve [ "ROS_ACTOR_KIND", "automation"; "ROS_EXECUTION_ID", "EXE-20260926T081023859Z-75aea576" ] ActorDeclaration.empty "run-1" |> unwrap
+        Assert.Equal("EXE-20260926T081023859Z-75aea576", ContributionKey.value byKind)
+        let _, byFlagId = resolve [ "ROS_EXECUTION_ID", "EXE-20260926T081023859Z-75aea576" ] { ActorDeclaration.empty with Id = Some "kevin"; Kind = Some "human" } "run-1" |> unwrap
+        Assert.Equal("EXE-20260926T081023859Z-75aea576", ContributionKey.value byFlagId)
+        let _, explicitExecution = resolve [] { ActorDeclaration.empty with Execution = Some "EXE-20260926T100000000Z-a2a2a2a2" } "run-1" |> unwrap
+        Assert.Equal("EXE-20260926T100000000Z-a2a2a2a2", ContributionKey.value explicitExecution)
+
+    [<Fact>]
+    let ``every environment variable Dokimos reads is a Praxis identity variable from the vendored list (rule 7)`` () =
+        let vendored = fixture "identity-environment.json" |> field "variables" |> items |> List.choose Json.tryString
+        Assert.Equal(19, vendored.Length)
+
+        for name in ActorDeclaration.environmentVariables do
+            Assert.Contains(name, vendored)
+
+        // Session/run hints that identify a different run are never read as an identity.
+        let actor, key =
+            resolve [ "CLAUDE_CODE_SESSION_ID", "s-1"; "GITHUB_ACTIONS", "true"; "GITHUB_RUN_ID", "99"; "OLLAMA_HOST", "localhost" ] ActorDeclaration.empty "run-1"
+            |> unwrap
+
+        Assert.Equal(Actor.unknown, actor)
+        Assert.Equal("EXT-dokimos.run-1", ContributionKey.value key)

@@ -1,8 +1,8 @@
 {
   "repository": "kemiller2002/praxis",
-  "commit": "a42c44e8ae0e6e16fdd513141460b700e5fa6648",
+  "commit": "c2657efb4d54f11d0fd0617cc1bcd5b8418601d5",
   "files": {
-    "provenance-interchange.schema.json": "e7cc8355484025da07b8f2c01e9601331de1657df15eae2a7578417283f329b8",
+    "provenance-interchange.schema.json": "33c11f4582040103f6415b5a18e017bea0c674f96d8f36fd08165bb73e9f4b80",
     "provenance-actor.schema.json": "f64a7f1c61c0c5b5c46a2d2ae8aebc78e177dc03e4b7c1f3e800e82bcb02b845"
   }
 }

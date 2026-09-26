@@ -29,10 +29,11 @@ module ProvenanceInterchange =
     [<Literal>]
     let SchemaTag = "praxis.provenance/1"
 
-    let private schemaPattern = Regex("^praxis\\.provenance/([1-9][0-9]*)$", RegexOptions.CultureInvariant)
-    let private kindPattern = Regex("^(agent|human|automation|unknown|x-[a-z0-9][a-z0-9-]*)$", RegexOptions.CultureInvariant)
-    let private operationGrammar = Regex("^[a-z][a-z0-9-]*$", RegexOptions.CultureInvariant)
-    let private timestampPattern = Regex("^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$", RegexOptions.CultureInvariant)
+    let private schemaPattern = Regex("^praxis\\.provenance/([1-9][0-9]*)\\z", RegexOptions.CultureInvariant)
+    let private kindPattern = Regex("^(agent|human|automation|unknown|x-[a-z0-9][a-z0-9-]*)\\z", RegexOptions.CultureInvariant)
+    let private operationGrammar = Regex("^[a-z][a-z0-9-]*\\z", RegexOptions.CultureInvariant)
+    let private timestampPattern =
+        Regex("^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\\.([0-9]{1,9}))?Z\\z", RegexOptions.CultureInvariant)
 
     let private credentialPatterns =
         [ "gh[pousr]_[A-Za-z0-9]{20,}"
@@ -67,21 +68,29 @@ module ProvenanceInterchange =
 
     let private isNonEmpty (text: string) = not (String.IsNullOrWhiteSpace text)
 
-    let private parseInstant (text: string) =
-        if String.IsNullOrEmpty text || not (timestampPattern.IsMatch text) then
+    /// Milliseconds since 0001-01-01 for a calendar-valid UTC timestamp (year
+    /// 0001-9999, no rollover such as Feb 30 or 24:00), or `None`. Ordering is
+    /// at millisecond precision: extra fraction digits are truncated, never
+    /// rounded (contract revision 1.1). Never throws.
+    let parseTimestamp (text: string) : int64 option =
+        if String.IsNullOrEmpty text then
             None
         else
-            // .NET parses at most seven fractional digits; nanosecond text is truncated.
-            let normalized =
-                match text.IndexOf '.' with
-                | -1 -> text
-                | dot ->
-                    let fraction = text.Substring(dot + 1, text.Length - dot - 2)
-                    text.Substring(0, dot + 1) + fraction.Substring(0, min 7 fraction.Length) + "Z"
+            let found = timestampPattern.Match text
 
-            match DateTimeOffset.TryParse(normalized, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal ||| DateTimeStyles.AdjustToUniversal) with
-            | true, parsed -> Some parsed.UtcTicks
-            | _ -> None
+            if not found.Success then
+                None
+            else
+                let part (index: int) = Int32.Parse(found.Groups[index].Value, CultureInfo.InvariantCulture)
+                let year, month, day, hour, minute, second = part 1, part 2, part 3, part 4, part 5, part 6
+                let fraction = found.Groups[7].Value.PadRight(3, '0').Substring(0, 3)
+                let millisecond = Int32.Parse(fraction, CultureInfo.InvariantCulture)
+
+                if year < 1 || month < 1 || month > 12 || hour > 23 || minute > 59 || second > 59 then None
+                elif day < 1 || day > DateTime.DaysInMonth(year, month) then None
+                else Some(DateTime(year, month, day, hour, minute, second, millisecond, DateTimeKind.Utc).Ticks / TimeSpan.TicksPerMillisecond)
+
+    let private parseInstant (text: string) = parseTimestamp text
 
     let private instantOf (value: Json option) =
         value |> Option.bind Json.tryString |> Option.bind parseInstant |> Option.defaultValue Int64.MaxValue
@@ -307,19 +316,33 @@ module ProvenanceInterchange =
                   yield "evidence", Json.strings contribution.Evidence ]
         )
 
+    let private isKnownValue (value: string option) =
+        value |> Option.exists (fun text -> not (String.IsNullOrWhiteSpace text) && text.Trim() <> Actor.UnknownValue)
+
+    /// Same-key merge (contract revision 1.1): operations and evidence are
+    /// unioned in order; the incoming entry's unknown fields are kept but the
+    /// existing entry wins on conflict; `last` becomes the later of the
+    /// existing (last or at) and incoming (last or at) times; a missing
+    /// reason may be filled in.
     let private merge (existing: Json) (incoming: Json) =
         let existingOperations = operationCodes existing
         let operations = existingOperations @ (operationCodes incoming |> List.filter (fun op -> not (List.contains op existingOperations)))
         let existingEvidence = strings (Json.tryField "evidence" existing)
         let evidence = existingEvidence @ (strings (Json.tryField "evidence" incoming) |> List.filter (fun item -> not (List.contains item existingEvidence)))
-        let latest = Json.tryField "last" existing |> Option.orElse (Json.tryField "at" existing)
+        let latestOf entry = Json.tryField "last" entry |> Option.orElse (Json.tryField "at" entry)
+        let existingLatest = latestOf existing
+        let incomingLatest = latestOf incoming
+        let latest = if instantOf incomingLatest > instantOf existingLatest then incomingLatest else existingLatest
 
-        existing
+        let incomingExtras =
+            Json.members incoming |> List.filter (fun (name, _) -> (Json.tryField name existing).IsNone && name <> "last" && name <> "evidence" && name <> "reason")
+
+        Json.Object(Json.members existing @ incomingExtras)
         |> Json.setField "operations" (Json.strings operations)
         |> (fun value -> if evidence.IsEmpty then value else Json.setField "evidence" (Json.strings evidence) value)
         |> (fun value ->
-            match Json.tryField "at" incoming with
-            | Some at when instantOf (Some at) > instantOf latest -> Json.setField "last" at value
+            match latest with
+            | Some time when instantOf (Some time) > instantOf (Json.tryField "at" existing) -> Json.setField "last" time value
             | _ -> value)
         |> (fun value ->
             match Json.tryField "reason" existing, Json.tryField "reason" incoming with
@@ -327,19 +350,29 @@ module ProvenanceInterchange =
             | _ -> value)
 
     /// Appends one contribution entry (JSON form) under `key` without
-    /// disturbing any other (RQ-ROS-2026-A004): the same key merges operations
-    /// and evidence and advances `last` only when the actor agrees; a second or
-    /// late `created` is refused; unknown fields everywhere are preserved.
-    /// Returns the new block and whether anything changed. Refuses to append
-    /// to an unsupported or malformed block.
+    /// disturbing any other (RQ-ROS-2026-A004, contract revision 1.1): the
+    /// same key merges operations and evidence and advances `last` only when
+    /// the actor agrees and is not less known than the holder; a second or
+    /// late `created` is refused; credential-like content is refused; unknown
+    /// fields everywhere are preserved. Whatever it returns classifies as
+    /// supported. Returns the new block and whether anything changed. Refuses
+    /// to append to an unsupported or malformed block.
     let appendJson (block: Json) (key: string) (contribution: Json) : Result<Json * bool, string> =
+        let finish (next: Json) (changed: bool) =
+            match classify next with
+            | ProvenanceVerdict.Supported _ -> Ok(next, changed)
+            | ProvenanceVerdict.Malformed problems -> Error $"""the resulting history would be malformed: {String.concat "; " problems}"""
+            | ProvenanceVerdict.Unsupported(schema, _) -> Error $"the resulting history would be unsupported ({schema})"
+
         match classify block with
         | ProvenanceVerdict.Unsupported(schema, _) -> Error $"refusing to append to an unsupported provenance block ({schema}); it is carried verbatim"
         | ProvenanceVerdict.Malformed problems -> Error $"""refusing to append to a malformed provenance block: {String.concat "; " problems}"""
         | ProvenanceVerdict.Supported _ ->
-            match contributionProblems key contribution with
-            | _ :: _ as problems -> Error(String.concat "; " problems)
-            | [] ->
+            match credentialFindings (Json.Object [ key, contribution ]), contributionProblems key contribution with
+            | (_ :: _ as secrets), _ ->
+                Error $"""{String.concat ", " secrets}: credential-like value; provenance must never carry authentication material"""
+            | [], (_ :: _ as problems) -> Error(String.concat "; " problems)
+            | [], [] ->
                 let contributions = Json.tryField "contributions" block |> Option.map Json.members |> Option.defaultValue []
                 let creates = isCreator contribution
                 let hasOriginator = not (creators contributions).IsEmpty
@@ -352,20 +385,31 @@ module ProvenanceInterchange =
                     elif creates && (contributions |> List.exists (fun (_, entry) -> instantOf (Json.tryField "at" entry) < instantOf (Json.tryField "at" contribution))) then
                         Error "a 'created' contribution cannot follow existing contributions"
                     else
-                        Ok(withContributions (contributions @ [ key, contribution ]), true)
+                        finish (withContributions (contributions @ [ key, contribution ])) true
                 | Some(_, existing) ->
                     let actorOf entry = Json.tryField "actor" entry |> Option.map parseActor
 
                     match actorOf existing, actorOf contribution with
                     | Some(Ok existingActor), Some(Ok incomingActor) when not (Actor.agrees existingActor incomingActor) ->
                         Error $"contribution '{key}' is already attributed to {ActorKind.code existingActor.Kind}:{existingActor.Id}; refusing to re-attribute it"
-                    | _ when creates && not (isCreator existing) && hasOriginator ->
-                        Error "the record already has an originator; record 'modified' instead of 'created'"
+                    | Some(Ok existingActor), Some(Ok incomingActor) when
+                        (isKnownValue (Some existingActor.Id) && not (isKnownValue (Some incomingActor.Id)))
+                        || (existingActor.Kind <> ActorKind.Unknown && incomingActor.Kind = ActorKind.Unknown)
+                        ->
+                        Error $"contribution '{key}' belongs to {ActorKind.code existingActor.Kind}:{existingActor.Id}; an actor with unknown identity cannot extend it"
+                    | _ when
+                        creates
+                        && not (isCreator existing)
+                        && (hasOriginator
+                            || contributions
+                               |> List.exists (fun (name, entry) -> name <> key && instantOf (Json.tryField "at" entry) < instantOf (Json.tryField "at" existing)))
+                        ->
+                        Error "the record's originator is already recorded or precedes this contribution; record 'modified' instead of 'created'"
                     | _ ->
                         let merged = merge existing contribution
                         let changed = Json.serialize merged <> Json.serialize existing
                         let items = contributions |> List.map (fun (name, entry) -> if name = key then name, merged else name, entry)
-                        Ok(withContributions items, changed)
+                        finish (withContributions items) changed
 
     /// Appends a typed contribution (see `appendJson`).
     let append (block: Json) (contribution: Contribution) =

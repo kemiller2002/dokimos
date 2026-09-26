@@ -12,6 +12,16 @@ provenance:
         model: unknown
         runtime: claude-code
       reason: "Add R14 provenance of measurements and findings (FEAT-ECHELON-PROVENANCE)"
+    EXE-20260926T085550201Z-2f24ec7e:
+      operations: [modified]
+      at: 2026-09-26T09:05:39.435Z
+      actor:
+        kind: agent
+        id: anthropic/claude-code
+        provider: anthropic
+        model: unknown
+        runtime: claude-code
+      reason: "R14.3 and R14.11 updated for Praxis provenance contract revision 1.1"
 ---
 
 # Dokimos Requirements
@@ -199,7 +209,7 @@ No role implies another. A measurement SHALL NOT be attributed to the author of 
 
 R14.2 Interchange block. Snapshot and finding provenance SHALL be a `praxis.provenance/1` block (Praxis `schemas/provenance-interchange.schema.json`) embedded unchanged. Received blocks SHALL be classified with the Praxis receiving rules (RQ-ROS-2026-A015): *supported* blocks are preserved including unknown fields and tolerated operation codes; *unsupported* major versions are carried verbatim and never merged into; *malformed* blocks are rejected at the boundary with a clear error, never dropped or repaired.
 
-R14.3 Execution identity. Every measurement contribution SHALL be keyed by the execution that produced it (RQ-ROS-2026-A002, RQ-ROS-2026-A013): the declared invoking execution (`--execution` or `ROS_EXECUTION_ID`, an `EXE-…` or `EXT-…` key) when one is declared, otherwise the Dokimos run itself as `EXT-dokimos.<run-id>`. Two runs of the same agent SHALL produce two distinct keys.
+R14.3 Execution identity. Every measurement contribution SHALL be keyed by the execution that produced it (RQ-ROS-2026-A002, RQ-ROS-2026-A013): the declared invoking execution (`--execution` or `ROS_EXECUTION_ID`, an `EXE-…` or `EXT-…` key) when one is declared, otherwise the Dokimos run itself as `EXT-dokimos.<run-id>`. `ROS_EXECUTION_ID` from the environment SHALL be honoured only when the process also declares an identity (a kind, an id, or `--actor-json`); a process with no declared identity SHALL NOT inherit a run from its environment (Praxis contract revision 1.1). Two runs of the same agent SHALL produce two distinct keys.
 
 R14.4 Measurement actor from explicit declarations only (RQ-ROS-2026-A006, RQ-ROS-2026-A016). The measurement actor SHALL come from `--actor-json`, `--actor-kind`/`--actor-id`/`--provider`/`--model`/`--runtime`, or the environment variables `ROS_ACTOR_KIND`, `ROS_ACTOR`, `ROS_TELEMETRY_PROVIDER`, `ROS_TELEMETRY_MODEL`, and `ROS_TELEMETRY_RUNTIME`; explicit flags win over the environment. Otherwise the actor SHALL be recorded as `unknown`. Dokimos SHALL NOT guess an actor from ambient signals and SHALL NOT require Praxis to be installed.
 
@@ -215,7 +225,7 @@ R14.9 Schema evolution. The snapshot schema `1.1.0` adds an optional root `prove
 
 R14.10 No credentials and no authority (RQ-ROS-2026-A010, RQ-ROS-2026-A017, RQ-ROS-2026-A019). Provenance SHALL NOT carry credentials; a credential-like value makes a block or declaration malformed. Recorded identity is self-reported. It SHALL NOT be treated as authentication, and it SHALL NOT change thresholds, gates, ratchets, finding severity, or the weight of evidence.
 
-R14.11 Conformance (RQ-ROS-2026-A018). Dokimos SHALL vendor the Praxis conformance fixtures unchanged, record their source commit and SHA-256, verify the hashes in tests, and prove its codec reaches the reference verdict and warning count for every case.
+R14.11 Conformance (RQ-ROS-2026-A018). Dokimos SHALL vendor the Praxis conformance fixtures unchanged, record their source commit and SHA-256, verify the hashes in tests, and prove its codec reaches the reference verdict and warning count for every case. The codec SHALL meet Praxis contract revision 1.1: exact (whole-string) matching of keys, codes, kinds, and schema tags; calendar-valid timestamps (years 0001-9999) ordered at millisecond precision; JSON `null` never read as an absent field; every append producing a block that itself classifies as supported (no credential, no contribution before the creation, no second originator); and same-key merges that keep incoming unknown fields, advance `last` to the later time, and refuse an actor of unknown identity extending an entry held by a known actor. Dokimos reads only identity variables listed in the vendored `identity-environment.json`.
 
 R14.12 Suppressions. When suppressions are implemented (R3), the suppression author SHALL be recorded as a contribution on the suppression's own provenance, using the same actor and execution rules as R14.3 and R14.4.
 

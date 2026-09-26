@@ -31,7 +31,8 @@ module ActorDeclaration =
         [ "ROS_ACTOR_KIND"; "ROS_ACTOR"; "ROS_TELEMETRY_PROVIDER"; "ROS_TELEMETRY_MODEL"; "ROS_TELEMETRY_RUNTIME"; "ROS_EXECUTION_ID" ]
 
     let private declared (value: string option) =
-        value |> Option.filter (String.IsNullOrWhiteSpace >> not) |> Option.map _.Trim()
+        // Values are taken exactly as declared (contract revision 1.1: no silent repair).
+        value |> Option.filter (String.IsNullOrWhiteSpace >> not)
 
     /// Reads the Praxis propagation variables through `lookup`.
     let fromEnvironment (lookup: string -> string option) =
@@ -44,17 +45,27 @@ module ActorDeclaration =
           Execution = declared (lookup "ROS_EXECUTION_ID") }
 
     /// Explicit flags win over the environment, field by field; a declared
-    /// `--actor-json` replaces every actor field.
+    /// `--actor-json` replaces every actor field. `ROS_EXECUTION_ID` from the
+    /// environment is honoured only when the process also declares an
+    /// identity (a kind, an id, or `--actor-json`): an identity-less process
+    /// never inherits a run from its environment (contract revision 1.1,
+    /// rule 8). An explicit `--execution` flag is always an assertion.
     let overriding (environment: ActorDeclaration) (flags: ActorDeclaration) =
         let pick flag env = declared flag |> Option.orElse (declared env)
+        let kind = pick flags.Kind environment.Kind
+        let id = pick flags.Id environment.Id
+        let actorJson = declared flags.ActorJson
+        let declaresIdentity = kind.IsSome || id.IsSome || actorJson.IsSome
 
-        { ActorJson = declared flags.ActorJson
-          Kind = pick flags.Kind environment.Kind
-          Id = pick flags.Id environment.Id
+        { ActorJson = actorJson
+          Kind = kind
+          Id = id
           Provider = pick flags.Provider environment.Provider
           Model = pick flags.Model environment.Model
           Runtime = pick flags.Runtime environment.Runtime
-          Execution = pick flags.Execution environment.Execution }
+          Execution =
+            declared flags.Execution
+            |> Option.orElse (if declaresIdentity then declared environment.Execution else None) }
 
     let private isKnown (value: string option) =
         value |> Option.exists (fun text -> text <> Actor.UnknownValue)

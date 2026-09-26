@@ -24,7 +24,7 @@ type ActorKind =
     | Extension of code: string
 
 module ActorKind =
-    let private extension = Regex("^x-[a-z0-9][a-z0-9-]*$", RegexOptions.CultureInvariant)
+    let private extension = Regex("^x-[a-z0-9][a-z0-9-]*\\z", RegexOptions.CultureInvariant)
 
     let code kind =
         match kind with
@@ -103,8 +103,8 @@ type ContributionOperation =
     | Other of code: string
 
 module ContributionOperation =
-    let private grammar = Regex("^[a-z][a-z0-9-]*$", RegexOptions.CultureInvariant)
-    let private extension = Regex("^x-[a-z0-9][a-z0-9-]*$", RegexOptions.CultureInvariant)
+    let private grammar = Regex("^[a-z][a-z0-9-]*\\z", RegexOptions.CultureInvariant)
+    let private extension = Regex("^x-[a-z0-9][a-z0-9-]*\\z", RegexOptions.CultureInvariant)
 
     let known =
         [ ContributionOperation.Created
@@ -163,9 +163,9 @@ type ContributionKey =
     | Contributor of id: string
 
 module ContributionKey =
-    let private execution = Regex("^EXE-[A-Za-z0-9._-]+$", RegexOptions.CultureInvariant)
-    let private contributor = Regex("^CTB-[A-Za-z0-9._-]+$", RegexOptions.CultureInvariant)
-    let private foreign = Regex("^EXT-([a-z][a-z0-9-]*)\\.([A-Za-z0-9._-]+)$", RegexOptions.CultureInvariant)
+    let private execution = Regex("^EXE-[A-Za-z0-9._-]+\\z", RegexOptions.CultureInvariant)
+    let private contributor = Regex("^CTB-[A-Za-z0-9._-]+\\z", RegexOptions.CultureInvariant)
+    let private foreign = Regex("^EXT-([a-z][a-z0-9-]*)\\.([A-Za-z0-9._-]+)\\z", RegexOptions.CultureInvariant)
 
     let tryParse (value: string) =
         if String.IsNullOrEmpty value then
