@@ -29,5 +29,6 @@
     <Compile Include="CorrelationLifecycleTests.fs" />
     <Compile Include="RepositoryAnalysisTests.fs" />
     <Compile Include="GitHistoryTests.fs" />
+    <Compile Include="WireTests.fs" />
   </ItemGroup>
 </Project>
