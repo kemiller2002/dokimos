@@ -12,5 +12,6 @@
     <Compile Include="Snapshots.fs" />
     <Compile Include="FSharpQuality.fs" />
     <Compile Include="Architecture.fs" />
+    <Compile Include="ChangeQuality.fs" />
   </ItemGroup>
 </Project>
