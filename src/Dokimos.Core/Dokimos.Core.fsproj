@@ -21,5 +21,6 @@
     <Compile Include="RepositoryAnalysis.fs" />
     <Compile Include="GitHistory.fs" />
     <Compile Include="Wire.fs" />
+    <Compile Include="CanonicalSnapshot.fs" />
   </ItemGroup>
 </Project>
