@@ -23,5 +23,6 @@
     <Compile Include="ArchitectureTests.fs" />
     <Compile Include="ChangeQualityTests.fs" />
     <Compile Include="ComplexityTests.fs" />
+    <Compile Include="DebtTests.fs" />
   </ItemGroup>
 </Project>
