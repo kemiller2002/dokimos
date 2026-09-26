@@ -27,5 +27,6 @@
     <Compile Include="ApiHistoryTests.fs" />
     <Compile Include="CorrelationTests.fs" />
     <Compile Include="CorrelationLifecycleTests.fs" />
+    <Compile Include="RepositoryAnalysisTests.fs" />
   </ItemGroup>
 </Project>
