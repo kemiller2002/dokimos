@@ -15,15 +15,32 @@ module Program =
         |> Seq.sort
         |> Seq.toList
 
+    let tryReadSnapshot path =
+        try
+            match JsonSerializer.Deserialize<CanonicalSnapshot>(File.ReadAllText path, options) with
+            | null -> Error "snapshot-deserialized-to-null"
+            | snapshot when snapshot.SchemaVersion <> "1.0.0" -> Error ("unsupported-snapshot-schema:" + snapshot.SchemaVersion)
+            | snapshot -> Ok snapshot
+        with
+        | :? JsonException -> Error "malformed-snapshot-json"
+
     [<EntryPoint>]
     let main args =
         match args |> Array.toList with
         | ["compare"; beforePath; afterPath] when File.Exists beforePath && File.Exists afterPath ->
-            let before = JsonSerializer.Deserialize<CanonicalSnapshot>(File.ReadAllText beforePath, options)
-            let after = JsonSerializer.Deserialize<CanonicalSnapshot>(File.ReadAllText afterPath, options)
-            let comparison = CanonicalComparison.compare before after
-            Console.WriteLine(JsonSerializer.Serialize(comparison, options))
-            0
+            match tryReadSnapshot beforePath, tryReadSnapshot afterPath with
+            | Ok before, Ok after ->
+                let comparison = CanonicalComparison.compare before after
+                Console.WriteLine(JsonSerializer.Serialize(comparison, options))
+                0
+            | beforeResult, afterResult ->
+                let reason =
+                    match beforeResult, afterResult with
+                    | Error e, _ -> "before:" + e
+                    | _, Error e -> "after:" + e
+                    | _ -> "snapshot-validation-failed"
+                Console.Error.WriteLine(JsonSerializer.Serialize({| state="unavailable"; reason=reason |}, options))
+                3
         | ["measure"; path] when File.Exists path ->
             let source = File.ReadAllText path
             let structural = Structural.measure path source
