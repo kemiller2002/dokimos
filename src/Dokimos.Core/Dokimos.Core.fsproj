@@ -13,5 +13,6 @@
     <Compile Include="FSharpQuality.fs" />
     <Compile Include="Architecture.fs" />
     <Compile Include="ChangeQuality.fs" />
+    <Compile Include="Complexity.fs" />
   </ItemGroup>
 </Project>
