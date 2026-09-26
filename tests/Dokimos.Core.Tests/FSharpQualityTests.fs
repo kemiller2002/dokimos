@@ -20,3 +20,18 @@ module FSharpQualityTests =
     let ``result and option usage are observable without being scored`` () =
         let quality = FSharpQuality.measure "A.fs" "let x : Result<int,string> = Ok 1"
         Assert.True(quality.OptionResultIndicators > 0)
+
+
+    [<Fact>]
+    let ``quality indicators ignore analyzer vocabulary inside string literals`` () =
+        let source = "let objPattern = \": obj\"\nlet todoPattern = \"TODO\""
+        let quality = FSharpQuality.measure "Analyzer.fs" source
+        Assert.Equal(0, quality.ObjTypeIndicators)
+        Assert.Equal(0, quality.TodoIndicators)
+
+    [<Fact>]
+    let ``quality indicators still observe code outside string literals`` () =
+        let source = "let f (value: obj) = value // TODO remove weak boundary"
+        let quality = FSharpQuality.measure "A.fs" source
+        Assert.Equal(1, quality.ObjTypeIndicators)
+        Assert.Equal(1, quality.TodoIndicators)
