@@ -61,6 +61,15 @@ jobs:
           else
             printf '{"state":"unavailable","reason":"snapshot-prerequisite-failed"}\n' > artifacts/dokimos/snapshot.json
           fi
+      - name: Compare with accepted Dokimos snapshot
+        if: always()
+        shell: bash
+        run: |
+          if [ -f baselines/accepted-snapshot.json ] && [ -f artifacts/dokimos/snapshot.json ] && dotnet build Dokimos.sln --configuration Release --no-restore; then
+            dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- compare baselines/accepted-snapshot.json artifacts/dokimos/snapshot.json > artifacts/dokimos/comparison.json
+          else
+            printf '{"state":"unavailable","reason":"accepted-baseline-or-current-snapshot-unavailable"}\n' > artifacts/dokimos/comparison.json
+          fi
       - name: Upload Dokimos evidence
         if: always()
         uses: actions/upload-artifact@v4
