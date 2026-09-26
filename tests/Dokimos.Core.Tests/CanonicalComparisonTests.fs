@@ -25,3 +25,15 @@ module CanonicalComparisonTests =
         let result = CanonicalComparison.compare (snapshot "a" [] [finding "one"]) (snapshot "b" [] [finding "two"])
         Assert.Contains(result.FindingChanges, fun x -> x.FindingId="one" && x.Kind=FindingResolved)
         Assert.Contains(result.FindingChanges, fun x -> x.FindingId="two" && x.Kind=FindingIntroduced)
+
+
+    [<Fact>]
+    let ``missing metric is removed rather than treated as zero`` () =
+        let before = snapshot "a" [metric "source.mutable-bindings" 1M] []
+        let after = snapshot "b" [] []
+        let result = CanonicalComparison.compare before after
+        Assert.Contains(result.MetricChanges, fun x ->
+            x.MetricId="source.mutable-bindings" &&
+            x.Kind=MetricRemoved &&
+            x.Before=Some 1M &&
+            x.After=None)
