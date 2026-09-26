@@ -24,5 +24,6 @@
     <Compile Include="ChangeQualityTests.fs" />
     <Compile Include="ComplexityTests.fs" />
     <Compile Include="DebtTests.fs" />
+    <Compile Include="ApiHistoryTests.fs" />
   </ItemGroup>
 </Project>
