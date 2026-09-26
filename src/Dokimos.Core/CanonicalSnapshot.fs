@@ -1,6 +1,7 @@
 namespace Dokimos.Core
 
 open System
+open System.Text.Json.Nodes
 
 type CanonicalMetric =
     { MetricId: string
@@ -28,12 +29,31 @@ type CanonicalSnapshot =
       CollectedAt: DateTimeOffset
       Collector: string
       Metrics: CanonicalMetric list
-      Findings: CanonicalFinding list }
+      Findings: CanonicalFinding list
+      /// Schema 1.1.0 (R0.11, DF-DOK-001): the Praxis provenance interchange
+      /// record of the measurement, carried as raw JSON so fields Dokimos does
+      /// not model survive. `None` for 1.0.0 snapshots: absence is never
+      /// replaced by invented history.
+      Provenance: JsonObject option }
 
 module CanonicalSnapshot =
+    /// The schema version Dokimos writes. 1.1.0 adds the optional
+    /// `Provenance` member; every 1.x snapshot remains readable.
+    [<Literal>]
+    let SchemaVersion = "1.1.0"
+
+    /// Readers accept any minor/patch of major 1 (1.0.0 has no provenance).
+    let isSupportedSchema (version: string) =
+        not (String.IsNullOrEmpty version) && Text.RegularExpressions.Regex.IsMatch(version, "^1\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$")
+
+    /// The provenance subject reference of a snapshot.
+    let subject (snapshotId: string) = "dokimos:snapshot/" + snapshotId
+
     let private metric id scope value unit source =
         { MetricId=id; MetricVersion=1; Scope=scope; State="available"; Value=Some(decimal value); Unit=unit; Source=source }
 
+    /// Metric source "agent-quality" names a heuristic family, not an author
+    /// (R0.18, DOK-PROV-001).
     let fromAnalysis repository revision refName collectedAt (analysis: RepositoryAnalysis) =
         let sourceMetrics =
             analysis.Sources
@@ -55,7 +75,7 @@ module CanonicalSnapshot =
                   State="present"
                   Evidence=finding.Signals |> List.map Wire.signal
                   Explanation=finding.Explanation })
-        { SchemaVersion="1.0.0"
+        { SchemaVersion=SchemaVersion
           SnapshotId=repository + ":" + revision
           Repository=repository
           Revision=revision
@@ -63,4 +83,5 @@ module CanonicalSnapshot =
           CollectedAt=collectedAt
           Collector="dokimos-cli/1"
           Metrics=sourceMetrics
-          Findings=findings }
+          Findings=findings
+          Provenance=None }

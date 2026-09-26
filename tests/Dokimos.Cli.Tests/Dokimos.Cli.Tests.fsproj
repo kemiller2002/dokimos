@@ -6,5 +6,8 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
   <ItemGroup><ProjectReference Include="../../src/Dokimos.Cli/Dokimos.Cli.fsproj" /></ItemGroup>
-  <ItemGroup><Compile Include="ProgramTests.fs" /></ItemGroup>
+  <ItemGroup>
+    <Compile Include="ProgramTests.fs" />
+    <Compile Include="ProvenanceCliTests.fs" />
+  </ItemGroup>
 </Project>

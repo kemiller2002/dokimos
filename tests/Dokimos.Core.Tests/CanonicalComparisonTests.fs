@@ -7,7 +7,7 @@ open Dokimos.Core
 module CanonicalComparisonTests =
     let snapshot id metrics findings =
         { SchemaVersion="1.0.0";SnapshotId=id;Repository="r";Revision=id;Ref="main";CollectedAt=DateTimeOffset.UnixEpoch
-          Collector="test";Metrics=metrics;Findings=findings }
+          Collector="test";Metrics=metrics;Findings=findings;Provenance=None }
     let metric id value =
         { MetricId=id;MetricVersion=1;Scope="A.fs";State="available";Value=Some value;Unit="count";Source="test" }
 

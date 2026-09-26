@@ -32,5 +32,7 @@
     <Compile Include="WireTests.fs" />
     <Compile Include="CanonicalSnapshotTests.fs" />
     <Compile Include="CanonicalComparisonTests.fs" />
+    <Compile Include="ProvenanceConformanceTests.fs" />
+    <Compile Include="MeasurementProvenanceTests.fs" />
   </ItemGroup>
 </Project>

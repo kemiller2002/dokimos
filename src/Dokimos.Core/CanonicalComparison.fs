@@ -1,5 +1,7 @@
 namespace Dokimos.Core
 
+open System.Text.Json.Nodes
+
 type MetricChangeKind =
     | MetricAdded
     | MetricRemoved
@@ -31,9 +33,18 @@ type CanonicalComparison =
       BeforeSnapshotId: string
       AfterSnapshotId: string
       MetricChanges: CanonicalMetricChange list
-      FindingChanges: CanonicalFindingChange list }
+      FindingChanges: CanonicalFindingChange list
+      /// Schema 1.1.0: the comparing actor's own record, deriving from both
+      /// snapshots and carrying their provenance verbatim (R0.15).
+      Provenance: JsonObject option }
 
 module CanonicalComparison =
+    [<Literal>]
+    let SchemaVersion = "1.1.0"
+
+    let subject (before: CanonicalSnapshot) (after: CanonicalSnapshot) =
+        "dokimos:comparison/" + before.SnapshotId + ".." + after.SnapshotId
+
     let private key (m: CanonicalMetric) = m.MetricId,m.MetricVersion,m.Scope
     let private directional id =
         match id with
@@ -76,5 +87,60 @@ module CanonicalComparison =
                             | true,false -> FindingResolved
                             | true,true -> FindingPersistent
                             | false,false -> failwith "unreachable" } ]
-        { SchemaVersion="1.0.0";BeforeSnapshotId=before.SnapshotId;AfterSnapshotId=after.SnapshotId
-          MetricChanges=metricChanges;FindingChanges=findingChanges }
+        { SchemaVersion=SchemaVersion;BeforeSnapshotId=before.SnapshotId;AfterSnapshotId=after.SnapshotId
+          MetricChanges=metricChanges;FindingChanges=findingChanges;Provenance=None }
+
+/// The serialized comparison. System.Text.Json cannot serialize F# union
+/// cases, so change kinds are written as explicit, stable strings.
+type CanonicalMetricChangeWire =
+    { MetricId: string
+      MetricVersion: int
+      Scope: string
+      Before: decimal option
+      After: decimal option
+      Kind: string }
+
+type CanonicalFindingChangeWire = { FindingId: string; Kind: string }
+
+type CanonicalComparisonWire =
+    { SchemaVersion: string
+      BeforeSnapshotId: string
+      AfterSnapshotId: string
+      MetricChanges: CanonicalMetricChangeWire list
+      FindingChanges: CanonicalFindingChangeWire list
+      Provenance: JsonObject option }
+
+module CanonicalComparisonWire =
+    let metricKind kind =
+        match kind with
+        | MetricAdded -> "added"
+        | MetricRemoved -> "removed"
+        | MetricImproved -> "improved"
+        | MetricDeteriorated -> "deteriorated"
+        | MetricUnchanged -> "unchanged"
+        | MetricChanged -> "changed"
+        | MetricNotComparable -> "not-comparable"
+
+    let findingKind kind =
+        match kind with
+        | FindingIntroduced -> "introduced"
+        | FindingResolved -> "resolved"
+        | FindingPersistent -> "persistent"
+
+    let ofComparison (comparison: CanonicalComparison) : CanonicalComparisonWire =
+        { SchemaVersion = comparison.SchemaVersion
+          BeforeSnapshotId = comparison.BeforeSnapshotId
+          AfterSnapshotId = comparison.AfterSnapshotId
+          MetricChanges =
+            comparison.MetricChanges
+            |> List.map (fun (change: CanonicalMetricChange) ->
+                { MetricId = change.MetricId
+                  MetricVersion = change.MetricVersion
+                  Scope = change.Scope
+                  Before = change.Before
+                  After = change.After
+                  Kind = metricKind change.Kind })
+          FindingChanges =
+            comparison.FindingChanges
+            |> List.map (fun (change: CanonicalFindingChange) -> { FindingId = change.FindingId; Kind = findingKind change.Kind })
+          Provenance = comparison.Provenance }

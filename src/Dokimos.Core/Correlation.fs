@@ -16,6 +16,9 @@ type CorrelationKind =
     | MaintainabilityHotspot
     | UnstablePublicSurface
     | UntestedHighChange
+    /// A code-pattern heuristic (type/dependency expansion without test
+    /// change). Not an authorship claim: who wrote the code comes only from
+    /// provenance records (R0.18, DOK-PROV-001). Name kept for stored identity.
     | AgentGeneratedRiskPattern
     | PersistentDebtHotspot
 

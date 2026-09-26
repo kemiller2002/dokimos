@@ -2,11 +2,11 @@
 id: GV-DEC-001
 title: Governance Decision Log
 status: canonical
-version: 1.1.0
+version: 1.2.0
 owners:
   - repository-governance
 created: 2026-07-22
-updated: 2026-09-05
+updated: 2026-09-26
 review_cycle: quarterly
 supersedes: []
 superseded_by: []
@@ -166,3 +166,16 @@ On 2026-07-22, repository discovery found the Phase 1 execution prompt as the on
 - **Confidence:** High (0.86)
 - **Consequences:** Deterministic collection is inherited mechanically; detailed runtime and research facts remain capability-dependent. Records grow but are segmented and bounded. Historical work is not rewritten.
 - **Revisit trigger:** Cross-provider pilots reveal incompatible semantics, runtime hook security changes materially, or record volume requires an external retention tier.
+
+## DF-GOV-012 — Measurement Provenance and Snapshot Schema 1.1.0
+
+- **Date:** 2026-09-26
+- **Status:** accepted
+- **Context:** Snapshots recorded only a collector string (`dokimos-cli/1`) and a collection time; comparisons carried only snapshot ids. Nothing said which actor or run measured, compared, remediated, validated, or accepted evidence, and heuristic identifiers (`agent-generated-risk-pattern`, `agent-quality`) could be misread as authorship. The snapshot reader rejected any schema other than exactly `1.0.0` and `System.Text.Json` would discard unknown properties on read. Praxis now publishes a versioned provenance interchange record (`praxis.provenance-record` 1.0.0; Praxis RQ-ROS-2026-A013..A015, DF-ROS-2026-A037) with conformance fixtures.
+- **Hypothesis:** Carrying the Praxis record on each snapshot and comparison, with the measuring actor as `created` and the measured change as lineage, lets metrics over time be analysed by measuring actor and by code author separately without Dokimos inferring either.
+- **Evidence considered:** Requirements R0.7, R0.10, R3, R8, R10; Praxis `docs/agent-provenance.md` and conformance fixtures at commit `58cf46a`; `baselines/accepted-snapshot.json` (schema 1.0.0); `GitHistory.parse` keeping only sha/date.
+- **Alternatives:** Extend Dokimos's own `Provenance` domain record with actor fields (a second identity model, not portable); attribute snapshots from Git authors (fabrication of provenance; prohibited); a hard package dependency on Praxis (coupling across a system boundary); rename `agent-*` identifiers (breaks stored finding identity and ratchets).
+- **Decision:** Snapshot and comparison schema become `1.1.0` (additive): an optional top-level `Provenance` member holding the Praxis interchange record verbatim as raw JSON. Readers accept every `1.x.y`; a `1.0.0` snapshot has no provenance and none is invented. Dokimos implements a local codec (`Dokimos.Core/ProvenanceRecord.fs`) whose JSON matches the contract, runs the vendored fixtures (`tests/fixtures/praxis-provenance-record`, digests in `SOURCE.json`), preserves unmodelled fields, rejects malformed provenance, and carries unsupported majors verbatim. Subjects are `dokimos:snapshot/<snapshotId>`, `dokimos:comparison/<before>..<after>`, `dokimos:finding/<snapshotId>/<findingId>`, and `dokimos:baseline/<snapshotId>`; the measured revision is `git:commit/<revision>` unless the supplied change record names itself. Actors come only from CLI flags, whitelisted `ROS_*` variables, or GitHub Actions detection (`automation`), else `unknown`; runs are `ROS_EXECUTION_ID` or `EXE-dokimos.<run>`. Remediation/validation are appended (`dokimos provenance append … --operation x-remediated|x-validated`) to a finding record (`dokimos provenance finding`) or a comparison, never to a snapshot; baseline acceptance is its own record (`dokimos provenance accept-baseline`). `agent-*` identifiers are kept and documented as heuristics (`docs/rules/DOK-PROV-001.md`). The comparison is now serialized through `CanonicalComparisonWire`, which writes change kinds as strings; previously `compare` threw on any metric change because System.Text.Json cannot serialize F# unions.
+- **Confidence:** High (0.82)
+- **Consequences:** Every new snapshot names its measuring actor and run; the code author is visible only through supplied lineage. A Dokimos build older than this decision rejects `1.1.0` snapshots (it accepted only `1.0.0`); CI always reads with the same build. `schemas/dokimos-snapshot.schema.json` already did not describe the emitted snapshot (camelCase, `observations`, `collector` object) and is not updated here; it needs a separate reconciliation. CI does not yet pass `--subject-provenance` or record baseline acceptance; both are follow-ups once Praxis publishes change records to CI.
+- **Revisit trigger:** Praxis publishes a new major of the interchange record, attestation fields become required, or the snapshot schema file is reconciled with the emitted form.

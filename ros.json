@@ -1,6 +1,6 @@
 {
-  "name": "echelon-design-system",
-  "project": "Echelon Design System",
+  "name": "dokimos",
+  "project": "Dokimos",
   "rosVersion": "3.1.4",
   "repSpecificationVersion": "2.0",
   "profile": "greenfield",
@@ -14,7 +14,7 @@
   "registries": "registries",
   "templates": "templates",
   "generated": "generated",
-  "repository": {"id": "echelon-design-system", "type": "application"},
+  "repository": {"id": "dokimos", "type": "application"},
   "workProtocol": {
     "version": "1.0.0",
     "enforceAttribution": true,

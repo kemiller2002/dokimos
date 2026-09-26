@@ -23,5 +23,7 @@
     <Compile Include="Wire.fs" />
     <Compile Include="CanonicalSnapshot.fs" />
     <Compile Include="CanonicalComparison.fs" />
+    <Compile Include="ProvenanceRecord.fs" />
+    <Compile Include="MeasurementProvenance.fs" />
   </ItemGroup>
 </Project>

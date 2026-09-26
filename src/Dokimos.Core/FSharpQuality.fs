@@ -56,6 +56,9 @@ module FSharpQuality =
           SuppressionIndicators = count (fun line ->
               trimmedContains "nowarn" line || trimmedContains "NoWarn" line) }
 
+/// Code-pattern indicators often associated with generated code. They say
+/// nothing about who wrote the code (R0.18, DOK-PROV-001); names are kept
+/// for continuity of stored snapshots and ratchets.
 type AgentQualityIndicators =
     { Path: string
       TypeWeakeningIndicators: int
