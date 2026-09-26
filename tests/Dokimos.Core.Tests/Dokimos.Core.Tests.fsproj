@@ -19,5 +19,6 @@
     <Compile Include="RegionTests.fs" />
     <Compile Include="StructuralTests.fs" />
     <Compile Include="SnapshotTests.fs" />
+    <Compile Include="FSharpQualityTests.fs" />
   </ItemGroup>
 </Project>
