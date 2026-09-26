@@ -22,5 +22,6 @@
     <Compile Include="GitHistory.fs" />
     <Compile Include="Wire.fs" />
     <Compile Include="CanonicalSnapshot.fs" />
+    <Compile Include="CanonicalComparison.fs" />
   </ItemGroup>
 </Project>
