@@ -110,6 +110,137 @@
         "file"
       ],
       "definition": "Lexical broad-pattern indicators. This metric does not assert a defect."
+    },
+    {
+      "id": "complexity.proxy-cyclomatic",
+      "version": 1,
+      "unit": "points",
+      "preference": "contextual",
+      "scope": [
+        "file"
+      ],
+      "definition": "Lexical complexity proxy composed from decision, boolean, and match-branch indicators; not AST cyclomatic complexity."
+    },
+    {
+      "id": "duplication.block-occurrences",
+      "version": 1,
+      "unit": "count",
+      "preference": "contextual",
+      "scope": [
+        "repository",
+        "file"
+      ],
+      "definition": "Occurrences of normalized repeated nonblank source blocks at configured block size."
+    },
+    {
+      "id": "debt.age-days",
+      "version": 1,
+      "unit": "days",
+      "preference": "contextual",
+      "scope": [
+        "file",
+        "region"
+      ],
+      "definition": "Elapsed days since a tracked debt marker was first observed."
+    },
+    {
+      "id": "debt.staleness-days",
+      "version": 1,
+      "unit": "days",
+      "preference": "contextual",
+      "scope": [
+        "file",
+        "region"
+      ],
+      "definition": "Elapsed days since a tracked debt marker was last observed changing."
+    },
+    {
+      "id": "api.added",
+      "version": 1,
+      "unit": "symbols",
+      "preference": "contextual",
+      "scope": [
+        "project",
+        "repository"
+      ],
+      "definition": "Public API symbols added between compatible snapshots."
+    },
+    {
+      "id": "api.removed",
+      "version": 1,
+      "unit": "symbols",
+      "preference": "contextual",
+      "scope": [
+        "project",
+        "repository"
+      ],
+      "definition": "Public API symbols removed between compatible snapshots."
+    },
+    {
+      "id": "api.signature-changed",
+      "version": 1,
+      "unit": "symbols",
+      "preference": "contextual",
+      "scope": [
+        "project",
+        "repository"
+      ],
+      "definition": "Public API symbols whose recorded signatures changed."
+    },
+    {
+      "id": "correlation.maintainability-hotspot",
+      "version": 1,
+      "unit": "finding-present-0-1",
+      "preference": "lower-is-better",
+      "scope": [
+        "file",
+        "region"
+      ],
+      "definition": "Explainable correlation requiring structural complexity and temporal change pressure."
+    },
+    {
+      "id": "correlation.unstable-public-surface",
+      "version": 1,
+      "unit": "finding-present-0-1",
+      "preference": "lower-is-better",
+      "scope": [
+        "file",
+        "project"
+      ],
+      "definition": "Explainable correlation of API instability with repeated implementation change."
+    },
+    {
+      "id": "correlation.untested-high-change",
+      "version": 1,
+      "unit": "finding-present-0-1",
+      "preference": "lower-is-better",
+      "scope": [
+        "file",
+        "project"
+      ],
+      "definition": "Explainable correlation of high production change with no corresponding test change evidence."
+    },
+    {
+      "id": "correlation.agent-generated-risk-pattern",
+      "version": 1,
+      "unit": "finding-present-0-1",
+      "preference": "lower-is-better",
+      "scope": [
+        "file",
+        "project"
+      ],
+      "definition": "Multi-signal indicator for type/dependency expansion coinciding with production change lacking test change evidence; does not assert authorship."
+    },
+    {
+      "id": "correlation.persistent-debt-hotspot",
+      "version": 1,
+      "unit": "finding-present-0-1",
+      "preference": "lower-is-better",
+      "scope": [
+        "file",
+        "region"
+      ],
+      "definition": "Explainable correlation of aged debt with an actively changing area."
     }
   ]
 }
