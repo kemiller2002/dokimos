@@ -11,5 +11,6 @@
     <Compile Include="Structural.fs" />
     <Compile Include="Snapshots.fs" />
     <Compile Include="FSharpQuality.fs" />
+    <Compile Include="Architecture.fs" />
   </ItemGroup>
 </Project>
