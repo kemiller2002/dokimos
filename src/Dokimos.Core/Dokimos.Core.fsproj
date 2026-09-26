@@ -16,5 +16,6 @@
     <Compile Include="Complexity.fs" />
     <Compile Include="Debt.fs" />
     <Compile Include="ApiHistory.fs" />
+    <Compile Include="Correlation.fs" />
   </ItemGroup>
 </Project>
