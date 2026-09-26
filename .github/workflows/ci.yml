@@ -33,7 +33,7 @@ jobs:
             while IFS= read -r file; do
               safe=$(printf '%s' "$file" | tr '/.' '__')
               dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- measure "$file" > "artifacts/dokimos/self-measure/$safe.json"
-            done < <(find src -type f -name '*.fs' | sort)
+            done < <(find src -type f -name '*.fs' -not -path '*/obj/*' -not -path '*/bin/*' | sort)
           else
             printf '{"state":"unavailable","reason":"build-failed"}\n' > artifacts/dokimos/self-measure/unavailable.json
           fi
