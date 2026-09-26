@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0.0",
+  "snapshotId": "dokimos-20260925-ci-36186590248",
+  "repository": "kemiller2002/dokimos",
+  "revision": {
+    "commit": "90ec92ff153c936f29d5bf4e0a5d965a3e966da6",
+    "ref": "main"
+  },
+  "collectedAt": "2026-09-25T20:35:35Z",
+  "collector": {
+    "name": "github-actions-ci-self-analysis",
+    "version": "1",
+    "configurationId": ".github/workflows/ci.yml"
+  },
+  "observations": [
+    {
+      "metricId": "build.compiler-errors",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 0,
+      "unit": "count",
+      "provenance": {
+        "runId": 36186590248
+      }
+    },
+    {
+      "metricId": "build.compiler-warnings",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 0,
+      "unit": "count",
+      "provenance": {
+        "runId": 36186590248
+      }
+    },
+    {
+      "metricId": "tests.total",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 20,
+      "unit": "count",
+      "reason": "Executed tests, not a standalone quality score.",
+      "provenance": {
+        "runId": 36186590248
+      }
+    },
+    {
+      "metricId": "tests.passed",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 20,
+      "unit": "count",
+      "provenance": {
+        "runId": 36186590248
+      }
+    },
+    {
+      "metricId": "finding.test-fixture-incorrect-expectation",
+      "metricVersion": 1,
+      "scope": "tests/Dokimos.Core.Tests/StructuralTests.fs",
+      "state": "available",
+      "value": 0,
+      "unit": "finding-present-0-1",
+      "reason": "Resolved after correcting the fixture expectation from four nonblank lines to three.",
+      "provenance": {
+        "runId": 36186590248,
+        "lifecycle": "resolved"
+      }
+    },
+    {
+      "metricId": "baseline.0001.accepted",
+      "metricVersion": 1,
+      "scope": "repository",
+      "state": "available",
+      "value": 1,
+      "unit": "accepted-0-1",
+      "reason": "Promotion condition satisfied by verified green CI and successful self-measurement build.",
+      "provenance": {
+        "runId": 36186590248
+      }
+    }
+  ]
+}
