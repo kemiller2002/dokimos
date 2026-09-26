@@ -54,6 +54,7 @@ module CanonicalComparison =
                     yield {MetricId=current.MetricId;MetricVersion=current.MetricVersion;Scope=current.Scope;Before=None;After=current.Value;Kind=MetricAdded}
                 | Some previous,None ->
                     yield {MetricId=previous.MetricId;MetricVersion=previous.MetricVersion;Scope=previous.Scope;Before=previous.Value;After=None;Kind=MetricRemoved}
+                | None,None -> ()
                 | Some previous,Some current ->
                     let kind =
                         match previous.Value,current.Value,directional current.MetricId with
