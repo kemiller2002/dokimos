@@ -21,7 +21,7 @@ module Api =
         let byName symbols = symbols |> List.map (fun x -> (x.Project,x.QualifiedName),x) |> Map.ofList
         let b = byName before
         let a = byName after
-        let keys = Set.union (b |> Map.keySet) (a |> Map.keySet)
+        let keys = Set.union (b |> Map.keys |> Set.ofSeq) (a |> Map.keys |> Set.ofSeq)
         let changes =
             [ for key in keys do
                 match Map.tryFind key b, Map.tryFind key a with
