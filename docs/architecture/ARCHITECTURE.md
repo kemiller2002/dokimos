@@ -75,3 +75,13 @@ External effects such as reading Git history, invoking analyzers, and writing ar
 ## Evolution rule
 
 EDF/Ordo research is still evolving. Dokimos therefore depends on narrow state/evidence principles rather than copying experimental framework internals into its public domain. New research can tighten invariants without forcing historical evidence rewrites.
+
+## Provenance of measurements and findings (R14)
+
+Dokimos uses the Praxis identity and provenance model (DF-ROS-2026-A036/A037) and does not define its own. The `praxis.provenance/1` interchange block is embedded unchanged in Dokimos records:
+
+- **Snapshot `provenance`** (schema 1.1.0) records the **measurement actor**: a `created` + `measured` contribution keyed by the declared invoking execution (`ROS_EXECUTION_ID`/`--execution`) or else by the Dokimos run `EXT-dokimos.<run-id>`. The actor comes only from explicit declarations (`--actor-*` flags, `ROS_ACTOR*`/`ROS_TELEMETRY_*`); otherwise it is recorded as `unknown`. `collector` and observation `provenance` still describe the tool and method.
+- **Observation `subjectProvenance`** carries the measured artifact's own recorded provenance. Its `created` contribution is the **artifact author**. Lineage (`derivedFrom`, for example `git:commit/<sha>`) can resolve to another record's author. The author is never inferred from the measurer, Git metadata, or heuristics such as `AgentGeneratedRiskPattern`.
+- **Finding provenance** gains `discovered`, `remediated`, `validated`, `resolved`, and `reviewed` contributions when a lifecycle transition declares an actor. The history is append-only.
+
+`Dokimos.Core.ProvenanceInterchange` is a pure codec that mirrors the Praxis reference library and is tested against the vendored conformance fixtures (`tests/fixtures/praxis-provenance/`, hashes in `SOURCE.json`). Supported blocks keep unknown fields, other major versions are carried verbatim, and malformed blocks are rejected. Historical 1.0.0 snapshots are never rewritten or backfilled. Recorded identity is self-reported and never affects policy, gates, or evidence weight.

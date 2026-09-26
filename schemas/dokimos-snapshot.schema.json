@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://echelonfoundry.com/dokimos/schemas/snapshot/v1",
   "title": "Dokimos Snapshot",
+  "description": "Immutable Dokimos snapshot. schemaVersion 1.1.0 adds optional Praxis provenance (R14): the root `provenance` records who measured, in which execution (a `created`+`measured` contribution), and each observation's optional `subjectProvenance` carries the measured artifact's own recorded provenance (its author), which is never inferred from the measurer. `collector` and observation `provenance` keep describing the tool and method, not the actor. 1.0.0 documents remain valid, carry no root provenance, and read as unattributed. The Praxis schemas are vendored unchanged in schemas/praxis/ under their own $id.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -14,7 +15,10 @@
   ],
   "properties": {
     "schemaVersion": {
-      "const": "1.0.0"
+      "enum": [
+        "1.0.0",
+        "1.1.0"
+      ]
     },
     "snapshotId": {
       "type": "string",
@@ -116,11 +120,62 @@
           },
           "provenance": {
             "type": "object"
+          },
+          "subjectProvenance": {
+            "description": "The measured artifact's own recorded Praxis provenance, carried as received. Its `created` contribution is the artifact author; lineage is not authorship.",
+            "$ref": "#/$defs/praxisProvenance"
           }
         },
         "additionalProperties": true
       }
+    },
+    "provenance": {
+      "description": "Praxis provenance of this snapshot (schemaVersion 1.1.0 only).",
+      "$ref": "#/$defs/praxisProvenance"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schemaVersion": {
+            "const": "1.0.0"
+          }
+        },
+        "required": [
+          "schemaVersion"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "provenance"
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "praxisProvenance": {
+      "description": "A praxis.provenance/1 block (RQ-ROS-2026-A015), or a block of another major version carried verbatim. Credential-like values and the history invariants are enforced by the Dokimos codec against the Praxis conformance fixtures.",
+      "anyOf": [
+        {
+          "$ref": "https://github.com/kemiller2002/praxis/schemas/provenance-interchange.schema.json"
+        },
+        {
+          "type": "object",
+          "required": [
+            "schema"
+          ],
+          "properties": {
+            "schema": {
+              "type": "string",
+              "pattern": "^praxis\\.provenance/([2-9]|[1-9][0-9]+)$"
+            }
+          }
+        }
+      ]
+    }
+  }
 }

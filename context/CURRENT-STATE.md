@@ -21,6 +21,7 @@ Updated: 2026-09-25
 - Candidate rule DOK-FS-001 discovered from repeated F# record-inference failures.
 - Snapshot-to-snapshot comparison pipeline.
 - Forma, Folio, and Aegis integration requirements aligned.
+- R14 provenance of measurements and findings: Praxis `praxis.provenance/1` codec with vendored conformance fixtures, snapshot schema 1.1.0 (optional `provenance` and `subjectProvenance`), attributed finding lifecycle, and explicit measurement-actor declaration in `dokimos measure` and CI.
 
 ## Current evidence gate
 
