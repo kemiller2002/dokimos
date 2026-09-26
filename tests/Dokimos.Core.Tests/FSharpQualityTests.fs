@@ -6,7 +6,7 @@ open Dokimos.Core
 module FSharpQualityTests =
     [<Fact>]
     let ``quality analyzer preserves indicators instead of declaring defects`` () =
-        let source = "let f (x: obj) =\n  match x with\n  | _ -> failwith \"TODO\"\n"
+        let source = "let f (x: obj) = // TODO remove weak boundary\n  match x with\n  | _ -> failwith \"bad input\"\n"
         let structural = Structural.measure "A.fs" source
         let quality = FSharpQuality.measure "A.fs" source
         let agent = AgentQuality.fromMetrics structural quality
