@@ -6,15 +6,32 @@ open System.Text.Json
 open Dokimos.Core
 
 module Program =
+    let options = JsonSerializerOptions(WriteIndented = true)
+
+    let sourceFiles root =
+        Directory.EnumerateFiles(root, "*.fs", SearchOption.AllDirectories)
+        |> Seq.filter (fun p -> not (p.Contains(string Path.DirectorySeparatorChar + "obj" + string Path.DirectorySeparatorChar)))
+        |> Seq.filter (fun p -> not (p.Contains(string Path.DirectorySeparatorChar + "bin" + string Path.DirectorySeparatorChar)))
+        |> Seq.sort
+        |> Seq.toList
+
     [<EntryPoint>]
     let main args =
         match args |> Array.toList with
         | ["measure"; path] when File.Exists path ->
             let source = File.ReadAllText path
-            let metrics = Structural.measure path source
-            let options = JsonSerializerOptions(WriteIndented = true)
-            Console.WriteLine(JsonSerializer.Serialize(metrics, options))
+            let structural = Structural.measure path source
+            let quality = FSharpQuality.measure path source
+            let complexity = Complexity.measure path source
+            let agent = AgentQuality.fromMetrics structural quality
+            let result = {| path=path; structural=structural; quality=quality; complexity=complexity; agent=agent |}
+            Console.WriteLine(JsonSerializer.Serialize(result, options))
+            0
+        | ["analyze"; root] when Directory.Exists root ->
+            let sources = sourceFiles root |> List.map (fun path -> path, File.ReadAllText path)
+            let result = RepositoryAnalysis.analyze 6 Map.empty sources
+            Console.WriteLine(JsonSerializer.Serialize(result, options))
             0
         | _ ->
-            Console.Error.WriteLine("Usage: dokimos measure <source-file>")
+            Console.Error.WriteLine("Usage: dokimos measure <source-file> | dokimos analyze <source-directory>")
             2
