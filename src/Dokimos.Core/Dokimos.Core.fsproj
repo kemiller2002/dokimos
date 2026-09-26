@@ -15,5 +15,6 @@
     <Compile Include="ChangeQuality.fs" />
     <Compile Include="Complexity.fs" />
     <Compile Include="Debt.fs" />
+    <Compile Include="ApiHistory.fs" />
   </ItemGroup>
 </Project>
