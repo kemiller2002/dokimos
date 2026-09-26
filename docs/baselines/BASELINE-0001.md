@@ -1,6 +1,10 @@
 # BASELINE-0001 — Initial accepted Dokimos baseline
 
-Status: provisional until the temporal/region slice is green.
+Status: accepted.
+
+Accepted evidence: GitHub Actions run `36186590248`, commit `90ec92ff153c936f29d5bf4e0a5d965a3e966da6`.
+
+Acceptance state: build succeeded with 0 warnings and 0 errors; 20/20 tests passed; CI self-measurement build succeeded.
 
 ## Purpose
 
@@ -22,4 +26,4 @@ This baseline establishes ratcheting policy from demonstrated evidence rather th
 
 ## Promotion rule
 
-This baseline becomes accepted after the temporal and repeated-region implementation reaches a green CI run and that run is recorded as an immutable observation.
+Promotion condition satisfied by GitHub Actions run `36186590248`. Future changes are evaluated against the accepted ratchets and versioned metric semantics; unavailable evidence never counts as satisfying a ratchet.
