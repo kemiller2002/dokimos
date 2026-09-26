@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/repository-analysis-1.0.0.json",
+  "title": "Dokimos Repository Analysis",
+  "type": "object",
+  "required": [
+    "SchemaVersion",
+    "Sources",
+    "DuplicateBlocks"
+  ],
+  "properties": {
+    "SchemaVersion": {
+      "const": "1.0.0"
+    },
+    "Sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "Path",
+          "Structural",
+          "Quality",
+          "Complexity",
+          "Agent",
+          "Signals",
+          "Correlations"
+        ],
+        "properties": {
+          "Path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "Signals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/signal"
+            }
+          },
+          "Correlations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "Path",
+                "Kind",
+                "Signals",
+                "Explanation"
+              ],
+              "properties": {
+                "Path": {
+                  "type": "string"
+                },
+                "Kind": {
+                  "enum": [
+                    "maintainability-hotspot",
+                    "unstable-public-surface",
+                    "untested-high-change",
+                    "agent-generated-risk-pattern",
+                    "persistent-debt-hotspot"
+                  ]
+                },
+                "Signals": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/signal"
+                  }
+                },
+                "Explanation": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "DuplicateBlocks": {
+      "type": "array"
+    }
+  },
+  "$defs": {
+    "signal": {
+      "type": "object",
+      "required": [
+        "Kind"
+      ],
+      "properties": {
+        "Kind": {
+          "enum": [
+            "structural-complexity",
+            "frequent-change",
+            "high-churn",
+            "repeated-region",
+            "active-findings",
+            "aged-debt",
+            "api-instability",
+            "dependency-additions",
+            "missing-test-change",
+            "type-weakening"
+          ]
+        },
+        "Value": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
