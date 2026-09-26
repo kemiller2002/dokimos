@@ -30,5 +30,6 @@
     <Compile Include="RepositoryAnalysisTests.fs" />
     <Compile Include="GitHistoryTests.fs" />
     <Compile Include="WireTests.fs" />
+    <Compile Include="CanonicalSnapshotTests.fs" />
   </ItemGroup>
 </Project>
