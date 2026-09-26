@@ -32,6 +32,12 @@ module Program =
             let result = RepositoryAnalysis.analyze 6 Map.empty sources
             Console.WriteLine(JsonSerializer.Serialize(result, options))
             0
+        | ["analyze"; root; "--git-history"; historyPath] when Directory.Exists root && File.Exists historyPath ->
+            let sources = sourceFiles root |> List.map (fun path -> path, File.ReadAllText path)
+            let temporal = File.ReadAllText(historyPath) |> GitHistory.parse |> GitHistory.summarize
+            let result = RepositoryAnalysis.analyze 6 temporal sources
+            Console.WriteLine(JsonSerializer.Serialize(result, options))
+            0
         | _ ->
-            Console.Error.WriteLine("Usage: dokimos measure <source-file> | dokimos analyze <source-directory>")
+            Console.Error.WriteLine("Usage: dokimos measure <source-file> | dokimos analyze <source-directory> [--git-history <numstat-file>]")
             2
