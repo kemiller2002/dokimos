@@ -1,5 +1,8 @@
 name: CI
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: [main]
@@ -69,6 +72,20 @@ jobs:
             dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- compare baselines/accepted-snapshot.json artifacts/dokimos/snapshot.json > artifacts/dokimos/comparison.json
           else
             printf '{"state":"unavailable","reason":"accepted-baseline-or-current-snapshot-unavailable"}\n' > artifacts/dokimos/comparison.json
+          fi
+      - name: Promote authorized canonical baseline
+        if: success()
+        shell: bash
+        run: |
+          if [ -f .dokimos/accept-next-baseline ] && [ -f artifacts/dokimos/snapshot.json ]; then
+            mkdir -p baselines
+            cp artifacts/dokimos/snapshot.json baselines/accepted-snapshot.json
+            rm .dokimos/accept-next-baseline
+            git config user.name "dokimos-ci"
+            git config user.email "dokimos-ci@users.noreply.github.com"
+            git add baselines/accepted-snapshot.json .dokimos/accept-next-baseline
+            git commit -m "Accept canonical Dokimos longitudinal baseline"
+            git push
           fi
       - name: Upload Dokimos evidence
         if: always()
