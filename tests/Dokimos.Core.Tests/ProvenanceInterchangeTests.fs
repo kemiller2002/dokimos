@@ -80,7 +80,7 @@ module ProvenanceFixtures =
 
                 let next =
                     match Json.tryField "lineage" step with
-                    | Some references -> ProvenanceInterchange.addLineage (items references |> List.choose Json.tryString) current
+                    | Some references -> ProvenanceInterchange.addLineageJson references current |> unwrap |> fst
                     | None ->
                         let append = field "append" step
                         ProvenanceInterchange.appendJson current (text "key" append) (field "contribution" append) |> unwrap |> fst
@@ -96,7 +96,7 @@ module ProvenanceInterchangeTests =
         for directory in [ Path.Combine("tests", "fixtures", "praxis-provenance"); "schemas/praxis" ] do
             let source = json (File.ReadAllText(path (Path.Combine(directory, "SOURCE.json"))))
             Assert.Equal("kemiller2002/praxis", text "repository" source)
-            Assert.Equal("c2657efb4d54f11d0fd0617cc1bcd5b8418601d5", text "commit" source)
+            Assert.Equal("b0037183389c8b9392919f58521b9487d1b4d5c6", text "commit" source)
             let files = Json.members (field "files" source)
             Assert.NotEmpty(files)
 
@@ -106,7 +106,7 @@ module ProvenanceInterchangeTests =
     [<Fact>]
     let ``every vendored conformance case reaches the reference verdict and warning count`` () =
         let cases = fixture "cases.json" |> field "cases" |> items
-        Assert.Equal(56, cases.Length)
+        Assert.Equal(70, cases.Length)
 
         for case in cases do
             let verdict = ProvenanceInterchange.classify (field "block" case)
@@ -181,7 +181,7 @@ module ProvenanceInterchangeTests =
               contribution "EXE-20260926T090000000Z-b1b1b1b1" [ ContributionOperation.Remediated; ContributionOperation.Other "x-triaged" ] "2026-09-26T09:00:00.000Z" claude
               contribution "CTB-20260926-5f2e19aa" [ ContributionOperation.Reviewed ] "2026-09-26T10:00:00.000Z" kevin ]
 
-        let block = appendAll contributions |> ProvenanceInterchange.addLineage [ "git:commit/5e1f0c2"; "RQ-APP-2026-A001" ]
+        let block = appendAll contributions |> ProvenanceInterchange.addLineage [ "git:commit/5e1f0c2"; "RQ-APP-2026-A001" ] |> unwrap |> fst
         let text = Json.serializeIndented block
         let reparsed = json text
         let _, parsed, lineage, warnings = supported (ProvenanceInterchange.classify reparsed)
@@ -381,3 +381,106 @@ module ProvenanceRevisionTests =
 
         let automationBlock = appendAll [ contribution "EXT-dokimos.run-1" [ ContributionOperation.Created; ContributionOperation.Measured ] "2026-09-26T08:00:00.000Z" ci ]
         Assert.True(Result.isError (ProvenanceInterchange.append automationBlock (contribution "EXT-dokimos.run-1" [ ContributionOperation.Measured ] "2026-09-26T09:00:00.000Z" Actor.unknown)))
+
+/// Contract revision 1.2 (second adversarial review, findings 5, 10, 11;
+/// rules 1-3 and 6).
+module ProvenanceRevision12Tests =
+    let private verdictName verdict =
+        match verdict with
+        | ProvenanceVerdict.Supported _ -> "supported"
+        | ProvenanceVerdict.Unsupported _ -> "unsupported"
+        | ProvenanceVerdict.Malformed _ -> "malformed"
+
+    let private cases name = fixture name |> field "cases" |> items
+
+    [<Fact>]
+    let ``rule 1: every vendored text case reaches the reference verdict`` () =
+        let all = cases "text-cases.json"
+        Assert.Equal(14, all.Length)
+
+        for case in all do
+            let actual = verdictName (ProvenanceInterchange.classifyText (text "text" case))
+            let name, expected = text "name" case, text "expect" case
+            Assert.True((expected = actual), $"{name}: expected {expected}, got {actual}")
+
+    [<Fact>]
+    let ``finding 5: a duplicate contribution key is malformed, not two entries with a smuggled originator`` () =
+        let smuggled =
+            """{"schema":"praxis.provenance/1","contributions":{"EXE-A":{"operations":["created"],"at":"2026-09-26T08:00:00.000Z","actor":{"kind":"human","id":"mallory"}},"EXE-A":{"operations":["modified"],"at":"2026-09-26T09:00:00.000Z","actor":{"kind":"human","id":"alice"}}}}"""
+
+        Assert.Equal("malformed", verdictName (ProvenanceInterchange.classifyText smuggled))
+        // Also when the block arrives already parsed inside a larger document.
+        let document = json ("""{"schemaVersion":"1.1.0","provenance":""" + smuggled + "}")
+        Assert.True(Result.isError (RecordAttribution.receive "snapshot provenance" (Json.tryField "provenance" document)))
+
+    [<Fact>]
+    let ``finding 10: lone surrogates are malformed and nothing throws`` () =
+        for text in
+            [ """{"schema":"praxis.provenance/2","x-a":"\ud800"}"""
+              """{"schema":"praxis.provenance/1","contributions":{},"x-\udc00":1}"""
+              """{"schema":"praxis.provenance/1","contributions":{"CTB-1":{"operations":["created"],"at":"2026-09-26T08:00:00.000Z","actor":{"kind":{"x":"\ud800"},"id":"kevin"}}}}""" ] do
+            Assert.Equal("malformed", verdictName (ProvenanceInterchange.classifyText text))
+            Assert.True(Result.isError (Json.parse text))
+
+        // A lone surrogate inside an already-parsed value is malformed too,
+        // including where a problem message would otherwise serialize it.
+        let lone = string (char 0xD800)
+
+        let parsed =
+            [ Json.Object [ "schema", Json.String "praxis.provenance/2"; "x-a", Json.String lone ]
+              Json.Object [ "schema", Json.String "praxis.provenance/1"; "contributions", Json.Object [ "CTB-1", Json.Object [ "actor", Json.Object [ "kind", Json.Array [ Json.String lone ] ] ] ] ]
+              Json.Object [ "schema", Json.String "praxis.provenance/1"; "contributions", Json.Object []; lone, Json.Null ] ]
+
+        for block in parsed do
+            Assert.Equal("malformed", verdictName (ProvenanceInterchange.classify block))
+
+    [<Fact>]
+    let ``finding 11 and rule 2: ASCII whitespace and ASCII credential semantics`` () =
+        for content in [ "\u0085"; "\uFEFF"; "\u001C"; "\u00A0" ] do
+            Assert.False(ContractText.isBlank content, $"U+{int content[0]:X4} is content")
+
+        Assert.True(ContractText.isBlank " \t\n\u000B\u000C\r")
+        let token = String.replicate 20 "a"
+
+        for credential in [ $"bearer {token}"; $"\u00e9bearer {token}"; $"BeArEr\t{token}"; $"x-bearer {token}" ] do
+            Assert.True(ProvenanceInterchange.isCredentialLike credential, credential)
+
+        for benign in [ $"abearer {token}"; $"_bearer {token}"; $"bearer\u0085{token}"; "bearer " + String.replicate 20 "\u212A" ] do
+            Assert.False(ProvenanceInterchange.isCredentialLike benign, benign)
+
+        let blankId = """{"schema":"praxis.provenance/1","contributions":{"CTB-1":{"operations":["created"],"at":"2026-09-26T08:00:00.000Z","actor":{"kind":"human","id":"%s"}}}}"""
+        Assert.Equal("malformed", verdictName (ProvenanceInterchange.classifyText (blankId.Replace("%s", " \\t"))))
+        Assert.Equal("supported", verdictName (ProvenanceInterchange.classifyText (blankId.Replace("%s", "\\u0085"))))
+
+    [<Fact>]
+    let ``rule 3: every vendored lineage case reaches the reference result`` () =
+        let all = cases "lineage-cases.json"
+        Assert.Equal(8, all.Length)
+
+        for case in all do
+            let name = text "name" case
+
+            match ProvenanceInterchange.addLineageJson (field "references" case) (field "block" case), field "ok" case with
+            | Ok(block, _), Json.Bool true ->
+                let expected = field "derivedFrom" case |> items |> List.choose Json.tryString
+                Assert.Equal<string list>(expected, ProvenanceInterchange.lineage (ProvenanceInterchange.classify block))
+            | Error _, Json.Bool false -> ()
+            | actual, _ -> failwith $"{name}: unexpected {actual}"
+
+    [<Fact>]
+    let ``rule 3: lineage is refused for non-arrays, lone surrogates and credentials, and is idempotent`` () =
+        let block = appendAll [ contribution "CTB-1" [ ContributionOperation.Created ] "2026-09-26T08:00:00.000Z" kevin ]
+        Assert.True(Result.isError (ProvenanceInterchange.addLineageJson (Json.String "RQ-1") block))
+        Assert.True(Result.isError (ProvenanceInterchange.addLineage [ string (char 0xDC00) ] block))
+        Assert.True(Result.isError (ProvenanceInterchange.addLineage [ "Bearer abcdefghijklmnopqrstuvwxyz" ] block))
+        let once, changed = ProvenanceInterchange.addLineage [ "RQ-1" ] block |> unwrap
+        Assert.True(changed)
+        let twice, changedAgain = ProvenanceInterchange.addLineage [ "RQ-1" ] once |> unwrap
+        Assert.False(changedAgain)
+        Assert.Equal(Json.serialize once, Json.serialize twice)
+
+    [<Fact>]
+    let ``rule 6: a stored "provenance": null is malformed, not absent`` () =
+        let document = json """{"schemaVersion":"1.1.0","provenance":null}"""
+        Assert.True(Result.isError (RecordAttribution.receive "snapshot provenance" (Json.tryField "provenance" document)))
+        Assert.Equal(Ok Unattributed, RecordAttribution.receive "snapshot provenance" None)

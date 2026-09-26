@@ -22,6 +22,16 @@ provenance:
         model: unknown
         runtime: claude-code
       reason: "R14.3 and R14.11 updated for Praxis provenance contract revision 1.1"
+    EXE-20260926T205857258Z-dbac5542:
+      operations: [modified]
+      at: 2026-09-26T20:59:27.100Z
+      actor:
+        kind: agent
+        id: anthropic/claude-code
+        provider: anthropic
+        model: unknown
+        runtime: claude-code
+      reason: "R14 revision 1.2: one identity source, well-formed text, ASCII semantics, checked lineage (Praxis provenance contract revision 1.2)"
 ---
 
 # Dokimos Requirements
@@ -207,11 +217,11 @@ R14.1 Four distinct roles. Dokimos SHALL keep these roles separate, each express
 
 No role implies another. A measurement SHALL NOT be attributed to the author of the measured code because an agent performed the measurement, and the author of the code SHALL NOT be recorded as its measurer.
 
-R14.2 Interchange block. Snapshot and finding provenance SHALL be a `praxis.provenance/1` block (Praxis `schemas/provenance-interchange.schema.json`) embedded unchanged. Received blocks SHALL be classified with the Praxis receiving rules (RQ-ROS-2026-A015): *supported* blocks are preserved including unknown fields and tolerated operation codes; *unsupported* major versions are carried verbatim and never merged into; *malformed* blocks are rejected at the boundary with a clear error, never dropped or repaired.
+R14.2 Interchange block. Snapshot and finding provenance SHALL be a `praxis.provenance/1` block (Praxis `schemas/provenance-interchange.schema.json`) embedded unchanged. Received blocks SHALL be classified with the Praxis receiving rules (RQ-ROS-2026-A015): *supported* blocks are preserved including unknown fields and tolerated operation codes; *unsupported* major versions are carried verbatim and never merged into; *malformed* blocks are rejected at the boundary with a clear error, never dropped or repaired. A block SHALL be malformed, whatever its major version, when its JSON text is not valid JSON, repeats a member name within any one object, or holds an unpaired UTF-16 surrogate in any member name or string value; this holds equally for a block already parsed inside a larger document and for a stored `"provenance": null`. Classification SHALL never throw (Praxis contract revision 1.2).
 
-R14.3 Execution identity. Every measurement contribution SHALL be keyed by the execution that produced it (RQ-ROS-2026-A002, RQ-ROS-2026-A013): the declared invoking execution (`--execution` or `ROS_EXECUTION_ID`, an `EXE-…` or `EXT-…` key) when one is declared, otherwise the Dokimos run itself as `EXT-dokimos.<run-id>`. `ROS_EXECUTION_ID` from the environment SHALL be honoured only when the process also declares an identity (a kind, an id, or `--actor-json`); a process with no declared identity SHALL NOT inherit a run from its environment (Praxis contract revision 1.1). Two runs of the same agent SHALL produce two distinct keys.
+R14.3 Execution identity. Every measurement contribution SHALL be keyed by the execution that produced it (RQ-ROS-2026-A002, RQ-ROS-2026-A013): the declared invoking execution (`--execution` or `ROS_EXECUTION_ID`, an `EXE-…` or `EXT-…` key) when one is declared, otherwise the Dokimos run itself as `EXT-dokimos.<run-id>`. An explicit `--execution` SHALL always be used. `ROS_EXECUTION_ID` SHALL be honoured only together with an identity declared in that same environment (`ROS_ACTOR_KIND` or `ROS_ACTOR`) and only when no actor flag or `--actor-json` is given; an actor declared by flags SHALL NOT inherit `ROS_EXECUTION_ID`, and a process with no declared identity SHALL NOT inherit a run from its environment (RQ-ROS-2026-A016 revision 1.2, Praxis contract revisions 1.1 and 1.2). Two runs of the same agent SHALL produce two distinct keys.
 
-R14.4 Measurement actor from explicit declarations only (RQ-ROS-2026-A006, RQ-ROS-2026-A016). The measurement actor SHALL come from `--actor-json`, `--actor-kind`/`--actor-id`/`--provider`/`--model`/`--runtime`, or the environment variables `ROS_ACTOR_KIND`, `ROS_ACTOR`, `ROS_TELEMETRY_PROVIDER`, `ROS_TELEMETRY_MODEL`, and `ROS_TELEMETRY_RUNTIME`; explicit flags win over the environment. Otherwise the actor SHALL be recorded as `unknown`. Dokimos SHALL NOT guess an actor from ambient signals and SHALL NOT require Praxis to be installed.
+R14.4 Measurement actor from explicit declarations only (RQ-ROS-2026-A006, RQ-ROS-2026-A016). The measurement actor SHALL come from `--actor-json`, `--actor-kind`/`--actor-id`/`--provider`/`--model`/`--runtime`, or the environment variables `ROS_ACTOR_KIND`, `ROS_ACTOR`, `ROS_TELEMETRY_PROVIDER`, `ROS_TELEMETRY_MODEL`, and `ROS_TELEMETRY_RUNTIME`. Because Dokimos cannot verify a named execution against the Praxis execution record, the actor SHALL be taken wholly from one source: any actor flag or `--actor-json` SHALL completely replace the environment's identity, with no field-by-field fallback to the environment; otherwise the environment's identity is used when it declares `ROS_ACTOR_KIND` or `ROS_ACTOR`. A value is undeclared only when it is empty after trimming ASCII whitespace (tab, LF, VT, FF, CR, space). Otherwise the actor SHALL be recorded as `unknown`. Dokimos SHALL NOT guess an actor from ambient signals and SHALL NOT require Praxis to be installed.
 
 R14.5 Artifact authorship only from recorded provenance (RQ-ROS-2026-A008). The author of a measured artifact SHALL be read only from that artifact's own recorded provenance: an observation's `subjectProvenance` block, or a lineage reference in `derivedFrom` (for example `git:commit/<sha>` or a requirement id) resolved to that record's own recorded originator. It SHALL NOT be inferred from the measurement actor, Git author metadata, style, timestamps, file names, or any heuristic. Lineage is not authorship.
 
@@ -223,19 +233,27 @@ R14.8 Immutability and legacy evidence (RQ-ROS-2026-A007; R0.10). Historical sna
 
 R14.9 Schema evolution. The snapshot schema `1.1.0` adds an optional root `provenance` block and an optional per-observation `subjectProvenance` block. `schemaVersion` SHALL accept both `1.0.0` and `1.1.0`, and a `1.0.0` document SHALL NOT carry root `provenance`. The existing collector and observation `provenance` fields keep their meaning: they describe the tool and method that calculated a metric, not the actor.
 
-R14.10 No credentials and no authority (RQ-ROS-2026-A010, RQ-ROS-2026-A017, RQ-ROS-2026-A019). Provenance SHALL NOT carry credentials; a credential-like value makes a block or declaration malformed. Recorded identity is self-reported. It SHALL NOT be treated as authentication, and it SHALL NOT change thresholds, gates, ratchets, finding severity, or the weight of evidence.
+R14.10 No credentials and no authority (RQ-ROS-2026-A010, RQ-ROS-2026-A017, RQ-ROS-2026-A019). Provenance SHALL NOT carry credentials; a credential-like value makes a block or declaration malformed. Credential patterns SHALL use explicit ASCII classes only (no word boundary, `\s`, or case folding), so the bearer pattern is `(?:^|[^A-Za-z0-9_])[Bb][Ee][Aa][Rr][Ee][Rr][\t\n\v\f\r ]+[A-Za-z0-9._~+/=-]{16,}`. Recorded identity is self-reported. It SHALL NOT be treated as authentication, and it SHALL NOT change thresholds, gates, ratchets, finding severity, or the weight of evidence.
 
-R14.11 Conformance (RQ-ROS-2026-A018). Dokimos SHALL vendor the Praxis conformance fixtures unchanged, record their source commit and SHA-256, verify the hashes in tests, and prove its codec reaches the reference verdict and warning count for every case. The codec SHALL meet Praxis contract revision 1.1: exact (whole-string) matching of keys, codes, kinds, and schema tags; calendar-valid timestamps (years 0001-9999) ordered at millisecond precision; JSON `null` never read as an absent field; every append producing a block that itself classifies as supported (no credential, no contribution before the creation, no second originator); and same-key merges that keep incoming unknown fields, advance `last` to the later time, and refuse an actor of unknown identity extending an entry held by a known actor. Dokimos reads only identity variables listed in the vendored `identity-environment.json`.
+R14.11 Conformance (RQ-ROS-2026-A018). Dokimos SHALL vendor the Praxis conformance fixtures unchanged, record their source commit and SHA-256, verify the hashes in tests, and prove its codec reaches the reference verdict and warning count for every case. The codec SHALL meet Praxis contract revision 1.1: exact (whole-string) matching of keys, codes, kinds, and schema tags; calendar-valid timestamps (years 0001-9999) ordered at millisecond precision; JSON `null` never read as an absent field; every append producing a block that itself classifies as supported (no credential, no contribution before the creation, no second originator); and same-key merges that keep incoming unknown fields, advance `last` to the later time, and refuse an actor of unknown identity extending an entry held by a known actor. Dokimos reads only identity variables listed in the vendored `identity-environment.json`. The codec SHALL also meet Praxis contract revision 1.2: it passes every vendored `text-cases.json` and `lineage-cases.json` case; "blank" means empty after trimming ASCII whitespace only, so U+0085, U+FEFF, U+001C, and U+00A0 are content; and every lineage addition (`addLineage`) is checked like a contribution: it refuses a block that is not supported, a reference that is not a string, is blank, holds an unpaired surrogate, or is credential-like, and any result that would not classify as supported, and drops duplicate references keeping the first. A refused lineage addition SHALL reject the measurement; the lineage is never dropped silently. `envelope-key-cases.json` is vendored for traceability only: Dokimos does not map v1 envelopes to keys.
 
 R14.12 Suppressions. When suppressions are implemented (R3), the suppression author SHALL be recorded as a contribution on the suppression's own provenance, using the same actor and execution rules as R14.3 and R14.4.
+
+### R14 revision notes
+
+| Revision | Work item | Change |
+|---|---|---|
+| 1.0 | FEAT-ECHELON-PROVENANCE | R14 introduced (Praxis provenance contract 1.0). |
+| 1.1 | FEAT-ECHELON-PROVENANCE-R11 | R14.3 and R14.11 updated for Praxis contract revision 1.1 (exact matching, calendar-valid timestamps, null is not absence, checked appends, identity-less processes never inherit `ROS_EXECUTION_ID`). |
+| 1.2 | FEAT-ECHELON-PROVENANCE-R12 | Praxis contract revision 1.2 and RQ-ROS-2026-A016 revision 1.2, from the second adversarial review: R14.4 and R14.3 take the actor wholly from one source (flags or `--actor-json` never mix with, or inherit the execution of, the environment; finding 7); R14.2 makes repeated member names and unpaired surrogates malformed and classification total (findings 5 and 10); R14.10 and R14.11 use ASCII whitespace and ASCII-only credential patterns (finding 11) and check lineage. |
 
 ### R14 traceability
 
 | Requirement | Implementation | Tests |
 |---|---|---|
 | R14.1 | `src/Dokimos.Domain/Attribution.fs` (`ProvenanceRole`), `src/Dokimos.Core/SnapshotProvenance.fs`, `src/Dokimos.Core/FindingProvenance.fs` | `tests/Dokimos.Core.Tests/SnapshotProvenanceTests.fs`, `FindingProvenanceTests.fs` |
-| R14.2, R14.11 | `src/Dokimos.Core/ProvenanceInterchange.fs`, `tests/fixtures/praxis-provenance/` | `tests/Dokimos.Core.Tests/ProvenanceInterchangeTests.fs` |
-| R14.3, R14.4, R14.10 | `src/Dokimos.Core/MeasurementAttribution.fs`, `src/Dokimos.Cli/Program.fs` | `tests/Dokimos.Core.Tests/MeasurementAttributionTests.fs` |
+| R14.2, R14.11 | `src/Dokimos.Core/ProvenanceInterchange.fs`, `src/Dokimos.Core/Json.fs`, `src/Dokimos.Domain/Attribution.fs` (`ContractText`), `tests/fixtures/praxis-provenance/` | `tests/Dokimos.Core.Tests/ProvenanceInterchangeTests.fs` (including `ProvenanceRevision12Tests`) |
+| R14.3, R14.4, R14.10 | `src/Dokimos.Core/MeasurementAttribution.fs`, `src/Dokimos.Cli/Program.fs` | `tests/Dokimos.Core.Tests/MeasurementAttributionTests.fs` (including `IdentitySourceTests`) |
 | R14.5 | `src/Dokimos.Core/SnapshotProvenance.fs` (`Authorship`) | `SnapshotProvenanceTests.fs`, `ProvenanceInterchangeTests.fs` (chain replay) |
 | R14.6 | `src/Dokimos.Core/Correlation.fs` | `tests/Dokimos.Core.Tests/CorrelationTests.fs` |
 | R14.7 | `src/Dokimos.Core/FindingProvenance.fs` | `FindingProvenanceTests.fs` |

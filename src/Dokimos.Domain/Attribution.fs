@@ -13,6 +13,38 @@ open System.Text.RegularExpressions
 // view does not model. Recorded identity is self-reported provenance. It is
 // not authentication and never changes a threshold, gate, or evidence weight.
 
+/// Text rules of the Praxis provenance contract (revision 1.2): whitespace is
+/// ASCII only (tab, LF, VT, FF, CR, space), so U+0085, U+FEFF, U+001C, U+00A0
+/// and every other character count as content; and text must be well-formed
+/// UTF-16 (no unpaired surrogate). .NET `Trim`/`IsNullOrWhiteSpace` are never
+/// used for contract checks because their meaning differs from other codecs.
+[<RequireQualifiedAccess>]
+module ContractText =
+    let private asciiWhitespace = [| '\t'; '\n'; '\u000B'; '\u000C'; '\r'; ' ' |]
+
+    /// Trims only ASCII whitespace.
+    let trim (text: string) =
+        match box text with
+        | null -> String.Empty
+        | _ -> text.Trim asciiWhitespace
+
+    /// Null, empty, or only ASCII whitespace.
+    let isBlank (text: string) = (trim text).Length = 0
+
+    /// True when `text` holds an unpaired UTF-16 surrogate.
+    let hasLoneSurrogate (text: string) =
+        not (isNull (box text))
+        && (Seq.init text.Length id
+            |> Seq.exists (fun index ->
+                let current = text[index]
+
+                if Char.IsHighSurrogate current then
+                    index + 1 >= text.Length || not (Char.IsLowSurrogate text[index + 1])
+                elif Char.IsLowSurrogate current then
+                    index = 0 || not (Char.IsHighSurrogate text[index - 1])
+                else
+                    false))
+
 /// `agent`, `human`, `automation` (CI or another deterministic non-agent
 /// process), `unknown`, or a namespaced `x-...` extension (RQ-ROS-2026-A001).
 [<RequireQualifiedAccess>]
@@ -68,7 +100,7 @@ module Actor =
 
     let private isKnown (value: string option) =
         match value with
-        | Some text -> not (String.IsNullOrWhiteSpace text) && text.Trim() <> UnknownValue
+        | Some text -> not (ContractText.isBlank text) && ContractText.trim text <> UnknownValue
         | None -> false
 
     /// Same actor: kind, stable id, and every applicable known attribute

@@ -130,11 +130,13 @@ module MeasurementAttributionTests =
 
         Assert.Equal("EXT-dokimos.run-1", ContributionKey.value key)
 
-        // A declared kind or id (environment or flag) makes it honoured; an explicit --execution always is.
+        // An identity declared in the same environment makes it honoured; an
+        // identity declared by flags never inherits it (contract revision 1.2);
+        // an explicit --execution always is used.
         let _, byKind = resolve [ "ROS_ACTOR_KIND", "automation"; "ROS_EXECUTION_ID", "EXE-20260926T081023859Z-75aea576" ] ActorDeclaration.empty "run-1" |> unwrap
         Assert.Equal("EXE-20260926T081023859Z-75aea576", ContributionKey.value byKind)
         let _, byFlagId = resolve [ "ROS_EXECUTION_ID", "EXE-20260926T081023859Z-75aea576" ] { ActorDeclaration.empty with Id = Some "kevin"; Kind = Some "human" } "run-1" |> unwrap
-        Assert.Equal("EXE-20260926T081023859Z-75aea576", ContributionKey.value byFlagId)
+        Assert.Equal("EXT-dokimos.run-1", ContributionKey.value byFlagId)
         let _, explicitExecution = resolve [] { ActorDeclaration.empty with Execution = Some "EXE-20260926T100000000Z-a2a2a2a2" } "run-1" |> unwrap
         Assert.Equal("EXE-20260926T100000000Z-a2a2a2a2", ContributionKey.value explicitExecution)
 
@@ -153,3 +155,75 @@ module MeasurementAttributionTests =
 
         Assert.Equal(Actor.unknown, actor)
         Assert.Equal("EXT-dokimos.run-1", ContributionKey.value key)
+
+/// Second adversarial review, finding 7: one identity source
+/// (RQ-ROS-2026-A016 revision 1.2). Mirrors the reviewer's repro.
+module IdentitySourceTests =
+    let private agentEnvironment =
+        Map
+            [ "ROS_ACTOR_KIND", "agent"
+              "ROS_ACTOR", "anthropic/claude-code"
+              "ROS_TELEMETRY_PROVIDER", "anthropic"
+              "ROS_TELEMETRY_RUNTIME", "claude-code"
+              "ROS_EXECUTION_ID", "EXE-20260926T000000000Z-agent001" ]
+
+    let private resolveUnder flags =
+        let declaration = ActorDeclaration.overriding (ActorDeclaration.fromEnvironment (fun name -> Map.tryFind name agentEnvironment)) flags
+        MeasurementAttribution.resolve declaration "r1" |> unwrap
+
+    let private runKey = "EXT-dokimos.r1"
+
+    [<Fact>]
+    let ``--actor-kind human is a human with an unknown id on the Dokimos run, not the agent's id or execution`` () =
+        let actor, key = resolveUnder { ActorDeclaration.empty with Kind = Some "human" }
+        Assert.Equal({ Kind = ActorKind.Human; Id = Actor.UnknownValue; Provider = None; Model = None; Runtime = None }, actor)
+        Assert.Equal(runKey, ContributionKey.value key)
+
+    [<Fact>]
+    let ``--actor-json replaces the environment identity and does not inherit its execution`` () =
+        let actor, key = resolveUnder { ActorDeclaration.empty with ActorJson = Some """{"kind":"human","id":"kevin"}""" }
+        Assert.Equal(kevin, actor)
+        Assert.Equal(runKey, ContributionKey.value key)
+
+    [<Fact>]
+    let ``--actor-id alone takes nothing from the environment`` () =
+        let actor, key = resolveUnder { ActorDeclaration.empty with Id = Some "kevin" }
+        Assert.Equal(ActorKind.Unknown, actor.Kind)
+        Assert.Equal("kevin", actor.Id)
+        Assert.Equal(Some Actor.UnknownValue, actor.Provider)
+        Assert.Equal(Some Actor.UnknownValue, actor.Runtime)
+        Assert.Equal(runKey, ContributionKey.value key)
+
+    [<Fact>]
+    let ``flags declaring an automation do not inherit the agent's execution`` () =
+        let actor, key = resolveUnder { ActorDeclaration.empty with Kind = Some "automation"; Id = Some "ci" }
+        Assert.Equal(ActorKind.Automation, actor.Kind)
+        Assert.Equal("ci", actor.Id)
+        Assert.Equal(Some Actor.UnknownValue, actor.Provider)
+        Assert.Equal(runKey, ContributionKey.value key)
+
+    [<Fact>]
+    let ``an explicit --execution is always used, with flags or with the environment identity`` () =
+        let explicitExecution = "EXE-20260926T100000000Z-a2a2a2a2"
+        let _, withFlags = resolveUnder { ActorDeclaration.empty with Kind = Some "human"; Id = Some "kevin"; Execution = Some explicitExecution }
+        Assert.Equal(explicitExecution, ContributionKey.value withFlags)
+        let actor, withEnvironment = resolveUnder { ActorDeclaration.empty with Execution = Some explicitExecution }
+        Assert.Equal(claude, actor)
+        Assert.Equal(explicitExecution, ContributionKey.value withEnvironment)
+
+    [<Fact>]
+    let ``with no flags the environment identity and its own execution are used together`` () =
+        let actor, key = resolveUnder ActorDeclaration.empty
+        Assert.Equal({ claude with Id = "anthropic/claude-code" }, actor)
+        Assert.Equal("EXE-20260926T000000000Z-agent001", ContributionKey.value key)
+
+    [<Fact>]
+    let ``--actor-json with a repeated member or a lone surrogate is refused, never thrown`` () =
+        for json in [ """{"kind":"human","id":"kevin","id":"mallory"}"""; """{"kind":"human","id":"\ud800"}""" ] do
+            Assert.True(Result.isError (MeasurementAttribution.resolve (ActorDeclaration.overriding ActorDeclaration.empty { ActorDeclaration.empty with ActorJson = Some json }) "r1"))
+
+    [<Fact>]
+    let ``only ASCII whitespace makes a declared value blank`` () =
+        let declaration = ActorDeclaration.fromEnvironment (fun name -> if name = "ROS_ACTOR" then Some "\u0085" elif name = "ROS_ACTOR_KIND" then Some " \t" else None)
+        Assert.Equal(None, declaration.Kind)
+        Assert.Equal(Some "\u0085", declaration.Id)

@@ -42,12 +42,13 @@ module ProvenanceInterchange =
           "AKIA[0-9A-Z]{16}"
           "xox[abprs]-[A-Za-z0-9-]{10,}"
           "-----BEGIN [A-Z ]*PRIVATE KEY-----"
-          "(?i)\\bbearer\\s+[A-Za-z0-9._~+/=-]{16,}"
+          "(?:^|[^A-Za-z0-9_])[Bb][Ee][Aa][Rr][Ee][Rr][\\t\\n\\v\\f\\r ]+[A-Za-z0-9._~+/=-]{16,}"
           "eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\." ]
         |> List.map (fun pattern -> Regex(pattern, RegexOptions.CultureInvariant))
 
     /// A tripwire for authentication material (RQ-ROS-2026-A017), not a
-    /// complete secret scanner.
+    /// complete secret scanner. Patterns use explicit ASCII classes only (no
+    /// `\b`, `\s`, or case folding) so every codec agrees (contract revision 1.2).
     let isCredentialLike (value: string) =
         not (String.IsNullOrEmpty value) && credentialPatterns |> List.exists (fun pattern -> pattern.IsMatch value)
 
@@ -66,7 +67,46 @@ module ProvenanceInterchange =
 
         walk "" value
 
-    let private isNonEmpty (text: string) = not (String.IsNullOrWhiteSpace text)
+    /// Non-blank after trimming ASCII whitespace only (contract revision 1.2).
+    let private isNonEmpty (text: string) = not (ContractText.isBlank text)
+
+    /// Well-formedness of a JSON value (contract revision 1.2): a member name
+    /// repeated within any one object, or an unpaired UTF-16 surrogate in any
+    /// member name or string value, makes the block malformed whatever its
+    /// major version.
+    let wellFormednessProblems (value: Json) : string list =
+        let at (path: string) = if path.Length = 0 then "provenance" else path
+
+        let rec walk (path: string) (current: Json) =
+            match current with
+            | Json.Object members ->
+                let names = members |> List.map fst
+
+                let duplicates =
+                    names
+                    |> List.countBy id
+                    |> List.filter (fun (_, count) -> count > 1)
+                    |> List.map (fun (name, _) ->
+                        if ContractText.hasLoneSurrogate name then
+                            $"{at path}: a member name is repeated"
+                        else
+                            $"{at path}: member '{name}' is repeated; a repeated member name is malformed")
+
+                let children =
+                    members
+                    |> List.mapi (fun index (name, item) ->
+                        if ContractText.hasLoneSurrogate name then
+                            [ $"{at path}: member name #{index} holds an unpaired UTF-16 surrogate" ]
+                        else
+                            walk (if path.Length = 0 then name else $"{path}.{name}") item)
+                    |> List.concat
+
+                duplicates @ children
+            | Json.Array items -> items |> List.mapi (fun index item -> walk $"{path}[{index}]" item) |> List.concat
+            | Json.String text when ContractText.hasLoneSurrogate text -> [ $"{at path}: holds an unpaired UTF-16 surrogate" ]
+            | _ -> []
+
+        walk "" value
 
     /// Milliseconds since 0001-01-01 for a calendar-valid UTC timestamp (year
     /// 0001-9999, no rollover such as Feb 30 or 24:00), or `None`. Ordering is
@@ -241,7 +281,7 @@ module ProvenanceInterchange =
 
     /// Classifies a received block (R14.2). Credential-like content anywhere
     /// makes it malformed, even under another major version.
-    let classify (block: Json) : ProvenanceVerdict =
+    let private classifyChecked (block: Json) : ProvenanceVerdict =
         match block with
         | Json.Object _ ->
             match credentialFindings block with
@@ -283,7 +323,23 @@ module ProvenanceInterchange =
                 ProvenanceVerdict.Malformed(secrets |> List.map (fun path -> $"{path}: credential-like value; provenance must never carry authentication material"))
         | _ -> ProvenanceVerdict.Malformed [ "provenance must be a JSON object" ]
 
-    /// Parses text and classifies it; text that is not JSON is malformed.
+    /// Classifies a received block (R14.2). A block that is not well-formed
+    /// (repeated member names, unpaired surrogates) or holds credential-like
+    /// content is malformed, even under another major version. Never throws
+    /// (contract revision 1.2).
+    let classify (block: Json) : ProvenanceVerdict =
+        try
+            match wellFormednessProblems block with
+            | [] -> classifyChecked block
+            | problems -> ProvenanceVerdict.Malformed problems
+        with
+        | :? ArgumentException as error -> ProvenanceVerdict.Malformed [ $"provenance is not well-formed: {error.Message}" ]
+        | :? InvalidOperationException as error -> ProvenanceVerdict.Malformed [ $"provenance is not well-formed: {error.Message}" ]
+        | :? System.Text.Json.JsonException as error -> ProvenanceVerdict.Malformed [ $"provenance is not well-formed: {error.Message}" ]
+
+    /// Classifies provenance received as JSON text (contract revision 1.2):
+    /// text that is not JSON, repeats a member name within an object, or holds
+    /// an unpaired surrogate is malformed. Never throws.
     let classifyText (text: string) =
         match Json.parse text with
         | Ok value -> classify value
@@ -317,7 +373,7 @@ module ProvenanceInterchange =
         )
 
     let private isKnownValue (value: string option) =
-        value |> Option.exists (fun text -> not (String.IsNullOrWhiteSpace text) && text.Trim() <> Actor.UnknownValue)
+        value |> Option.exists (fun text -> not (ContractText.isBlank text) && ContractText.trim text <> Actor.UnknownValue)
 
     /// Same-key merge (contract revision 1.1): operations and evidence are
     /// unioned in order; the incoming entry's unknown fields are kept but the
@@ -415,12 +471,51 @@ module ProvenanceInterchange =
     let append (block: Json) (contribution: Contribution) =
         appendJson block (ContributionKey.value contribution.Key) (contributionJson contribution)
 
-    /// Adds lineage references (never authorship), preserving existing order.
-    let addLineage (references: string list) (block: Json) : Json =
-        let current = strings (Json.tryField "derivedFrom" block)
-        let additions = references |> List.distinct |> List.filter (fun reference -> not (List.contains reference current))
+    let private referenceProblems (index: int) (reference: Json) =
+        match reference with
+        | Json.String text when ContractText.hasLoneSurrogate text -> [ $"derivedFrom reference #{index} holds an unpaired UTF-16 surrogate" ]
+        | Json.String text when ContractText.isBlank text -> [ $"derivedFrom reference #{index} is blank" ]
+        | Json.String text when isCredentialLike text ->
+            [ $"derivedFrom reference #{index}: credential-like value; provenance must never carry authentication material" ]
+        | Json.String _ -> []
+        | _ -> [ $"derivedFrom reference #{index} must be a string" ]
 
-        if additions.IsEmpty then block else Json.setField "derivedFrom" (Json.strings (current @ additions)) block
+    /// Adds lineage references (never authorship), checked like contributions
+    /// (contract revision 1.2). Refuses a block that is not supported, a
+    /// `references` value that is not an array, a non-string, blank,
+    /// ill-formed or credential-like reference, and any result that would not
+    /// classify as supported. Duplicates are dropped keeping the first
+    /// occurrence. Returns the new block and whether anything changed.
+    let addLineageJson (references: Json) (block: Json) : Result<Json * bool, string> =
+        match classify block with
+        | ProvenanceVerdict.Unsupported(schema, _) -> Error $"refusing to add lineage to an unsupported provenance block ({schema}); it is carried verbatim"
+        | ProvenanceVerdict.Malformed problems -> Error $"""refusing to add lineage to a malformed provenance block: {String.concat "; " problems}"""
+        | ProvenanceVerdict.Supported(_, _, current, _) ->
+            match references with
+            | Json.Array items ->
+                match items |> List.mapi referenceProblems |> List.concat with
+                | _ :: _ as problems -> Error $"""lineage refused: {String.concat "; " problems}"""
+                | [] ->
+                    let additions =
+                        items
+                        |> List.choose Json.tryString
+                        |> List.distinct
+                        |> List.filter (fun reference -> not (List.contains reference current))
+
+                    if additions.IsEmpty then
+                        Ok(block, false)
+                    else
+                        let next = Json.setField "derivedFrom" (Json.strings (current @ additions)) block
+
+                        match classify next with
+                        | ProvenanceVerdict.Supported _ -> Ok(next, true)
+                        | ProvenanceVerdict.Malformed problems -> Error $"""lineage refused: the resulting history would be malformed: {String.concat "; " problems}"""
+                        | ProvenanceVerdict.Unsupported(schema, _) -> Error $"lineage refused: the resulting history would be unsupported ({schema})"
+            | _ -> Error "lineage refused: references must be an array of strings"
+
+    /// Adds typed lineage references (see `addLineageJson`).
+    let addLineage (references: string list) (block: Json) : Result<Json * bool, string> =
+        addLineageJson (Json.strings references) block
 
     /// Checks that `after` preserved everything `before` held: no contribution
     /// removed, no actor or time rewritten, no operation, evidence, field, or

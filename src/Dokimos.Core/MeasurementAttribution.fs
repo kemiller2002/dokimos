@@ -31,8 +31,9 @@ module ActorDeclaration =
         [ "ROS_ACTOR_KIND"; "ROS_ACTOR"; "ROS_TELEMETRY_PROVIDER"; "ROS_TELEMETRY_MODEL"; "ROS_TELEMETRY_RUNTIME"; "ROS_EXECUTION_ID" ]
 
     let private declared (value: string option) =
-        // Values are taken exactly as declared (contract revision 1.1: no silent repair).
-        value |> Option.filter (String.IsNullOrWhiteSpace >> not)
+        // Values are taken exactly as declared (contract revision 1.1: no silent
+        // repair); only an ASCII-blank value counts as undeclared (revision 1.2).
+        value |> Option.filter (ContractText.isBlank >> not)
 
     /// Reads the Praxis propagation variables through `lookup`.
     let fromEnvironment (lookup: string -> string option) =
@@ -44,34 +45,56 @@ module ActorDeclaration =
           Runtime = declared (lookup "ROS_TELEMETRY_RUNTIME")
           Execution = declared (lookup "ROS_EXECUTION_ID") }
 
-    /// Explicit flags win over the environment, field by field; a declared
-    /// `--actor-json` replaces every actor field. `ROS_EXECUTION_ID` from the
-    /// environment is honoured only when the process also declares an
-    /// identity (a kind, an id, or `--actor-json`): an identity-less process
-    /// never inherits a run from its environment (contract revision 1.1,
-    /// rule 8). An explicit `--execution` flag is always an assertion.
-    let overriding (environment: ActorDeclaration) (flags: ActorDeclaration) =
-        let pick flag env = declared flag |> Option.orElse (declared env)
-        let kind = pick flags.Kind environment.Kind
-        let id = pick flags.Id environment.Id
-        let actorJson = declared flags.ActorJson
-        let declaresIdentity = kind.IsSome || id.IsSome || actorJson.IsSome
+    /// Whether a declaration names an actor identity of its own: an
+    /// `--actor-json`, or any actor field (kind, id, provider, model, runtime).
+    let private declaresActorField (declaration: ActorDeclaration) =
+        [ declaration.ActorJson; declaration.Kind; declaration.Id; declaration.Provider; declaration.Model; declaration.Runtime ]
+        |> List.exists (declared >> Option.isSome)
 
-        { ActorJson = actorJson
-          Kind = kind
-          Id = id
-          Provider = pick flags.Provider environment.Provider
-          Model = pick flags.Model environment.Model
-          Runtime = pick flags.Runtime environment.Runtime
-          Execution =
-            declared flags.Execution
-            |> Option.orElse (if declaresIdentity then declared environment.Execution else None) }
+    /// Whether an environment declares an identity (`ROS_ACTOR_KIND` or `ROS_ACTOR`).
+    let private environmentDeclaresIdentity (environment: ActorDeclaration) =
+        (declared environment.Kind).IsSome || (declared environment.Id).IsSome
+
+    /// One identity source (RQ-ROS-2026-A016 revision 1.2, R14.4). Dokimos
+    /// cannot verify a named execution against the Praxis execution record,
+    /// so the actor comes wholly from one source:
+    /// - explicit flags or `--actor-json` completely replace the environment's
+    ///   identity; no field falls back to the environment and
+    ///   `ROS_EXECUTION_ID` is never inherited (declare it with `--execution`);
+    /// - otherwise the environment's identity is used, and its
+    ///   `ROS_EXECUTION_ID` is honoured only when that environment declares an
+    ///   identity (`ROS_ACTOR_KIND` or `ROS_ACTOR`); an environment that
+    ///   declares only telemetry attributes yields no actor;
+    /// - an explicit `--execution` flag is always used.
+    let overriding (environment: ActorDeclaration) (flags: ActorDeclaration) =
+        let explicitExecution = declared flags.Execution
+
+        if declaresActorField flags then
+            { ActorJson = declared flags.ActorJson
+              Kind = declared flags.Kind
+              Id = declared flags.Id
+              Provider = declared flags.Provider
+              Model = declared flags.Model
+              Runtime = declared flags.Runtime
+              Execution = explicitExecution }
+        elif environmentDeclaresIdentity environment then
+            { ActorJson = None
+              Kind = declared environment.Kind
+              Id = declared environment.Id
+              Provider = declared environment.Provider
+              Model = declared environment.Model
+              Runtime = declared environment.Runtime
+              Execution = explicitExecution |> Option.orElse (declared environment.Execution) }
+        else
+            { empty with Execution = explicitExecution }
 
     let private isKnown (value: string option) =
         value |> Option.exists (fun text -> text <> Actor.UnknownValue)
 
     let private credentialCheck (values: string list) =
-        if values |> List.exists ProvenanceInterchange.isCredentialLike then
+        if values |> List.exists ContractText.hasLoneSurrogate then
+            Error "the actor declaration holds an unpaired UTF-16 surrogate"
+        elif values |> List.exists ProvenanceInterchange.isCredentialLike then
             Error "the actor declaration contains a credential-like value; provenance must never carry authentication material"
         else
             Ok()
@@ -86,6 +109,10 @@ module ActorDeclaration =
         | Some json ->
             Json.parse json
             |> Result.mapError (fun message -> $"--actor-json is {message}")
+            |> Result.bind (fun node ->
+                match ProvenanceInterchange.wellFormednessProblems node with
+                | _ :: _ as problems -> Error $"""--actor-json is malformed: {String.concat "; " problems}"""
+                | [] -> Ok node)
             |> Result.bind (fun node ->
                 if not (ProvenanceInterchange.credentialFindings node).IsEmpty then
                     Error "the actor declaration contains a credential-like value; provenance must never carry authentication material"
@@ -133,6 +160,7 @@ module ActorDeclaration =
         match declaration.Execution with
         | None -> Ok None
         | Some text when ProvenanceInterchange.isCredentialLike text -> Error "the declared execution looks like a credential"
+        | Some text when ContractText.hasLoneSurrogate text -> Error "the declared execution holds an unpaired UTF-16 surrogate"
         | Some text ->
             match ContributionKey.tryParse text with
             | Some key when ContributionKey.isExecution key -> Ok(Some key)
@@ -184,7 +212,7 @@ module MeasurementAttribution =
     /// names what was measured; it is not authorship.
     let block (contribution: Contribution) (derivedFrom: string list) : Result<Json, string> =
         ProvenanceInterchange.append ProvenanceInterchange.emptyBlock contribution
-        |> Result.map (fun (block, _) -> ProvenanceInterchange.addLineage derivedFrom block)
+        |> Result.bind (fun (block, _) -> ProvenanceInterchange.addLineage derivedFrom block |> Result.map fst)
         |> Result.bind (fun block ->
             match ProvenanceInterchange.classify block with
             | ProvenanceVerdict.Supported(checkedBlock, _, _, _) -> Ok checkedBlock

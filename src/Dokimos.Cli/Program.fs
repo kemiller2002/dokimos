@@ -42,7 +42,10 @@ module Program =
               "  --subject-provenance FILE  the measured artifact's recorded praxis.provenance block"
               ""
               "Environment: ROS_ACTOR_KIND, ROS_ACTOR, ROS_TELEMETRY_PROVIDER, ROS_TELEMETRY_MODEL,"
-              "ROS_TELEMETRY_RUNTIME, ROS_EXECUTION_ID. Flags win over the environment." ]
+              "ROS_TELEMETRY_RUNTIME, ROS_EXECUTION_ID. The actor comes wholly from one source: any actor"
+              "flag or --actor-json replaces the environment identity completely and never inherits"
+              "ROS_EXECUTION_ID (declare it with --execution). ROS_EXECUTION_ID is honoured only with"
+              "ROS_ACTOR_KIND or ROS_ACTOR in the same environment. --execution is always used." ]
 
     let rec private parseOptions (options: MeasureOptions) (args: string list) : Result<MeasureOptions, string> =
         let flags = options.Declaration

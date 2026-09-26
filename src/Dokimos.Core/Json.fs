@@ -38,12 +38,18 @@ module Json =
         | JsonValueKind.False -> Json.Bool false
         | _ -> Json.Null
 
+    /// Parses JSON text. Never throws: text that is not JSON, or that holds a
+    /// string (member name or value) System.Text.Json cannot decode, such as
+    /// an unpaired UTF-16 surrogate escape, is an error (contract revision
+    /// 1.2). Repeated member names are kept in order so readers can reject them.
     let parse (text: string) : Result<Json, string> =
         try
-            use document = JsonDocument.Parse text
+            use document = JsonDocument.Parse(match box text with null -> String.Empty | _ -> text)
             Ok(ofElement document.RootElement)
-        with :? JsonException as error ->
-            Error $"not valid JSON: {error.Message}"
+        with
+        | :? JsonException as error -> Error $"not valid JSON: {error.Message}"
+        | :? InvalidOperationException as error -> Error $"not well-formed JSON text: {error.Message}"
+        | :? ArgumentException as error -> Error $"not well-formed JSON text: {error.Message}"
 
     let rec private write (writer: Utf8JsonWriter) (value: Json) =
         match value with

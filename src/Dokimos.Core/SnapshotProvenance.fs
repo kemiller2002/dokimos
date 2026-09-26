@@ -129,7 +129,7 @@ module SnapshotProvenance =
             | CarriedVerbatim(schema, _) -> Error $"snapshot provenance is {schema}; it is carried verbatim and never merged into"
             | Attributed(ProvenanceVerdict.Supported(block, _, _, _)) ->
                 ProvenanceInterchange.append block contribution
-                |> Result.map (fun (appended, _) -> ProvenanceInterchange.addLineage derivedFrom appended)
+                |> Result.bind (fun (appended, _) -> ProvenanceInterchange.addLineage derivedFrom appended |> Result.map fst)
             | Attributed _ -> Error "snapshot provenance is not supported")
         |> Result.map (fun block -> Json.setField "provenance" block document)
 
