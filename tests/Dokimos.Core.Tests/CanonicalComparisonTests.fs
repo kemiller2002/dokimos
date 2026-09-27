@@ -37,3 +37,12 @@ module CanonicalComparisonTests =
             x.Kind=MetricRemoved &&
             x.Before=Some 1M &&
             x.After=None)
+
+
+    [<Fact>]
+    let ``broad fallback indicator changes remain contextual`` () =
+        let before = snapshot "a" [metric "source.broad-catch-indicators" 2M] []
+        let after = snapshot "b" [metric "source.broad-catch-indicators" 11M] []
+        let result = CanonicalComparison.compare before after
+        Assert.Contains(result.MetricChanges, fun x ->
+            x.MetricId="source.broad-catch-indicators" && x.Kind=MetricChanged)
