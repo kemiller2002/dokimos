@@ -38,7 +38,6 @@ module CanonicalComparison =
     let private directional id =
         match id with
         | "source.mutable-bindings"
-        | "source.broad-catch-indicators"
         | "quality.type-weakening-indicators"
         | "quality.scaffolding-indicators" -> Some false
         | _ -> None
