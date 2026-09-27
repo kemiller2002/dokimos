@@ -35,3 +35,13 @@ module FSharpQualityTests =
         let quality = FSharpQuality.measure "A.fs" source
         Assert.Equal(1, quality.ObjTypeIndicators)
         Assert.Equal(1, quality.TodoIndicators)
+
+
+    [<Fact>]
+    let ``strongly typed string keyed map is observable but not type weakening`` () =
+        let source = "let values : Map<string, string list> = Map.empty"
+        let structural = Structural.measure "A.fs" source
+        let quality = FSharpQuality.measure "A.fs" source
+        let agent = AgentQuality.fromMetrics structural quality
+        Assert.Equal(1, quality.StringMapIndicators)
+        Assert.Equal(0, agent.TypeWeakeningIndicators)
