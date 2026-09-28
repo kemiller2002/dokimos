@@ -24,3 +24,7 @@ Dokimos owns code-quality measurement and longitudinal quality evidence. Securit
 - Language analyzers are adapters: Dokimos is not intrinsically F#-only.
 
 See `requirements/REQUIREMENTS.md` and `docs/architecture/ARCHITECTURE.md`.
+
+## Website
+
+The public site at `https://dokimos.echelonfoundry.com` lives in `site/` and is generated from this repository's own evidence. `npm ci && npm run build` writes it to `dist/`; `npm run serve` previews it. See `docs/website/SITE.md` and `docs/website/DEPLOYMENT.md`.

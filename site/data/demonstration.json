@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "1.0.0",
+  "kind": "demonstration",
+  "disclaimer": "This history describes a fictional repository invented for demonstration. It is not a measurement of any real codebase.",
+  "repository": "example/ledger-service",
+  "collector": "dokimos-cli/1 (illustrative)",
+  "commits": [
+    { "id": "A", "sha": "a41c09e", "date": "2026-03-02", "summary": "Dokimos installed; first snapshot" },
+    { "id": "B", "sha": "b7d2f31", "date": "2026-03-16", "summary": "Extract discount calculation" },
+    { "id": "C", "sha": "c02e8a4", "date": "2026-04-06", "summary": "Replace nested rules with a table" },
+    { "id": "D", "sha": "d5f1b70", "date": "2026-04-27", "summary": "Split currency rounding into Money" },
+    { "id": "E", "sha": "e93a6cd", "date": "2026-05-11", "summary": "Analyzer upgrade failed in CI" },
+    { "id": "F", "sha": "f18c4e2", "date": "2026-06-01", "summary": "Add loyalty discount" },
+    { "id": "G", "sha": "a6e7d93", "date": "2026-06-22", "summary": "Rename discount tiers" },
+    { "id": "H", "sha": "b0c5a18", "date": "2026-07-13", "summary": "Add partner discount exception" }
+  ],
+  "focus": {
+    "scope": "src/Billing/InvoiceRules.fs",
+    "metricId": "complexity.proxy-cyclomatic",
+    "metricVersion": 1,
+    "unit": "points",
+    "baselineCommit": "A",
+    "observations": [
+      { "commit": "A", "state": "available", "value": 42, "windowCommits": 6 },
+      { "commit": "B", "state": "available", "value": 39, "windowCommits": 6 },
+      { "commit": "C", "state": "available", "value": 34, "windowCommits": 5 },
+      { "commit": "D", "state": "available", "value": 31, "windowCommits": 4 },
+      { "commit": "E", "state": "failed", "reason": "Analyzer process exited before producing output.", "windowCommits": 5 },
+      { "commit": "F", "state": "available", "value": 33, "windowCommits": 5 },
+      { "commit": "G", "state": "available", "value": 33, "windowCommits": 6 },
+      { "commit": "H", "state": "available", "value": 37, "windowCommits": 7 }
+    ]
+  },
+  "policy": {
+    "threshold": { "warn": 45, "fail": 60 },
+    "ratchet": { "disposition": "Warn", "preference": "lower-is-better" },
+    "hotspot": { "minimumComplexity": 30, "minimumWindowCommits": 5, "minimumRegionCommits": 3, "windowDays": 90 }
+  },
+  "files": [
+    {
+      "path": "src/Billing/InvoiceRules.fs",
+      "complexity": 37,
+      "windowCommits": 7,
+      "churn": 412,
+      "region": { "anchor": "applyDiscounts", "commits": 6, "confidence": 0.92 }
+    },
+    {
+      "path": "src/Billing/TaxTables.fs",
+      "complexity": 48,
+      "windowCommits": 1,
+      "churn": 12,
+      "region": null
+    },
+    {
+      "path": "src/Api/Routes.fs",
+      "complexity": 7,
+      "windowCommits": 9,
+      "churn": 230,
+      "region": { "anchor": "registerRoutes", "commits": 2, "confidence": 0.88 }
+    },
+    {
+      "path": "src/Billing/Statements.fs",
+      "complexity": 22,
+      "windowCommits": 4,
+      "churn": 96,
+      "region": { "anchor": "renderLines", "commits": 2, "confidence": 0.81 }
+    },
+    {
+      "path": "src/Core/Money.fs",
+      "complexity": 8,
+      "windowCommits": 1,
+      "churn": 4,
+      "region": null
+    }
+  ]
+}

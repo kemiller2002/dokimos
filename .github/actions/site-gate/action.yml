@@ -1,0 +1,47 @@
+name: Dokimos site quality gate
+description: >-
+  The complete website quality gate shared by pull-request validation and
+  production deployment: ROS governance, Visual Engineering verification,
+  site tests, a clean dist/ build, and a browser accessibility audit.
+  Communication Engineering has no published verification CLI yet
+  (see docs/website/SITE.md); add it here when one exists.
+
+runs:
+  using: composite
+  steps:
+    - name: Install pinned site toolchain
+      shell: bash
+      run: npm ci
+
+    - name: ROS registry and repository validation
+      shell: bash
+      run: |
+        node ros registry check
+        node ros validate
+
+    - name: Visual Engineering verification
+      shell: bash
+      run: |
+        # init restores the gitignored research context from the pinned package.
+        # It must not change any tracked file; if it does, the committed
+        # installation is stale and the gate fails.
+        npx visual-engineering init
+        git diff --exit-code
+        npx visual-engineering verify --strict
+
+    - name: Site tests (data schema, links, metadata, contrast, determinism)
+      shell: bash
+      run: npm test
+
+    - name: Build dist/ from a clean tree
+      shell: bash
+      run: |
+        test ! -e dist || { echo "dist/ must not exist in a clean checkout"; exit 1; }
+        npm run build
+        test -f dist/CNAME && test -f dist/index.html
+
+    - name: Browser accessibility and responsive audit
+      shell: bash
+      run: |
+        npx playwright install --with-deps chromium
+        npm run audit

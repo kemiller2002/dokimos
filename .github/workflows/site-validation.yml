@@ -1,0 +1,41 @@
+name: Site validation
+
+# Validates the website on every pull request. Never deploys.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Site quality gate
+        uses: ./.github/actions/site-gate
+        env:
+          ROS_BASE_REF: ${{ github.event.pull_request.base.sha }}
+
+      - name: Keep the validated build for review
+        uses: actions/upload-artifact@v7
+        with:
+          name: dokimos-site-${{ github.sha }}
+          path: dist
+          retention-days: 14
