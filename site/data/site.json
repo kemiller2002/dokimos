@@ -1,0 +1,14 @@
+{
+  "name": "Dokimos",
+  "tagline": "Code-quality evidence over time",
+  "origin": "https://dokimos.echelonfoundry.com",
+  "repository": "https://github.com/kemiller2002/dokimos",
+  "parent": { "name": "Echelon Foundry", "url": "https://echelonfoundry.com/" },
+  "locale": "en_US",
+  "navigation": [
+    { "label": "How it works", "path": "/how-it-works/" },
+    { "label": "Quality model", "path": "/quality-model/" },
+    { "label": "Metrics", "path": "/metrics/" },
+    { "label": "Architecture", "path": "/architecture/" }
+  ]
+}

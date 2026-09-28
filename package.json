@@ -1,0 +1,22 @@
+{
+  "name": "dokimos-site",
+  "private": true,
+  "description": "Static public website for Dokimos. The F# system itself builds with dotnet; this manifest only drives the site and its Echelon verification tooling.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node site/build.mjs",
+    "serve": "node site/build.mjs && node site/serve.mjs",
+    "test": "node --test \"site/test/*.test.mjs\"",
+    "echelon:visual:verify": "visual-engineering verify --strict",
+    "ros:validate": "node ros validate",
+    "audit": "node site/audit.mjs"
+  },
+  "devDependencies": {
+    "@echelon-foundry/visual-engineering": "1.0.0",
+    "axe-core": "4.13.0",
+    "playwright": "1.56.1"
+  }
+}

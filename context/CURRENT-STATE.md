@@ -1,6 +1,6 @@
 # Current State
 
-Updated: 2026-09-25
+Updated: 2026-09-28
 
 ## Established
 
@@ -21,6 +21,12 @@ Updated: 2026-09-25
 - Candidate rule DOK-FS-001 discovered from repeated F# record-inference failures.
 - Snapshot-to-snapshot comparison pipeline.
 - Forma, Folio, and Aegis integration requirements aligned.
+
+## Website (DOK-WEB-001)
+
+- Static public site in `site/`, built with `npm run build` into `dist/` and deployed by `.github/workflows/deploy-pages.yml` to `dokimos.echelonfoundry.com`.
+- Pull requests run `.github/workflows/site-validation.yml` (ROS, Visual Engineering, site tests, build, browser audit) without deploying.
+- Pending external actions: Pages source = GitHub Actions, custom domain, DNS CNAME, HTTPS enforcement, post-deploy verification. See `docs/website/DEPLOYMENT.md`.
 
 ## Current evidence gate
 

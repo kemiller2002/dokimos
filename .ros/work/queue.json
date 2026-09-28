@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "repository": "dokimos",
+  "nextSeq": 1,
+  "items": [
+    {
+      "id": "DOK-WEB-001",
+      "title": "Public Dokimos website on GitHub Pages",
+      "description": "Static Echelon-family site for Dokimos: build to dist/, PR validation, Pages deploy, dokimos.echelonfoundry.com",
+      "tags": [
+        "website"
+      ],
+      "priority": "high",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-09-28T15:17:34Z",
+      "updatedAt": "2026-09-28T15:17:34Z",
+      "createdBy": "unknown",
+      "source": "manual",
+      "sourceReference": null
+    }
+  ]
+}

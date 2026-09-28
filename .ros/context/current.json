@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "protocolVersion": "1.0.0",
+  "repository": "echelon-design-system",
+  "actor": "ros-bootstrap",
+  "startedAt": "2026-09-28T15:17:34.602Z",
+  "updatedAt": "2026-09-28T15:17:34Z",
+  "baselineDirtyPaths": [],
+  "workItems": [
+    {
+      "id": "ROS-INSTALL-3-1-4",
+      "type": "mechanical",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "installation",
+          "path": ".ros/installation.json"
+        }
+      ],
+      "updatedAt": "2026-09-28T15:17:34.602Z",
+      "completedAt": "2026-09-28T15:17:34.602Z"
+    },
+    {
+      "id": "DOK-WEB-001",
+      "type": "feature",
+      "state": "active",
+      "semanticState": "active",
+      "evidence": [],
+      "updatedAt": "2026-09-28T15:17:34Z",
+      "telemetryExecutionIds": [
+        "EXE-20260928T151735537Z-f0c4bcb6"
+      ]
+    }
+  ]
+}
