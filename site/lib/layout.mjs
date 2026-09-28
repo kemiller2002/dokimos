@@ -4,26 +4,23 @@ import { html, raw, toString } from "./html.mjs";
 
 const absolute = (site, path) => new URL(path, site.origin).href;
 
-const brandMark = html`<svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
-  <rect width="40" height="40" />
-  <polyline points="7,14 15,20 22,26 28,22 33,24" />
-  <line class="brand-mark-best" x1="7" x2="33" y1="26" y2="26" />
-</svg>`;
-
+// Header and footer use the Echelon Foundry markup so the shared stylesheet
+// (assets/css/echelon-foundry.css) styles them exactly as on echelonfoundry.com.
 const header = (site, currentPath) => html`
 <header class="site-header">
   <div class="nav-shell">
-    <a href="/" class="brand-link"${currentPath === "/" ? raw(' aria-current="page"') : ""}>
-      ${brandMark}
-      <span class="brand-text"><span class="brand-name">Dokimos</span><span class="brand-family">Echelon Foundry</span></span>
-    </a>
+    <div class="brand">
+      <a href="/" class="brand-link" aria-label="Dokimos home"${currentPath === "/" ? raw(' aria-current="page"') : ""}>
+        <span class="brand-mark" aria-hidden="true">Dk</span>
+        <span>Dokimos</span>
+      </a>
+      <span class="brand-subtitle">Code-quality evidence · Echelon Foundry</span>
+    </div>
     <nav aria-label="Primary">
-      <ul class="nav-list">
-        ${site.navigation.map(
-          (item) => html`<li><a href="${item.path}"${item.path === currentPath ? raw(' aria-current="page"') : ""}>${item.label}</a></li>`,
-        )}
-        <li><a class="nav-source" href="${site.repository}">Source<span class="visually-hidden"> code on GitHub</span></a></li>
-      </ul>
+      ${site.navigation.map(
+        (item) => html`<a href="${item.path}"${item.path === currentPath ? raw(' aria-current="page"') : ""}>${item.label}</a>`,
+      )}
+      <a href="${site.repository}" class="pill-link">Source<span class="visually-hidden"> code on GitHub</span></a>
     </nav>
   </div>
 </header>`;
@@ -31,23 +28,16 @@ const header = (site, currentPath) => html`
 const footer = (site, build) => html`
 <footer class="site-footer">
   <div class="footer-grid">
-    <div class="footer-identity">
+    <div>
       <p class="eyebrow">Dokimos · An Echelon Foundry system</p>
-      <p>Dokimos records code-quality evidence across time so teams can tell ordinary change from structural degradation.</p>
-      <p><a href="${site.parent.url}">Visit Echelon Foundry</a></p>
+      <p>Code-quality evidence across time, so teams can tell ordinary change from structural degradation.</p>
     </div>
-    <nav class="footer-nav" aria-label="Footer">
-      <ul>
-        <li><a href="/">Overview</a></li>
-        ${site.navigation.map((item) => html`<li><a href="${item.path}">${item.label}</a></li>`)}
-        <li><a href="${site.repository}">Dokimos on GitHub</a></li>
-      </ul>
-    </nav>
+    <div class="footer-actions">
+      <a href="${site.repository}" class="button ghost">View Dokimos on GitHub</a>
+      <a href="${site.parent.url}" class="muted-link">echelonfoundry.com</a>
+    </div>
   </div>
-  <p class="footer-note">
-    <span>&copy; ${build.year} Echelon Foundry</span>
-    <span>Built from <a href="${site.repository}/commit/${build.revision}">${build.revision.slice(0, 7)}</a></span>
-  </p>
+  <p class="footer-note">&copy; ${build.year} Echelon Foundry <span>Built from <a href="${site.repository}/commit/${build.revision}">${build.revision.slice(0, 7)}</a></span></p>
 </footer>`;
 
 const structuredData = (site, page) =>
@@ -95,7 +85,7 @@ export const renderDocument = ({ site, build, assets, page, content }) =>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap">
-  <link rel="stylesheet" href="${assets.stylesheet}">
+  ${assets.stylesheets.map((href) => html`<link rel="stylesheet" href="${href}">`)}
   <script type="application/ld+json">${raw(structuredData(site, page))}</script>
 </head>
 <body>

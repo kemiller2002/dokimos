@@ -35,7 +35,7 @@ site/data/site.json ─┘
      └─ render            lib/layout.mjs, lib/charts.mjs, pages/*.mjs — pure functions to HTML
             │
             ▼
-          dist/           static HTML, one CSS file, two images, CNAME, robots.txt, sitemap.xml
+          dist/           static HTML, two CSS files, two images, CNAME, robots.txt, sitemap.xml
 ```
 
 - No framework and no client-side JavaScript. The only `<script>` is JSON-LD metadata.
@@ -78,6 +78,13 @@ Wall-clock time is never used. The stylesheet URL carries a content hash for cac
 
 `@echelon-foundry/communication-engineering` is published only as 0.1.0, which ships research documents and no verification command. The copy follows its *Writing and Style Guide for Agents* (lead with the point, concrete claims, explicit uncertainty), but there is no automated Communication Engineering gate to run. Add one to `.github/actions/site-gate/action.yml` when a CLI is released.
 
-## Relationship to Echelon Foundry
+## Stylesheets
 
-The site reuses the Echelon Foundry palette, type system (Newsreader, Manrope, IBM Plex Mono), bordered surfaces, uppercase mono labels, editorial headings, and build philosophy (source → small Node build → `dist/` → Pages artifact). Dokimos differs in its accent (verdigris leads instead of oxide bronze), engineering graph-paper background, measuring-rule header edge, trajectory mark, and evidence-first components.
+| File | Owner | Contents |
+| --- | --- | --- |
+| `site/assets/css/echelon-foundry.css` | Echelon Foundry | `assets/css/style.css` from `kemiller2002/echelon-foundry` at `cb638dc`, copied **verbatim**: palette, typography, the `body::before` background grid, header, navigation, buttons, section headings, page intros, footer, reduced-motion and forced-colour rules. SHA-256 `a3627edd9932077e9ab6798d1f4a954fc809541af6cdb1846987fc8073509375`. |
+| `site/assets/css/dokimos.css` | Dokimos | Only the evidence components Echelon Foundry lacks (charts, status badges, data tables, readouts, lifecycle, drill-down, provenance labels), built on the `--ef-*` tokens plus a few `--dk-*` additions. |
+
+The header and footer use Echelon Foundry's markup (`.site-header`, `.nav-shell`, `.brand`, `.pill-link`, `.site-footer`, `.footer-grid`, `.footer-note`) so the shared stylesheet renders them exactly as on echelonfoundry.com.
+
+`site/test/stylesheet.test.mjs` fails if the vendored file changes or if `dokimos.css` restyles something Echelon Foundry owns (body, background, header, footer, buttons, headings, `--ef-*` tokens). To take a newer Echelon Foundry stylesheet, copy it over, update the checksum in that test and in this table, and run `npm test && npm run build && npm run audit`.

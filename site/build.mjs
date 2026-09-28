@@ -121,9 +121,10 @@ export const build = async ({ outDir = path.join(rootDir, "dist"), environment =
 
   const metadata = buildMetadata(environment);
   const context = deriveContext(sources, metadata);
-  const stylesheet = fs.readFileSync(path.join(siteDir, "assets", "css", "dokimos.css"));
+  // Echelon Foundry's stylesheet is the base; dokimos.css only adds Dokimos components.
+  const stylesheetUrl = (name) => `/assets/css/${name}?v=${contentHash(fs.readFileSync(path.join(siteDir, "assets", "css", name)))}`;
   const assets = {
-    stylesheet: `/assets/css/dokimos.css?v=${contentHash(stylesheet)}`,
+    stylesheets: ["echelon-foundry.css", "dokimos.css"].map(stylesheetUrl),
     favicon: "/assets/images/favicon.svg",
     socialImage: "/assets/images/social-card.png",
   };
