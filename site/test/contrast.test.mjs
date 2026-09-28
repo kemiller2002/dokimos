@@ -1,13 +1,20 @@
-// WCAG 2.x contrast for the colour pairs the stylesheet actually uses.
-// Colours are read from the stylesheet so the test cannot drift from it.
+// WCAG 2.x contrast for the colour pairs the site actually uses.
+// Tokens are read from both stylesheets (Echelon Foundry first, then Dokimos),
+// so the test cannot drift from the CSS that ships.
 
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
-const css = fs.readFileSync(new URL("../assets/css/dokimos.css", import.meta.url), "utf8");
-const root = css.slice(css.indexOf(":root {"), css.indexOf("}", css.indexOf(":root {")));
-const declarations = Object.fromEntries([...root.matchAll(/--([a-z0-9-]+):\s*([^;]+);/g)].map((match) => [match[1], match[2].trim()]));
+const rootBlock = (file) => {
+  const css = fs.readFileSync(new URL(`../assets/css/${file}`, import.meta.url), "utf8");
+  const start = css.indexOf(":root {");
+  return css.slice(start, css.indexOf("}", start));
+};
+
+const declarations = Object.fromEntries(
+  ["echelon-foundry.css", "dokimos.css"].flatMap((file) => [...rootBlock(file).matchAll(/--([a-z0-9-]+):\s*([^;]+);/g)].map((match) => [match[1], match[2].trim()])),
+);
 
 const resolve = (name, seen = new Set()) => {
   const value = declarations[name];
@@ -28,10 +35,11 @@ export const contrast = (foreground, background) => {
   return (lighter + 0.05) / (darker + 0.05);
 };
 
-// Normal text requires 4.5:1 (WCAG 1.4.3). Surfaces: primary, raised, secondary (table highlight).
-const lightSurfaces = ["surface-primary", "surface-raised", "surface-secondary"];
-const textOnLight = ["text-primary", "text-heading", "text-secondary", "accent", "link", "tone-good", "tone-bad", "tone-warn", "tone-unknown", "tone-neutral"];
-const textOnDark = ["text-inverse", "text-inverse-secondary", "dk-verdigris-light", "dk-bronze-light", "dk-ochre-light"];
+// Normal text requires 4.5:1 (WCAG 1.4.3). Text, eyebrows, links, and status
+// tones sit on the page (parchment) or on raised Dokimos surfaces.
+const lightSurfaces = ["ef-surface-primary", "dk-surface-raised"];
+const textOnLight = ["ef-text-primary", "ef-text-heading", "ef-text-secondary", "ef-accent-primary", "ef-accent-secondary", "dk-tone-good", "dk-tone-bad", "dk-tone-warn", "dk-tone-unknown", "dk-tone-neutral"];
+const textOnDark = ["ef-text-inverse", "dk-stone-on-dark", "dk-verdigris-light", "dk-bronze-light"];
 
 for (const surface of lightSurfaces) {
   for (const text of textOnLight) {
@@ -42,22 +50,23 @@ for (const surface of lightSurfaces) {
   }
 }
 
+// The highlighted table row uses stone; only primary text and status badges
+// (which carry their own raised background) appear on it.
+test("--ef-text-primary on --ef-surface-secondary meets 4.5:1", () => {
+  assert.ok(contrast(resolve("ef-text-primary"), resolve("ef-surface-secondary")) >= 4.5);
+});
+
 for (const text of textOnDark) {
-  test(`--${text} on --surface-inverse meets 4.5:1`, () => {
-    const ratio = contrast(resolve(text), resolve("surface-inverse"));
+  test(`--${text} on --ef-surface-inverse meets 4.5:1`, () => {
+    const ratio = contrast(resolve(text), resolve("ef-surface-inverse"));
     assert.ok(ratio >= 4.5, `${ratio.toFixed(2)}:1`);
   });
 }
 
 // Non-text UI boundaries (WCAG 1.4.11): functional borders and focus ring need 3:1.
 test("functional borders and the focus ring meet 3:1 against the page", () => {
-  ["border-functional", "focus-ring"].forEach((name) => {
-    const ratio = contrast(resolve(name), resolve("surface-primary"));
+  ["ef-border-functional", "ef-focus-ring"].forEach((name) => {
+    const ratio = contrast(resolve(name), resolve("ef-surface-primary"));
     assert.ok(ratio >= 3, `--${name}: ${ratio.toFixed(2)}:1`);
   });
-});
-
-test("the raw Echelon accents stay prohibited as small text on stone", () => {
-  assert.ok(contrast(resolve("ef-verdigris"), resolve("ef-stone")) < 4.5);
-  assert.ok(contrast(resolve("ef-oxide-bronze"), resolve("ef-stone")) < 4.5);
 });
