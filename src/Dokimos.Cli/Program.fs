@@ -366,6 +366,71 @@ module Program =
                               if kind = "metric" && series.IsEmpty then "No stored snapshot contains this metric." ] }
                     Output.data (Contracts.serialize dto)))
 
+    let private readRelative root (relative: string) =
+        let path = Path.Combine(root, relative)
+        if File.Exists path then Some(File.ReadAllText path) else None
+
+    let private checksOutput command (checks: InstallationCheck list) =
+        let healthy = checks |> List.forall _.Passed
+        let json =
+            Contracts.serialize
+                {| Contract = "dokimos.installation-check"
+                   SchemaVersion = "1.0.0"
+                   Command = command
+                   DokimosVersion = DokimosInfo.version
+                   Healthy = healthy
+                   Checks =
+                    checks
+                    |> List.map (fun c -> {| Check = c.Check; Passed = c.Passed; Detail = c.Detail; Remediation = c.Remediation |}) |}
+        Output.dataWithCode (if healthy then ExitCodes.Continue else ExitCodes.EvidenceUnavailable) json
+
+    /// Conditor lifecycle `init`: reaches the declared installed state
+    /// idempotently. Existing files are never overwritten.
+    let init args =
+        withArgs [ "root"; "version"; "action-ref"; "package-sha256"; "source"; "build-target"; "evidence-branch"; "default-branch" ] args (fun parsed ->
+            let root = Arguments.tryOne "root" parsed |> Option.defaultValue "."
+            let release, commit = Installation.releaseOf DokimosInfo.version
+            let request =
+                { DokimosVersion = Arguments.tryOne "version" parsed |> Option.defaultValue release
+                  ActionRef = Arguments.tryOne "action-ref" parsed |> Option.orElse commit |> Option.defaultValue ""
+                  PackageSha256 = Arguments.tryOne "package-sha256" parsed
+                  Sources = (match Arguments.many "source" parsed with [] -> [ "src" ] | sources -> sources)
+                  BuildTarget = Arguments.tryOne "build-target" parsed
+                  EvidenceBranch = Arguments.tryOne "evidence-branch" parsed |> Option.defaultValue "dokimos-evidence"
+                  DefaultBranch = Arguments.tryOne "default-branch" parsed |> Option.defaultValue "main" }
+            match Installation.validate request with
+            | [] when Directory.Exists root ->
+                let results =
+                    Installation.files request
+                    |> List.map (fun file ->
+                        let path = Path.Combine(root, file.Path)
+                        match readRelative root file.Path with
+                        | Some existing when existing = file.Content -> file.Path, "unchanged"
+                        | Some _ -> file.Path, "preserved-existing"
+                        | None ->
+                            Directory.CreateDirectory(Path.GetDirectoryName path) |> ignore
+                            File.WriteAllText(path, file.Content)
+                            file.Path, "created")
+                Output.data (
+                    Contracts.serialize
+                        {| Contract = "dokimos.init-result"
+                           SchemaVersion = "1.0.0"
+                           DokimosVersion = request.DokimosVersion
+                           ActionRef = request.ActionRef
+                           Files = results |> List.map (fun (path, outcome) -> {| Path = path; Outcome = outcome |})
+                           NextSteps =
+                            [ "Commit the created files."
+                              "The first default-branch run persists a snapshot to the evidence branch."
+                              "Accept it: run the Dokimos workflow manually with accept-baseline=true." ] |}
+                )
+            | [] -> Output.invalid "root-not-found" $"{root} does not exist"
+            | problems -> Output.invalid "invalid-installation-request" (String.Join("; ", problems)))
+
+    let verify command args =
+        withArgs [ "root" ] args (fun parsed ->
+            let root = Arguments.tryOne "root" parsed |> Option.defaultValue "."
+            checksOutput command (Installation.verify (readRelative root)))
+
     let usage =
         String.concat
             "\n"
@@ -378,6 +443,8 @@ module Program =
               "  compare <before-snapshot> <after-snapshot>"
               "  evaluate --baseline b --current c --policy p"
               "  store init|put|get|accept-baseline|baseline --store dir ..."
+              "  init [--root .] [--version v] [--action-ref sha] [--source dir]...   install Dokimos into a repository"
+              "  verify|doctor [--root .]                  check an installation"
               "  history [findings] --store dir [--repository r] [--metric id [--scope s]] [--file path]"
               "exit codes: 0 continue, 1 unexpected fault, 2 invalid invocation, 3 evidence unavailable/invalid, 4 policy failure, 5 store conflict" ]
 
@@ -395,6 +462,9 @@ module Program =
         | "analyze" :: rest -> analyze rest
         | "store" :: rest -> store rest
         | "history" :: rest -> history rest
+        | "init" :: rest -> init rest
+        | "verify" :: rest -> verify "verify" rest
+        | "doctor" :: rest -> verify "doctor" rest
         | _ -> Output.invalid "invalid-arguments" usage
 
     /// Operational fault boundary: filesystem, process and other unexpected

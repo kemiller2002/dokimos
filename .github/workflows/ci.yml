@@ -53,6 +53,11 @@ jobs:
         # fails the job with exit 4, or 3 when no TRX evidence was produced.
         continue-on-error: true
         run: dotnet test Dokimos.sln --configuration Release --no-build --logger trx --results-directory artifacts/dokimos/test-results
+      - name: Validate installation from the produced package
+        shell: bash
+        env:
+          SOURCE_REVISION_ID: ${{ github.sha }}
+        run: scripts/validate-package.sh artifacts/package | tee artifacts/dokimos/package-validation.json
       - name: Dokimos quality gate
         id: gate
         uses: ./actions/quality-gate
@@ -69,4 +74,9 @@ jobs:
       - name: Report test step outcome
         if: always()
         shell: bash
-        run: echo "dotnet test step outcome: ${{ steps.test.outcome }}; Dokimos disposition: ${{ steps.gate.outputs.disposition }} (exit ${{ steps.gate.outputs.exit-code }})"
+        env:
+          TEST_OUTCOME: ${{ steps.test.outcome }}
+          DISPOSITION: ${{ steps.gate.outputs.disposition }}
+          GATE_EXIT: ${{ steps.gate.outputs.exit-code }}
+        run: |
+          echo "dotnet test step outcome: $TEST_OUTCOME; Dokimos disposition: $DISPOSITION (exit $GATE_EXIT)"

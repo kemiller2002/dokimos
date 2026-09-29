@@ -31,5 +31,6 @@
     <Compile Include="EvidenceStore.fs" />
     <Compile Include="History.fs" />
     <Compile Include="HistoryContract.fs" />
+    <Compile Include="Installation.fs" />
   </ItemGroup>
 </Project>

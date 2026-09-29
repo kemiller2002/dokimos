@@ -139,10 +139,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "ready",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:53:58Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -155,10 +155,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:53:58Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -171,10 +171,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "ready",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:53:58Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -203,10 +203,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "ready",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:53:58Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -219,10 +219,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "ready",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:53:58Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -431,6 +431,40 @@
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
       "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-026",
+      "title": "Conditor: lifecycle distribution for .NET tool / GitHub-release components (Dokimos install)",
+      "description": "External dependency in kemiller2002/conditor: component distribution enum lacks dotnet-tool/github-release lifecycle kinds. Dokimos-side contract: docs/operations/INTEGRATION.md#conditor",
+      "tags": [
+        "operational",
+        "external"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:53:58Z",
+      "updatedAt": "2026-09-29T14:53:58Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-027",
+      "title": "Echelon Registry: add dokimos to registry/systems.json",
+      "description": "External dependency in kemiller2002/echelon-registry. Manifest: echelon/dokimos.system.json",
+      "tags": [
+        "operational",
+        "external"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:53:58Z",
+      "updatedAt": "2026-09-29T14:53:58Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null

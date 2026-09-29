@@ -1,0 +1,188 @@
+name: Release
+
+# Publishes a Dokimos release only under explicit authorization:
+#   - a pushed tag `dokimos-v<Version>` on a commit already on main, or
+#   - a manual dispatch from main naming the exact <Version>.
+# Pull requests and arbitrary branches never publish. The release is pinned to
+# the immutable source revision it was built from (stamped into the tool's
+# informational version and recorded in the release notes).
+#
+# Distribution:
+#   1. GitHub Release `dokimos-v<Version>` (GITHUB_TOKEN only): the .NET tool
+#      package, self-contained native CLIs, dokimos-checksums.txt, and build
+#      provenance attestations. actions/quality-gate installs from here.
+#   2. nuget.org (optional): runs only when the repository variable
+#      DOKIMOS_NUGET_PUBLISH is 'true' and nuget.org Trusted Publishing is
+#      configured for this repository (NuGet user in DOKIMOS_NUGET_USER).
+
+on:
+  push:
+    tags: ['dokimos-v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Exact version to release; must equal <Version> in Directory.Build.props.
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  authorize:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.check.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: check
+        name: Authorize release
+        shell: bash
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          declared=$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' Directory.Build.props)
+          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+            requested="${GITHUB_REF_NAME#dokimos-v}"
+          else
+            [ "$GITHUB_REF" = "refs/heads/main" ] || { echo "::error::Manual releases must be dispatched from main."; exit 1; }
+            requested="$INPUT_VERSION"
+          fi
+          [ "$requested" = "$declared" ] || { echo "::error::Requested $requested but Directory.Build.props declares $declared."; exit 1; }
+          git fetch --quiet origin main
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main || { echo "::error::$GITHUB_SHA is not on main."; exit 1; }
+          if git ls-remote --exit-code --tags origin "refs/tags/dokimos-v$declared" >/dev/null && [ "$GITHUB_EVENT_NAME" != "push" ]; then
+            echo "::error::dokimos-v$declared already exists; releases are immutable."; exit 1
+          fi
+          echo "version=$declared" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: authorize
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore
+        run: dotnet restore Dokimos.sln
+      - name: Build
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p artifacts/dokimos
+          dotnet build Dokimos.sln --configuration Release --no-restore -p:SourceRevisionId=$GITHUB_SHA 2>&1 | tee artifacts/dokimos/build.log
+      - name: Test
+        continue-on-error: true
+        run: dotnet test Dokimos.sln --configuration Release --no-build --logger trx --results-directory artifacts/dokimos/test-results
+      - name: Evaluate Dokimos's own quality gate
+        uses: ./actions/quality-gate
+        with:
+          dokimos-command: dotnet ${{ github.workspace }}/src/Dokimos.Cli/bin/Release/net8.0/Dokimos.Cli.dll
+          source: src
+          policy: config/dokimos-policy.json
+          build-log: artifacts/dokimos/build.log
+          test-results: artifacts/dokimos/test-results
+          initial-baseline: baselines/accepted-snapshot.json
+          persist: 'false'
+      - name: Pack and validate installation from the package
+        shell: bash
+        env:
+          SOURCE_REVISION_ID: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          scripts/validate-package.sh dist | tee dist/package-validation.json
+      - name: Publish self-contained native CLIs
+        shell: bash
+        run: |
+          set -euo pipefail
+          for rid in linux-x64 linux-arm64 osx-x64 osx-arm64 win-x64; do
+            dotnet publish src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --runtime "$rid" --self-contained true \
+              -p:PublishSingleFile=true -p:SourceRevisionId=$GITHUB_SHA --output "publish/$rid" >/dev/null
+            if [ "$rid" = "win-x64" ]; then
+              mv "publish/$rid/Dokimos.Cli.exe" "publish/$rid/dokimos.exe"
+              (cd "publish/$rid" && zip -q "../../dist/dokimos-$rid.zip" dokimos.exe)
+            else
+              mv "publish/$rid/Dokimos.Cli" "publish/$rid/dokimos"
+              tar -C "publish/$rid" -czf "dist/dokimos-$rid.tar.gz" dokimos
+            fi
+          done
+          ./publish/linux-x64/dokimos version
+      - name: Checksums
+        shell: bash
+        run: |
+          cd dist
+          sha256sum *.nupkg *.tar.gz *.zip > dokimos-checksums.txt
+          cat dokimos-checksums.txt
+      - name: Echelon release manifest
+        run: scripts/release-manifest.sh "${{ needs.authorize.outputs.version }}" "$GITHUB_SHA" dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dokimos-release-${{ needs.authorize.outputs.version }}
+          path: |
+            dist
+            artifacts/dokimos
+
+  publish-github:
+    needs: [authorize, build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dokimos-release-${{ needs.authorize.outputs.version }}
+          path: release
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            release/dist/*.nupkg
+            release/dist/*.tar.gz
+            release/dist/*.zip
+      - name: Create immutable GitHub release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.authorize.outputs.version }}
+        run: |
+          set -euo pipefail
+          tag="dokimos-v$VERSION"
+          notes="Dokimos $VERSION built from ${GITHUB_SHA}. Install: dotnet tool install EchelonFoundry.Dokimos.Cli --version $VERSION --add-source <dir containing the .nupkg>, or use kemiller2002/dokimos/actions/quality-gate with version: $VERSION."
+          gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Dokimos $VERSION" --notes "$notes" \
+            release/dist/*.nupkg release/dist/*.tar.gz release/dist/*.zip release/dist/dokimos-checksums.txt release/dist/package-validation.json release/dist/dokimos.release.json
+
+  publish-nuget:
+    needs: [authorize, build, publish-github]
+    if: vars.DOKIMOS_NUGET_PUBLISH == 'true'
+    runs-on: ubuntu-latest
+    environment: nuget
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dokimos-release-${{ needs.authorize.outputs.version }}
+          path: release
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ vars.DOKIMOS_NUGET_USER }}
+      - name: Push to nuget.org
+        run: dotnet nuget push release/dist/*.nupkg --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json
