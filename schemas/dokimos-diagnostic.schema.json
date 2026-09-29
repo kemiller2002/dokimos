@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/diagnostic",
+  "title": "Dokimos diagnostic",
+  "description": "Written to stderr when a command cannot produce its canonical output.",
+  "type": "object",
+  "required": [
+    "Contract",
+    "SchemaVersion",
+    "State",
+    "Code",
+    "Message"
+  ],
+  "properties": {
+    "Contract": {
+      "const": "dokimos.diagnostic"
+    },
+    "SchemaVersion": {
+      "const": "1.0.0"
+    },
+    "State": {
+      "const": "error"
+    },
+    "Code": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Message": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

@@ -12,6 +12,7 @@
     <ProjectReference Include="../../src/Dokimos.Core/Dokimos.Core.fsproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fixtures.fs" />
     <Compile Include="TrendTests.fs" />
     <Compile Include="PolicyTests.fs" />
     <Compile Include="FindingTests.fs" />
@@ -32,5 +33,11 @@
     <Compile Include="WireTests.fs" />
     <Compile Include="CanonicalSnapshotTests.fs" />
     <Compile Include="CanonicalComparisonTests.fs" />
+    <Compile Include="CollectorsTests.fs" />
+    <Compile Include="CapabilitiesTests.fs" />
+    <Compile Include="EvaluationTests.fs" />
+    <Compile Include="ContractsTests.fs" />
+    <Compile Include="EvidenceStoreTests.fs" />
+    <Compile Include="HistoryTests.fs" />
   </ItemGroup>
 </Project>

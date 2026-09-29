@@ -1,126 +1,532 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://echelonfoundry.com/dokimos/schemas/snapshot/v1",
-  "title": "Dokimos Snapshot",
-  "type": "object",
-  "required": [
-    "schemaVersion",
-    "snapshotId",
-    "repository",
-    "revision",
-    "collectedAt",
-    "collector",
-    "observations"
+  "$id": "https://echelonfoundry.com/dokimos/schemas/snapshot",
+  "title": "Dokimos canonical snapshot",
+  "description": "Immutable Dokimos evidence for one analysis of one revision. Schema 1.0.0 predates producer provenance; 2.0.0 adds Contract, Producer and Performance. Readers reject any other SchemaVersion.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/v1"
+    },
+    {
+      "$ref": "#/$defs/v2"
+    }
   ],
-  "properties": {
-    "schemaVersion": {
-      "const": "1.0.0"
-    },
-    "snapshotId": {
-      "type": "string",
-      "minLength": 1
-    },
-    "repository": {
-      "type": "string",
-      "minLength": 1
-    },
-    "revision": {
+  "$defs": {
+    "v1": {
       "type": "object",
       "required": [
-        "commit"
+        "SchemaVersion",
+        "SnapshotId",
+        "Repository",
+        "Revision",
+        "Ref",
+        "CollectedAt",
+        "Collector",
+        "Metrics",
+        "Findings"
       ],
       "properties": {
-        "commit": {
+        "SnapshotId": {
           "type": "string",
-          "minLength": 7
+          "minLength": 1
         },
-        "ref": {
-          "type": [
-            "string",
-            "null"
+        "Repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Ref": {
+          "type": "string"
+        },
+        "CollectedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Collector": {
+          "type": "string"
+        },
+        "SchemaVersion": {
+          "const": "1.0.0"
+        },
+        "Metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metricV1"
+          }
+        },
+        "Findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "v2": {
+      "type": "object",
+      "required": [
+        "Contract",
+        "SchemaVersion",
+        "SnapshotId",
+        "Repository",
+        "Revision",
+        "Ref",
+        "CollectedAt",
+        "Collector",
+        "Producer",
+        "Performance",
+        "Metrics",
+        "Findings"
+      ],
+      "properties": {
+        "SnapshotId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Ref": {
+          "type": "string"
+        },
+        "CollectedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Collector": {
+          "type": "string"
+        },
+        "Contract": {
+          "const": "dokimos.snapshot"
+        },
+        "SchemaVersion": {
+          "const": "2.0.0"
+        },
+        "Producer": {
+          "$ref": "#/$defs/producer"
+        },
+        "Performance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/performance"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
+        },
+        "Findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "metric": {
+      "type": "object",
+      "required": [
+        "MetricId",
+        "MetricVersion",
+        "Scope",
+        "State",
+        "Value",
+        "Unit",
+        "Reason",
+        "Detail",
+        "Source"
+      ],
+      "properties": {
+        "MetricId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "MetricVersion": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "Scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "State": {
+          "enum": [
+            "available",
+            "unavailable",
+            "failed"
+          ]
+        },
+        "Value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Unit": {
+          "type": "string"
+        },
+        "Reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Detail": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Source": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "State": {
+                "const": "available"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "Value": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "State": {
+                "const": "unavailable"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "Value": {
+                "type": "null"
+              },
+              "Reason": {
+                "enum": [
+                  "unsupported",
+                  "not-configured",
+                  "insufficient-evidence"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "State": {
+                "const": "failed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "Value": {
+                "type": "null"
+              },
+              "Reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "metricV1": {
+      "type": "object",
+      "required": [
+        "MetricId",
+        "MetricVersion",
+        "Scope",
+        "State",
+        "Value",
+        "Unit",
+        "Source"
+      ],
+      "properties": {
+        "MetricId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "MetricVersion": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "Scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "State": {
+          "enum": [
+            "available",
+            "unavailable",
+            "failed"
+          ]
+        },
+        "Value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Unit": {
+          "type": "string"
+        },
+        "Source": {
+          "type": "string"
+        },
+        "Reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Detail": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
           ]
         }
       },
       "additionalProperties": false
     },
-    "collectedAt": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "collector": {
+    "finding": {
       "type": "object",
       "required": [
-        "name",
-        "version",
-        "configurationId"
+        "FindingId",
+        "Scope",
+        "Kind",
+        "State",
+        "Evidence",
+        "Explanation"
       ],
       "properties": {
-        "name": {
+        "FindingId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Scope": {
           "type": "string"
         },
-        "version": {
-          "type": "string"
+        "Kind": {
+          "type": "string",
+          "minLength": 1
         },
-        "configurationId": {
+        "State": {
+          "const": "present"
+        },
+        "Evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/signal"
+          }
+        },
+        "Explanation": {
           "type": "string"
         }
       },
       "additionalProperties": false
     },
-    "observations": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "metricId",
-          "metricVersion",
-          "scope",
-          "state",
-          "provenance"
-        ],
-        "properties": {
-          "metricId": {
+    "signal": {
+      "type": "object",
+      "required": [
+        "Kind",
+        "Value"
+      ],
+      "properties": {
+        "Kind": {
+          "enum": [
+            "structural-complexity",
+            "frequent-change",
+            "high-churn",
+            "repeated-region",
+            "active-findings",
+            "aged-debt",
+            "api-instability",
+            "dependency-additions",
+            "missing-test-change",
+            "type-weakening"
+          ]
+        },
+        "Value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "analyzer": {
+      "type": "object",
+      "required": [
+        "AnalyzerId",
+        "Version",
+        "State",
+        "Reason",
+        "DurationMilliseconds"
+      ],
+      "properties": {
+        "AnalyzerId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Version": {
+          "type": "string"
+        },
+        "State": {
+          "enum": [
+            "ran",
+            "not-run",
+            "failed"
+          ]
+        },
+        "Reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "DurationMilliseconds": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "producer": {
+      "type": "object",
+      "required": [
+        "DokimosVersion",
+        "ConfigurationId",
+        "AnalyzedScope",
+        "Analyzers"
+      ],
+      "properties": {
+        "DokimosVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ConfigurationId": {
+          "type": "string"
+        },
+        "AnalyzedScope": {
+          "type": "array",
+          "items": {
             "type": "string"
-          },
-          "metricVersion": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "scope": {
-            "type": "string"
-          },
-          "state": {
-            "enum": [
-              "available",
-              "unavailable",
-              "failed"
-            ]
-          },
-          "value": {
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "unit": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "reason": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "provenance": {
-            "type": "object"
           }
         },
-        "additionalProperties": true
-      }
+        "Analyzers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/analyzer"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "TotalMilliseconds",
+        "FileCount",
+        "ObservationCount",
+        "UnavailableCollectors",
+        "FailedCollectors"
+      ],
+      "properties": {
+        "TotalMilliseconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "FileCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ObservationCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "UnavailableCollectors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "FailedCollectors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
     }
-  },
-  "additionalProperties": false
+  }
 }

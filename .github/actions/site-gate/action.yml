@@ -45,3 +45,17 @@ runs:
       run: |
         npx playwright install --with-deps chromium
         npm run audit
+
+    - name: Results UI render and browser audit (DOK-OPS-019)
+      shell: bash
+      run: |
+        # Renders committed dokimos.results fixtures produced by the real CLI
+        # and audits them: axe WCAG 2.1 AA, 320-1920px, 200% text, forced colors.
+        for fixture in results-ui/test/fixtures/*-results.json; do
+          out="$RUNNER_TEMP/results-ui/$(basename "$fixture" .json)"
+          npm run results:render -- "$fixture" "$out"
+          npm run results:audit -- "$out"
+          # Folio printable report from the same contract, exported with Chromium.
+          npm run results:report -- "$fixture" "$out"
+          npm run results:pdf -- "$out"
+        done

@@ -1,0 +1,130 @@
+name: Dokimos quality gate
+description: >-
+  Install a pinned Dokimos release, snapshot the repository, compare against the
+  accepted baseline in the durable evidence store, evaluate policy, persist
+  evidence, and fail the job according to the Dokimos evaluation exit code.
+inputs:
+  version:
+    description: Dokimos release version to install (for example 0.1.0). Required unless dokimos-command is set. Never floats.
+    required: false
+    default: ''
+  package-sha256:
+    description: Expected SHA-256 of the release .nupkg. Strongly recommended; when empty the release's published checksum is verified instead.
+    required: false
+    default: ''
+  dokimos-command:
+    description: Use an already available Dokimos command instead of installing a release (used by Dokimos's own CI).
+    required: false
+    default: ''
+  source:
+    description: Space-separated source directories to analyze, relative to the repository root.
+    required: false
+    default: src
+  policy:
+    description: Path to the Dokimos policy file.
+    required: false
+    default: .dokimos/policy.json
+  build-log:
+    description: Captured `dotnet build` console log. Empty means build diagnostics are unavailable.
+    required: false
+    default: ''
+  test-results:
+    description: TRX file or directory. Empty means test evidence is unavailable.
+    required: false
+    default: ''
+  coverage:
+    description: Cobertura report. Empty means coverage is unavailable.
+    required: false
+    default: ''
+  initial-baseline:
+    description: Snapshot file used as the baseline when the evidence store has no accepted baseline yet.
+    required: false
+    default: ''
+  evidence-branch:
+    description: Dedicated branch holding the durable evidence store. Product branches never receive measurement commits.
+    required: false
+    default: dokimos-evidence
+  persist:
+    description: "auto (persist on pushes to the default branch), true, or false."
+    required: false
+    default: auto
+  accept-baseline:
+    description: Accept this run's snapshot as the baseline (requires persistence).
+    required: false
+    default: 'false'
+  baseline-reason:
+    description: Reason recorded with an accepted baseline.
+    required: false
+    default: ''
+  enforce:
+    description: Fail the step with the evaluation exit code (true) or only report (false).
+    required: false
+    default: 'true'
+  output-directory:
+    description: Where evidence files for this run are written and uploaded from.
+    required: false
+    default: artifacts/dokimos
+outputs:
+  disposition:
+    description: Evaluation disposition (passed, passed-with-warnings, failed, required-evidence-unavailable, incompatible-snapshots) or a stage failure code.
+    value: ${{ steps.gate.outputs.disposition }}
+  exit-code:
+    description: Dokimos exit code for the run.
+    value: ${{ steps.gate.outputs.exit-code }}
+  snapshot-id:
+    description: Identity of this run's snapshot.
+    value: ${{ steps.gate.outputs.snapshot-id }}
+  dokimos-version:
+    description: Dokimos version that produced the evidence.
+    value: ${{ steps.gate.outputs.dokimos-version }}
+runs:
+  using: composite
+  steps:
+    - name: Install pinned Dokimos
+      id: install
+      shell: bash
+      env:
+        DOKIMOS_VERSION: ${{ inputs.version }}
+        DOKIMOS_PACKAGE_SHA256: ${{ inputs.package-sha256 }}
+        DOKIMOS_COMMAND: ${{ inputs.dokimos-command }}
+      run: bash "${{ github.action_path }}/install.sh"
+    - name: Measure, compare and evaluate
+      id: gate
+      shell: bash
+      env:
+        DOKIMOS: ${{ steps.install.outputs.command }}
+        DOKIMOS_SOURCE: ${{ inputs.source }}
+        DOKIMOS_POLICY: ${{ inputs.policy }}
+        DOKIMOS_BUILD_LOG: ${{ inputs.build-log }}
+        DOKIMOS_TEST_RESULTS: ${{ inputs.test-results }}
+        DOKIMOS_COVERAGE: ${{ inputs.coverage }}
+        DOKIMOS_INITIAL_BASELINE: ${{ inputs.initial-baseline }}
+        DOKIMOS_EVIDENCE_BRANCH: ${{ inputs.evidence-branch }}
+        DOKIMOS_PERSIST: ${{ inputs.persist }}
+        DOKIMOS_ACCEPT_BASELINE: ${{ inputs.accept-baseline }}
+        DOKIMOS_BASELINE_REASON: ${{ inputs.baseline-reason }}
+        DOKIMOS_OUT: ${{ inputs.output-directory }}
+        DOKIMOS_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+      run: bash "${{ github.action_path }}/gate.sh"
+    - name: Upload Dokimos evidence
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: dokimos-evidence-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+        path: ${{ inputs.output-directory }}
+        if-no-files-found: warn
+    - name: Enforce Dokimos disposition
+      if: inputs.enforce == 'true'
+      shell: bash
+      env:
+        CODE: ${{ steps.gate.outputs.exit-code }}
+        DISPOSITION: ${{ steps.gate.outputs.disposition }}
+      run: |
+        if [ -z "$CODE" ]; then
+          echo "::error title=Dokimos::The gate did not report an exit code; treating as unavailable evidence."
+          exit 3
+        fi
+        if [ "$CODE" != "0" ]; then
+          echo "::error title=Dokimos::Quality gate disposition '$DISPOSITION' (exit $CODE). See the job summary and the evaluation.json artifact."
+        fi
+        exit "$CODE"

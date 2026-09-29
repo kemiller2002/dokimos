@@ -9,12 +9,18 @@
   "scripts": {
     "build": "node site/build.mjs",
     "serve": "node site/build.mjs && node site/serve.mjs",
-    "test": "node --test \"site/test/*.test.mjs\"",
+    "test": "node --test \"site/test/*.test.mjs\" \"results-ui/test/*.test.mjs\"",
     "echelon:visual:verify": "visual-engineering verify --strict",
     "ros:validate": "node ros validate",
-    "audit": "node site/audit.mjs"
+    "audit": "node site/audit.mjs",
+    "results:render": "node results-ui/render.mjs",
+    "results:audit": "node results-ui/audit.mjs",
+    "results:report": "node results-ui/report.mjs",
+    "results:pdf": "node results-ui/export-pdf.mjs"
   },
   "devDependencies": {
+    "@echelon-foundry/design-system": "https://github.com/kemiller2002/echelon-design-system/releases/download/v0.3.0/echelon-foundry-design-system-0.3.0.tgz",
+    "@echelon-foundry/print-components": "github:kemiller2002/folio#8fd8516dddd599290ad302974210832086112e25",
     "@echelon-foundry/visual-engineering": "1.0.0",
     "axe-core": "4.13.0",
     "playwright": "1.56.1"

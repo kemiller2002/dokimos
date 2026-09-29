@@ -1,5 +1,11 @@
 name: CI
 
+# Dokimos dogfoods Dokimos: after the product builds, the job result is the
+# Dokimos policy evaluation of this revision against the accepted baseline in
+# the durable evidence store (branch `dokimos-evidence`). The gate runs the
+# same reusable action consumers use (actions/quality-gate), pointed at the
+# CLI built from this revision instead of a released package.
+
 permissions:
   contents: write
 
@@ -7,9 +13,23 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      accept-baseline:
+        description: Accept this run's snapshot as the Dokimos baseline (main only).
+        type: boolean
+        default: false
+      baseline-reason:
+        description: Why this snapshot is accepted as the baseline.
+        type: string
+        default: ''
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  build-test:
+  build-test-gate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,73 +40,67 @@ jobs:
           dotnet-version: '8.0.x'
       - name: Restore
         run: dotnet restore Dokimos.sln
-      - name: Build
-        run: dotnet build Dokimos.sln --configuration Release --no-restore
-      - name: Test
-        run: dotnet test Dokimos.sln --configuration Release --no-build
-      - name: Self-measure F# sources
-        if: always()
+      - name: Build (log captured as evidence)
         shell: bash
         run: |
-          mkdir -p artifacts/dokimos/self-measure
-          if dotnet build Dokimos.sln --configuration Release --no-restore; then
-            while IFS= read -r file; do
-              safe=$(printf '%s' "$file" | tr '/.' '__')
-              dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- measure "$file" > "artifacts/dokimos/self-measure/$safe.json"
-            done < <(find src -type f -name '*.fs' -not -path '*/obj/*' -not -path '*/bin/*' | sort)
-          else
-            printf '{"state":"unavailable","reason":"build-failed"}\n' > artifacts/dokimos/self-measure/unavailable.json
-          fi
-      - name: Capture Git temporal evidence
-        if: always()
-        shell: bash
-        run: |
+          set -o pipefail
           mkdir -p artifacts/dokimos
-          git log --numstat --find-renames --format='commit %H %aI' -- src > artifacts/dokimos/git-history.txt
-      - name: Analyze repository with temporal evidence
-        if: always()
+          dotnet build Dokimos.sln --configuration Release --no-restore 2>&1 | tee artifacts/dokimos/build.log
+      - name: Test (TRX captured as evidence)
+        id: test
+        # A red test run is judged by the Dokimos gate below (tests.failed is
+        # ratcheted at zero and required evidence), not skipped: the gate
+        # fails the job with exit 4, or 3 when no TRX evidence was produced.
+        continue-on-error: true
+        run: dotnet test Dokimos.sln --configuration Release --no-build --logger trx --results-directory artifacts/dokimos/test-results
+      - name: Validate installation from the produced package
+        shell: bash
+        env:
+          SOURCE_REVISION_ID: ${{ github.sha }}
+        run: scripts/validate-package.sh artifacts/package | tee artifacts/dokimos/package-validation.json
+      - name: Dokimos quality gate
+        id: gate
+        uses: ./actions/quality-gate
+        with:
+          dokimos-command: dotnet ${{ github.workspace }}/src/Dokimos.Cli/bin/Release/net8.0/Dokimos.Cli.dll
+          source: src
+          policy: config/dokimos-policy.json
+          build-log: artifacts/dokimos/build.log
+          test-results: artifacts/dokimos/test-results
+          initial-baseline: baselines/accepted-snapshot.json
+          persist: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') && 'true' || 'auto' }}
+          accept-baseline: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.accept-baseline) && 'true' || 'false' }}
+          baseline-reason: ${{ inputs.baseline-reason }}
+      - name: Set up Node for the results UI
+        if: always() && steps.gate.outputs.snapshot-id != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Render the results UI from this run's evidence (DOK-OPS-018/019)
+        if: always() && steps.gate.outputs.snapshot-id != ''
         shell: bash
         run: |
-          if [ -f artifacts/dokimos/git-history.txt ] && dotnet build Dokimos.sln --configuration Release --no-restore; then
-            dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- analyze src --git-history artifacts/dokimos/git-history.txt > artifacts/dokimos/repository-analysis.json
-          else
-            printf '{"state":"unavailable","reason":"analysis-prerequisite-failed"}\n' > artifacts/dokimos/repository-analysis.json
-          fi
-      - name: Generate canonical Dokimos snapshot
-        if: always()
-        shell: bash
-        run: |
-          if [ -f artifacts/dokimos/git-history.txt ] && dotnet build Dokimos.sln --configuration Release --no-restore; then
-            dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- snapshot src --git-history artifacts/dokimos/git-history.txt --repository "$GITHUB_REPOSITORY" --revision "$GITHUB_SHA" --ref "$GITHUB_REF_NAME" > artifacts/dokimos/snapshot.json
-          else
-            printf '{"state":"unavailable","reason":"snapshot-prerequisite-failed"}\n' > artifacts/dokimos/snapshot.json
-          fi
-      - name: Compare with accepted Dokimos snapshot
-        if: always()
-        shell: bash
-        run: |
-          if [ -f baselines/accepted-snapshot.json ] && [ -f artifacts/dokimos/snapshot.json ] && dotnet build Dokimos.sln --configuration Release --no-restore; then
-            dotnet run --project src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --no-build -- compare baselines/accepted-snapshot.json artifacts/dokimos/snapshot.json > artifacts/dokimos/comparison.json
-          else
-            printf '{"state":"unavailable","reason":"accepted-baseline-or-current-snapshot-unavailable"}\n' > artifacts/dokimos/comparison.json
-          fi
-      - name: Promote authorized canonical baseline
-        if: success()
-        shell: bash
-        run: |
-          if [ -f .dokimos/accept-next-baseline ] && [ -f artifacts/dokimos/snapshot.json ]; then
-            mkdir -p baselines
-            cp artifacts/dokimos/snapshot.json baselines/accepted-snapshot.json
-            rm .dokimos/accept-next-baseline
-            git config user.name "dokimos-ci"
-            git config user.email "dokimos-ci@users.noreply.github.com"
-            git add baselines/accepted-snapshot.json .dokimos/accept-next-baseline
-            git commit -m "Accept canonical Dokimos longitudinal baseline"
-            git push
-          fi
-      - name: Upload Dokimos evidence
-        if: always()
+          set -euo pipefail
+          npm ci --no-audit --no-fund
+          dotnet src/Dokimos.Cli/bin/Release/net8.0/Dokimos.Cli.dll results \
+            --baseline artifacts/dokimos/baseline.json --current artifacts/dokimos/snapshot.json \
+            --policy config/dokimos-policy.json --store "$RUNNER_TEMP/dokimos-evidence-store" > artifacts/dokimos/results.json
+          node results-ui/render.mjs artifacts/dokimos/results.json artifacts/results-ui
+          node results-ui/report.mjs artifacts/dokimos/results.json artifacts/results-ui
+      - name: Upload the results UI
+        if: always() && steps.gate.outputs.snapshot-id != ''
         uses: actions/upload-artifact@v4
         with:
-          name: dokimos-evidence-${{ github.sha }}
-          path: artifacts/dokimos
+          name: dokimos-results-ui-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/results-ui
+          if-no-files-found: warn
+      - name: Report test step outcome
+        if: always()
+        shell: bash
+        env:
+          TEST_OUTCOME: ${{ steps.test.outcome }}
+          DISPOSITION: ${{ steps.gate.outputs.disposition }}
+          GATE_EXIT: ${{ steps.gate.outputs.exit-code }}
+        run: |
+          echo "dotnet test step outcome: $TEST_OUTCOME; Dokimos disposition: $DISPOSITION (exit $GATE_EXIT)"

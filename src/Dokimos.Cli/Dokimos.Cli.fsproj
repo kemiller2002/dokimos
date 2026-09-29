@@ -1,5 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Dokimos.Cli</AssemblyName>
+    <!-- Distributed as a .NET tool: dotnet tool install EchelonFoundry.Dokimos.Cli -->
+    <IsPackable>true</IsPackable>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>dokimos</ToolCommandName>
+    <PackageId>EchelonFoundry.Dokimos.Cli</PackageId>
+    <Title>Dokimos</Title>
+    <Description>Dokimos: longitudinal code-quality evidence. Immutable snapshots, comparison, policy evaluation with stable exit codes, durable evidence history.</Description>
+    <PackageTags>code-quality;evidence;quality-gate;fsharp;echelon</PackageTags>
+    <PackageProjectUrl>https://dokimos.echelonfoundry.com</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
   <ItemGroup><ProjectReference Include="../Dokimos.Core/Dokimos.Core.fsproj" /></ItemGroup>
-  <ItemGroup><Compile Include="Program.fs" /></ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.fs" />
+    <None Include="PACKAGE-README.md" Pack="true" PackagePath="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EchelonFoundry.Aegis.Core" Version="1.0.0" />
+  </ItemGroup>
 </Project>

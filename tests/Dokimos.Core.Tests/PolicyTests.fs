@@ -46,9 +46,20 @@ module PolicyTests =
               Preference = LowerIsBetter
               Disposition = Fail }
 
-        match Policy.evaluateRatchet ratchet observation with
-        | NotEvaluated _ -> ()
-        | result -> failwith $"Expected NotEvaluated, got {result}."
+        Assert.Equal(EvidenceUnavailable Unsupported, Policy.evaluateRatchet ratchet observation)
+
+    [<Fact>]
+    let ``failed collection is its own state`` () =
+        let failure = { Code = "build-summary-missing"; Message = "m" }
+        let observation = PolicyHelpers.observation (Failed failure)
+        let threshold = { Metric = PolicyHelpers.metric; Maximum = 1m; Disposition = Fail }
+        Assert.Equal(CollectionFailed failure, Policy.evaluateThreshold threshold observation)
+
+    [<Fact>]
+    let ``observe-only disposition records the exceedance without failing`` () =
+        let observation = PolicyHelpers.observation (Available(5m, "count"))
+        let threshold = { Metric = PolicyHelpers.metric; Maximum = 1m; Disposition = ObserveOnly }
+        Assert.Equal(ObservedOnly(5m, 1m), Policy.evaluateThreshold threshold observation)
 
     [<Fact>]
     let ``new best state passes ratchet`` () =

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/store-result",
+  "title": "Dokimos evidence store result",
+  "type": "object",
+  "required": [
+    "Contract",
+    "SchemaVersion",
+    "Store",
+    "Outcome",
+    "Subject"
+  ],
+  "properties": {
+    "Contract": {
+      "const": "dokimos.store-result"
+    },
+    "SchemaVersion": {
+      "const": "1.0.0"
+    },
+    "Store": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Outcome": {
+      "enum": [
+        "stored",
+        "already-stored"
+      ]
+    },
+    "Subject": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

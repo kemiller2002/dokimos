@@ -25,11 +25,51 @@
       "id": "tests.total",
       "version": 1,
       "unit": "count",
-      "preference": "none",
+      "preference": "contextual",
       "scope": [
         "repository"
       ],
       "definition": "Tests executed in the observed test run. Count alone is not a quality score."
+    },
+    {
+      "id": "tests.passed",
+      "version": 1,
+      "unit": "count",
+      "preference": "contextual",
+      "scope": [
+        "repository"
+      ],
+      "definition": "Tests that passed in the observed test run (TRX counters)."
+    },
+    {
+      "id": "tests.failed",
+      "version": 1,
+      "unit": "count",
+      "preference": "lower-is-better",
+      "scope": [
+        "repository"
+      ],
+      "definition": "Tests that failed, errored, timed out or aborted in the observed test run (TRX counters)."
+    },
+    {
+      "id": "tests.skipped",
+      "version": 1,
+      "unit": "count",
+      "preference": "contextual",
+      "scope": [
+        "repository"
+      ],
+      "definition": "Tests present in the run but not executed (TRX total minus executed)."
+    },
+    {
+      "id": "coverage.line-rate",
+      "version": 1,
+      "unit": "ratio",
+      "preference": "higher-is-better",
+      "scope": [
+        "repository"
+      ],
+      "definition": "Line coverage ratio (0-1) from a supplied Cobertura report. Unavailable unless coverage is explicitly supplied."
     },
     {
       "id": "change.file-commits",
@@ -95,7 +135,7 @@
       "id": "source.mutable-bindings",
       "version": 1,
       "unit": "count",
-      "preference": "contextual",
+      "preference": "lower-is-better",
       "scope": [
         "file"
       ],
@@ -122,13 +162,32 @@
       "definition": "Lexical complexity proxy composed from decision, boolean, and match-branch indicators; not AST cyclomatic complexity."
     },
     {
+      "id": "quality.type-weakening-indicators",
+      "version": 1,
+      "unit": "count",
+      "preference": "lower-is-better",
+      "scope": [
+        "file"
+      ],
+      "definition": "obj-typed declarations outside string literals. An indicator, not a defect."
+    },
+    {
+      "id": "quality.scaffolding-indicators",
+      "version": 1,
+      "unit": "count",
+      "preference": "lower-is-better",
+      "scope": [
+        "file"
+      ],
+      "definition": "Unresolved TODO/FIXME markers outside string literals."
+    },
+    {
       "id": "duplication.block-occurrences",
       "version": 1,
       "unit": "count",
       "preference": "contextual",
       "scope": [
-        "repository",
-        "file"
+        "repository"
       ],
       "definition": "Occurrences of normalized repeated nonblank source blocks at configured block size."
     },
