@@ -15,7 +15,7 @@ module StoreHistoryCliTests =
 
     let idOf (path: string) =
         use doc = JsonDocument.Parse(File.ReadAllText path)
-        doc.RootElement.GetProperty("SnapshotId").GetString()
+        doc.RootElement.GetProperty("SnapshotId").Text
 
     let setup () =
         let root = Support.tempDirectory ()
@@ -38,7 +38,7 @@ module StoreHistoryCliTests =
         let again = Support.run [ "store"; "put"; "--store"; store; "--snapshot"; a ]
         Assert.Contains("already-stored", again.Stdout.Value)
         let tampered = File.ReadAllText(a).Replace("\"Value\": 2,", "\"Value\": 7,")
-        let path = Support.write (Path.GetDirectoryName a) "tampered.json" tampered
+        let path = Support.write (Path.GetDirectoryName(a) |> Option.ofObj |> Option.defaultValue ".") "tampered.json" tampered
         let conflict = Support.run [ "store"; "put"; "--store"; store; "--snapshot"; path ]
         Assert.Equal(5, conflict.ExitCode)
         Support.assertSchemaValid "dokimos-diagnostic.schema.json" conflict.Stderr.Value
@@ -53,7 +53,7 @@ module StoreHistoryCliTests =
         let baseline = Support.run [ "store"; "baseline"; "--store"; store ]
         Assert.Equal(0, baseline.ExitCode)
         Support.assertSchemaValid "dokimos-snapshot.schema.json" baseline.Stdout.Value
-        Assert.Equal(idOf a, JsonDocument.Parse(baseline.Stdout.Value).RootElement.GetProperty("SnapshotId").GetString())
+        Assert.Equal(idOf a, JsonDocument.Parse(baseline.Stdout.Value).RootElement.GetProperty("SnapshotId").Text)
 
     [<Fact>]
     let ``history lists ordered snapshots and metric trends`` () =
@@ -68,7 +68,7 @@ module StoreHistoryCliTests =
         Support.assertSchemaValid "dokimos-history.schema.json" metric.Stdout.Value
         use m = JsonDocument.Parse metric.Stdout.Value
         let series = m.RootElement.GetProperty("Series").[0]
-        Assert.Equal(idOf b, series.GetProperty("Best").GetProperty("SnapshotId").GetString())
+        Assert.Equal(idOf b, series.GetProperty("Best").GetProperty("SnapshotId").Text)
         Assert.Equal(1M, series.GetProperty("BaselineDistance").GetDecimal())
 
     [<Fact>]
@@ -76,7 +76,7 @@ module StoreHistoryCliTests =
         let store, _, _, _ = setup ()
         let scope =
             let listing = Support.run [ "history"; "--store"; store; "--metric"; "source.lines" ]
-            JsonDocument.Parse(listing.Stdout.Value).RootElement.GetProperty("Series").[0].GetProperty("Scope").GetString()
+            JsonDocument.Parse(listing.Stdout.Value).RootElement.GetProperty("Series").[0].GetProperty("Scope").Text
         let file = Support.run [ "history"; "--store"; store; "--file"; scope ]
         Support.assertSchemaValid "dokimos-history.schema.json" file.Stdout.Value
         Assert.Contains("\"MetricId\": \"change.file-churn\"", file.Stdout.Value)

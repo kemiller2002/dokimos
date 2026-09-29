@@ -58,8 +58,8 @@ module ProgramTests =
         use doc = System.Text.Json.JsonDocument.Parse output.Stdout.Value
         let apiAdded =
             doc.RootElement.GetProperty("Metrics").EnumerateArray()
-            |> Seq.find (fun m -> m.GetProperty("MetricId").GetString() = "api.added")
-        Assert.Equal("unavailable", apiAdded.GetProperty("Support").GetString())
+            |> Seq.find (fun m -> m.GetProperty("MetricId").Text = "api.added")
+        Assert.Equal("unavailable", apiAdded.GetProperty("Support").Text)
 
     [<Fact>]
     let ``schema validation rejects a comparison with an unknown state tag`` () =

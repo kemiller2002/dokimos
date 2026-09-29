@@ -4,6 +4,15 @@ open System
 open Dokimos.Domain
 open Dokimos.Core
 
+[<AutoOpen>]
+module JsonText =
+    type System.Text.Json.JsonElement with
+        /// A JSON string value as a non-null string ("" for JSON null).
+        member element.Text =
+            match element.GetString() with
+            | null -> ""
+            | text -> text
+
 /// Canonical snapshot builders shared by Core tests.
 module Fixtures =
     let snapshotWith producer id metrics findings : CanonicalSnapshot =

@@ -9,7 +9,11 @@ open Dokimos.Core
 module CapabilitiesTests =
     let repositoryRoot =
         let rec up (dir: DirectoryInfo) =
-            if File.Exists(Path.Combine(dir.FullName, "Dokimos.sln")) then dir.FullName else up dir.Parent
+            if File.Exists(Path.Combine(dir.FullName, "Dokimos.sln")) then dir.FullName
+            else
+                match dir.Parent with
+                | null -> failwith "Dokimos.sln not found above the test directory"
+                | parent -> up parent
         up (DirectoryInfo(System.AppContext.BaseDirectory))
 
     [<Fact>]
@@ -31,8 +35,8 @@ module CapabilitiesTests =
         use doc = JsonDocument.Parse(File.ReadAllText(Path.Combine(repositoryRoot, "config", "metric-catalog.json")))
         let published =
             doc.RootElement.GetProperty("metrics").EnumerateArray()
-            |> Seq.filter (fun m -> not (m.GetProperty("id").GetString().StartsWith "correlation."))
-            |> Seq.map (fun m -> m.GetProperty("id").GetString(), m.GetProperty("version").GetInt32(), m.GetProperty("unit").GetString(), m.GetProperty("preference").GetString())
+            |> Seq.filter (fun m -> not (m.GetProperty("id").Text.StartsWith "correlation."))
+            |> Seq.map (fun m -> m.GetProperty("id").Text, m.GetProperty("version").GetInt32(), m.GetProperty("unit").Text, m.GetProperty("preference").Text)
             |> Set.ofSeq
         let interpreted =
             Capabilities.metrics

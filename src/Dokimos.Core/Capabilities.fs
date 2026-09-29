@@ -37,7 +37,10 @@ module DokimosInfo =
     let version =
         let assembly = typeof<Marker>.Assembly
         match assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>() with
-        | null -> assembly.GetName().Version |> string
+        | null ->
+            match assembly.GetName().Version with
+            | null -> "unversioned"
+            | v -> v.ToString()
         | attribute -> attribute.InformationalVersion
 
 module Capabilities =

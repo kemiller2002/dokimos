@@ -7,11 +7,24 @@ open System.Text.Json.Nodes
 open Json.Schema
 open Dokimos.Cli
 
+[<AutoOpen>]
+module JsonText =
+    type System.Text.Json.JsonElement with
+        /// A JSON string value as a non-null string ("" for JSON null).
+        member element.Text =
+            match element.GetString() with
+            | null -> ""
+            | text -> text
+
 /// Test harness for the CLI product boundary.
 module Support =
     let repositoryRoot =
         let rec up (dir: DirectoryInfo) =
-            if File.Exists(Path.Combine(dir.FullName, "Dokimos.sln")) then dir.FullName else up dir.Parent
+            if File.Exists(Path.Combine(dir.FullName, "Dokimos.sln")) then dir.FullName
+            else
+                match dir.Parent with
+                | null -> failwith "Dokimos.sln not found above the test directory"
+                | parent -> up parent
         up (DirectoryInfo AppContext.BaseDirectory)
 
     let repoPath (relative: string) = Path.Combine(repositoryRoot, relative)
@@ -23,7 +36,9 @@ module Support =
 
     let write (directory: string) (name: string) (content: string) =
         let path = Path.Combine(directory, name)
-        Directory.CreateDirectory(Path.GetDirectoryName path) |> ignore
+        match Path.GetDirectoryName path with
+        | null -> ()
+        | directory -> Directory.CreateDirectory directory |> ignore
         File.WriteAllText(path, content)
         path
 
@@ -42,7 +57,10 @@ module Support =
         let info = ProcessStartInfo("dotnet", RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false)
         info.ArgumentList.Add dll
         args |> List.iter info.ArgumentList.Add
-        use proc = Process.Start info
+        use proc =
+            match Process.Start info with
+            | null -> failwith "could not start dotnet"
+            | started -> started
         let stdout = proc.StandardOutput.ReadToEndAsync()
         let stderr = proc.StandardError.ReadToEndAsync()
         proc.WaitForExit()
@@ -54,12 +72,18 @@ module Support =
     /// failing locations so assertion messages explain what is wrong.
     let schemaErrors (schemaFile: string) (json: string) =
         let schema = schemas.GetOrAdd(schemaFile, fun f -> JsonSchema.FromFile(repoPath (Path.Combine("schemas", f))))
-        let result = schema.Evaluate(JsonNode.Parse json, EvaluationOptions(OutputFormat = OutputFormat.List))
+        let node =
+            match JsonNode.Parse json with
+            | null -> failwith "document is JSON null"
+            | parsed -> parsed
+        let result = schema.Evaluate(node, EvaluationOptions(OutputFormat = OutputFormat.List))
         if result.IsValid then []
         else
             result.Details
-            |> Seq.filter (fun d -> d.HasErrors)
-            |> Seq.collect (fun d -> d.Errors |> Seq.map (fun kv -> $"{d.InstanceLocation} {kv.Key}: {kv.Value}"))
+            |> Seq.collect (fun d ->
+                match d.Errors with
+                | null -> Seq.empty
+                | errors -> errors |> Seq.map (fun kv -> $"{d.InstanceLocation} {kv.Key}: {kv.Value}"))
             |> Seq.toList
 
     let assertSchemaValid schemaFile json =

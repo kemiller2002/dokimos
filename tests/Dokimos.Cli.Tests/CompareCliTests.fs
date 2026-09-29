@@ -75,10 +75,10 @@ module CompareCliTests =
     let assertComparison (json: string) =
         Support.assertSchemaValid "dokimos-comparison.schema.json" json
         use doc = JsonDocument.Parse json
-        let changes = doc.RootElement.GetProperty("MetricChanges").EnumerateArray() |> Seq.map (fun c -> c.GetProperty("MetricId").GetString(), c.GetProperty("Kind").GetString()) |> Map.ofSeq
+        let changes = doc.RootElement.GetProperty("MetricChanges").EnumerateArray() |> Seq.map (fun c -> c.GetProperty("MetricId").Text, c.GetProperty("Kind").Text) |> Map.ofSeq
         for metricId, kind in expectedKinds do
             Assert.Equal(kind, changes[metricId])
-        let findings = doc.RootElement.GetProperty("FindingChanges").EnumerateArray() |> Seq.map (fun c -> c.GetProperty("FindingId").GetString(), c.GetProperty("Kind").GetString()) |> Map.ofSeq
+        let findings = doc.RootElement.GetProperty("FindingChanges").EnumerateArray() |> Seq.map (fun c -> c.GetProperty("FindingId").Text, c.GetProperty("Kind").Text) |> Map.ofSeq
         Assert.Equal("resolved", findings["correlation:maintainability-hotspot:Gone.fs"])
         Assert.Equal("persistent", findings["correlation:maintainability-hotspot:A.fs"])
         Assert.Equal("introduced", findings["correlation:maintainability-hotspot:New.fs"])

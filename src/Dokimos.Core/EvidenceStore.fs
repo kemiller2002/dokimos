@@ -105,7 +105,9 @@ module FileSystemStore =
 
     /// Creates a file only if it does not exist. Returns false when it does.
     let private createNew (path: string) (content: string) =
-        Directory.CreateDirectory(Path.GetDirectoryName path) |> ignore
+        match Path.GetDirectoryName path with
+        | null -> ()
+        | directory -> Directory.CreateDirectory directory |> ignore
         try
             use stream = new FileStream(path, FileMode.CreateNew, FileAccess.Write)
             use writer = new StreamWriter(stream)

@@ -42,8 +42,8 @@ module QualityGateProofTests =
     let kind metricId (comparisonJson: string) =
         use doc = JsonDocument.Parse comparisonJson
         doc.RootElement.GetProperty("MetricChanges").EnumerateArray()
-        |> Seq.find (fun c -> c.GetProperty("MetricId").GetString() = metricId && c.GetProperty("Scope").GetString().EndsWith "Calculator.fs")
-        |> fun c -> c.GetProperty("Kind").GetString()
+        |> Seq.find (fun c -> c.GetProperty("MetricId").Text = metricId && c.GetProperty("Scope").Text.EndsWith "Calculator.fs")
+        |> fun c -> c.GetProperty("Kind").Text
 
     let property (name: string) (json: string) =
         use doc = JsonDocument.Parse json
@@ -115,8 +115,8 @@ module QualityGateProofTests =
         use doc = JsonDocument.Parse result.Stdout
         let required =
             doc.RootElement.GetProperty("Outcomes").EnumerateArray()
-            |> Seq.filter (fun o -> o.GetProperty("Rule").GetString() = "required-evidence")
-            |> Seq.map (fun o -> o.GetProperty("State").GetString())
+            |> Seq.filter (fun o -> o.GetProperty("Rule").Text = "required-evidence")
+            |> Seq.map (fun o -> o.GetProperty("State").Text)
             |> Seq.toList
         Assert.NotEmpty(required)
         Assert.All(required, fun state -> Assert.Equal("unavailable", state))

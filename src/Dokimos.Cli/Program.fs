@@ -408,7 +408,9 @@ module Program =
                         | Some existing when existing = file.Content -> file.Path, "unchanged"
                         | Some _ -> file.Path, "preserved-existing"
                         | None ->
-                            Directory.CreateDirectory(Path.GetDirectoryName path) |> ignore
+                            match Path.GetDirectoryName path with
+                            | null -> ()
+                            | directory -> Directory.CreateDirectory directory |> ignore
                             File.WriteAllText(path, file.Content)
                             file.Path, "created")
                 Output.data (

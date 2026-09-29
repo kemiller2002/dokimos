@@ -57,10 +57,10 @@ module ContractsTests =
         let json = CanonicalComparison.compare before after |> Contracts.comparisonDto before after |> Contracts.serialize
         use doc = JsonDocument.Parse json
         let change = doc.RootElement.GetProperty("MetricChanges").[0]
-        Assert.Equal("improved", change.GetProperty("Kind").GetString())
-        Assert.Equal("available", change.GetProperty("Before").GetProperty("State").GetString())
+        Assert.Equal("improved", change.GetProperty("Kind").Text)
+        Assert.Equal("available", change.GetProperty("Before").GetProperty("State").Text)
         let findingChange = doc.RootElement.GetProperty("FindingChanges").[0]
-        Assert.Equal("resolved", findingChange.GetProperty("Kind").GetString())
+        Assert.Equal("resolved", findingChange.GetProperty("Kind").Text)
 
     [<Fact>]
     let ``policy 1.0.0 and 1.1.0 decode; unknown versions and dispositions are rejected`` () =
