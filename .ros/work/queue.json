@@ -75,10 +75,10 @@
         "operational"
       ],
       "priority": "high",
-      "status": "captured",
+      "status": "ready",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:48:52Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -107,10 +107,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:48:52Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -123,10 +123,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:48:52Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -187,10 +187,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "ready",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:48:52Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null

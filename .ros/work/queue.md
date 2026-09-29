@@ -4,14 +4,14 @@
 |---|---|---|---|---|
 | DOK-OPS-001 | Canonical comparison wire contract | complete | operational | high |
 | DOK-OPS-002 | Explicit policy evaluation | complete | operational | high |
-| DOK-OPS-003 | Self-CI runs the real gate | captured | operational | high |
+| DOK-OPS-003 | Self-CI runs the real gate | active | operational | high |
 | DOK-OPS-004 | End-to-end quality-gate proof | complete | operational | high |
-| DOK-OPS-005 | Durable evidence store | captured | operational | medium |
-| DOK-OPS-006 | Historical queries | captured | operational | medium |
+| DOK-OPS-005 | Durable evidence store | complete | operational | medium |
+| DOK-OPS-006 | Historical queries | complete | operational | medium |
 | DOK-OPS-007 | Stable CLI | captured | operational | medium |
 | DOK-OPS-008 | Installable package | captured | operational | medium |
 | DOK-OPS-009 | Release workflow | captured | operational | medium |
-| DOK-OPS-010 | Reusable GitHub integration | captured | operational | medium |
+| DOK-OPS-010 | Reusable GitHub integration | active | operational | medium |
 | DOK-OPS-011 | Conditor integration | captured | operational | medium |
 | DOK-OPS-012 | Echelon administration registration | captured | operational | medium |
 | DOK-OPS-013 | Analyzer capability declaration | captured | operational | medium |

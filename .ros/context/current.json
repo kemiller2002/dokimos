@@ -4,7 +4,7 @@
   "repository": "echelon-design-system",
   "actor": "claude",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-09-29T14:40:05Z",
+  "updatedAt": "2026-09-29T14:48:52Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -105,6 +105,70 @@
         "EXE-20260929T143953449Z-1f3e9b8a"
       ],
       "completedAt": "2026-09-29T14:40:05Z"
+    },
+    {
+      "id": "DOK-OPS-003",
+      "type": "feature",
+      "state": "active",
+      "semanticState": "active",
+      "evidence": [],
+      "updatedAt": "2026-09-29T14:48:52Z",
+      "telemetryExecutionIds": [
+        "EXE-20260929T144853567Z-04323b7a"
+      ]
+    },
+    {
+      "id": "DOK-OPS-005",
+      "type": "feature",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/EvidenceStore.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/EvidenceStoreTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-29T14:48:52Z",
+      "telemetryExecutionIds": [
+        "EXE-20260929T144853636Z-879ba824"
+      ],
+      "completedAt": "2026-09-29T14:48:52Z"
+    },
+    {
+      "id": "DOK-OPS-006",
+      "type": "feature",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/History.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Cli.Tests/StoreHistoryCliTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-29T14:48:52Z",
+      "telemetryExecutionIds": [
+        "EXE-20260929T144853675Z-fcc616ac"
+      ],
+      "completedAt": "2026-09-29T14:48:52Z"
+    },
+    {
+      "id": "DOK-OPS-010",
+      "type": "feature",
+      "state": "active",
+      "semanticState": "active",
+      "evidence": [],
+      "updatedAt": "2026-09-29T14:48:52Z",
+      "telemetryExecutionIds": [
+        "EXE-20260929T144853721Z-baa0fe75"
+      ]
     }
   ]
 }

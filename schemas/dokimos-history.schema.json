@@ -1,0 +1,714 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/history",
+  "title": "Dokimos history query",
+  "description": "Output of `dokimos history`. Query.Kind selects which collections are populated.",
+  "type": "object",
+  "required": [
+    "Contract",
+    "SchemaVersion",
+    "DokimosVersion",
+    "Store",
+    "Repository",
+    "Query",
+    "Baseline",
+    "Snapshots",
+    "Series",
+    "Findings",
+    "Notes"
+  ],
+  "properties": {
+    "Contract": {
+      "const": "dokimos.history"
+    },
+    "SchemaVersion": {
+      "const": "1.0.0"
+    },
+    "DokimosVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Store": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Repository": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "Query": {
+      "type": "object",
+      "required": [
+        "Kind",
+        "Metric",
+        "Scope",
+        "File"
+      ],
+      "properties": {
+        "Kind": {
+          "enum": [
+            "snapshots",
+            "metric",
+            "file",
+            "findings"
+          ]
+        },
+        "Metric": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Scope": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "File": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "Baseline": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/snapshotRef"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "Snapshots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    },
+    "Series": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/series"
+      }
+    },
+    "Findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "Notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "snapshotRef": {
+      "type": "object",
+      "required": [
+        "SnapshotId",
+        "SchemaVersion",
+        "Repository",
+        "Revision",
+        "Ref",
+        "CollectedAt",
+        "DokimosVersion"
+      ],
+      "properties": {
+        "SnapshotId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "SchemaVersion": {
+          "enum": [
+            "1.0.0",
+            "2.0.0"
+          ]
+        },
+        "Repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Ref": {
+          "type": "string"
+        },
+        "CollectedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DokimosVersion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "entry": {
+      "type": "object",
+      "required": [
+        "SnapshotId",
+        "SchemaVersion",
+        "Revision",
+        "Ref",
+        "CollectedAt",
+        "DokimosVersion",
+        "Metrics",
+        "Findings",
+        "IsBaseline",
+        "Performance"
+      ],
+      "properties": {
+        "SnapshotId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "SchemaVersion": {
+          "enum": [
+            "1.0.0",
+            "2.0.0"
+          ]
+        },
+        "Revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Ref": {
+          "type": "string"
+        },
+        "CollectedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DokimosVersion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Metrics": {
+          "type": "object",
+          "required": [
+            "Available",
+            "Unavailable",
+            "Failed"
+          ],
+          "properties": {
+            "Available": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "Unavailable": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "Failed": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        "Findings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "IsBaseline": {
+          "type": "boolean"
+        },
+        "Performance": {
+          "anyOf": [
+            {
+              "type": "object",
+              "required": [
+                "TotalMilliseconds",
+                "FileCount",
+                "ObservationCount",
+                "UnavailableCollectors",
+                "FailedCollectors"
+              ],
+              "properties": {
+                "TotalMilliseconds": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "FileCount": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "ObservationCount": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "UnavailableCollectors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "FailedCollectors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "series": {
+      "type": "object",
+      "required": [
+        "MetricId",
+        "Scope",
+        "Unit",
+        "Preference",
+        "Points",
+        "FirstSeen",
+        "LastSeen",
+        "Latest",
+        "Best",
+        "Baseline",
+        "BaselineDistance",
+        "IncompatibleVersions",
+        "Notes"
+      ],
+      "properties": {
+        "MetricId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Unit": {
+          "type": "string"
+        },
+        "Preference": {
+          "enum": [
+            "lower-is-better",
+            "higher-is-better",
+            "contextual"
+          ]
+        },
+        "Points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/point"
+          }
+        },
+        "FirstSeen": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/point"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "LastSeen": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/point"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Latest": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/point"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Best": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/point"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Baseline": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/point"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "BaselineDistance": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "IncompatibleVersions": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "Notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "point": {
+      "type": "object",
+      "required": [
+        "SnapshotId",
+        "Revision",
+        "CollectedAt",
+        "MetricVersion",
+        "Measurement"
+      ],
+      "properties": {
+        "SnapshotId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "CollectedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "MetricVersion": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "Measurement": {
+          "$ref": "#/$defs/measurement"
+        }
+      },
+      "additionalProperties": false
+    },
+    "measurement": {
+      "type": "object",
+      "required": [
+        "State",
+        "Value",
+        "Reason",
+        "Detail"
+      ],
+      "properties": {
+        "State": {
+          "enum": [
+            "available",
+            "unavailable",
+            "failed"
+          ]
+        },
+        "Value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Detail": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "State": {
+                "const": "available"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "Value": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "State": {
+                "const": "unavailable"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "Value": {
+                "type": "null"
+              },
+              "Reason": {
+                "enum": [
+                  "unsupported",
+                  "not-configured",
+                  "insufficient-evidence"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "State": {
+                "const": "failed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "Value": {
+                "type": "null"
+              },
+              "Reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "finding": {
+      "type": "object",
+      "required": [
+        "FindingId",
+        "Kind",
+        "Scope",
+        "FirstSeen",
+        "LastSeen",
+        "Current",
+        "Timeline"
+      ],
+      "properties": {
+        "FindingId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Kind": {
+          "type": "string"
+        },
+        "Scope": {
+          "type": "string"
+        },
+        "FirstSeen": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "LastSeen": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Current": {
+          "enum": [
+            "introduced",
+            "persistent",
+            "resolved",
+            "resurfaced",
+            "absent",
+            "unavailable",
+            "uncertain"
+          ]
+        },
+        "Timeline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/timeline"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "timeline": {
+      "type": "object",
+      "required": [
+        "SnapshotId",
+        "Revision",
+        "CollectedAt",
+        "State",
+        "Note",
+        "Evidence"
+      ],
+      "properties": {
+        "SnapshotId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "CollectedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "State": {
+          "enum": [
+            "introduced",
+            "persistent",
+            "resolved",
+            "resurfaced",
+            "absent",
+            "unavailable",
+            "uncertain"
+          ]
+        },
+        "Note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/signal"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "signal": {
+      "type": "object",
+      "required": [
+        "Kind",
+        "Value"
+      ],
+      "properties": {
+        "Kind": {
+          "enum": [
+            "structural-complexity",
+            "frequent-change",
+            "high-churn",
+            "repeated-region",
+            "active-findings",
+            "aged-debt",
+            "api-instability",
+            "dependency-additions",
+            "missing-test-change",
+            "type-weakening"
+          ]
+        },
+        "Value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -13,5 +13,6 @@
     <Compile Include="CompareCliTests.fs" />
     <Compile Include="EvaluateCliTests.fs" />
     <Compile Include="QualityGateProofTests.fs" />
+    <Compile Include="StoreHistoryCliTests.fs" />
   </ItemGroup>
 </Project>

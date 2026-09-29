@@ -246,6 +246,126 @@ module Program =
             | [ root ] -> Output.invalid "source-not-found" $"source directory {root} does not exist"
             | _ -> Output.invalid "invalid-arguments" "usage: dokimos analyze <source-directory> [--git-history <numstat-file>]")
 
+    let private storeError error =
+        let code, message = EvidenceStore.describeError error
+        Output.error (EvidenceStore.exitCode error) code message
+
+    let private withStore parsed k =
+        match Arguments.required "store" parsed with
+        | Error e -> Output.invalid "invalid-arguments" e
+        | Ok root ->
+            match FileSystemStore.openStore root with
+            | Ok store -> k store
+            | Error e -> storeError e
+
+    let private storeResult (store: EvidenceStore) outcome id =
+        Output.data (
+            Contracts.serialize
+                {| Contract = "dokimos.store-result"
+                   SchemaVersion = "1.0.0"
+                   Store = store.Describe
+                   Outcome = (match outcome with Stored -> "stored" | AlreadyStored -> "already-stored")
+                   Subject = id |}
+        )
+
+    let store args =
+        match args with
+        | "init" :: rest ->
+            withArgs [ "store" ] rest (fun parsed ->
+                match Arguments.required "store" parsed with
+                | Error e -> Output.invalid "invalid-arguments" e
+                | Ok root ->
+                    FileSystemStore.init root
+                    withStore parsed (fun store -> storeResult store Stored root))
+        | "put" :: rest ->
+            withArgs [ "store"; "snapshot" ] rest (fun parsed ->
+                withStore parsed (fun store ->
+                    match Arguments.required "snapshot" parsed with
+                    | Error e -> Output.invalid "invalid-arguments" e
+                    | Ok path ->
+                        readRequiredSnapshot "snapshot" path (fun snapshot ->
+                            match store.Put snapshot with
+                            | Ok outcome -> storeResult store outcome snapshot.SnapshotId
+                            | Error e -> storeError e)))
+        | "get" :: rest ->
+            withArgs [ "store"; "id" ] rest (fun parsed ->
+                withStore parsed (fun store ->
+                    match Arguments.required "id" parsed with
+                    | Error e -> Output.invalid "invalid-arguments" e
+                    | Ok id ->
+                        match store.TryGet id with
+                        | Ok (Some snapshot) -> Output.data (Contracts.serialize (Contracts.snapshotDto snapshot))
+                        | Ok None -> storeError (SnapshotNotFound id)
+                        | Error e -> storeError e))
+        | "accept-baseline" :: rest ->
+            withArgs [ "store"; "snapshot-id"; "actor"; "reason"; "name"; "at" ] rest (fun parsed ->
+                withStore parsed (fun store ->
+                    match Arguments.required "snapshot-id" parsed, Arguments.required "actor" parsed, Arguments.required "reason" parsed with
+                    | Ok id, Ok actor, Ok reason ->
+                        let at =
+                            Arguments.tryOne "at" parsed
+                            |> Option.bind (fun t -> match DateTimeOffset.TryParse t with | true, v -> Some v | _ -> None)
+                            |> Option.defaultValue DateTimeOffset.UtcNow
+                        let acceptance = { Name = Arguments.tryOne "name" parsed |> Option.defaultValue "default"; SnapshotId = id; AcceptedAt = at; Actor = actor; Reason = reason }
+                        match store.Accept acceptance with
+                        | Ok outcome -> storeResult store outcome (acceptance.Name + "=" + id)
+                        | Error e -> storeError e
+                    | Error e, _, _
+                    | _, Error e, _
+                    | _, _, Error e -> Output.invalid "invalid-arguments" e))
+        | "baseline" :: rest ->
+            withArgs [ "store"; "name" ] rest (fun parsed ->
+                withStore parsed (fun store ->
+                    let name = Arguments.tryOne "name" parsed |> Option.defaultValue "default"
+                    match EvidenceStore.currentBaseline store name with
+                    | Ok (Some (_, snapshot)) -> Output.data (Contracts.serialize (Contracts.snapshotDto snapshot))
+                    | Ok None -> Output.unavailable "baseline-not-accepted" $"No baseline named '{name}' has been accepted in {store.Describe}."
+                    | Error e -> storeError e))
+        | _ -> Output.invalid "invalid-arguments" "usage: dokimos store init|put|get|accept-baseline|baseline --store <dir> ..."
+
+    let history args =
+        let findingsQuery, rest =
+            match args with
+            | "findings" :: rest -> true, rest
+            | rest -> false, rest
+        withArgs [ "store"; "repository"; "metric"; "scope"; "file"; "baseline-name" ] rest (fun parsed ->
+            withStore parsed (fun store ->
+                let repository = Arguments.tryOne "repository" parsed
+                let baselineName = Arguments.tryOne "baseline-name" parsed |> Option.defaultValue "default"
+                match store.List(), EvidenceStore.currentBaseline store baselineName with
+                | Error e, _
+                | _, Error e -> storeError e
+                | Ok all, Ok baseline ->
+                    let snapshots = History.ordered repository all
+                    let baselineSnapshot = baseline |> Option.map snd
+                    let metric = Arguments.tryOne "metric" parsed
+                    let file = Arguments.tryOne "file" parsed
+                    let scope = Arguments.tryOne "scope" parsed
+                    let kind, series, findings =
+                        match findingsQuery, metric, file with
+                        | true, _, _ -> "findings", [], History.findingHistories snapshots
+                        | _, Some id, _ -> "metric", History.metricHistory baselineSnapshot id scope snapshots, []
+                        | _, None, Some path ->
+                            "file", History.fileHistory baselineSnapshot path snapshots,
+                            History.findingHistories snapshots |> List.filter (fun f -> f.Scope = path)
+                        | _ -> "snapshots", [], []
+                    let dto: HistoryDto =
+                        { Contract = HistoryContract.Contract
+                          SchemaVersion = HistoryContract.SchemaVersion
+                          DokimosVersion = DokimosInfo.version
+                          Store = store.Describe
+                          Repository = repository
+                          Query = { Kind = kind; Metric = metric; Scope = scope; File = file }
+                          Baseline = baselineSnapshot |> Option.map Contracts.snapshotRef
+                          Snapshots = snapshots |> List.map (HistoryContract.entryDto (baselineSnapshot |> Option.map _.SnapshotId))
+                          Series = series |> List.map HistoryContract.seriesDto
+                          Findings = findings |> List.map HistoryContract.findingDto
+                          Notes =
+                            [ if snapshots.IsEmpty then "The store holds no snapshots for this query."
+                              if baseline.IsNone then $"No baseline named '{baselineName}' is accepted; baseline distance is unavailable."
+                              if kind = "metric" && series.IsEmpty then "No stored snapshot contains this metric." ] }
+                    Output.data (Contracts.serialize dto)))
+
     let usage =
         String.concat
             "\n"
@@ -257,6 +377,8 @@ module Program =
               "  snapshot <source-dir>... --repository r --revision sha [options]"
               "  compare <before-snapshot> <after-snapshot>"
               "  evaluate --baseline b --current c --policy p"
+              "  store init|put|get|accept-baseline|baseline --store dir ..."
+              "  history [findings] --store dir [--repository r] [--metric id [--scope s]] [--file path]"
               "exit codes: 0 continue, 1 unexpected fault, 2 invalid invocation, 3 evidence unavailable/invalid, 4 policy failure, 5 store conflict" ]
 
     /// Dispatches one invocation. Expected Dokimos outcomes are returned as
@@ -271,6 +393,8 @@ module Program =
         | "snapshot" :: rest -> snapshot rest
         | "measure" :: rest -> measure rest
         | "analyze" :: rest -> analyze rest
+        | "store" :: rest -> store rest
+        | "history" :: rest -> history rest
         | _ -> Output.invalid "invalid-arguments" usage
 
     /// Operational fault boundary: filesystem, process and other unexpected
