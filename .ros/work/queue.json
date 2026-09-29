@@ -347,10 +347,10 @@
         "operational"
       ],
       "priority": "low",
-      "status": "captured",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T16:53:14Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null

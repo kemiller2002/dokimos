@@ -55,4 +55,7 @@ runs:
           out="$RUNNER_TEMP/results-ui/$(basename "$fixture" .json)"
           npm run results:render -- "$fixture" "$out"
           npm run results:audit -- "$out"
+          # Folio printable report from the same contract, exported with Chromium.
+          npm run results:report -- "$fixture" "$out"
+          npm run results:pdf -- "$out"
         done

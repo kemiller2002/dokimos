@@ -87,6 +87,7 @@ jobs:
             --baseline artifacts/dokimos/baseline.json --current artifacts/dokimos/snapshot.json \
             --policy config/dokimos-policy.json --store "$RUNNER_TEMP/dokimos-evidence-store" > artifacts/dokimos/results.json
           node results-ui/render.mjs artifacts/dokimos/results.json artifacts/results-ui
+          node results-ui/report.mjs artifacts/dokimos/results.json artifacts/results-ui
       - name: Upload the results UI
         if: always() && steps.gate.outputs.snapshot-id != ''
         uses: actions/upload-artifact@v4

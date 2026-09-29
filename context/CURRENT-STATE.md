@@ -61,4 +61,4 @@ External blockers:
 1. Check CI on PR #5; fix until green.
 2. After merge: push tag `dokimos-v0.1.0` (or dispatch Release from main), then run the Dokimos CI workflow on main with `accept-baseline=true` to accept the first schema-2.0.0 baseline.
 3. Open the aegis installation PR using `dokimos init --version 0.1.0 --action-ref <release commit> --package-sha256 <sha>`.
-4. DOK-OPS-019 results UI is implemented (`results-ui/`, `docs/operations/RESULTS-UI.md`). Remaining unstarted: DOK-OPS-020 Folio printable report consuming `dokimos results`.
+4. DOK-OPS-019 results UI is implemented (`results-ui/`, `docs/operations/RESULTS-UI.md`). DOK-OPS-020 Folio printable report is implemented (`results-ui/report.mjs`, PDF export with provenance). No DOK-OPS work item remains unstarted.

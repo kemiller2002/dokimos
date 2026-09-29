@@ -66,3 +66,45 @@ committed fixtures, which are real CLI output.
 - **Open questions:** interactive filtering and sorting of large file lists
   would need Limen behaviour. It is not implemented, because the static
   tables satisfy the current tasks.
+
+## Printable report (DOK-OPS-020)
+
+`results-ui/report.mjs` renders the same `dokimos.results` contract into one
+printable document built from Folio primitives:
+
+- `ef-print-document`, `ef-print-title-page`, `ef-print-section` and
+  `ef-print-toc`
+- `ef-print-metric` and `ef-print-integrity`
+- `ef-print-table`, `ef-print-finding`, `ef-print-note`, `ef-print-footer`
+  and `ef-print-page-number`
+
+It uses no separate calculation logic.
+
+Folio has no published release yet. It is therefore pinned the way other
+Folio consumers pin it: by exact commit (`github:kemiller2002/folio#8fd8516…`,
+package 0.3.0, integrity recorded in `package-lock.json`).
+
+```bash
+npm run results:report -- results.json out/
+npm run results:pdf -- out/        # Chromium PDF + out/report.export.json
+```
+
+**Provenance.** The document carries the repository, revision, ref,
+collection time, Dokimos version, configuration, analyzed scope, policy
+identity, analyzer runs and unavailable evidence. The PDF export adds
+`report.export.json` with the renderer name and version, Folio tier "P2
+deterministic Chromium", page count and SHA-256, because the document itself
+must not invent export-time facts.
+
+**Integrity.** `ef-print-integrity` status is taken straight from contract
+states:
+
+| Contract state | Integrity status |
+|---|---|
+| All evidence available | `complete` |
+| Some evidence unavailable | `partial` |
+| Required evidence unavailable | `insufficient` |
+| Incompatible snapshots | `not-comparable` |
+
+**Verification.** Both fixtures export as multi-page A4 PDFs (9 and 15
+pages) in the site gate. The rendered pages were inspected.

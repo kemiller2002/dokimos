@@ -65,9 +65,9 @@ const lozenge = (table, tag) => {
 
 // --- formatting -------------------------------------------------------------
 
-const shortRevision = (revision) => (/^[0-9a-f]{40}$/.test(revision) ? revision.slice(0, 7) : revision);
-const date = (timestamp) => (timestamp ? timestamp.slice(0, 19).replace("T", " ") + " UTC" : "—");
-const signed = (value) => (value === null || value === undefined ? "—" : value > 0 ? `+${value}` : String(value));
+export const shortRevision = (revision) => (/^[0-9a-f]{40}$/.test(revision) ? revision.slice(0, 7) : revision);
+export const date = (timestamp) => (timestamp ? timestamp.slice(0, 19).replace("T", " ") + " UTC" : "—");
+export const signed = (value) => (value === null || value === undefined ? "—" : value > 0 ? `+${value}` : String(value));
 
 /** A measurement as words: numbers only when the evidence is available. */
 export const measurementText = (measurement, unit = "") => {
