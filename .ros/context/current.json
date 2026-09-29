@@ -4,7 +4,7 @@
   "repository": "echelon-design-system",
   "actor": "claude",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-09-29T16:29:46Z",
+  "updatedAt": "2026-09-29T16:42:41Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -173,13 +173,23 @@
     {
       "id": "DOK-OPS-007",
       "type": "feature",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-09-29T14:53:58Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Cli/Program.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Cli.Tests/ProgramTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-29T16:42:41Z",
       "telemetryExecutionIds": [
         "EXE-20260929T145400128Z-cebda10e"
-      ]
+      ],
+      "completedAt": "2026-09-29T16:42:41Z"
     },
     {
       "id": "DOK-OPS-008",
@@ -216,13 +226,23 @@
     {
       "id": "DOK-OPS-011",
       "type": "feature",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-09-29T14:53:58Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/Installation.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Cli.Tests/InstallationCliTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-29T16:42:41Z",
       "telemetryExecutionIds": [
         "EXE-20260929T145400308Z-0293c941"
-      ]
+      ],
+      "completedAt": "2026-09-29T16:42:41Z"
     },
     {
       "id": "DOK-OPS-012",
@@ -297,6 +317,153 @@
         "EXE-20260929T162947923Z-cf1f433a"
       ],
       "completedAt": "2026-09-29T16:29:46Z"
+    },
+    {
+      "id": "DOK-OPS-014",
+      "type": "feature",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/Collection.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/CollectorsTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-29T16:42:41Z",
+      "telemetryExecutionIds": [
+        "EXE-20260929T164243477Z-35b62b15"
+      ],
+      "completedAt": "2026-09-29T16:42:41Z"
+    },
+    {
+      "id": "DOK-OPS-016",
+      "type": "feature",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/History.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/HistoryTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-29T16:42:41Z",
+      "telemetryExecutionIds": [
+        "EXE-20260929T164243587Z-d0580567"
+      ],
+      "completedAt": "2026-09-29T16:42:41Z"
+    },
+    {
+      "id": "DOK-OPS-017",
+      "type": "feature",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/Evaluation.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/EvaluationTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-29T16:42:41Z",
+      "telemetryExecutionIds": [
+        "EXE-20260929T164243668Z-a6be2e45"
+      ],
+      "completedAt": "2026-09-29T16:42:41Z"
+    },
+    {
+      "id": "DOK-OPS-021",
+      "type": "feature",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Cli/Program.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Cli.Tests/ProgramTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-29T16:42:41Z",
+      "telemetryExecutionIds": [
+        "EXE-20260929T164243775Z-3725ffdb"
+      ],
+      "completedAt": "2026-09-29T16:42:41Z"
+    },
+    {
+      "id": "DOK-OPS-022",
+      "type": "feature",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/Contracts.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/ContractsTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-29T16:42:41Z",
+      "telemetryExecutionIds": [
+        "EXE-20260929T164243925Z-a7a1ea7b"
+      ],
+      "completedAt": "2026-09-29T16:42:41Z"
+    },
+    {
+      "id": "DOK-OPS-023",
+      "type": "feature",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/Collection.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/CanonicalSnapshotTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-29T16:42:41Z",
+      "telemetryExecutionIds": [
+        "EXE-20260929T164244091Z-9aae6cf3"
+      ],
+      "completedAt": "2026-09-29T16:42:41Z"
+    },
+    {
+      "id": "DOK-OPS-024",
+      "type": "feature",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/Collection.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/CanonicalSnapshotTests.fs"
+        }
+      ],
+      "updatedAt": "2026-09-29T16:42:41Z",
+      "telemetryExecutionIds": [
+        "EXE-20260929T164244302Z-bea3a1c1"
+      ],
+      "completedAt": "2026-09-29T16:42:41Z"
     }
   ]
 }

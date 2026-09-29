@@ -139,10 +139,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:53:58Z",
+      "updatedAt": "2026-09-29T16:42:41Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -203,10 +203,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:53:58Z",
+      "updatedAt": "2026-09-29T16:42:41Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -251,10 +251,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T16:42:41Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -283,10 +283,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T16:42:41Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -299,10 +299,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T16:42:41Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -363,10 +363,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T16:42:41Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -379,10 +379,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:39:49Z",
+      "updatedAt": "2026-09-29T16:42:41Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -395,10 +395,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T16:42:41Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null
@@ -411,10 +411,10 @@
         "operational"
       ],
       "priority": "medium",
-      "status": "captured",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T16:42:41Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null

@@ -500,16 +500,37 @@ module Program =
         | "doctor" :: rest -> verify "doctor" rest
         | _ -> Output.invalid "invalid-arguments" usage
 
-    /// Operational fault boundary: filesystem, process and other unexpected
-    /// failures become a stable fault diagnostic and exit code 1, never a
-    /// stack trace on stdout and never a quality outcome.
+    /// Aegis configuration for the CLI process. Faults are written as Aegis
+    /// events to stderr (never stdout, which carries only canonical data) and
+    /// delivered before the process exits.
+    let aegis =
+        { Aegis.Aegis.configure "Dokimos" (Some DokimosInfo.version) [ Aegis.Sinks.standardError ] with
+            Persistence = Aegis.Blocking }
+
+    /// Classifies an unexpected operational failure that crossed a Dokimos
+    /// boundary (filesystem, Git worktree, process). Expected quality states
+    /// never reach this: they are Dokimos values with their own exit codes.
+    let classify (scope: Aegis.Scope) (ex: exn) =
+        let fault code category message =
+            Aegis.Aegis.faultOf aegis scope (Aegis.FaultCode code) category Aegis.FaultSeverity.Error Aegis.OperationOnly
+                Aegis.RequiresIntervention Aegis.ManualIntervention message ex
+        match ex with
+        | :? UnauthorizedAccessException -> fault "DOKIMOS.ACCESS.DENIED" Aegis.InfrastructureFailure "Dokimos could not access a file or directory it needs."
+        | :? IOException -> fault "DOKIMOS.IO.FAILED" Aegis.InfrastructureFailure "Dokimos could not read or write evidence on disk."
+        | :? System.Xml.XmlException
+        | :? JsonException -> fault "DOKIMOS.DATA.UNREADABLE" Aegis.DataFailure "Dokimos could not parse an input it was given."
+        | _ -> fault "DOKIMOS.UNEXPECTED" Aegis.UnknownFailure "Dokimos failed unexpectedly."
+
+    /// Operational fault boundary (R13, DOK-OPS-021). Expected outcomes are
+    /// returned as values; unexpected external failures become Aegis faults
+    /// with a stable code and exit code 1. Programming defects are re-raised
+    /// by Aegis so they fail loudly rather than masquerading as faults.
     let run (args: string list) =
-        try
-            dispatch args
-        with
-        | :? IOException as e -> Output.error ExitCodes.UnexpectedFault "io-fault" e.Message
-        | :? UnauthorizedAccessException as e -> Output.error ExitCodes.UnexpectedFault "access-fault" e.Message
-        | e -> Output.error ExitCodes.UnexpectedFault "unexpected-fault" (e.GetType().Name + ": " + e.Message)
+        let command = args |> List.tryHead |> Option.defaultValue "usage"
+        let scope = Aegis.Aegis.scope aegis ("Dokimos.Cli." + command) Map.empty
+        match Aegis.Aegis.capture aegis scope classify (fun () -> dispatch args) with
+        | Ok output -> output
+        | Error fault -> Output.error ExitCodes.UnexpectedFault fault.Code.Value (fault.UserMessage + " Aegis fault " + fault.Id.Value)
 
     [<EntryPoint>]
     let main args =

@@ -12,5 +12,12 @@
     <Authors>Echelon Foundry</Authors>
     <IsPackable>false</IsPackable>
     <RepositoryUrl>https://github.com/kemiller2002/dokimos</RepositoryUrl>
+    <!-- FSharp.Core is pinned rather than implied by whichever SDK builds the
+         solution, so every toolchain produces the same dependency graph.
+         Aegis.Core 1.0.0 requires FSharp.Core >= 10.1.400. -->
+    <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
   </PropertyGroup>
+  <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.fsproj'">
+    <PackageReference Include="FSharp.Core" Version="10.1.400" />
+  </ItemGroup>
 </Project>

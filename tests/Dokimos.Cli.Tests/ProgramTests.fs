@@ -65,3 +65,14 @@ module ProgramTests =
     let ``schema validation rejects a comparison with an unknown state tag`` () =
         let json = """{"Contract":"dokimos.comparison","SchemaVersion":"1.0.0","DokimosVersion":"x","Before":{},"After":{},"Summary":{},"MetricChanges":[{"Kind":"MetricImproved"}],"FindingChanges":[]}"""
         Assert.NotEmpty(Support.schemaErrors "dokimos-comparison.schema.json" json)
+
+    [<Fact>]
+    let ``filesystem failure crosses the Aegis boundary as a stable fault, exit 1`` () =
+        let dir = Support.tempDirectory ()
+        let blocker = Support.write dir "not-a-directory" "x"
+        let output = Support.run [ "store"; "init"; "--store"; System.IO.Path.Combine(blocker, "store") ]
+        Assert.Equal(1, output.ExitCode)
+        Assert.Equal(None, output.Stdout)
+        Support.assertSchemaValid "dokimos-diagnostic.schema.json" output.Stderr.Value
+        Assert.Contains("DOKIMOS.IO.FAILED", output.Stderr.Value)
+        Assert.Contains("Aegis fault", output.Stderr.Value)
