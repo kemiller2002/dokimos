@@ -433,6 +433,35 @@ module Program =
             let root = Arguments.tryOne "root" parsed |> Option.defaultValue "."
             checksOutput command (Installation.verify (readRelative root)))
 
+    /// Application-facing results contract: the evaluation plus stored
+    /// history, projected for UIs and reports without recomputation.
+    let results args =
+        withArgs [ "baseline"; "current"; "policy"; "store"; "at" ] args (fun parsed ->
+            match Arguments.required "baseline" parsed, Arguments.required "current" parsed, Arguments.required "policy" parsed with
+            | Ok baselinePath, Ok currentPath, Ok policyPath ->
+                if not (File.Exists policyPath) then Output.invalid "policy-not-found" $"policy {policyPath} does not exist"
+                else
+                    match Contracts.readPolicy (File.ReadAllText policyPath) with
+                    | Error reason -> Output.invalid "policy-invalid" reason
+                    | Ok policy ->
+                        readRequiredSnapshot "baseline" baselinePath (fun baseline ->
+                            readRequiredSnapshot "current" currentPath (fun current ->
+                                let asOf =
+                                    Arguments.tryOne "at" parsed
+                                    |> Option.bind (fun t -> match DateTimeOffset.TryParse t with | true, v -> Some v | _ -> None)
+                                    |> Option.defaultValue DateTimeOffset.UtcNow
+                                let evaluation = Evaluation.evaluate asOf policy baseline current
+                                let emit history = Output.data (Contracts.serialize (Results.build evaluation history))
+                                match Arguments.tryOne "store" parsed with
+                                | None -> emit [ baseline ]
+                                | Some root ->
+                                    match FileSystemStore.openStore root |> Result.bind (fun store -> store.List()) with
+                                    | Ok stored -> emit stored
+                                    | Error e -> storeError e))
+            | Error e, _, _
+            | _, Error e, _
+            | _, _, Error e -> Output.invalid "invalid-arguments" (e + "; usage: dokimos results --baseline b --current c --policy p [--store dir]"))
+
     let usage =
         String.concat
             "\n"
@@ -444,6 +473,7 @@ module Program =
               "  snapshot <source-dir>... --repository r --revision sha [options]"
               "  compare <before-snapshot> <after-snapshot>"
               "  evaluate --baseline b --current c --policy p"
+              "  results --baseline b --current c --policy p [--store dir]   application-facing results contract"
               "  store init|put|get|accept-baseline|baseline --store dir ..."
               "  init [--root .] [--version v] [--action-ref sha] [--source dir]...   install Dokimos into a repository"
               "  verify|doctor [--root .]                  check an installation"
@@ -465,6 +495,7 @@ module Program =
         | "store" :: rest -> store rest
         | "history" :: rest -> history rest
         | "init" :: rest -> init rest
+        | "results" :: rest -> results rest
         | "verify" :: rest -> verify "verify" rest
         | "doctor" :: rest -> verify "doctor" rest
         | _ -> Output.invalid "invalid-arguments" usage

@@ -14,6 +14,7 @@ work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 
 mkdir -p "$out"
+out="$(cd "$out" && pwd)"   # absolute: the script changes directory below
 dotnet pack "$root/src/Dokimos.Cli/Dokimos.Cli.fsproj" --configuration Release --output "$out" ${SOURCE_REVISION_ID:+-p:SourceRevisionId=$SOURCE_REVISION_ID} >/dev/null
 nupkg="$out/$package.$version.nupkg"
 [ -f "$nupkg" ] || { echo "package not produced: $nupkg" >&2; exit 1; }

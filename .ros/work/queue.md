@@ -14,12 +14,12 @@
 | DOK-OPS-010 | Reusable GitHub integration | active | operational | medium |
 | DOK-OPS-011 | Conditor integration | active | operational | medium |
 | DOK-OPS-012 | Echelon administration registration | active | operational | medium |
-| DOK-OPS-013 | Analyzer capability declaration | captured | operational | medium |
+| DOK-OPS-013 | Analyzer capability declaration | complete | operational | medium |
 | DOK-OPS-014 | Coherent v1 F#/.NET metric set | captured | operational | medium |
-| DOK-OPS-015 | Decomposable hotspots | captured | operational | medium |
+| DOK-OPS-015 | Decomposable hotspots | complete | operational | medium |
 | DOK-OPS-016 | Persistent finding lifecycle | captured | operational | medium |
 | DOK-OPS-017 | Suppressions and waivers | captured | operational | medium |
-| DOK-OPS-018 | Results data contract | captured | operational | medium |
+| DOK-OPS-018 | Results data contract | complete | operational | medium |
 | DOK-OPS-019 | Forma results UI | captured | operational | low |
 | DOK-OPS-020 | Folio report | captured | operational | low |
 | DOK-OPS-021 | Aegis boundary | captured | operational | medium |

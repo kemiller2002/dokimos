@@ -32,5 +32,6 @@
     <Compile Include="History.fs" />
     <Compile Include="HistoryContract.fs" />
     <Compile Include="Installation.fs" />
+    <Compile Include="Results.fs" />
   </ItemGroup>
 </Project>
