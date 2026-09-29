@@ -71,6 +71,29 @@ jobs:
           persist: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') && 'true' || 'auto' }}
           accept-baseline: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.accept-baseline) && 'true' || 'false' }}
           baseline-reason: ${{ inputs.baseline-reason }}
+      - name: Set up Node for the results UI
+        if: always() && steps.gate.outputs.snapshot-id != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Render the results UI from this run's evidence (DOK-OPS-018/019)
+        if: always() && steps.gate.outputs.snapshot-id != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci --no-audit --no-fund
+          dotnet src/Dokimos.Cli/bin/Release/net8.0/Dokimos.Cli.dll results \
+            --baseline artifacts/dokimos/baseline.json --current artifacts/dokimos/snapshot.json \
+            --policy config/dokimos-policy.json --store "$RUNNER_TEMP/dokimos-evidence-store" > artifacts/dokimos/results.json
+          node results-ui/render.mjs artifacts/dokimos/results.json artifacts/results-ui
+      - name: Upload the results UI
+        if: always() && steps.gate.outputs.snapshot-id != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: dokimos-results-ui-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/results-ui
+          if-no-files-found: warn
       - name: Report test step outcome
         if: always()
         shell: bash

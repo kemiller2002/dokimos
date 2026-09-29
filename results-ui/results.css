@@ -1,0 +1,38 @@
+/* Dokimos results UI: only what Forma 0.3.0 does not already provide.
+   Colours come from Forma semantic tokens; no palette values are defined here. */
+.dokimos-cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ef-layout-card-min, 14rem)), 1fr));
+}
+.dokimos-sparkline {
+  display: block;
+  width: min(100%, 15rem);
+  height: auto;
+  margin-block: 0.5rem;
+  stroke: var(--ef-color-accent-primary);
+  fill: var(--ef-color-accent-primary);
+  stroke-width: 2;
+}
+.dokimos-sparkline polyline { fill: none; }
+.dokimos-series,
+.dokimos-hotspot {
+  border-block-start: 1px solid var(--ef-color-border-subtle);
+  padding-block: 1rem;
+}
+.dokimos-series h2 small { font-weight: normal; color: var(--ef-color-text-secondary); overflow-wrap: anywhere; }
+.dokimos-hotspot h2,
+.dokimos-timeline summary { overflow-wrap: anywhere; }
+.dokimos-footer { margin-block-start: 2rem; color: var(--ef-color-text-secondary); }
+@media (forced-colors: active) {
+  .dokimos-sparkline { stroke: CanvasText; fill: CanvasText; }
+}
+/* Identifiers (commit SHAs, sha256 identities, snapshot ids) are unbroken
+   tokens; let them wrap instead of forcing horizontal scrolling. */
+.ef-provenance-trail small,
+.ef-provenance-trail strong,
+.ef-facts dd,
+.dokimos-record-header p { overflow-wrap: anywhere; }
+/* Application page gutter: Forma's gutter token, applied the way
+   .ef-site__main applies it to marketing pages. */
+.dokimos-page { padding-inline: var(--ef-layout-gutter, 1rem); padding-block: 1rem 2rem; }

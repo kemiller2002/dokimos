@@ -331,10 +331,10 @@
         "operational"
       ],
       "priority": "low",
-      "status": "captured",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-09-29T14:05:00Z",
-      "updatedAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T16:49:15Z",
       "createdBy": "claude",
       "source": "manual",
       "sourceReference": null

@@ -1,0 +1,1531 @@
+{
+  "Contract": "dokimos.results",
+  "SchemaVersion": "1.0.0",
+  "DokimosVersion": "0.1.0+2c1555ef8e6558dd52866e989f7e6f1debf21e47",
+  "Overview": {
+    "Disposition": "failed",
+    "ExitCode": 4,
+    "Summary": {
+      "Improved": 0,
+      "Deteriorated": 3,
+      "Unchanged": 6,
+      "Changed": 4,
+      "Added": 0,
+      "Removed": 0,
+      "Incompatible": 0,
+      "Unavailable": 11,
+      "FindingsIntroduced": 0,
+      "FindingsResolved": 0,
+      "FindingsPersistent": 0,
+      "FindingsUnavailable": 0
+    },
+    "OutcomeCounts": {
+      "collection-failed": 0,
+      "failed": 1,
+      "incompatible": 0,
+      "not-evaluated": 0,
+      "observe-only": 0,
+      "passed": 3,
+      "unavailable": 14,
+      "warning": 3
+    },
+    "MetricsAvailable": 13,
+    "MetricsUnavailable": 11,
+    "MetricsFailed": 0,
+    "Findings": 0,
+    "Hotspots": 0,
+    "StoredSnapshots": 2
+  },
+  "Current": {
+    "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+    "SchemaVersion": "2.0.0",
+    "Repository": "echelon/fixture",
+    "Revision": "2222222",
+    "Ref": "main",
+    "CollectedAt": "2026-09-02T00:00:00+00:00",
+    "DokimosVersion": "0.1.0+2c1555ef8e6558dd52866e989f7e6f1debf21e47"
+  },
+  "Baseline": {
+    "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+    "SchemaVersion": "2.0.0",
+    "Repository": "echelon/fixture",
+    "Revision": "1111111",
+    "Ref": "main",
+    "CollectedAt": "2026-09-01T00:00:00+00:00",
+    "DokimosVersion": "0.1.0+2c1555ef8e6558dd52866e989f7e6f1debf21e47"
+  },
+  "Outcomes": [
+    {
+      "Rule": "required-evidence",
+      "Subject": "build.compiler-errors",
+      "Scope": "repository",
+      "State": "passed",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": null,
+      "Suppression": null,
+      "Explanation": "Required evidence build.compiler-errors is available."
+    },
+    {
+      "Rule": "required-evidence",
+      "Subject": "build.compiler-warnings",
+      "Scope": "repository",
+      "State": "passed",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": null,
+      "Suppression": null,
+      "Explanation": "Required evidence build.compiler-warnings is available."
+    },
+    {
+      "Rule": "required-evidence",
+      "Subject": "tests.total",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "not-configured",
+      "Suppression": null,
+      "Explanation": "Required evidence tests.total at repository is unavailable."
+    },
+    {
+      "Rule": "required-evidence",
+      "Subject": "tests.failed",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "not-configured",
+      "Suppression": null,
+      "Explanation": "Required evidence tests.failed at repository is unavailable."
+    },
+    {
+      "Rule": "ratchet",
+      "Subject": "build.compiler-errors",
+      "Scope": "repository",
+      "State": "passed",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": 0,
+      "Reason": null,
+      "Suppression": null,
+      "Explanation": "build.compiler-errors does not deteriorate beyond the best accepted state 0 (lower is better)."
+    },
+    {
+      "Rule": "ratchet",
+      "Subject": "build.compiler-warnings",
+      "Scope": "repository",
+      "State": "failed",
+      "Actual": 2,
+      "Limit": 0,
+      "Baseline": 0,
+      "Reason": null,
+      "Suppression": null,
+      "Explanation": "build.compiler-warnings is 2; the best accepted state is 0 (lower is better). Restore it to at least the best accepted state."
+    },
+    {
+      "Rule": "ratchet",
+      "Subject": "tests.failed",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": 0,
+      "Reason": "not-configured",
+      "Suppression": null,
+      "Explanation": "tests.failed at repository is unavailable; the rule was not evaluated and did not pass."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "api.added",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "unsupported",
+      "Suppression": null,
+      "Explanation": "api.added at repository is unavailable in the current snapshot (baseline: unavailable); regression was not evaluated."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "api.removed",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "unsupported",
+      "Suppression": null,
+      "Explanation": "api.removed at repository is unavailable in the current snapshot (baseline: unavailable); regression was not evaluated."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "api.signature-changed",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "unsupported",
+      "Suppression": null,
+      "Explanation": "api.signature-changed at repository is unavailable in the current snapshot (baseline: unavailable); regression was not evaluated."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "build.compiler-warnings",
+      "Scope": "repository",
+      "State": "warning",
+      "Actual": 2,
+      "Limit": 0,
+      "Baseline": 0,
+      "Reason": null,
+      "Suppression": null,
+      "Explanation": "build.compiler-warnings at repository deteriorated from 0 to 2 against the baseline. Return it to 0 or better."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "change.region-commits",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "unsupported",
+      "Suppression": null,
+      "Explanation": "change.region-commits at repository is unavailable in the current snapshot (baseline: unavailable); regression was not evaluated."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "coverage.line-rate",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "not-configured",
+      "Suppression": null,
+      "Explanation": "coverage.line-rate at repository is unavailable in the current snapshot (baseline: unavailable); regression was not evaluated."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "debt.age-days",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "unsupported",
+      "Suppression": null,
+      "Explanation": "debt.age-days at repository is unavailable in the current snapshot (baseline: unavailable); regression was not evaluated."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "debt.staleness-days",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "unsupported",
+      "Suppression": null,
+      "Explanation": "debt.staleness-days at repository is unavailable in the current snapshot (baseline: unavailable); regression was not evaluated."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "quality.type-weakening-indicators",
+      "Scope": "src/Calculator.fs",
+      "State": "warning",
+      "Actual": 1,
+      "Limit": 0,
+      "Baseline": 0,
+      "Reason": null,
+      "Suppression": null,
+      "Explanation": "quality.type-weakening-indicators at src/Calculator.fs deteriorated from 0 to 1 against the baseline. Return it to 0 or better."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "source.mutable-bindings",
+      "Scope": "src/Calculator.fs",
+      "State": "warning",
+      "Actual": 2,
+      "Limit": 1,
+      "Baseline": 1,
+      "Reason": null,
+      "Suppression": null,
+      "Explanation": "source.mutable-bindings at src/Calculator.fs deteriorated from 1 to 2 against the baseline. Return it to 1 or better."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "tests.failed",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "not-configured",
+      "Suppression": null,
+      "Explanation": "tests.failed at repository is unavailable in the current snapshot (baseline: unavailable); regression was not evaluated."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "tests.passed",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "not-configured",
+      "Suppression": null,
+      "Explanation": "tests.passed at repository is unavailable in the current snapshot (baseline: unavailable); regression was not evaluated."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "tests.skipped",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "not-configured",
+      "Suppression": null,
+      "Explanation": "tests.skipped at repository is unavailable in the current snapshot (baseline: unavailable); regression was not evaluated."
+    },
+    {
+      "Rule": "regression",
+      "Subject": "tests.total",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Actual": null,
+      "Limit": null,
+      "Baseline": null,
+      "Reason": "not-configured",
+      "Suppression": null,
+      "Explanation": "tests.total at repository is unavailable in the current snapshot (baseline: unavailable); regression was not evaluated."
+    }
+  ],
+  "Improvements": [],
+  "Regressions": [
+    {
+      "MetricId": "build.compiler-warnings",
+      "Scope": "repository",
+      "Kind": "deteriorated",
+      "Before": {
+        "State": "available",
+        "Value": 0,
+        "Reason": null,
+        "Detail": null
+      },
+      "After": {
+        "State": "available",
+        "Value": 2,
+        "Reason": null,
+        "Detail": null
+      },
+      "Delta": 2
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "Scope": "src/Calculator.fs",
+      "Kind": "deteriorated",
+      "Before": {
+        "State": "available",
+        "Value": 0,
+        "Reason": null,
+        "Detail": null
+      },
+      "After": {
+        "State": "available",
+        "Value": 1,
+        "Reason": null,
+        "Detail": null
+      },
+      "Delta": 1
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "Scope": "src/Calculator.fs",
+      "Kind": "deteriorated",
+      "Before": {
+        "State": "available",
+        "Value": 1,
+        "Reason": null,
+        "Detail": null
+      },
+      "After": {
+        "State": "available",
+        "Value": 2,
+        "Reason": null,
+        "Detail": null
+      },
+      "Delta": 1
+    }
+  ],
+  "Findings": [],
+  "Hotspots": [],
+  "Trends": [
+    {
+      "MetricId": "build.compiler-errors",
+      "Scope": "repository",
+      "Unit": "count",
+      "Preference": "lower-is-better",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "available",
+            "Value": 0,
+            "Reason": null,
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "available",
+            "Value": 0,
+            "Reason": null,
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "LastSeen": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "Best": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "BaselineDistance": 0,
+      "IncompatibleVersions": [],
+      "Notes": []
+    },
+    {
+      "MetricId": "build.compiler-warnings",
+      "Scope": "repository",
+      "Unit": "count",
+      "Preference": "lower-is-better",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "available",
+            "Value": 0,
+            "Reason": null,
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "available",
+            "Value": 2,
+            "Reason": null,
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "LastSeen": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 2,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 2,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "Best": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "BaselineDistance": 2,
+      "IncompatibleVersions": [],
+      "Notes": []
+    },
+    {
+      "MetricId": "tests.total",
+      "Scope": "repository",
+      "Unit": "count",
+      "Preference": "contextual",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "not-configured",
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "not-configured",
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": null,
+      "LastSeen": null,
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "not-configured",
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "not-configured",
+          "Detail": null
+        }
+      },
+      "BaselineDistance": null,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "Contextual metric: it changes but has no better direction, so no best demonstrated state is claimed.",
+        "The metric was never available in the stored evidence."
+      ]
+    },
+    {
+      "MetricId": "tests.passed",
+      "Scope": "repository",
+      "Unit": "count",
+      "Preference": "contextual",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "not-configured",
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "not-configured",
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": null,
+      "LastSeen": null,
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "not-configured",
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "not-configured",
+          "Detail": null
+        }
+      },
+      "BaselineDistance": null,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "Contextual metric: it changes but has no better direction, so no best demonstrated state is claimed.",
+        "The metric was never available in the stored evidence."
+      ]
+    },
+    {
+      "MetricId": "tests.failed",
+      "Scope": "repository",
+      "Unit": "count",
+      "Preference": "lower-is-better",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "not-configured",
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "not-configured",
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": null,
+      "LastSeen": null,
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "not-configured",
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "not-configured",
+          "Detail": null
+        }
+      },
+      "BaselineDistance": null,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "The metric was never available in the stored evidence."
+      ]
+    },
+    {
+      "MetricId": "tests.skipped",
+      "Scope": "repository",
+      "Unit": "count",
+      "Preference": "contextual",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "not-configured",
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "not-configured",
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": null,
+      "LastSeen": null,
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "not-configured",
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "not-configured",
+          "Detail": null
+        }
+      },
+      "BaselineDistance": null,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "Contextual metric: it changes but has no better direction, so no best demonstrated state is claimed.",
+        "The metric was never available in the stored evidence."
+      ]
+    },
+    {
+      "MetricId": "coverage.line-rate",
+      "Scope": "repository",
+      "Unit": "ratio",
+      "Preference": "higher-is-better",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "not-configured",
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "not-configured",
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": null,
+      "LastSeen": null,
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "not-configured",
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "not-configured",
+          "Detail": null
+        }
+      },
+      "BaselineDistance": null,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "The metric was never available in the stored evidence."
+      ]
+    },
+    {
+      "MetricId": "duplication.block-occurrences",
+      "Scope": "repository",
+      "Unit": "count",
+      "Preference": "contextual",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "available",
+            "Value": 0,
+            "Reason": null,
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "available",
+            "Value": 0,
+            "Reason": null,
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "LastSeen": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "available",
+          "Value": 0,
+          "Reason": null,
+          "Detail": null
+        }
+      },
+      "BaselineDistance": 0,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "Contextual metric: it changes but has no better direction, so no best demonstrated state is claimed."
+      ]
+    },
+    {
+      "MetricId": "change.region-commits",
+      "Scope": "repository",
+      "Unit": "count",
+      "Preference": "contextual",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": null,
+      "LastSeen": null,
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "BaselineDistance": null,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "Contextual metric: it changes but has no better direction, so no best demonstrated state is claimed.",
+        "The metric was never available in the stored evidence."
+      ]
+    },
+    {
+      "MetricId": "debt.age-days",
+      "Scope": "repository",
+      "Unit": "days",
+      "Preference": "contextual",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": null,
+      "LastSeen": null,
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "BaselineDistance": null,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "Contextual metric: it changes but has no better direction, so no best demonstrated state is claimed.",
+        "The metric was never available in the stored evidence."
+      ]
+    },
+    {
+      "MetricId": "debt.staleness-days",
+      "Scope": "repository",
+      "Unit": "days",
+      "Preference": "contextual",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": null,
+      "LastSeen": null,
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "BaselineDistance": null,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "Contextual metric: it changes but has no better direction, so no best demonstrated state is claimed.",
+        "The metric was never available in the stored evidence."
+      ]
+    },
+    {
+      "MetricId": "api.added",
+      "Scope": "repository",
+      "Unit": "symbols",
+      "Preference": "contextual",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": null,
+      "LastSeen": null,
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "BaselineDistance": null,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "Contextual metric: it changes but has no better direction, so no best demonstrated state is claimed.",
+        "The metric was never available in the stored evidence."
+      ]
+    },
+    {
+      "MetricId": "api.removed",
+      "Scope": "repository",
+      "Unit": "symbols",
+      "Preference": "contextual",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": null,
+      "LastSeen": null,
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "BaselineDistance": null,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "Contextual metric: it changes but has no better direction, so no best demonstrated state is claimed.",
+        "The metric was never available in the stored evidence."
+      ]
+    },
+    {
+      "MetricId": "api.signature-changed",
+      "Scope": "repository",
+      "Unit": "symbols",
+      "Preference": "contextual",
+      "Points": [
+        {
+          "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+          "Revision": "1111111",
+          "CollectedAt": "2026-09-01T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        },
+        {
+          "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+          "Revision": "2222222",
+          "CollectedAt": "2026-09-02T00:00:00+00:00",
+          "MetricVersion": 1,
+          "Measurement": {
+            "State": "unavailable",
+            "Value": null,
+            "Reason": "unsupported",
+            "Detail": null
+          }
+        }
+      ],
+      "FirstSeen": null,
+      "LastSeen": null,
+      "Latest": {
+        "SnapshotId": "echelon/fixture@2222222:a50aa5ed6b9a0670",
+        "Revision": "2222222",
+        "CollectedAt": "2026-09-02T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "Best": null,
+      "Baseline": {
+        "SnapshotId": "echelon/fixture@1111111:fe6c674e5acfc3af",
+        "Revision": "1111111",
+        "CollectedAt": "2026-09-01T00:00:00+00:00",
+        "MetricVersion": 1,
+        "Measurement": {
+          "State": "unavailable",
+          "Value": null,
+          "Reason": "unsupported",
+          "Detail": null
+        }
+      },
+      "BaselineDistance": null,
+      "IncompatibleVersions": [],
+      "Notes": [
+        "Contextual metric: it changes but has no better direction, so no best demonstrated state is claimed.",
+        "The metric was never available in the stored evidence."
+      ]
+    }
+  ],
+  "Provenance": {
+    "Repository": "echelon/fixture",
+    "Revision": "2222222",
+    "Ref": "main",
+    "CollectedAt": "2026-09-02T00:00:00+00:00",
+    "DokimosVersion": "0.1.0+2c1555ef8e6558dd52866e989f7e6f1debf21e47",
+    "ConfigurationId": "dokimos-collection/1;duplicate-block-size=6",
+    "AnalyzedScope": [
+      "src"
+    ],
+    "Analyzers": [
+      {
+        "AnalyzerId": "dokimos.fsharp-structural",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": 7
+      },
+      {
+        "AnalyzerId": "dokimos.fsharp-complexity-proxy",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": null
+      },
+      {
+        "AnalyzerId": "dokimos.fsharp-agent-quality",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": null
+      },
+      {
+        "AnalyzerId": "dokimos.text-duplication",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": null
+      },
+      {
+        "AnalyzerId": "dokimos.hotspot-correlation",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": null
+      },
+      {
+        "AnalyzerId": "dokimos.git-temporal",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": 22
+      },
+      {
+        "AnalyzerId": "dokimos.dotnet-build-diagnostics",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": 14
+      },
+      {
+        "AnalyzerId": "dokimos.dotnet-test-results",
+        "Version": "1",
+        "State": "not-run",
+        "Reason": "input not supplied",
+        "DurationMilliseconds": null
+      },
+      {
+        "AnalyzerId": "dokimos.cobertura-coverage",
+        "Version": "1",
+        "State": "not-run",
+        "Reason": "input not supplied",
+        "DurationMilliseconds": null
+      }
+    ],
+    "Policy": {
+      "SchemaVersion": "1.1.0",
+      "Identity": "sha256:7bda5fbd4f5f7d826cc2ce55b462084a26d1ff794ea350e0b96eb89b6741c9c9",
+      "Baseline": "BASELINE-0001"
+    },
+    "Performance": {
+      "TotalMilliseconds": 56,
+      "FileCount": 1,
+      "ObservationCount": 24,
+      "UnavailableCollectors": [
+        "dokimos.dotnet-test-results",
+        "dokimos.cobertura-coverage"
+      ],
+      "FailedCollectors": []
+    }
+  },
+  "Unavailable": [
+    {
+      "Subject": "tests.total",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Reason": "not-configured",
+      "Explanation": "tests.total was not collected because its input was not supplied."
+    },
+    {
+      "Subject": "tests.passed",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Reason": "not-configured",
+      "Explanation": "tests.passed was not collected because its input was not supplied."
+    },
+    {
+      "Subject": "tests.failed",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Reason": "not-configured",
+      "Explanation": "tests.failed was not collected because its input was not supplied."
+    },
+    {
+      "Subject": "tests.skipped",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Reason": "not-configured",
+      "Explanation": "tests.skipped was not collected because its input was not supplied."
+    },
+    {
+      "Subject": "coverage.line-rate",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Reason": "not-configured",
+      "Explanation": "coverage.line-rate was not collected because its input was not supplied."
+    },
+    {
+      "Subject": "change.region-commits",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Reason": "unsupported",
+      "Explanation": "No analyzer in this Dokimos release collects change.region-commits."
+    },
+    {
+      "Subject": "debt.age-days",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Reason": "unsupported",
+      "Explanation": "No analyzer in this Dokimos release collects debt.age-days."
+    },
+    {
+      "Subject": "debt.staleness-days",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Reason": "unsupported",
+      "Explanation": "No analyzer in this Dokimos release collects debt.staleness-days."
+    },
+    {
+      "Subject": "api.added",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Reason": "unsupported",
+      "Explanation": "No analyzer in this Dokimos release collects api.added."
+    },
+    {
+      "Subject": "api.removed",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Reason": "unsupported",
+      "Explanation": "No analyzer in this Dokimos release collects api.removed."
+    },
+    {
+      "Subject": "api.signature-changed",
+      "Scope": "repository",
+      "State": "unavailable",
+      "Reason": "unsupported",
+      "Explanation": "No analyzer in this Dokimos release collects api.signature-changed."
+    }
+  ]
+}

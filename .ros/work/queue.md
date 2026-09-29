@@ -20,7 +20,7 @@
 | DOK-OPS-016 | Persistent finding lifecycle | complete | operational | medium |
 | DOK-OPS-017 | Suppressions and waivers | complete | operational | medium |
 | DOK-OPS-018 | Results data contract | complete | operational | medium |
-| DOK-OPS-019 | Forma results UI | captured | operational | low |
+| DOK-OPS-019 | Forma results UI | complete | operational | low |
 | DOK-OPS-020 | Folio report | captured | operational | low |
 | DOK-OPS-021 | Aegis boundary | complete | operational | medium |
 | DOK-OPS-022 | Schema discipline | complete | operational | medium |
