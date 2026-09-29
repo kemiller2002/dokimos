@@ -21,7 +21,12 @@
     <Compile Include="RepositoryAnalysis.fs" />
     <Compile Include="GitHistory.fs" />
     <Compile Include="Wire.fs" />
+    <Compile Include="Capabilities.fs" />
     <Compile Include="CanonicalSnapshot.fs" />
     <Compile Include="CanonicalComparison.fs" />
+    <Compile Include="Evaluation.fs" />
+    <Compile Include="Json.fs" />
+    <Compile Include="Contracts.fs" />
+    <Compile Include="Collection.fs" />
   </ItemGroup>
 </Project>

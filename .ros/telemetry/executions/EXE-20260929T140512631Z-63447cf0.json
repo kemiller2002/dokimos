@@ -1,0 +1,1901 @@
+{
+  "schemaVersion": "1.0.0",
+  "executionId": "EXE-20260929T140512631Z-63447cf0",
+  "workItemId": "DOK-OPS-001",
+  "status": "finalized",
+  "startedAt": "2026-09-29T14:05:12.631Z",
+  "finalizedAt": "2026-09-29T14:40:05.495Z",
+  "identity": {
+    "provider": "anthropic",
+    "model": null,
+    "modelVersion": null,
+    "runtime": "claude-code",
+    "runtimeVersion": null,
+    "sessionId": "f909bdd9-e485-582c-8951-7c2ff7bd7869",
+    "conversationId": null,
+    "runId": null,
+    "agentId": null,
+    "subagentId": null,
+    "parentExecutionId": null,
+    "orchestration": {}
+  },
+  "provenance": {
+    "collector": "ros",
+    "collectorVersion": "1.0.0",
+    "discoveredAt": "2026-09-29T14:05:12.631Z",
+    "sources": [
+      {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      },
+      {
+        "type": "ros-git",
+        "name": "git",
+        "mechanism": "repository-baseline"
+      }
+    ]
+  },
+  "classification": {
+    "types": [
+      "development"
+    ],
+    "rationale": null,
+    "evidence": [],
+    "rd": null
+  },
+  "capabilities": [
+    {
+      "metricId": "tokens.input",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tokens.output",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tokens.cached_input",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tokens.cache_read",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tokens.cache_write",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tokens.reasoning",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tokens.tool",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tokens.total",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "context.window_size",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "context.utilization",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "context.current_input_tokens",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "context.current_output_tokens",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "context.current_cache_read_tokens",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "context.current_cache_write_tokens",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "context.compactions",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "session.tokens.cumulative",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "cost.input",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "cost.output",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "cost.reasoning",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "cost.cache",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "cost.tool_api",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "cost.execution_total",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "cost.session_cumulative",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "time.wall_ms",
+      "status": "derived",
+      "reason": "normalized measurement recorded",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "calculated",
+        "name": "ros",
+        "mechanism": "timestamp-difference"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "time.active_ms",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "time.tool_ms",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "time.model_ms",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "time.waiting_ms",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "time.blocked_ms",
+      "status": "derived",
+      "reason": "normalized measurement recorded",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "calculated",
+        "name": "ros-work-lifecycle",
+        "mechanism": "block-resume-intervals"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "time.human_interruption_ms",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "time.retry_ms",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "time.first_token_ms",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.turns",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.reasoning_cycles",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.retries",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.self_corrections",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.failed_approaches",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.context_resets",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.handoffs",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.subagents_spawned",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.parallel_executions_peak",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.interruptions",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.resumes",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.human_escalations",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.clarifications",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.plan_revisions",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.scope_revisions",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.approvals_requested",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "agent.approvals_denied",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "model.requests",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "model.request_failures",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.calls",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.failures",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.retries",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.duration_ms",
+      "status": "supported-unavailable",
+      "reason": "runtime family can expose this metric, but no observation has been ingested for this execution",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.cost",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.shell_commands",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.file_reads",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.file_writes",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.searches",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.web_activity",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.repository_operations",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.api_operations",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.build_executions",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.test_executions",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.deployments",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.database_operations",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tool.external_service_calls",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "git.baseline_dirty_files",
+      "status": "derived",
+      "reason": "normalized measurement recorded",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-status",
+        "mechanism": "porcelain-v1"
+      },
+      "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+      "recordedAt": "2026-09-29T14:05:12.631Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "git.ending_dirty_files",
+      "status": "derived",
+      "reason": "normalized measurement recorded",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-status",
+        "mechanism": "porcelain-v1"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "git.commits_created",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "git.files_added",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "git.files_modified",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "git.files_deleted",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "git.files_renamed",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "git.binary_files_changed",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "git.lines_added",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "git.lines_deleted",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "tests.added",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "tests.modified",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "tests.removed",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "tests.count_before",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tests.count_after",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tests.executions",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tests.passed",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tests.failed",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "tests.skipped",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "build.executions",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "build.failures",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "compiler.errors",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "lint.errors",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "lint.warnings",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "static_analysis.errors",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "architecture_check.failures",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "requirements.affected",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "requirements.satisfied",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "acceptance_criteria.affected",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "acceptance_criteria.satisfied",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "defects.discovered",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "defects.corrected",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "regressions.found",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "work.new_items",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "blockers.discovered",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "dependencies.discovered",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "architecture.findings",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "documentation.files_changed",
+      "status": "supported-unavailable",
+      "reason": "execution attribution unavailable: preexisting-dirty-worktree",
+      "discoveredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-git",
+        "name": "git-diff",
+        "mechanism": "precondition-check"
+      },
+      "lastAssessedAt": "2026-09-29T14:40:05.495Z",
+      "recordedAt": "2026-09-29T14:40:05.495Z",
+      "history": [
+        {
+          "status": "derived",
+          "reason": "ROS can derive this metric when its preconditions hold",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-09-29T14:05:12.631Z",
+          "lastAssessedAt": "2026-09-29T14:05:12.631Z",
+          "recordedAt": "2026-09-29T14:05:12.631Z"
+        }
+      ]
+    },
+    {
+      "metricId": "quality.false_leads",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "quality.disproven_hypotheses",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "quality.silent_omissions",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "quality.invalid_transitions_prevented",
+      "status": "derived",
+      "reason": "ROS can derive this metric when its preconditions hold",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "telemetry.redactions",
+      "status": "derived",
+      "reason": "ROS can derive this metric when its preconditions hold",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "telemetry.unknown_fields",
+      "status": "derived",
+      "reason": "ROS can derive this metric when its preconditions hold",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "telemetry.raw_snapshots_omitted",
+      "status": "derived",
+      "reason": "ROS can derive this metric when its preconditions hold",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "runtime.memory_peak_bytes",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    },
+    {
+      "metricId": "runtime.cpu_utilization",
+      "status": "unknown",
+      "reason": "runtime capability not reported or mapped",
+      "discoveredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "environment",
+        "name": "runtime-identity",
+        "mechanism": "whitelisted-claude-environment"
+      }
+    }
+  ],
+  "metrics": [
+    {
+      "measurementId": "MEAS-a5a8b4a40e20b3d78063a8ae",
+      "id": "git.baseline_dirty_files",
+      "value": 144,
+      "unit": "count",
+      "currency": null,
+      "quality": "derived",
+      "confidence": null,
+      "scope": "execution",
+      "aggregation": "maximum",
+      "dimensions": {},
+      "pricing": null,
+      "source": {
+        "type": "ros-git",
+        "name": "git-status",
+        "mechanism": "porcelain-v1"
+      },
+      "collectedAt": "2026-09-29T14:05:12.631Z",
+      "schemaVersion": "1.0.0"
+    },
+    {
+      "measurementId": "MEAS-af4e3392205222c869f1d5e0",
+      "id": "time.wall_ms",
+      "value": 2092864,
+      "unit": "milliseconds",
+      "currency": null,
+      "quality": "derived",
+      "confidence": null,
+      "scope": "execution",
+      "aggregation": "sum",
+      "dimensions": {},
+      "pricing": null,
+      "source": {
+        "type": "calculated",
+        "name": "ros",
+        "mechanism": "timestamp-difference"
+      },
+      "collectedAt": "2026-09-29T14:40:05.495Z",
+      "schemaVersion": "1.0.0"
+    },
+    {
+      "measurementId": "MEAS-7238050bb66e1e3e769b0458",
+      "id": "time.blocked_ms",
+      "value": 0,
+      "unit": "milliseconds",
+      "currency": null,
+      "quality": "derived",
+      "confidence": null,
+      "scope": "execution",
+      "aggregation": "sum",
+      "dimensions": {},
+      "pricing": null,
+      "source": {
+        "type": "calculated",
+        "name": "ros-work-lifecycle",
+        "mechanism": "block-resume-intervals"
+      },
+      "collectedAt": "2026-09-29T14:40:05.495Z",
+      "schemaVersion": "1.0.0"
+    },
+    {
+      "measurementId": "MEAS-c21c7ba11d15ec6b17b67b37",
+      "id": "git.ending_dirty_files",
+      "value": 38,
+      "unit": "count",
+      "currency": null,
+      "quality": "derived",
+      "confidence": null,
+      "scope": "execution",
+      "aggregation": "maximum",
+      "dimensions": {},
+      "pricing": null,
+      "source": {
+        "type": "ros-git",
+        "name": "git-status",
+        "mechanism": "porcelain-v1"
+      },
+      "collectedAt": "2026-09-29T14:40:05.495Z",
+      "schemaVersion": "1.0.0"
+    }
+  ],
+  "rawTelemetry": [],
+  "events": [
+    {
+      "type": "execution.started",
+      "occurredAt": "2026-09-29T14:05:12.631Z",
+      "source": {
+        "type": "ros-clock",
+        "name": "ros",
+        "mechanism": "work-lifecycle"
+      }
+    },
+    {
+      "type": "execution.finalized",
+      "occurredAt": "2026-09-29T14:40:05.495Z",
+      "source": {
+        "type": "ros-clock",
+        "name": "ros",
+        "mechanism": "work-lifecycle"
+      },
+      "eventId": "TEVT-eed08555269dcee2cc2c98b8"
+    }
+  ],
+  "repository": {
+    "start": {
+      "available": true,
+      "repository": "echelon-design-system",
+      "branch": "claude/dokimos-operationalization-miyxpa",
+      "commit": "2887e2f76921933706c7941c0cbe75b85c8da0b7",
+      "dirty": true,
+      "dirtyPaths": [
+        "requirements/OPERATIONAL-REQUIREMENTS.md",
+        "src/Dokimos.Cli/obj/Dokimos.Cli.fsproj.nuget.dgspec.json",
+        "src/Dokimos.Cli/obj/Dokimos.Cli.fsproj.nuget.g.props",
+        "src/Dokimos.Cli/obj/Dokimos.Cli.fsproj.nuget.g.targets",
+        "src/Dokimos.Cli/obj/Release/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.fs",
+        "src/Dokimos.Cli/obj/Release/net8.0/Dokimos.Cli.AssemblyInfo.fs",
+        "src/Dokimos.Cli/obj/Release/net8.0/Dokimos.Cli.AssemblyInfoInputs.cache",
+        "src/Dokimos.Cli/obj/Release/net8.0/Dokimos.Cli.assets.cache",
+        "src/Dokimos.Cli/obj/Release/net8.0/Dokimos.Cli.fsproj.AssemblyReference.cache",
+        "src/Dokimos.Cli/obj/Release/net8.0/Dokimos.Cli.fsproj.CoreCompileInputs.cache",
+        "src/Dokimos.Cli/obj/Release/net8.0/Dokimos.Cli.fsproj.FileListAbsolute.txt",
+        "src/Dokimos.Cli/obj/project.assets.json",
+        "src/Dokimos.Cli/obj/project.nuget.cache",
+        "src/Dokimos.Core/bin/Release/net8.0/Dokimos.Core.deps.json",
+        "src/Dokimos.Core/bin/Release/net8.0/Dokimos.Core.dll",
+        "src/Dokimos.Core/bin/Release/net8.0/Dokimos.Domain.dll",
+        "src/Dokimos.Core/bin/Release/net8.0/Dokimos.Domain.xml",
+        "src/Dokimos.Core/obj/Dokimos.Core.fsproj.nuget.dgspec.json",
+        "src/Dokimos.Core/obj/Dokimos.Core.fsproj.nuget.g.props",
+        "src/Dokimos.Core/obj/Dokimos.Core.fsproj.nuget.g.targets",
+        "src/Dokimos.Core/obj/Release/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.fs",
+        "src/Dokimos.Core/obj/Release/net8.0/Dokimos.Core.AssemblyInfo.fs",
+        "src/Dokimos.Core/obj/Release/net8.0/Dokimos.Core.AssemblyInfoInputs.cache",
+        "src/Dokimos.Core/obj/Release/net8.0/Dokimos.Core.assets.cache",
+        "src/Dokimos.Core/obj/Release/net8.0/Dokimos.Core.dll",
+        "src/Dokimos.Core/obj/Release/net8.0/Dokimos.Core.fsproj.AssemblyReference.cache",
+        "src/Dokimos.Core/obj/Release/net8.0/Dokimos.Core.fsproj.CopyComplete",
+        "src/Dokimos.Core/obj/Release/net8.0/Dokimos.Core.fsproj.CoreCompileInputs.cache",
+        "src/Dokimos.Core/obj/Release/net8.0/Dokimos.Core.fsproj.FileListAbsolute.txt",
+        "src/Dokimos.Core/obj/Release/net8.0/ref/Dokimos.Core.dll",
+        "src/Dokimos.Core/obj/Release/net8.0/refint/Dokimos.Core.dll",
+        "src/Dokimos.Core/obj/project.assets.json",
+        "src/Dokimos.Core/obj/project.nuget.cache",
+        "src/Dokimos.Domain/bin/Release/net8.0/Dokimos.Domain.deps.json",
+        "src/Dokimos.Domain/bin/Release/net8.0/Dokimos.Domain.dll",
+        "src/Dokimos.Domain/bin/Release/net8.0/Dokimos.Domain.xml",
+        "src/Dokimos.Domain/obj/Dokimos.Domain.fsproj.nuget.dgspec.json",
+        "src/Dokimos.Domain/obj/Dokimos.Domain.fsproj.nuget.g.props",
+        "src/Dokimos.Domain/obj/Dokimos.Domain.fsproj.nuget.g.targets",
+        "src/Dokimos.Domain/obj/Release/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.fs",
+        "src/Dokimos.Domain/obj/Release/net8.0/Dokimos.Domain.AssemblyInfo.fs",
+        "src/Dokimos.Domain/obj/Release/net8.0/Dokimos.Domain.AssemblyInfoInputs.cache",
+        "src/Dokimos.Domain/obj/Release/net8.0/Dokimos.Domain.assets.cache",
+        "src/Dokimos.Domain/obj/Release/net8.0/Dokimos.Domain.dll",
+        "src/Dokimos.Domain/obj/Release/net8.0/Dokimos.Domain.fsproj.AssemblyReference.cache",
+        "src/Dokimos.Domain/obj/Release/net8.0/Dokimos.Domain.fsproj.CoreCompileInputs.cache",
+        "src/Dokimos.Domain/obj/Release/net8.0/Dokimos.Domain.fsproj.FileListAbsolute.txt",
+        "src/Dokimos.Domain/obj/Release/net8.0/Dokimos.Domain.xml",
+        "src/Dokimos.Domain/obj/Release/net8.0/ref/Dokimos.Domain.dll",
+        "src/Dokimos.Domain/obj/Release/net8.0/refint/Dokimos.Domain.dll",
+        "src/Dokimos.Domain/obj/project.assets.json",
+        "src/Dokimos.Domain/obj/project.nuget.cache",
+        "tests/Dokimos.Cli.Tests/obj/Dokimos.Cli.Tests.fsproj.nuget.dgspec.json",
+        "tests/Dokimos.Cli.Tests/obj/Dokimos.Cli.Tests.fsproj.nuget.g.props",
+        "tests/Dokimos.Cli.Tests/obj/Dokimos.Cli.Tests.fsproj.nuget.g.targets",
+        "tests/Dokimos.Cli.Tests/obj/Release/net8.0/Dokimos.Cli.Tests.assets.cache",
+        "tests/Dokimos.Cli.Tests/obj/Release/net8.0/Dokimos.Cli.Tests.fsproj.FileListAbsolute.txt",
+        "tests/Dokimos.Cli.Tests/obj/project.assets.json",
+        "tests/Dokimos.Cli.Tests/obj/project.nuget.cache",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/.msCoverageSourceRootsMapping_Dokimos.Core.Tests",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Dokimos.Core.Tests.deps.json",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Dokimos.Core.Tests.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Dokimos.Core.Tests.runtimeconfig.json",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Dokimos.Core.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Dokimos.Domain.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Dokimos.Domain.xml",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/FSharp.Core.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Microsoft.TestPlatform.CommunicationUtilities.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Microsoft.TestPlatform.CoreUtilities.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Microsoft.TestPlatform.CrossPlatEngine.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Microsoft.TestPlatform.PlatformAbstractions.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Microsoft.TestPlatform.Utilities.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Microsoft.VisualStudio.TestPlatform.Common.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/Newtonsoft.Json.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/testhost.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/xunit.abstractions.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/xunit.assert.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/xunit.core.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/xunit.execution.dotnet.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/xunit.runner.reporters.netcoreapp10.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/xunit.runner.utility.netcoreapp10.dll",
+        "tests/Dokimos.Core.Tests/bin/Release/net8.0/xunit.runner.visualstudio.testadapter.dll",
+        "tests/Dokimos.Core.Tests/obj/Dokimos.Core.Tests.fsproj.nuget.dgspec.json",
+        "tests/Dokimos.Core.Tests/obj/Dokimos.Core.Tests.fsproj.nuget.g.props",
+        "tests/Dokimos.Core.Tests/obj/Dokimos.Core.Tests.fsproj.nuget.g.targets",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.fs",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/Dokimos.Core.Tests.AssemblyInfo.fs",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/Dokimos.Core.Tests.AssemblyInfoInputs.cache",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/Dokimos.Core.Tests.assets.cache",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/Dokimos.Core.Tests.dll",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/Dokimos.Core.Tests.fsproj.AssemblyReference.cache",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/Dokimos.Core.Tests.fsproj.CopyComplete",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/Dokimos.Core.Tests.fsproj.CoreCompileInputs.cache",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/Dokimos.Core.Tests.fsproj.FileListAbsolute.txt",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/Dokimos.Core.Tests.genruntimeconfig.cache",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/Dokimos.Core.Tests.pdb",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/ref/Dokimos.Core.Tests.dll",
+        "tests/Dokimos.Core.Tests/obj/Release/net8.0/refint/Dokimos.Core.Tests.dll",
+        "tests/Dokimos.Core.Tests/obj/project.assets.json",
+        "tests/Dokimos.Core.Tests/obj/project.nuget.cache",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/.msCoverageSourceRootsMapping_Dokimos.Domain.Tests",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Dokimos.Domain.Tests.deps.json",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Dokimos.Domain.Tests.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Dokimos.Domain.Tests.runtimeconfig.json",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Dokimos.Domain.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Dokimos.Domain.xml",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/FSharp.Core.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Microsoft.TestPlatform.CommunicationUtilities.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Microsoft.TestPlatform.CoreUtilities.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Microsoft.TestPlatform.CrossPlatEngine.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Microsoft.TestPlatform.PlatformAbstractions.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Microsoft.TestPlatform.Utilities.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Microsoft.VisualStudio.TestPlatform.Common.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/Newtonsoft.Json.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/testhost.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/xunit.abstractions.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/xunit.assert.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/xunit.core.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/xunit.execution.dotnet.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/xunit.runner.reporters.netcoreapp10.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/xunit.runner.utility.netcoreapp10.dll",
+        "tests/Dokimos.Domain.Tests/bin/Release/net8.0/xunit.runner.visualstudio.testadapter.dll",
+        "tests/Dokimos.Domain.Tests/obj/Dokimos.Domain.Tests.fsproj.nuget.dgspec.json",
+        "tests/Dokimos.Domain.Tests/obj/Dokimos.Domain.Tests.fsproj.nuget.g.props",
+        "tests/Dokimos.Domain.Tests/obj/Dokimos.Domain.Tests.fsproj.nuget.g.targets",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.fs",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/Dokimos.Domain.Tests.AssemblyInfo.fs",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/Dokimos.Domain.Tests.AssemblyInfoInputs.cache",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/Dokimos.Domain.Tests.assets.cache",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/Dokimos.Domain.Tests.dll",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/Dokimos.Domain.Tests.fsproj.AssemblyReference.cache",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/Dokimos.Domain.Tests.fsproj.CopyComplete",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/Dokimos.Domain.Tests.fsproj.CoreCompileInputs.cache",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/Dokimos.Domain.Tests.fsproj.FileListAbsolute.txt",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/Dokimos.Domain.Tests.genruntimeconfig.cache",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/Dokimos.Domain.Tests.pdb",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/ref/Dokimos.Domain.Tests.dll",
+        "tests/Dokimos.Domain.Tests/obj/Release/net8.0/refint/Dokimos.Domain.Tests.dll",
+        "tests/Dokimos.Domain.Tests/obj/project.assets.json",
+        "tests/Dokimos.Domain.Tests/obj/project.nuget.cache"
+      ]
+    },
+    "end": {
+      "available": true,
+      "repository": "echelon-design-system",
+      "branch": "claude/dokimos-operationalization-miyxpa",
+      "commit": "2887e2f76921933706c7941c0cbe75b85c8da0b7",
+      "dirty": true,
+      "dirtyPaths": [
+        ".gitignore",
+        "Directory.Build.props",
+        "config/dokimos-policy.json",
+        "config/metric-catalog.json",
+        "context/DECISIONS.md",
+        "requirements/OPERATIONAL-REQUIREMENTS.md",
+        "schemas/dokimos-comparison.schema.json",
+        "schemas/dokimos-diagnostic.schema.json",
+        "schemas/dokimos-evaluation.schema.json",
+        "schemas/dokimos-policy.schema.json",
+        "schemas/dokimos-snapshot.schema.json",
+        "site/data/measurement-status.json",
+        "site/test/evidence.test.mjs",
+        "src/Dokimos.Cli/Program.fs",
+        "src/Dokimos.Core/CanonicalComparison.fs",
+        "src/Dokimos.Core/CanonicalSnapshot.fs",
+        "src/Dokimos.Core/Capabilities.fs",
+        "src/Dokimos.Core/Collection.fs",
+        "src/Dokimos.Core/Contracts.fs",
+        "src/Dokimos.Core/Dokimos.Core.fsproj",
+        "src/Dokimos.Core/Evaluation.fs",
+        "src/Dokimos.Core/Json.fs",
+        "src/Dokimos.Core/Policy.fs",
+        "tests/Dokimos.Cli.Tests/CompareCliTests.fs",
+        "tests/Dokimos.Cli.Tests/Dokimos.Cli.Tests.fsproj",
+        "tests/Dokimos.Cli.Tests/EvaluateCliTests.fs",
+        "tests/Dokimos.Cli.Tests/ProgramTests.fs",
+        "tests/Dokimos.Cli.Tests/QualityGateProofTests.fs",
+        "tests/Dokimos.Cli.Tests/Support.fs",
+        "tests/Dokimos.Core.Tests/CanonicalComparisonTests.fs",
+        "tests/Dokimos.Core.Tests/CanonicalSnapshotTests.fs",
+        "tests/Dokimos.Core.Tests/CapabilitiesTests.fs",
+        "tests/Dokimos.Core.Tests/CollectorsTests.fs",
+        "tests/Dokimos.Core.Tests/ContractsTests.fs",
+        "tests/Dokimos.Core.Tests/Dokimos.Core.Tests.fsproj",
+        "tests/Dokimos.Core.Tests/EvaluationTests.fs",
+        "tests/Dokimos.Core.Tests/Fixtures.fs",
+        "tests/Dokimos.Core.Tests/PolicyTests.fs"
+      ]
+    },
+    "changeSummary": {
+      "available": false,
+      "reason": "preexisting-dirty-worktree"
+    }
+  },
+  "scope": {
+    "initial": {},
+    "actual": {}
+  },
+  "qualitySignals": [],
+  "links": {
+    "workItemId": "DOK-OPS-001",
+    "parentWorkItemId": null,
+    "requirements": [],
+    "acceptanceCriteria": [],
+    "commits": [
+      "2887e2f76921933706c7941c0cbe75b85c8da0b7"
+    ],
+    "pullRequests": [],
+    "experiments": [],
+    "researchQuestions": [],
+    "decisions": [],
+    "defects": [],
+    "dependencies": [],
+    "evidence": []
+  }
+}

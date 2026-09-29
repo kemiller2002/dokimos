@@ -1,0 +1,442 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/comparison",
+  "title": "Dokimos snapshot comparison",
+  "description": "Output of `dokimos compare`. Every state is a stable string tag; unavailable or failed evidence is never a number.",
+  "type": "object",
+  "required": [
+    "Contract",
+    "SchemaVersion",
+    "DokimosVersion",
+    "Before",
+    "After",
+    "Summary",
+    "MetricChanges",
+    "FindingChanges"
+  ],
+  "properties": {
+    "Contract": {
+      "const": "dokimos.comparison"
+    },
+    "SchemaVersion": {
+      "const": "1.0.0"
+    },
+    "DokimosVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Before": {
+      "$ref": "#/$defs/snapshotRef"
+    },
+    "After": {
+      "$ref": "#/$defs/snapshotRef"
+    },
+    "Summary": {
+      "$ref": "#/$defs/summary"
+    },
+    "MetricChanges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/metricChange"
+      }
+    },
+    "FindingChanges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/findingChange"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "snapshotRef": {
+      "type": "object",
+      "required": [
+        "SnapshotId",
+        "SchemaVersion",
+        "Repository",
+        "Revision",
+        "Ref",
+        "CollectedAt",
+        "DokimosVersion"
+      ],
+      "properties": {
+        "SnapshotId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "SchemaVersion": {
+          "enum": [
+            "1.0.0",
+            "2.0.0"
+          ]
+        },
+        "Repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Ref": {
+          "type": "string"
+        },
+        "CollectedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DokimosVersion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "Improved",
+        "Deteriorated",
+        "Unchanged",
+        "Changed",
+        "Added",
+        "Removed",
+        "Incompatible",
+        "Unavailable",
+        "FindingsIntroduced",
+        "FindingsResolved",
+        "FindingsPersistent",
+        "FindingsUnavailable"
+      ],
+      "properties": {
+        "Improved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Deteriorated": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Unchanged": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Changed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Added": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Removed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Incompatible": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Unavailable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "FindingsIntroduced": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "FindingsResolved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "FindingsPersistent": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "FindingsUnavailable": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "measurement": {
+      "type": "object",
+      "required": [
+        "State",
+        "Value",
+        "Reason",
+        "Detail"
+      ],
+      "properties": {
+        "State": {
+          "enum": [
+            "available",
+            "unavailable",
+            "failed"
+          ]
+        },
+        "Value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Detail": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "State": {
+                "const": "available"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "Value": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "State": {
+                "const": "unavailable"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "Value": {
+                "type": "null"
+              },
+              "Reason": {
+                "enum": [
+                  "unsupported",
+                  "not-configured",
+                  "insufficient-evidence"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "State": {
+                "const": "failed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "Value": {
+                "type": "null"
+              },
+              "Reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "metricChange": {
+      "type": "object",
+      "required": [
+        "MetricId",
+        "Scope",
+        "Unit",
+        "Kind",
+        "BeforeVersion",
+        "AfterVersion",
+        "Before",
+        "After",
+        "Delta"
+      ],
+      "properties": {
+        "MetricId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Unit": {
+          "type": "string"
+        },
+        "Kind": {
+          "enum": [
+            "added",
+            "removed",
+            "improved",
+            "deteriorated",
+            "unchanged",
+            "changed",
+            "incompatible",
+            "unavailable"
+          ]
+        },
+        "BeforeVersion": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "AfterVersion": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Before": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/measurement"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "After": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/measurement"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "findingChange": {
+      "type": "object",
+      "required": [
+        "FindingId",
+        "Scope",
+        "FindingKind",
+        "Kind",
+        "Evidence"
+      ],
+      "properties": {
+        "FindingId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Scope": {
+          "type": "string"
+        },
+        "FindingKind": {
+          "type": "string"
+        },
+        "Kind": {
+          "enum": [
+            "introduced",
+            "resolved",
+            "persistent",
+            "unavailable"
+          ]
+        },
+        "Evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/signal"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "signal": {
+      "type": "object",
+      "required": [
+        "Kind",
+        "Value"
+      ],
+      "properties": {
+        "Kind": {
+          "enum": [
+            "structural-complexity",
+            "frequent-change",
+            "high-churn",
+            "repeated-region",
+            "active-findings",
+            "aged-debt",
+            "api-instability",
+            "dependency-additions",
+            "missing-test-change",
+            "type-weakening"
+          ]
+        },
+        "Value": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

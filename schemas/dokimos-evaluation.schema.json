@@ -1,0 +1,495 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/evaluation",
+  "title": "Dokimos policy evaluation",
+  "description": "Output of `dokimos evaluate`. ExitCode is the process exit code: 0 continuation permitted, 3 required evidence unavailable or snapshots incompatible, 4 policy failure.",
+  "type": "object",
+  "required": [
+    "Contract",
+    "SchemaVersion",
+    "DokimosVersion",
+    "EvaluatedAt",
+    "Disposition",
+    "ExitCode",
+    "Reason",
+    "Baseline",
+    "Current",
+    "Policy",
+    "Summary",
+    "OutcomeCounts",
+    "Outcomes"
+  ],
+  "properties": {
+    "Contract": {
+      "const": "dokimos.evaluation"
+    },
+    "SchemaVersion": {
+      "const": "1.0.0"
+    },
+    "DokimosVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "EvaluatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Disposition": {
+      "enum": [
+        "passed",
+        "passed-with-warnings",
+        "failed",
+        "required-evidence-unavailable",
+        "incompatible-snapshots"
+      ]
+    },
+    "ExitCode": {
+      "enum": [
+        0,
+        3,
+        4
+      ]
+    },
+    "Reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "Baseline": {
+      "$ref": "#/$defs/snapshotRef"
+    },
+    "Current": {
+      "$ref": "#/$defs/snapshotRef"
+    },
+    "Policy": {
+      "type": "object",
+      "required": [
+        "SchemaVersion",
+        "Identity",
+        "Baseline"
+      ],
+      "properties": {
+        "SchemaVersion": {
+          "enum": [
+            "1.0.0",
+            "1.1.0"
+          ]
+        },
+        "Identity": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "Baseline": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "Summary": {
+      "$ref": "#/$defs/summary"
+    },
+    "OutcomeCounts": {
+      "type": "object",
+      "required": [
+        "passed",
+        "warning",
+        "failed",
+        "observe-only",
+        "not-evaluated",
+        "unavailable",
+        "incompatible",
+        "collection-failed"
+      ],
+      "properties": {
+        "passed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warning": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "observe-only": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "not-evaluated": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unavailable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "incompatible": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "collection-failed": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "Outcomes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/outcome"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "Disposition": {
+            "enum": [
+              "passed",
+              "passed-with-warnings"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ExitCode": {
+            "const": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "Disposition": {
+            "const": "failed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ExitCode": {
+            "const": 4
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "Disposition": {
+            "enum": [
+              "required-evidence-unavailable",
+              "incompatible-snapshots"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ExitCode": {
+            "const": 3
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "snapshotRef": {
+      "type": "object",
+      "required": [
+        "SnapshotId",
+        "SchemaVersion",
+        "Repository",
+        "Revision",
+        "Ref",
+        "CollectedAt",
+        "DokimosVersion"
+      ],
+      "properties": {
+        "SnapshotId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "SchemaVersion": {
+          "enum": [
+            "1.0.0",
+            "2.0.0"
+          ]
+        },
+        "Repository": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Ref": {
+          "type": "string"
+        },
+        "CollectedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DokimosVersion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "Improved",
+        "Deteriorated",
+        "Unchanged",
+        "Changed",
+        "Added",
+        "Removed",
+        "Incompatible",
+        "Unavailable",
+        "FindingsIntroduced",
+        "FindingsResolved",
+        "FindingsPersistent",
+        "FindingsUnavailable"
+      ],
+      "properties": {
+        "Improved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Deteriorated": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Unchanged": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Changed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Added": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Removed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Incompatible": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Unavailable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "FindingsIntroduced": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "FindingsResolved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "FindingsPersistent": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "FindingsUnavailable": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "outcome": {
+      "type": "object",
+      "required": [
+        "Rule",
+        "Subject",
+        "Scope",
+        "State",
+        "Actual",
+        "Limit",
+        "Baseline",
+        "Reason",
+        "Suppression",
+        "Explanation"
+      ],
+      "properties": {
+        "Rule": {
+          "enum": [
+            "ratchet",
+            "threshold",
+            "regression",
+            "introduced-finding",
+            "required-evidence"
+          ]
+        },
+        "Subject": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "State": {
+          "enum": [
+            "passed",
+            "warning",
+            "failed",
+            "observe-only",
+            "not-evaluated",
+            "unavailable",
+            "incompatible",
+            "collection-failed"
+          ]
+        },
+        "Actual": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Limit": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Baseline": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Suppression": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/suppression"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Explanation": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "suppression": {
+      "type": "object",
+      "required": [
+        "FindingId",
+        "Reason",
+        "Scope",
+        "Actor",
+        "Created",
+        "Expires",
+        "Status",
+        "Application"
+      ],
+      "properties": {
+        "FindingId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Actor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Expires": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Status": {
+          "enum": [
+            "active",
+            "revoked"
+          ]
+        },
+        "Application": {
+          "enum": [
+            "applied",
+            "expired"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

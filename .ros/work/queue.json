@@ -34,6 +34,406 @@
       "createdBy": "unknown",
       "source": "manual",
       "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-001",
+      "title": "Canonical comparison wire contract",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-001",
+      "tags": [
+        "operational"
+      ],
+      "priority": "high",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:40:05Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-002",
+      "title": "Explicit policy evaluation",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-002",
+      "tags": [
+        "operational"
+      ],
+      "priority": "high",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:40:05Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-003",
+      "title": "Self-CI runs the real gate",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-003",
+      "tags": [
+        "operational"
+      ],
+      "priority": "high",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-004",
+      "title": "End-to-end quality-gate proof",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-004",
+      "tags": [
+        "operational"
+      ],
+      "priority": "high",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:40:05Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-005",
+      "title": "Durable evidence store",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-005",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-006",
+      "title": "Historical queries",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-006",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-007",
+      "title": "Stable CLI",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-007",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-008",
+      "title": "Installable package",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-008",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-009",
+      "title": "Release workflow",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-009",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-010",
+      "title": "Reusable GitHub integration",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-010",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-011",
+      "title": "Conditor integration",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-011",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-012",
+      "title": "Echelon administration registration",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-012",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-013",
+      "title": "Analyzer capability declaration",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-013",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-014",
+      "title": "Coherent v1 F#/.NET metric set",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-014",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-015",
+      "title": "Decomposable hotspots",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-015",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-016",
+      "title": "Persistent finding lifecycle",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-016",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-017",
+      "title": "Suppressions and waivers",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-017",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-018",
+      "title": "Results data contract",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-018",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-019",
+      "title": "Forma results UI",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-019",
+      "tags": [
+        "operational"
+      ],
+      "priority": "low",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-020",
+      "title": "Folio report",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-020",
+      "tags": [
+        "operational"
+      ],
+      "priority": "low",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-021",
+      "title": "Aegis boundary",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-021",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-022",
+      "title": "Schema discipline",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-022",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:39:49Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-023",
+      "title": "Complete provenance",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-023",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-024",
+      "title": "Operational performance evidence",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-024",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "DOK-OPS-025",
+      "title": "Second-repository proof",
+      "description": "See requirements/OPERATIONAL-REQUIREMENTS.md#DOK-OPS-025",
+      "tags": [
+        "operational"
+      ],
+      "priority": "medium",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-09-29T14:05:00Z",
+      "updatedAt": "2026-09-29T14:05:00Z",
+      "createdBy": "claude",
+      "source": "manual",
+      "sourceReference": null
     }
   ]
 }

@@ -52,5 +52,5 @@ test("dimension status is derived from its measurements, never asserted", () => 
 test("catalog rows keep catalog definitions and flag uncatalogued measurements", () => {
   const rows = catalogRows(catalog, status);
   assert.equal(rows.filter((row) => row.catalogued).length, catalog.metrics.length);
-  assert.ok(rows.some((row) => row.id === "quality.type-weakening-indicators" && !row.catalogued));
+  assert.ok(rows.some((row) => row.id === "architecture.boundary-violations" && !row.catalogued));
 });

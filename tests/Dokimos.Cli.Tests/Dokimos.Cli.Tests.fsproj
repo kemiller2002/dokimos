@@ -1,10 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><TargetFramework>net8.0</TargetFramework><IsPackable>false</IsPackable></PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="JsonSchema.Net" Version="7.3.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
   <ItemGroup><ProjectReference Include="../../src/Dokimos.Cli/Dokimos.Cli.fsproj" /></ItemGroup>
-  <ItemGroup><Compile Include="ProgramTests.fs" /></ItemGroup>
+  <ItemGroup>
+    <Compile Include="Support.fs" />
+    <Compile Include="ProgramTests.fs" />
+    <Compile Include="CompareCliTests.fs" />
+    <Compile Include="EvaluateCliTests.fs" />
+    <Compile Include="QualityGateProofTests.fs" />
+  </ItemGroup>
 </Project>

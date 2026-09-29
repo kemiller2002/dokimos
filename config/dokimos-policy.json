@@ -1,6 +1,13 @@
 {
-  "schemaVersion": "1.0.0",
+  "$schema": "../schemas/dokimos-policy.schema.json",
+  "schemaVersion": "1.1.0",
   "baseline": "BASELINE-0001",
+  "requiredEvidence": [
+    "build.compiler-errors",
+    "build.compiler-warnings",
+    "tests.total",
+    "tests.failed"
+  ],
   "ratchets": [
     {
       "metricId": "build.compiler-errors",
@@ -15,11 +22,26 @@
       "bestAccepted": 0,
       "preference": "lower-is-better",
       "disposition": "fail"
+    },
+    {
+      "metricId": "tests.failed",
+      "metricVersion": 1,
+      "bestAccepted": 0,
+      "preference": "lower-is-better",
+      "disposition": "fail"
     }
   ],
+  "thresholds": [],
+  "regressions": {
+    "disposition": "warn"
+  },
+  "introducedFindings": {
+    "disposition": "warn"
+  },
   "observedNotRatcheted": [
     "tests.total",
     "tests.passed"
   ],
-  "unavailableBehavior": "not-evaluated"
+  "unavailableBehavior": "not-evaluated",
+  "suppressions": []
 }

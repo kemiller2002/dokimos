@@ -42,3 +42,10 @@ logs/*
 
 # Site build output
 dist/
+
+# .NET build output
+bin/
+obj/
+artifacts/
+*.nupkg
+TestResults/

@@ -7,5 +7,9 @@
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <DebugType>none</DebugType>
+    <!-- Dokimos release version. Release tags are dokimos-v$(Version). -->
+    <Version>0.1.0</Version>
+    <Authors>Echelon Foundry</Authors>
+    <RepositoryUrl>https://github.com/kemiller2002/dokimos</RepositoryUrl>
   </PropertyGroup>
 </Project>

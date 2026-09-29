@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/policy",
+  "title": "Dokimos quality policy",
+  "description": "Policy evaluated by `dokimos evaluate`. 1.0.0 supports ratchets only; 1.1.0 adds thresholds, regression and introduced-finding rules, required evidence, and suppressions.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "baseline"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "enum": [
+        "1.0.0",
+        "1.1.0"
+      ]
+    },
+    "baseline": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ratchets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "metricId",
+          "metricVersion",
+          "bestAccepted",
+          "preference",
+          "disposition"
+        ],
+        "properties": {
+          "metricId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "metricVersion": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "bestAccepted": {
+            "type": "number"
+          },
+          "preference": {
+            "enum": [
+              "lower-is-better",
+              "higher-is-better"
+            ]
+          },
+          "disposition": {
+            "enum": [
+              "observe-only",
+              "warn",
+              "fail"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "thresholds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "metricId",
+          "metricVersion",
+          "maximum",
+          "disposition"
+        ],
+        "properties": {
+          "metricId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "metricVersion": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "maximum": {
+            "type": "number"
+          },
+          "disposition": {
+            "enum": [
+              "observe-only",
+              "warn",
+              "fail"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "regressions": {
+      "type": "object",
+      "required": [
+        "disposition"
+      ],
+      "properties": {
+        "disposition": {
+          "enum": [
+            "observe-only",
+            "warn",
+            "fail"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "introducedFindings": {
+      "type": "object",
+      "required": [
+        "disposition"
+      ],
+      "properties": {
+        "disposition": {
+          "enum": [
+            "observe-only",
+            "warn",
+            "fail"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "requiredEvidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "observedNotRatcheted": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unavailableBehavior": {
+      "const": "not-evaluated"
+    },
+    "suppressions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "findingId",
+          "reason",
+          "scope",
+          "created",
+          "status"
+        ],
+        "properties": {
+          "findingId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "actor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expires": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "enum": [
+              "active",
+              "revoked"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
