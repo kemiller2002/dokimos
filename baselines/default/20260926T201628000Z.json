@@ -1,0 +1,9 @@
+{
+  "AcceptedAt": "2026-09-26T20:16:28+00:00",
+  "Actor": "repository:baselines/accepted-snapshot.json",
+  "Contract": "dokimos.baseline-acceptance",
+  "Name": "default",
+  "Reason": "Imported the repository's accepted baseline file",
+  "SchemaVersion": "1.0.0",
+  "SnapshotId": "kemiller2002/dokimos:46c8385618dbff67d68c6c13564f5d068dea6889"
+}
