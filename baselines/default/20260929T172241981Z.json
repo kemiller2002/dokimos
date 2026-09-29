@@ -1,0 +1,9 @@
+{
+  "AcceptedAt": "2026-09-29T17:22:41.9818625+00:00",
+  "Actor": "kemiller2002",
+  "Contract": "dokimos.baseline-acceptance",
+  "Name": "default",
+  "Reason": "First schema-2.0.0 baseline: operationalization merged (PR #5, 2923d18); approved by repository owner.",
+  "SchemaVersion": "1.0.0",
+  "SnapshotId": "kemiller2002/dokimos@2923d18917ed06601d996febd1793ab7a1fcd8e8:4d577cdc88d2d8ff"
+}
