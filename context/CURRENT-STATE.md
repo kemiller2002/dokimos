@@ -44,7 +44,7 @@ Open, external or owner decisions:
 
 - DOK-OPS-026: Conditor lifecycle distribution kind for .NET-tool / GitHub-release components (kemiller2002/conditor).
 - nuget.org publication needs Trusted Publishing (`DOKIMOS_NUGET_PUBLISH`, `DOKIMOS_NUGET_USER`, environment `nuget`).
-- The repository has no LICENSE file; choose one before public package publication.
+- Licensed MIT (`LICENSE`, package `PackageLicenseExpression`). Later versions can be relicensed by the copyright holder; released versions stay MIT.
 
 ## Resume point
 

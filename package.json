@@ -1,6 +1,7 @@
 {
   "name": "dokimos-site",
   "private": true,
+  "license": "MIT",
   "description": "Static public website for Dokimos. The F# system itself builds with dotnet; this manifest only drives the site and its Echelon verification tooling.",
   "type": "module",
   "engines": {

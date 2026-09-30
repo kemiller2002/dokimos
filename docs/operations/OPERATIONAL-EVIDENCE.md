@@ -51,4 +51,4 @@ was separate from the adoption and landed first.
 
 - DOK-OPS-026: Conditor has no lifecycle distribution kind for .NET-tool /
   GitHub-release components (kemiller2002/conditor).
-- nuget.org publication and a repository LICENSE are owner decisions.
+- nuget.org publication is an owner decision. The repository is licensed MIT (`LICENSE`).
