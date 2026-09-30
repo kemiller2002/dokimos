@@ -12,6 +12,9 @@
     <Authors>Echelon Foundry</Authors>
     <IsPackable>false</IsPackable>
     <RepositoryUrl>https://github.com/kemiller2002/dokimos</RepositoryUrl>
+    <!-- MIT (LICENSE). As sole copyright holder the owner can license later
+         versions differently; published versions stay MIT. -->
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <!-- FSharp.Core is pinned rather than implied by whichever SDK builds the
          solution, so every toolchain produces the same dependency graph.
          Aegis.Core 1.0.0 requires FSharp.Core >= 10.1.400. -->
