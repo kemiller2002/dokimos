@@ -145,9 +145,9 @@ Option 2 needs no Conditor schema change but requires a published release.
   (`echelon.system/v1`): id `dokimos`, repository, version, executable, and
   provided capabilities `quality.snapshot` (contract 2, snapshot schema 2.0.0),
   `quality.compare` (1), `quality.evaluate` (1), `quality.history` (1).
-- Catalog entry: `echelon-registry/registry/systems.json` must list `dokimos`
-  before `project-administration` accepts an installation
-  (work item `DOK-OPS-027`).
+- Catalog entry: `echelon-registry/registry/systems.json` lists `dokimos`
+  (kemiller2002/echelon-registry PR #4, `9fe59a5`; work item `DOK-OPS-027`),
+  so `project-administration` accepts installations.
 - Every release publishes `dokimos.release.json` (`echelon.release/v1`) with
   the tag, commit, distributions and artifact digests.
 - Installations are recorded through `installation.register`

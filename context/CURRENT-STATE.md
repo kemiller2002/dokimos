@@ -1,6 +1,6 @@
 # Current State
 
-Updated: 2026-09-29
+Updated: 2026-09-30
 
 ## Established
 
@@ -30,35 +30,23 @@ Updated: 2026-09-29
 
 ## Operationalization (DOK-OPS, `requirements/OPERATIONAL-REQUIREMENTS.md`)
 
-Branch `claude/dokimos-operationalization-miyxpa`, draft PR #5.
+Dokimos is operational. PR #5 merged to `main` as `2923d18`; every DOK-OPS work
+item is complete except DOK-OPS-026 (external). Run-by-run evidence is in
+[`docs/operations/OPERATIONAL-EVIDENCE.md`](../docs/operations/OPERATIONAL-EVIDENCE.md).
 
-Implemented and tested locally (Domain 4, Core 100, CLI 37 tests; site 72; clean under .NET 8.0.131 and 10.0.112 SDKs):
+- Self-CI on `main` runs the full loop and persists to branch `dokimos-evidence`; the first schema-2.0.0 baseline was accepted by dispatch (DOK-OPS-003).
+- Release `dokimos-v0.1.0` published from `main` (DOK-OPS-009): .NET tool `EchelonFoundry.Dokimos.Cli`, native archives, checksums, release manifest, package validation.
+- Registered in kemiller2002/echelon-registry (DOK-OPS-012/027).
+- Second-repository proof in kemiller2002/aegis (DOK-OPS-010/025): pinned reusable action and released package; PR gate, `main` persistence, accepted baseline and history retrieval all shown by real runs.
+- Results UI (Forma) and printable report (Folio) render from the `dokimos.results` contract (DOK-OPS-019/020). CLI faults go through Aegis (DOK-OPS-021).
 
-- DOK-OPS-001 comparison wire contract (`Contracts.fs`, `schemas/dokimos-comparison.schema.json`); the `MetricChangeKind` serialization fault is gone.
-- DOK-OPS-002 `dokimos evaluate` with exit codes 0/2/3/4 (plus 1 fault, 5 store conflict).
-- DOK-OPS-004 end-to-end quality-gate proof tests (`tests/Dokimos.Cli.Tests/QualityGateProofTests.fs`).
-- DOK-OPS-005 immutable evidence store (`EvidenceStore.fs`); Git-backed on branch `dokimos-evidence`.
-- DOK-OPS-006 `dokimos history` (snapshots, metric, file, findings).
-- DOK-OPS-008 .NET tool `EchelonFoundry.Dokimos.Cli` 0.1.0; `scripts/validate-package.sh` proves clean install.
-- DOK-OPS-013 analyzer capabilities (`Capabilities.fs`, `dokimos capabilities`); catalog JSON test-checked.
-- DOK-OPS-015 decomposable hotspots; DOK-OPS-018 `dokimos results` contract.
-- Snapshot schema 2.0.0 with producer provenance and performance (DOK-OPS-022/023/024 in progress: code done, needs CI evidence).
+Open, external or owner decisions:
 
-Real CI evidence: PR #5 run 36598149081 (commit 2c1555e) passed build, tests, package-install validation and the Dokimos gate (`passed-with-warnings`, exit 0; evidence artifact 11047696428). DOK-OPS-021: the CLI fault boundary uses pinned `EchelonFoundry.Aegis.Core` 1.0.0 (FSharp.Core pinned to 10.1.400 solution-wide).
-
-Written, awaiting default-branch/release evidence: DOK-OPS-003 persistence on `main` self-CI gate (`.github/workflows/ci.yml` + `actions/quality-gate`), DOK-OPS-009 release (`.github/workflows/release.yml`), DOK-OPS-010 reusable action, DOK-OPS-011 `init/verify/doctor`, DOK-OPS-012 `echelon/dokimos.system.json`.
-
-External blockers:
-
-- First release `dokimos-v0.1.0` needs PR #5 merged to `main` and a tag push or main dispatch (human decision). nuget.org needs Trusted Publishing configured (`DOKIMOS_NUGET_PUBLISH`, `DOKIMOS_NUGET_USER`, environment `nuget`). The repository has no LICENSE file; choose one before public package publication.
-- DOK-OPS-025 second-repository CI proof (aegis) needs that release. A local proof in an aegis clone passed (install from package, init, verify, snapshot, store, baseline, regression warning, failing tests exit 4, history).
-- DOK-OPS-026 Conditor distribution kind for .NET-tool lifecycle components (kemiller2002/conditor).
-- DOK-OPS-027 add `dokimos` to `echelon-registry/registry/systems.json`: draft PR kemiller2002/echelon-registry#4 awaiting owner review.
-- BASELINE-0001 remains the accepted baseline (schema 1.0.0). The first push to `main` imports it into the evidence store.
+- DOK-OPS-026: Conditor lifecycle distribution kind for .NET-tool / GitHub-release components (kemiller2002/conditor).
+- nuget.org publication needs Trusted Publishing (`DOKIMOS_NUGET_PUBLISH`, `DOKIMOS_NUGET_USER`, environment `nuget`).
+- The repository has no LICENSE file; choose one before public package publication.
 
 ## Resume point
 
-1. Check CI on PR #5; fix until green.
-2. After merge: push tag `dokimos-v0.1.0` (or dispatch Release from main), then run the Dokimos CI workflow on main with `accept-baseline=true` to accept the first schema-2.0.0 baseline.
-3. Open the aegis installation PR using `dokimos init --version 0.1.0 --action-ref <release commit> --package-sha256 <sha>`.
-4. DOK-OPS-019 results UI is implemented (`results-ui/`, `docs/operations/RESULTS-UI.md`). DOK-OPS-020 Folio printable report is implemented (`results-ui/report.mjs`, PDF export with provenance). No DOK-OPS work item remains unstarted.
+1. DOK-OPS-026 when Conditor adds the distribution kind.
+2. Next release: dispatch Release from `main` (or push a `dokimos-v*` tag), then bump consumers' pinned version, action ref and package SHA-256.
