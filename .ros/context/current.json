@@ -4,7 +4,7 @@
   "repository": "echelon-design-system",
   "actor": "claude",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-09-29T16:53:14Z",
+  "updatedAt": "2026-09-30T07:28:51Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -109,13 +109,27 @@
     {
       "id": "DOK-OPS-003",
       "type": "feature",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-09-29T14:48:52Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": ".github/workflows/ci.yml"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Cli.Tests/QualityGateProofTests.fs"
+        },
+        {
+          "type": "ci-run",
+          "path": "docs/operations/OPERATIONAL-EVIDENCE.md"
+        }
+      ],
+      "updatedAt": "2026-09-30T07:28:51Z",
       "telemetryExecutionIds": [
         "EXE-20260929T144853567Z-04323b7a"
-      ]
+      ],
+      "completedAt": "2026-09-30T07:28:51Z"
     },
     {
       "id": "DOK-OPS-005",
@@ -162,13 +176,27 @@
     {
       "id": "DOK-OPS-010",
       "type": "feature",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-09-29T14:48:52Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "actions/quality-gate/action.yml"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Cli.Tests/InstallationCliTests.fs"
+        },
+        {
+          "type": "ci-run",
+          "path": "docs/operations/OPERATIONAL-EVIDENCE.md"
+        }
+      ],
+      "updatedAt": "2026-09-30T07:28:51Z",
       "telemetryExecutionIds": [
         "EXE-20260929T144853721Z-baa0fe75"
-      ]
+      ],
+      "completedAt": "2026-09-30T07:28:51Z"
     },
     {
       "id": "DOK-OPS-007",
@@ -215,13 +243,27 @@
     {
       "id": "DOK-OPS-009",
       "type": "feature",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-09-29T14:53:58Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": ".github/workflows/release.yml"
+        },
+        {
+          "type": "tests",
+          "path": "scripts/validate-package.sh"
+        },
+        {
+          "type": "release",
+          "path": "docs/operations/OPERATIONAL-EVIDENCE.md"
+        }
+      ],
+      "updatedAt": "2026-09-30T07:28:51Z",
       "telemetryExecutionIds": [
         "EXE-20260929T145400248Z-ccbf4e5b"
-      ]
+      ],
+      "completedAt": "2026-09-30T07:28:51Z"
     },
     {
       "id": "DOK-OPS-011",
@@ -247,13 +289,23 @@
     {
       "id": "DOK-OPS-012",
       "type": "feature",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-09-29T14:53:58Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "echelon/dokimos.system.json"
+        },
+        {
+          "type": "tests",
+          "path": "docs/operations/OPERATIONAL-EVIDENCE.md"
+        }
+      ],
+      "updatedAt": "2026-09-30T07:28:51Z",
       "telemetryExecutionIds": [
         "EXE-20260929T145400391Z-72492126"
-      ]
+      ],
+      "completedAt": "2026-09-30T07:28:51Z"
     },
     {
       "id": "DOK-OPS-013",
@@ -506,6 +558,48 @@
         "EXE-20260929T165315537Z-8b0c956d"
       ],
       "completedAt": "2026-09-29T16:53:14Z"
+    },
+    {
+      "id": "DOK-OPS-025",
+      "type": "feature",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "actions/quality-gate/action.yml"
+        },
+        {
+          "type": "tests",
+          "path": "docs/operations/OPERATIONAL-EVIDENCE.md"
+        }
+      ],
+      "updatedAt": "2026-09-30T07:28:51Z",
+      "telemetryExecutionIds": [
+        "EXE-20260930T072829191Z-f5a2db23"
+      ],
+      "completedAt": "2026-09-30T07:28:51Z"
+    },
+    {
+      "id": "DOK-OPS-027",
+      "type": "feature",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "echelon/dokimos.system.json"
+        },
+        {
+          "type": "tests",
+          "path": "docs/operations/OPERATIONAL-EVIDENCE.md"
+        }
+      ],
+      "updatedAt": "2026-09-30T07:28:51Z",
+      "telemetryExecutionIds": [
+        "EXE-20260930T072829559Z-c72a8e40"
+      ],
+      "completedAt": "2026-09-30T07:28:51Z"
     }
   ]
 }
