@@ -38,6 +38,12 @@ existing file. `dokimos status`, `dokimos verify`, and `dokimos doctor` are
 read-only health checks. `dokimos upgrade` changes only Dokimos-owned lifecycle
 files and preserves the policy, which becomes user-owned after creation.
 
+These operations implement Echelon Registry's generic repository lifecycle
+contract `echelon.repository-lifecycle` v1, declared in the release `provides`.
+A Registry-driven installer such as Conditor invokes only
+`dokimos version` and `dokimos status|init|verify|doctor|upgrade --root <repo>`;
+it never reads or writes `.dokimos/` or the generated workflow itself.
+
 The action:
 
 1. installs `EchelonFoundry.Dokimos.Cli` at the exact version from the GitHub

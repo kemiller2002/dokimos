@@ -185,9 +185,18 @@ and upgrade SHALL be idempotent. Upgrade SHALL mutate only resources explicitly
 owned by Dokimos, preserve user-owned policy/configuration, and fail closed when
 ownership is unknown.
 
+Dokimos conforms to Echelon Registry's generic repository lifecycle contract
+`echelon.repository-lifecycle` v1 (`spec/repository-lifecycle-contract.md` in
+`kemiller2002/echelon-registry`) and declares it in its release `provides`.
+Every operation accepts `--root <repository>` and needs no other argument: the
+release version and pinned action commit default to the executable's own
+stamped release identity.
+
 Done when: tests prove healthy status/verify/doctor, idempotent upgrade, policy
-preservation, and refusal to overwrite an unowned workflow; Conditor can invoke
-these lifecycle operations without reproducing Dokimos installation internals.
+preservation, and refusal to overwrite an unowned workflow; the release workflow
+smoke-tests the packaged native executable's identity and idempotent second
+application (`scripts/smoke-native-lifecycle.sh`); Conditor can invoke these
+lifecycle operations without reproducing Dokimos installation internals.
 
 **DOK-OPS-029 — Conditor clean-host proof.** After Conditor's Registry-driven
 resolver is available, a supported clean host SHALL install a pinned Dokimos
