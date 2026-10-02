@@ -1,6 +1,6 @@
 # Current State
 
-Updated: 2026-09-30
+Updated: 2026-10-02
 
 ## Established
 
@@ -40,17 +40,22 @@ item is complete except DOK-OPS-026 (external). Run-by-run evidence is in
 - Second-repository proof in kemiller2002/aegis (DOK-OPS-010/025): pinned reusable action and released package; PR gate, `main` persistence, accepted baseline and history retrieval all shown by real runs.
 - Results UI (Forma) and printable report (Folio) render from the `dokimos.results` contract (DOK-OPS-019/020). CLI faults go through Aegis (DOK-OPS-021).
 
+Standard Echelon distribution (DOK-OPS-026 … 029) is proven:
+
+- `dokimos-v0.2.0` published from `main` commit `e641048` with six self-contained native archives and a shared-contract `echelon.release/v2` manifest; it declares Registry's generic `echelon.repository-lifecycle` v1 contract.
+- Cataloged in Echelon Registry (kemiller2002/echelon-registry#21) with the `dokimos-proof` 0.1.0 profile.
+- Conditor's generic Registry lifecycle path (kemiller2002/conditor#23) installed, initialized, verified and re-applied Dokimos 0.2.0 on a clean linux-x64 host with zero drift (Actions run 37003356848). Conditor contains no Dokimos-specific code.
+
 Open, external or owner decisions:
 
-- Registry's distribution contract has advanced to `echelon.release/v2`; Dokimos 0.2.0 adopts the shared pinned Registry release-contract action and adds a complete self-contained native CLI artifact set including `linux-musl-x64`.
-- Dokimos lifecycle commands include machine-readable `status`, `verify`, `doctor`, and ownership-aware `upgrade`; policy is user-owned after creation, while the generated workflow and installation record are Dokimos-owned.
-- Conditor consumption remains owned by `kemiller2002/conditor#12`. Dokimos is ready to be consumed without repository-specific download logic once that resolver lands.
+- Stable-profile membership: Dokimos is selected only by `dokimos-proof`; adding it to an `echelon-engineering` successor version is an owner decision. The frozen Indy Init 2026 profile is not modified.
+- A macOS clean-host proof is not yet run.
+- Provenance contract adoption is separate work (issue #12).
 - nuget.org publication needs Trusted Publishing (`DOKIMOS_NUGET_PUBLISH`, `DOKIMOS_NUGET_USER`, environment `nuget`).
 - Licensed MIT (`LICENSE`, package `PackageLicenseExpression`). Later versions can be relicensed by the copyright holder; released versions stay MIT.
 
 ## Resume point
 
-1. Merge and validate the 0.2.0 distribution-contract implementation.
-2. Publish `dokimos-v0.2.0` from `main`.
-3. Add the immutable 0.2.0 release manifest/digests to Echelon Registry, then let Conditor issue #12 prove clean-host installation and idempotent reinstall.
-4. Bump consumers' pinned version, action ref and package SHA-256 after the release is proven.
+1. Merge kemiller2002/echelon-registry#21 (catalog + proof profile) and kemiller2002/conditor#23 (generic lifecycle + proof) with merge commits so pinned commits stay reachable.
+2. Decide stable-profile membership for Dokimos.
+3. Bump consumers' pinned version, action ref and package SHA-256 to 0.2.0 where wanted.

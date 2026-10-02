@@ -206,5 +206,7 @@ same desired state with zero unintended drift.
 
 Done when: Conditor evidence names the resolved Registry release, platform
 artifact and digest, successful Dokimos lifecycle results, and an idempotent
-second application. This requirement is externally blocked by
-`kemiller2002/conditor#12`; Dokimos MUST NOT duplicate that resolver locally.
+second application. Dokimos MUST NOT duplicate that resolver locally.
+
+Status (2026-10-02): proven on linux-x64 by Conditor's generic Registry
+lifecycle path (see `docs/operations/OPERATIONAL-EVIDENCE.md`).
