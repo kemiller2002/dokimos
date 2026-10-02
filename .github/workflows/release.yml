@@ -108,7 +108,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for rid in linux-x64 linux-arm64 osx-x64 osx-arm64 win-x64; do
+          for rid in linux-x64 linux-arm64 linux-musl-x64 osx-x64 osx-arm64 win-x64; do
             dotnet publish src/Dokimos.Cli/Dokimos.Cli.fsproj --configuration Release --runtime "$rid" --self-contained true \
               -p:PublishSingleFile=true -p:SourceRevisionId=$GITHUB_SHA --output "publish/$rid" >/dev/null
             if [ "$rid" = "win-x64" ]; then
@@ -120,14 +120,28 @@ jobs:
             fi
           done
           ./publish/linux-x64/dokimos version
+          for archive in dist/dokimos-*.tar.gz; do
+            test "$(tar -tzf "$archive")" = "dokimos"
+          done
+          unzip -Z1 dist/dokimos-win-x64.zip | grep -qx 'dokimos.exe'
+      - name: Include license
+        run: cp LICENSE dist/LICENSE
       - name: Checksums
         shell: bash
         run: |
           cd dist
-          sha256sum *.nupkg *.tar.gz *.zip > dokimos-checksums.txt
+          sha256sum *.nupkg *.tar.gz *.zip LICENSE > dokimos-checksums.txt
           cat dokimos-checksums.txt
-      - name: Echelon release manifest
-        run: scripts/release-manifest.sh "${{ needs.authorize.outputs.version }}" "$GITHUB_SHA" dist
+      - name: Echelon release contract v2
+        uses: kemiller2002/echelon-registry/actions/release-contract@c174b8937b9ad3f543a020f737db4eca5fad6317
+        with:
+          release-input: release/echelon.release-input.json
+          artifact-dir: dist
+          output: dist/dokimos.release.json
+          version: ${{ needs.authorize.outputs.version }}
+          tag: dokimos-v${{ needs.authorize.outputs.version }}
+          commit: ${{ github.sha }}
+          release-stage: stable
       - uses: actions/upload-artifact@v4
         with:
           name: dokimos-release-${{ needs.authorize.outputs.version }}
@@ -163,7 +177,7 @@ jobs:
           tag="dokimos-v$VERSION"
           notes="Dokimos $VERSION built from ${GITHUB_SHA}. Install: dotnet tool install EchelonFoundry.Dokimos.Cli --version $VERSION --add-source <dir containing the .nupkg>, or use kemiller2002/dokimos/actions/quality-gate with version: $VERSION."
           gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "Dokimos $VERSION" --notes "$notes" \
-            release/dist/*.nupkg release/dist/*.tar.gz release/dist/*.zip release/dist/dokimos-checksums.txt release/dist/package-validation.json release/dist/dokimos.release.json
+            release/dist/*.nupkg release/dist/*.tar.gz release/dist/*.zip release/dist/LICENSE release/dist/dokimos-checksums.txt release/dist/package-validation.json release/dist/dokimos.release.json
 
   publish-nuget:
     needs: [authorize, build, publish-github]
