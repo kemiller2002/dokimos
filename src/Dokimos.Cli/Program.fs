@@ -103,11 +103,17 @@ module Program =
             else [ path ])
 
     let version () =
+        let releaseVersion, sourceCommit = Installation.releaseOf DokimosInfo.version
         Output.data (
             Contracts.serialize
                 {| Contract = "dokimos.version"
-                   SchemaVersion = "1.0.0"
+                   SchemaVersion = "1.1.0"
+                   SystemId = "dokimos"
+                   Executable = "dokimos"
+                   CompatibilityAliases = ([]: string list)
                    DokimosVersion = DokimosInfo.version
+                   ReleaseVersion = releaseVersion
+                   SourceCommit = sourceCommit
                    Contracts =
                     {| Snapshot = Contracts.supportedSnapshotSchemas
                        Comparison = [ Contracts.ComparisonSchemaVersion ]
@@ -428,6 +434,54 @@ module Program =
             | [] -> Output.invalid "root-not-found" $"{root} does not exist"
             | problems -> Output.invalid "invalid-installation-request" (String.Join("; ", problems)))
 
+    let upgrade args =
+        withArgs [ "root"; "version"; "action-ref"; "package-sha256"; "source"; "build-target"; "evidence-branch"; "default-branch" ] args (fun parsed ->
+            let root = Arguments.tryOne "root" parsed |> Option.defaultValue "."
+            let release, commit = Installation.releaseOf DokimosInfo.version
+            let request =
+                { DokimosVersion = Arguments.tryOne "version" parsed |> Option.defaultValue release
+                  ActionRef = Arguments.tryOne "action-ref" parsed |> Option.orElse commit |> Option.defaultValue ""
+                  PackageSha256 = Arguments.tryOne "package-sha256" parsed
+                  Sources = (match Arguments.many "source" parsed with [] -> [ "src" ] | sources -> sources)
+                  BuildTarget = Arguments.tryOne "build-target" parsed
+                  EvidenceBranch = Arguments.tryOne "evidence-branch" parsed |> Option.defaultValue "dokimos-evidence"
+                  DefaultBranch = Arguments.tryOne "default-branch" parsed |> Option.defaultValue "main" }
+            match Installation.validate request with
+            | [] when not (Directory.Exists root) -> Output.invalid "root-not-found" $"{root} does not exist"
+            | [] ->
+                match readRelative root Installation.RecordPath with
+                | None -> Output.unavailable "installation-not-found" $"No Dokimos installation record exists at {Installation.RecordPath}; run `dokimos init` first."
+                | Some record when not (Installation.isManagedRecord record) ->
+                    Output.unavailable "installation-ownership-conflict" $"{Installation.RecordPath} is not a Dokimos-owned installation record; refusing to overwrite it."
+                | Some _ ->
+                    match readRelative root Installation.WorkflowPath with
+                    | Some workflow when not (Installation.isManagedWorkflow workflow) ->
+                        Output.unavailable "installation-ownership-conflict" $"{Installation.WorkflowPath} is not marked as Dokimos-owned; refusing to overwrite it."
+                    | _ ->
+                        let outcomes =
+                            Installation.files request
+                            |> List.map (fun file ->
+                                let path = Path.Combine(root, file.Path)
+                                match readRelative root file.Path with
+                                | Some existing when existing = file.Content -> file.Path, "unchanged"
+                                | Some _ when file.Path = Installation.PolicyPath -> file.Path, "preserved-user-owned"
+                                | existing ->
+                                    let existed = existing.IsSome
+                                    match Path.GetDirectoryName path with
+                                    | null -> ()
+                                    | directory -> Directory.CreateDirectory directory |> ignore
+                                    File.WriteAllText(path, file.Content)
+                                    file.Path, (if existed then "updated" else "created"))
+                        Output.data (
+                            Contracts.serialize
+                                {| Contract = "dokimos.upgrade-result"
+                                   SchemaVersion = "1.0.0"
+                                   DokimosVersion = request.DokimosVersion
+                                   ConfigurationVersion = Installation.ConfigurationVersion
+                                   Files = outcomes |> List.map (fun (path, outcome) -> {| Path = path; Outcome = outcome |}) |}
+                        )
+            | problems -> Output.invalid "invalid-installation-request" (String.Join("; ", problems)))
+
     let verify command args =
         withArgs [ "root" ] args (fun parsed ->
             let root = Arguments.tryOne "root" parsed |> Option.defaultValue "."
@@ -476,7 +530,8 @@ module Program =
               "  results --baseline b --current c --policy p [--store dir]   application-facing results contract"
               "  store init|put|get|accept-baseline|baseline --store dir ..."
               "  init [--root .] [--version v] [--action-ref sha] [--source dir]...   install Dokimos into a repository"
-              "  verify|doctor [--root .]                  check an installation"
+              "  status|verify|doctor [--root .]           read-only installation health checks"
+              "  upgrade [--root .] [--version v] [--action-ref sha] [--source dir]...   upgrade Dokimos-owned repository state"
               "  history [findings] --store dir [--repository r] [--metric id [--scope s]] [--file path]"
               "exit codes: 0 continue, 1 unexpected fault, 2 invalid invocation, 3 evidence unavailable/invalid, 4 policy failure, 5 store conflict" ]
 
@@ -496,8 +551,10 @@ module Program =
         | "history" :: rest -> history rest
         | "init" :: rest -> init rest
         | "results" :: rest -> results rest
+        | "status" :: rest -> verify "status" rest
         | "verify" :: rest -> verify "verify" rest
         | "doctor" :: rest -> verify "doctor" rest
+        | "upgrade" :: rest -> upgrade rest
         | _ -> Output.invalid "invalid-arguments" usage
 
     /// Aegis configuration for the CLI process. Faults are written as Aegis
