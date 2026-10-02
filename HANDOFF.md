@@ -37,6 +37,6 @@ Release validation additionally runs Dokimos's own gate, package installation, n
 
 Issue #10 is closed (echelon-registry#21 and conditor#23 merged).
 
-1. Owner decision: add Dokimos to an `echelon-engineering` successor profile version, or keep it optional.
+1. Merge echelon-registry#23: Dokimos joins `echelon-engineering` 0.2.0 (owner decision 2026-10-02).
 2. Add a macOS clean-host proof when infrastructure exists.
 3. Provenance adoption remains issue #12.
