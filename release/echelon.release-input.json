@@ -20,6 +20,10 @@
     {
       "id": "quality.history",
       "contractVersion": 1
+    },
+    {
+      "id": "echelon.repository-lifecycle",
+      "contractVersion": 1
     }
   ],
   "distribution": {

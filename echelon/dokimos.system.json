@@ -8,7 +8,8 @@
     { "id": "quality.snapshot", "contractVersion": 2 },
     { "id": "quality.compare", "contractVersion": 1 },
     { "id": "quality.evaluate", "contractVersion": 1 },
-    { "id": "quality.history", "contractVersion": 1 }
+    { "id": "quality.history", "contractVersion": 1 },
+    { "id": "echelon.repository-lifecycle", "contractVersion": 1 }
   ],
   "optionalConsumes": []
 }
