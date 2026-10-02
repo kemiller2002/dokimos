@@ -119,7 +119,7 @@ jobs:
               tar -C "publish/$rid" -czf "dist/dokimos-$rid.tar.gz" dokimos
             fi
           done
-          ./publish/linux-x64/dokimos version
+          scripts/smoke-native-lifecycle.sh ./publish/linux-x64/dokimos "${{ needs.authorize.outputs.version }}" "$GITHUB_SHA"
           for archive in dist/dokimos-*.tar.gz; do
             test "$(tar -tzf "$archive")" = "dokimos"
           done
