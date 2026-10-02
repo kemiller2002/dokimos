@@ -34,8 +34,9 @@ The smallest pinned declaration:
 `dokimos init` writes a complete pinned workflow (`.github/workflows/dokimos.yml`),
 a default policy (`.dokimos/policy.json`) and an installation record
 (`.dokimos/installation.json`). It is idempotent and never overwrites an
-existing file. `dokimos verify` / `dokimos doctor` check that installation and
-explain remediation.
+existing file. `dokimos status`, `dokimos verify`, and `dokimos doctor` are
+read-only health checks. `dokimos upgrade` changes only Dokimos-owned lifecycle
+files and preserves the policy, which becomes user-owned after creation.
 
 The action:
 
@@ -101,9 +102,10 @@ Conditor's lifecycle contract (`conditor/docs/component-contract.md`) requires
 | Conditor operation | Dokimos command |
 |---|---|
 | init | `dokimos init --version <v> --action-ref <sha> [--package-sha256 <sha>] [--source <dir>]...` |
+| status | `dokimos status` |
 | verify | `dokimos verify` |
 | doctor | `dokimos doctor` |
-| upgrade (planned) | re-run `dokimos init` with the new version after removing the workflow |
+| upgrade | `dokimos upgrade --version <v> --action-ref <sha> [--package-sha256 <sha>] [--source <dir>]...` |
 
 Proposed descriptor (`conditor/components/dokimos.component.json`):
 
@@ -124,20 +126,12 @@ Proposed descriptor (`conditor/components/dokimos.component.json`):
 }
 ```
 
-**Gap (recorded as work item `DOK-OPS-026`, owned by Conditor):** Conditor's
-`nuget` distribution means an application `PackageReference` binding. It has no
-.NET-tool or GitHub-release lifecycle distribution, so it cannot yet execute a
-lifecycle component shipped as a .NET tool. Either option closes the gap:
-
-1. a `dotnet-tool` distribution kind (install `EchelonFoundry.Dokimos.Cli` at the
-   exact version into a tool path, then run `command` with the lifecycle
-   arguments); or
-2. a workstation-profile entry (`profiles/*.profile.json`, `source.kind:
-   github-release`) using the native `dokimos-<rid>` archives and SHA-256
-   digests published with every release in `dokimos-checksums.txt` and
-   `dokimos.release.json`.
-
-Option 2 needs no Conditor schema change but requires a published release.
+**Remaining external gap (DOK-OPS-026, owned by Conditor):** Registry now owns
+the native distribution contract and Dokimos publishes self-contained artifacts
+plus component-owned lifecycle commands. Conditor still needs its Registry-driven
+distribution resolver (`kemiller2002/conditor#12`) to select the platform artifact,
+verify its digest, execute the lifecycle operation, and record the verified
+postcondition without repository-specific Dokimos download logic.
 
 ## Echelon registration
 
@@ -148,8 +142,10 @@ Option 2 needs no Conditor schema change but requires a published release.
 - Catalog entry: `echelon-registry/registry/systems.json` lists `dokimos`
   (kemiller2002/echelon-registry PR #4, `9fe59a5`; work item `DOK-OPS-027`),
   so `project-administration` accepts installations.
-- Every release publishes `dokimos.release.json` (`echelon.release/v1`) with
-  the tag, commit, distributions and artifact digests.
+- Every release publishes `dokimos.release.json` (`echelon.release/v2`) through
+  the pinned shared Echelon Registry release-contract action, including release
+  stage, distribution class, executable identity, immutable source commit,
+  platform artifact identities, and SHA-256 digests.
 - Installations are recorded through `installation.register`
   (`project-administration`), never in a parallel registry. The payload for a
   repository installation:
