@@ -36,6 +36,17 @@ Read, in order:
 
 Do not duplicate another system's authority merely because its data is useful to a quality analysis. Integrate through explicit evidence boundaries.
 
+## CI observation discipline
+
+Keep incremental commits, pushes, and durable checkpoints at coherent recovery
+boundaries, but do not wait for remote CI after every push. Continue the next
+independent in-scope slice while debounced CI batches or runs. Run local checks
+when they inform implementation; inspect remote build/CI status at the final
+implementation boundary by default. Inspect it earlier only when its result
+gates the next action, protects a high-risk boundary, or is required for
+merge/release/publication. Never treat queued, cancelled, unavailable, or
+unobserved CI as passing.
+
 <!-- BEGIN echelon:visual-engineering -->
 ## Visual Engineering UI research
 
