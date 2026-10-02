@@ -2,7 +2,7 @@
   "schema": "echelon.system/v1",
   "id": "dokimos",
   "repository": "kemiller2002/dokimos",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "executable": "dokimos",
   "provides": [
     { "id": "quality.snapshot", "contractVersion": 2 },
