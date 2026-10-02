@@ -48,6 +48,11 @@ module ProgramTests =
     let ``version identifies the release and supported contracts`` () =
         let output = Support.run [ "version" ]
         Assert.Equal(0, output.ExitCode)
+        Assert.Contains("\"SystemId\": \"dokimos\"", output.Stdout.Value)
+        Assert.Contains("\"Repository\": \"kemiller2002/dokimos\"", output.Stdout.Value)
+        Assert.Contains("\"Executable\": \"dokimos\"", output.Stdout.Value)
+        Assert.Contains("\"ReleaseVersion\":", output.Stdout.Value)
+        Assert.Contains("\"SourceCommit\":", output.Stdout.Value)
         Assert.Contains("\"DokimosVersion\": \"" + Dokimos.Core.DokimosInfo.version + "\"", output.Stdout.Value)
         Assert.Contains("\"2.0.0\"", output.Stdout.Value)
 

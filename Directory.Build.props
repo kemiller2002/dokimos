@@ -8,7 +8,7 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <DebugType>none</DebugType>
     <!-- Dokimos release version. Release tags are dokimos-v$(Version). -->
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Authors>Echelon Foundry</Authors>
     <IsPackable>false</IsPackable>
     <RepositoryUrl>https://github.com/kemiller2002/dokimos</RepositoryUrl>

@@ -42,11 +42,15 @@ item is complete except DOK-OPS-026 (external). Run-by-run evidence is in
 
 Open, external or owner decisions:
 
-- DOK-OPS-026: Conditor lifecycle distribution kind for .NET-tool / GitHub-release components (kemiller2002/conditor).
+- Registry's distribution contract has advanced to `echelon.release/v2`; Dokimos 0.2.0 adopts the shared pinned Registry release-contract action and adds a complete self-contained native CLI artifact set including `linux-musl-x64`.
+- Dokimos lifecycle commands include machine-readable `status`, `verify`, `doctor`, and ownership-aware `upgrade`; policy is user-owned after creation, while the generated workflow and installation record are Dokimos-owned.
+- Conditor consumption remains owned by `kemiller2002/conditor#12`. Dokimos is ready to be consumed without repository-specific download logic once that resolver lands.
 - nuget.org publication needs Trusted Publishing (`DOKIMOS_NUGET_PUBLISH`, `DOKIMOS_NUGET_USER`, environment `nuget`).
 - Licensed MIT (`LICENSE`, package `PackageLicenseExpression`). Later versions can be relicensed by the copyright holder; released versions stay MIT.
 
 ## Resume point
 
-1. DOK-OPS-026 when Conditor adds the distribution kind.
-2. Next release: dispatch Release from `main` (or push a `dokimos-v*` tag), then bump consumers' pinned version, action ref and package SHA-256.
+1. Merge and validate the 0.2.0 distribution-contract implementation.
+2. Publish `dokimos-v0.2.0` from `main`.
+3. Add the immutable 0.2.0 release manifest/digests to Echelon Registry, then let Conditor issue #12 prove clean-host installation and idempotent reinstall.
+4. Bump consumers' pinned version, action ref and package SHA-256 after the release is proven.

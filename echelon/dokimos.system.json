@@ -2,13 +2,14 @@
   "schema": "echelon.system/v1",
   "id": "dokimos",
   "repository": "kemiller2002/dokimos",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "executable": "dokimos",
   "provides": [
     { "id": "quality.snapshot", "contractVersion": 2 },
     { "id": "quality.compare", "contractVersion": 1 },
     { "id": "quality.evaluate", "contractVersion": 1 },
-    { "id": "quality.history", "contractVersion": 1 }
+    { "id": "quality.history", "contractVersion": 1 },
+    { "id": "echelon.repository-lifecycle", "contractVersion": 1 }
   ],
   "optionalConsumes": []
 }
