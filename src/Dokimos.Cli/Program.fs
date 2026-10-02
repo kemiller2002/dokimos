@@ -109,6 +109,7 @@ module Program =
                 {| Contract = "dokimos.version"
                    SchemaVersion = "1.1.0"
                    SystemId = "dokimos"
+                   Repository = "kemiller2002/dokimos"
                    Executable = "dokimos"
                    CompatibilityAliases = ([]: string list)
                    DokimosVersion = DokimosInfo.version
