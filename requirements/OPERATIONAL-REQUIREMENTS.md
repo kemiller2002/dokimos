@@ -150,3 +150,52 @@ reusable integration, Dokimos SHALL be installed in a separate Echelon
 repository (following that repository's governance) and demonstrate
 installation, version reporting, analysis, snapshot, durable storage, baseline,
 comparison, policy evaluation, CI disposition, and history retrieval.
+
+
+## Standard Echelon distribution (post-0.1.0)
+
+**DOK-OPS-026 — Registry-driven native distribution.** Dokimos SHALL publish its
+canonical release facts through the current shared Echelon Registry release
+contract rather than a Dokimos-specific parallel manifest generator. The release
+SHALL identify system id `dokimos`, semantic version, canonical repository,
+immutable source commit/tag, stable/preview/nightly stage, lifecycle state,
+distribution class `self-contained-native-cli`, executable identity, capability
+contracts, supported platform artifacts, and SHA-256 digests. The released CLI
+MUST NOT require a machine-wide .NET runtime.
+
+Done when: a published Dokimos release has a schema-valid
+`echelon.release/v2` document generated from the exact uploaded artifact bytes
+by a pinned Registry release-contract action, and Registry can catalog it
+without repository-specific interpretation.
+
+**DOK-OPS-027 — Canonical Registry identity.** Registry SHALL project Dokimos as
+one canonical system identity with repository `kemiller2002/dokimos`,
+executable `dokimos`, native/repository-lifecycle distribution classes, and the
+quality snapshot/compare/evaluate/history capability contracts. Historical
+release facts SHALL remain immutable.
+
+Done when: Registry's canonical system projection contains Dokimos and a
+cataloged release resolves to the same executable/capability identity reported
+by `dokimos version`.
+
+**DOK-OPS-028 — Component-owned lifecycle and ownership.** Dokimos SHALL expose
+non-interactive, machine-readable `version`, `status`, `verify`, `doctor`,
+`init`, and `upgrade` operations with stable exit-code semantics. Initialization
+and upgrade SHALL be idempotent. Upgrade SHALL mutate only resources explicitly
+owned by Dokimos, preserve user-owned policy/configuration, and fail closed when
+ownership is unknown.
+
+Done when: tests prove healthy status/verify/doctor, idempotent upgrade, policy
+preservation, and refusal to overwrite an unowned workflow; Conditor can invoke
+these lifecycle operations without reproducing Dokimos installation internals.
+
+**DOK-OPS-029 — Conditor clean-host proof.** After Conditor's Registry-driven
+resolver is available, a supported clean host SHALL install a pinned Dokimos
+native release from Registry metadata, verify executable identity and artifact
+integrity, initialize repository state, verify the installation, and repeat the
+same desired state with zero unintended drift.
+
+Done when: Conditor evidence names the resolved Registry release, platform
+artifact and digest, successful Dokimos lifecycle results, and an idempotent
+second application. This requirement is externally blocked by
+`kemiller2002/conditor#12`; Dokimos MUST NOT duplicate that resolver locally.
