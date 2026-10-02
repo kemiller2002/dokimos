@@ -56,6 +56,7 @@ Open, external or owner decisions:
 
 ## Resume point
 
-1. Merge kemiller2002/echelon-registry#21 (catalog + proof profile) and kemiller2002/conditor#23 (generic lifecycle + proof) with merge commits so pinned commits stay reachable.
-2. Decide stable-profile membership for Dokimos.
-3. Bump consumers' pinned version, action ref and package SHA-256 to 0.2.0 where wanted.
+Issue #10 is closed: echelon-registry#21 and conditor#23 are merged, and the proof's pinned commits are on their `main` branches.
+
+1. Decide stable-profile membership for Dokimos.
+2. Bump consumers' pinned version, action ref and package SHA-256 to 0.2.0 where wanted.
