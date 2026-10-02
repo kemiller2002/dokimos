@@ -26,7 +26,7 @@ type InstallationCheck =
 
 module Installation =
     [<Literal>]
-    let ConfigurationVersion = 1
+    let ConfigurationVersion = 2
 
     [<Literal>]
     let PolicyPath = ".dokimos/policy.json"
@@ -83,7 +83,7 @@ module Installation =
             | None -> ""
         String.concat
             "\n"
-            [ "# Installed by `dokimos init` (Dokimos " + request.DokimosVersion + "). Pinned: do not float these versions."
+            [ "# Managed by Dokimos (installed by `dokimos init`; Dokimos " + request.DokimosVersion + "). Pinned: do not float these versions."
               "name: Dokimos"
               ""
               "on:"
@@ -139,7 +139,7 @@ module Installation =
     let record (request: InstallationRequest) =
         Contracts.serialize
             {| Contract = "dokimos.installation"
-               SchemaVersion = "1.0.0"
+               SchemaVersion = "1.1.0"
                System = "dokimos"
                DokimosVersion = request.DokimosVersion
                ActionRef = request.ActionRef
@@ -148,13 +148,28 @@ module Installation =
                Policy = PolicyPath
                Workflow = WorkflowPath
                Sources = request.Sources
+               BuildTarget = request.BuildTarget
                EvidenceBranch = request.EvidenceBranch
+               DefaultBranch = request.DefaultBranch
+               Ownership =
+                {| Policy = "created-if-missing; user-owned after creation"
+                   Workflow = "dokimos-owned"
+                   InstallationRecord = "dokimos-owned" |}
                InitialBaseline = "The first default-branch run persists a snapshot; accept it with workflow_dispatch accept-baseline=true." |}
 
     let files request =
         [ { Path = PolicyPath; Content = defaultPolicy }
           { Path = WorkflowPath; Content = workflow request }
           { Path = RecordPath; Content = record request } ]
+
+    let isManagedRecord (text: string) =
+        text.Contains("\"Contract\": \"dokimos.installation\"", StringComparison.Ordinal)
+        && (text.Contains("\"SchemaVersion\": \"1.0.0\"", StringComparison.Ordinal)
+            || text.Contains("\"SchemaVersion\": \"1.1.0\"", StringComparison.Ordinal))
+
+    let isManagedWorkflow (text: string) =
+        text.StartsWith("# Installed by `dokimos init`", StringComparison.Ordinal)
+        || text.StartsWith("# Managed by Dokimos", StringComparison.Ordinal)
 
     /// Checks an installation from file contents (None = file absent).
     let verify (read: string -> string option) =
@@ -165,8 +180,8 @@ module Installation =
             match recordText with
             | None -> check "installation-record" false $"{RecordPath} is missing" "Run `dokimos init`."
             | Some text ->
-                let ok = text.Contains "\"Contract\": \"dokimos.installation\"" && text.Contains "\"SchemaVersion\": \"1.0.0\""
-                check "installation-record" ok $"{RecordPath} present" "Re-run `dokimos init` with a supported Dokimos release."
+                let ok = isManagedRecord text
+                check "installation-record" ok $"{RecordPath} present with a supported Dokimos installation contract" "Re-run `dokimos init` or `dokimos upgrade` with a supported Dokimos release."
         let policyCheck =
             match read PolicyPath with
             | None -> check "policy" false $"{PolicyPath} is missing" "Run `dokimos init` or restore the policy file."
