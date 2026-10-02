@@ -10,8 +10,7 @@ Operate Dokimos as Echelon Foundry's longitudinal code-quality evidence system a
 - Release `dokimos-v0.1.0` is published and was proven in a second repository (Aegis).
 - Dokimos is registered in Echelon Registry.
 - Praxis CI batching and end-biased agent CI checks were merged in PR #7.
-- The next release candidate is 0.2.0. It adopts Registry's shared `echelon.release/v2` contract, adds `linux-musl-x64`, richer executable identity, read-only `status`, and ownership-aware `upgrade`.
-- Conditor's Registry-driven distribution resolver remains external work in `kemiller2002/conditor#12`; do not duplicate that resolver inside Dokimos.
+- `dokimos-v0.2.0` is published (commit `e641048`), cataloged in Registry (echelon-registry#21), declares `echelon.repository-lifecycle` v1, and passed Conditor's clean-host proof with zero drift on linux-x64 (conditor#23, run 37003356848). Do not duplicate Conditor's resolver inside Dokimos.
 
 ## Validation
 
@@ -36,7 +35,7 @@ Release validation additionally runs Dokimos's own gate, package installation, n
 
 ## Next action
 
-1. Get the 0.2.0 distribution-contract change green on CI and merge it.
-2. Publish `dokimos-v0.2.0`.
-3. Register the immutable release facts and digests in Echelon Registry.
-4. Use Conditor's Registry-driven installer, once issue #12 lands, to prove clean-host install, verify, and idempotent reinstall.
+1. Merge echelon-registry#21 and conditor#23 (merge commits keep the proof's pinned Registry commit reachable).
+2. Owner decision: add Dokimos to an `echelon-engineering` successor profile version, or keep it optional.
+3. Add a macOS clean-host proof when infrastructure exists.
+4. Provenance adoption remains issue #12.
