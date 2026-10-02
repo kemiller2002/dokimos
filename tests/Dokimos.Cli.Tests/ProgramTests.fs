@@ -49,6 +49,7 @@ module ProgramTests =
         let output = Support.run [ "version" ]
         Assert.Equal(0, output.ExitCode)
         Assert.Contains("\"SystemId\": \"dokimos\"", output.Stdout.Value)
+        Assert.Contains("\"Repository\": \"kemiller2002/dokimos\"", output.Stdout.Value)
         Assert.Contains("\"Executable\": \"dokimos\"", output.Stdout.Value)
         Assert.Contains("\"ReleaseVersion\":", output.Stdout.Value)
         Assert.Contains("\"SourceCommit\":", output.Stdout.Value)
