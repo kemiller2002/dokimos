@@ -191,7 +191,7 @@ module Contracts =
 
     let supportedSnapshotSchemas = [ "1.0.0"; CanonicalSnapshot.CurrentSchemaVersion ]
 
-    let supportedPolicySchemas = [ "1.0.0"; "1.1.0" ]
+    let supportedPolicySchemas = [ "1.0.0"; "1.1.0"; "1.2.0" ]
 
     // Relaxed escaping keeps '+' and non-ASCII text readable. The output is a
     // data contract, never embedded in HTML.
@@ -619,47 +619,7 @@ module Contracts =
 
     // --- policy decode ------------------------------------------------------
 
-    let private dispositionDecoder =
-        oneOf [ "observe-only", ObserveOnly; "warn", Warn; "fail", Fail ]
-
-    let private preferenceDecoder =
-        oneOf [ "lower-is-better", LowerIsBetter; "higher-is-better", HigherIsBetter ]
-
-    let private ratchetDecoder: Decoder<RatchetRule> =
-        fun e ->
-            result {
-                let! id = field "metricId" nonEmptyString e
-                let! version = field "metricVersion" int e
-                let! best = field "bestAccepted" decimal e
-                let! preference = field "preference" preferenceDecoder e
-                let! disposition = field "disposition" dispositionDecoder e
-                return { MetricId = id; MetricVersion = version; BestAccepted = best; Preference = preference; Disposition = disposition }
-            }
-
-    let private thresholdDecoder: Decoder<ThresholdRule> =
-        fun e ->
-            result {
-                let! id = field "metricId" nonEmptyString e
-                let! version = field "metricVersion" int e
-                let! maximum = field "maximum" decimal e
-                let! disposition = field "disposition" dispositionDecoder e
-                return { MetricId = id; MetricVersion = version; Maximum = maximum; Disposition = disposition }
-            }
-
-    let private suppressionDecoder: Decoder<Suppression> =
-        fun e ->
-            result {
-                let! id = field "findingId" nonEmptyString e
-                let! reason = field "reason" nonEmptyString e
-                let! scope = field "scope" nonEmptyString e
-                let! actor = optionalField "actor" string e
-                let! created = field "created" dateTimeOffset e
-                let! expires = optionalField "expires" dateTimeOffset e
-                let! status = field "status" (oneOf [ "active", SuppressionActive; "revoked", SuppressionRevoked ]) e
-                return { FindingId = id; Reason = reason; Scope = scope; Actor = actor; Created = created; Expires = expires; Status = status }
-            }
-
-    let private dispositionRule = field "disposition" dispositionDecoder
+    let private dispositionRule = field "disposition" PolicyDecoders.disposition
 
     let policyDecoder identity : Decoder<QualityPolicy> =
         fun e ->
@@ -669,16 +629,17 @@ module Contracts =
                     if List.contains schema supportedPolicySchemas then Ok()
                     else Error("unsupported-policy-schema:" + schema)
                 let! baseline = field "baseline" nonEmptyString e
-                let! ratchets = fieldOr "ratchets" [] (list ratchetDecoder) e
+                let! ratchets = fieldOr "ratchets" [] (list (PolicyDecoders.ratchet (schema = "1.2.0"))) e
                 let! observed = fieldOr "observedNotRatcheted" [] (list string) e
                 let! unavailable = fieldOr "unavailableBehavior" "not-evaluated" string e
                 do! if unavailable = "not-evaluated" then Ok() else Error $"unsupported unavailableBehavior '{unavailable}'"
-                let v11 = schema = "1.1.0"
-                let! thresholds = if v11 then fieldOr "thresholds" [] (list thresholdDecoder) e else Ok []
+                let v11 = schema = "1.1.0" || schema = "1.2.0"
+                let! thresholds = if v11 then fieldOr "thresholds" [] (list PolicyDecoders.threshold) e else Ok []
                 let! regressions = if v11 then optionalField "regressions" dispositionRule e else Ok None
                 let! findings = if v11 then optionalField "introducedFindings" dispositionRule e else Ok None
                 let! required = if v11 then fieldOr "requiredEvidence" [] (list nonEmptyString) e else Ok []
-                let! suppressions = if v11 then fieldOr "suppressions" [] (list suppressionDecoder) e else Ok []
+                do! PolicyDecoders.noSuppressionsFrom120 schema e
+                let! suppressions = if schema = "1.1.0" then fieldOr "suppressions" [] (list PolicyDecoders.suppression) e else Ok []
                 return
                     { SchemaVersion = schema
                       Identity = identity

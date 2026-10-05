@@ -3,7 +3,7 @@
   "contract": "dokimos.ratchet-baseline",
   "schemaVersion": "1.0.0",
   "repository": "kemiller2002/dokimos",
-  "acceptedAt": "2026-10-05T10:04:12Z",
+  "acceptedAt": "2026-10-05T10:44:49Z",
   "configuration": {
     "sources": [
       "src",
@@ -37,8 +37,8 @@
     "DOK-R003": {},
     "DOK-R004": {},
     "DOK-R005": {
-      "src/Dokimos.Cli/Program.fs": 610,
-      "src/Dokimos.Core/Contracts.fs": 700
+      "src/Dokimos.Cli/Program.fs": 552,
+      "src/Dokimos.Core/Contracts.fs": 661
     },
     "DOK-R006": {},
     "DOK-R007": {

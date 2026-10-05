@@ -319,3 +319,27 @@ module QualityRatchet =
           ConfigurationTightened = configTightened }
 
     let isLoosening (d: BaselineDiff) = not d.Loosened.IsEmpty || not d.ConfigurationLoosened.IsEmpty
+
+    /// Unifies waivers: DOK-G001 exceptions (scope = finding id) become the
+    /// suppressions `dokimos evaluate` applies to introduced findings. Any
+    /// invalid or expired exception in the file is an error, as in `check`.
+    let gateSuppressions (asOf: DateTimeOffset) (exceptions: ExceptionSet) =
+        let classified = classify asOf exceptions
+        let expired = classified.Valid |> List.filter (fun e -> statusAt asOf e = ExceptionExpired)
+        let problems =
+            (classified.Invalid |> List.map (fun i -> "exception " + i.Id + " is invalid: " + String.Join("; ", i.Problems)))
+            @ (expired |> List.map (fun e -> $"exception {e.Id} has expired"))
+        if not problems.IsEmpty then Error problems
+        else
+            classified.Valid
+            |> List.filter (fun e -> e.RuleId = QualityRules.IntroducedFinding)
+            |> List.map (fun e ->
+                { FindingId = e.Scope
+                  Reason = $"{e.Rationale} (exception {e.Id}, owner {e.Owner})"
+                  Scope = e.Scope
+                  Actor = Some e.Owner
+                  Created = DateTimeOffset(e.Created.ToDateTime(TimeOnly.MinValue), TimeSpan.Zero)
+                  // Valid through the expiry date: it lapses at the next UTC midnight.
+                  Expires = expiryOf e |> Option.map (fun d -> DateTimeOffset(d.AddDays(1).ToDateTime(TimeOnly.MinValue), TimeSpan.Zero))
+                  Status = SuppressionActive })
+            |> Ok

@@ -222,6 +222,18 @@ module RatchetCommand =
             | Error e, _
             | _, Error e -> Output.invalid "invalid-arguments" (e + "; usage: dokimos ratchet baseline diff --from old.json --to new.json"))
 
+    /// `evaluate`/`results --exceptions f`: DOK-G001 exceptions become the
+    /// policy's introduced-finding suppressions. Invalid or expired
+    /// exceptions refuse the evaluation with exit 6.
+    let withGateExceptions asOf parsed (policy: QualityPolicy) (k: QualityPolicy -> Output) =
+        match Arguments.tryOne "exceptions" parsed with
+        | None -> k policy
+        | Some path when not (File.Exists path) -> Output.invalid "exceptions-not-found" $"--exceptions {path} does not exist"
+        | Some path ->
+            match QualityRatchet.gateSuppressions asOf (RatchetContract.readExceptions (File.ReadAllText path)) with
+            | Error problems -> Output.error ExitCodesRatchet.InvalidExceptions "exceptions-invalid" (String.Join("; ", problems))
+            | Ok suppressions -> k { policy with Suppressions = policy.Suppressions @ suppressions }
+
     let usage =
         String.concat
             "\n"

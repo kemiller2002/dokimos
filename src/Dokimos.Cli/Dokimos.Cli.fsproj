@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Include="Arguments.fs" />
     <Compile Include="RatchetCommand.fs" />
+    <Compile Include="IdentityCommand.fs" />
     <Compile Include="Program.fs" />
     <None Include="PACKAGE-README.md" Pack="true" PackagePath="README.md" />
   </ItemGroup>

@@ -54,3 +54,14 @@ module EvaluateCliTests =
     let ``snapshot of a missing source directory is an invalid invocation`` () =
         let output = Support.run [ "snapshot"; "/definitely/not/here"; "--repository"; "o/r"; "--revision"; "abc" ]
         Assert.Equal(2, output.ExitCode)
+
+    [<Fact>]
+    let ``evaluate --exceptions applies the unified exceptions file and refuses expired ones with exit 6`` () =
+        let dir, s = fixture ()
+        let valid = Support.run [ "evaluate"; "--baseline"; s; "--current"; s; "--policy"; policy; "--exceptions"; Support.repoPath "quality/exceptions.json" ]
+        Assert.Equal(0, valid.ExitCode)
+        let expired =
+            Support.write dir "exceptions.json" """{"contract":"dokimos.quality-exceptions","schemaVersion":"1.0.0","exceptions":[{"id":"EXC-G1","ruleId":"DOK-G001","scope":"correlation:maintainability-hotspot:A.fs","rationale":"migration","owner":"kemiller2002","created":"2026-01-01","expires":"2026-01-31","evidence":["#16"]}]}"""
+        let refused = Support.run [ "evaluate"; "--baseline"; s; "--current"; s; "--policy"; policy; "--exceptions"; expired; "--at"; "2026-10-05T00:00:00Z" ]
+        Assert.Equal(6, refused.ExitCode)
+        Support.assertSchemaValid "dokimos-diagnostic.schema.json" refused.Stderr.Value

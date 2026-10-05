@@ -120,7 +120,7 @@ module Program =
             | _ -> Output.invalid "invalid-arguments" "usage: dokimos compare <before-snapshot> <after-snapshot>")
 
     let evaluate args =
-        withArgs [ "baseline"; "current"; "policy"; "at" ] args (fun parsed ->
+        withArgs [ "baseline"; "current"; "policy"; "at"; "exceptions" ] args (fun parsed ->
             match Arguments.required "baseline" parsed, Arguments.required "current" parsed, Arguments.required "policy" parsed with
             | Ok baselinePath, Ok currentPath, Ok policyPath ->
                 let asOf =
@@ -134,11 +134,12 @@ module Program =
                     match Contracts.readPolicy (File.ReadAllText policyPath) with
                     | Error reason -> Output.invalid "policy-invalid" reason
                     | Ok policy ->
+                        RatchetCommand.withGateExceptions asOf parsed policy (fun policy ->
                         readRequiredSnapshot "baseline" baselinePath (fun baseline ->
                             readRequiredSnapshot "current" currentPath (fun current ->
                                 let evaluation = Evaluation.evaluate asOf policy baseline current
                                 let dto = Contracts.evaluationDto evaluation
-                                Output.dataWithCode dto.ExitCode (Contracts.serialize dto)))
+                                Output.dataWithCode dto.ExitCode (Contracts.serialize dto))))
             | Error e, _, _
             | _, Error e, _
             | _, _, Error e -> Output.invalid "invalid-arguments" (e + "; usage: dokimos evaluate --baseline <snapshot> --current <snapshot> --policy <policy>"))
@@ -436,70 +437,10 @@ module Program =
             let root = Arguments.tryOne "root" parsed |> Option.defaultValue "."
             checksOutput command (Installation.verify (readRelative root)))
 
-    /// Reads `git remote get-url origin` at the repository boundary. Any
-    /// failure is absence of evidence, never agreement.
-    let private gitRemote (root: string) =
-        try
-            let info = Diagnostics.ProcessStartInfo("git", RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false)
-            [ "-C"; root; "remote"; "get-url"; "origin" ] |> List.iter info.ArgumentList.Add
-            use proc =
-                match Diagnostics.Process.Start info with
-                | null -> raise (InvalidOperationException "git did not start")
-                | started -> started
-            let output = proc.StandardOutput.ReadToEnd()
-            proc.WaitForExit()
-            if proc.ExitCode = 0 && not (String.IsNullOrWhiteSpace output) then Some(output.Trim()) else None
-        with
-        | :? ComponentModel.Win32Exception
-        | :? InvalidOperationException -> None
-
-    /// Repository-identity conformance (issue #17): `ros.json` must identify
-    /// the repository it is in. Exit 0 consistent, 4 copied/mismatched,
-    /// 3 undetermined (no external identity evidence).
-    let identity args =
-        withArgs [ "root"; "expected"; "remote" ] args (fun parsed ->
-            let root = Arguments.tryOne "root" parsed |> Option.defaultValue "."
-            match readRelative root "ros.json" with
-            | None -> Output.unavailable "ros-json-not-found" (Path.Combine(root, "ros.json") + " does not exist")
-            | Some text ->
-                match RepositoryIdentity.readDeclared text with
-                | Error reason -> Output.invalid "ros-json-invalid" reason
-                | Ok declared ->
-                    let evidence =
-                        { Expected = Arguments.tryOne "expected" parsed
-                          RemoteUrl = Arguments.tryOne "remote" parsed |> Option.orElse (gitRemote root)
-                          InstallationSlug =
-                            readRelative root ".ros/installation.json"
-                            |> Option.bind (RepositoryIdentity.readInstallationSlug >> Result.toOption) }
-                    let checks = RepositoryIdentity.check declared evidence
-                    let verdict = RepositoryIdentity.verdict checks
-                    let tag =
-                        function
-                        | IdentityAgrees -> "agrees"
-                        | IdentityDisagrees -> "disagrees"
-                        | IdentityUnavailable -> "unavailable"
-                    let verdictTag, code =
-                        match verdict with
-                        | IdentityConsistent -> "consistent", ExitCodes.Continue
-                        | IdentityCopied -> "mismatch", ExitCodes.PolicyFailure
-                        | IdentityUndetermined -> "undetermined", ExitCodes.EvidenceUnavailable
-                    Output.dataWithCode code (
-                        Contracts.serialize
-                            {| Contract = "dokimos.repository-identity"
-                               SchemaVersion = "1.0.0"
-                               DokimosVersion = DokimosInfo.version
-                               Verdict = verdictTag
-                               ExitCode = code
-                               Declared = {| Name = declared.Name; Project = declared.Project; RepositoryId = declared.RepositoryId |}
-                               Checks =
-                                checks
-                                |> List.map (fun c -> {| Check = c.Check; State = tag c.State; Detail = c.Detail; Remediation = c.Remediation |}) |}
-                    ))
-
     /// Application-facing results contract: the evaluation plus stored
     /// history, projected for UIs and reports without recomputation.
     let results args =
-        withArgs [ "baseline"; "current"; "policy"; "store"; "at" ] args (fun parsed ->
+        withArgs [ "baseline"; "current"; "policy"; "store"; "at"; "exceptions" ] args (fun parsed ->
             match Arguments.required "baseline" parsed, Arguments.required "current" parsed, Arguments.required "policy" parsed with
             | Ok baselinePath, Ok currentPath, Ok policyPath ->
                 if not (File.Exists policyPath) then Output.invalid "policy-not-found" $"policy {policyPath} does not exist"
@@ -507,12 +448,13 @@ module Program =
                     match Contracts.readPolicy (File.ReadAllText policyPath) with
                     | Error reason -> Output.invalid "policy-invalid" reason
                     | Ok policy ->
+                        let asOf =
+                            Arguments.tryOne "at" parsed
+                            |> Option.bind (fun t -> match DateTimeOffset.TryParse t with | true, v -> Some v | _ -> None)
+                            |> Option.defaultValue DateTimeOffset.UtcNow
+                        RatchetCommand.withGateExceptions asOf parsed policy (fun policy ->
                         readRequiredSnapshot "baseline" baselinePath (fun baseline ->
                             readRequiredSnapshot "current" currentPath (fun current ->
-                                let asOf =
-                                    Arguments.tryOne "at" parsed
-                                    |> Option.bind (fun t -> match DateTimeOffset.TryParse t with | true, v -> Some v | _ -> None)
-                                    |> Option.defaultValue DateTimeOffset.UtcNow
                                 let evaluation = Evaluation.evaluate asOf policy baseline current
                                 let emit history = Output.data (Contracts.serialize (Results.build evaluation history))
                                 match Arguments.tryOne "store" parsed with
@@ -520,7 +462,7 @@ module Program =
                                 | Some root ->
                                     match FileSystemStore.openStore root |> Result.bind (fun store -> store.List()) with
                                     | Ok stored -> emit stored
-                                    | Error e -> storeError e))
+                                    | Error e -> storeError e)))
             | Error e, _, _
             | _, Error e, _
             | _, _, Error e -> Output.invalid "invalid-arguments" (e + "; usage: dokimos results --baseline b --current c --policy p [--store dir]"))
@@ -535,7 +477,7 @@ module Program =
               "  analyze <source-dir> [--git-history f]    raw repository analysis"
               "  snapshot <source-dir>... --repository r --revision sha [options]"
               "  compare <before-snapshot> <after-snapshot>"
-              "  evaluate --baseline b --current c --policy p"
+              "  evaluate --baseline b --current c --policy p [--exceptions quality/exceptions.json]"
               "  results --baseline b --current c --policy p [--store dir]   application-facing results contract"
               "  store init|put|get|accept-baseline|baseline --store dir ..."
               "  init [--root .] [--version v] [--action-ref sha] [--source dir]...   install Dokimos into a repository"
@@ -566,7 +508,7 @@ module Program =
         | "verify" :: rest -> verify "verify" rest
         | "doctor" :: rest -> verify "doctor" rest
         | "upgrade" :: rest -> upgrade rest
-        | "identity" :: rest -> identity rest
+        | "identity" :: rest -> IdentityCommand.identity rest
         | "ratchet" :: rest -> RatchetCommand.dispatch rest
         | _ -> Output.invalid "invalid-arguments" usage
 

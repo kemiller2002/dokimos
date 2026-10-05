@@ -1,6 +1,6 @@
 {
   "$schema": "../schemas/dokimos-policy.schema.json",
-  "schemaVersion": "1.1.0",
+  "schemaVersion": "1.2.0",
   "baseline": "BASELINE-0001",
   "requiredEvidence": [
     "build.compiler-errors",
@@ -12,21 +12,21 @@
     {
       "metricId": "build.compiler-errors",
       "metricVersion": 1,
-      "bestAccepted": 0,
+      "bestAccepted": "baseline",
       "preference": "lower-is-better",
       "disposition": "fail"
     },
     {
       "metricId": "build.compiler-warnings",
       "metricVersion": 1,
-      "bestAccepted": 0,
+      "bestAccepted": "baseline",
       "preference": "lower-is-better",
       "disposition": "fail"
     },
     {
       "metricId": "tests.failed",
       "metricVersion": 1,
-      "bestAccepted": 0,
+      "bestAccepted": "baseline",
       "preference": "lower-is-better",
       "disposition": "fail"
     }
@@ -42,6 +42,5 @@
     "tests.total",
     "tests.passed"
   ],
-  "unavailableBehavior": "not-evaluated",
-  "suppressions": []
+  "unavailableBehavior": "not-evaluated"
 }
