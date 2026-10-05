@@ -58,6 +58,9 @@ jobs:
           set -o pipefail
           mkdir -p artifacts/dokimos
           dotnet build Dokimos.sln --configuration Release --no-restore 2>&1 | tee artifacts/dokimos/build.log
+      - name: Repository identity conformance (issue #17)
+        # ros.json must identify this repository; a copied identity exits 4.
+        run: dotnet src/Dokimos.Cli/bin/Release/net8.0/Dokimos.Cli.dll identity --root . --expected dokimos
       - name: Test (TRX captured as evidence)
         id: test
         # A red test run is judged by the Dokimos gate below (tests.failed is
