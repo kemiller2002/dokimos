@@ -22,7 +22,7 @@ type BoundaryViolation =
       ForbiddenTarget: string }
 
 module Architecture =
-    let boundaryViolations rules evidence =
+    let boundaryViolations (rules: BoundaryRule list) (evidence: ArchitectureEvidence) : BoundaryViolation list =
         [ for reference in evidence.ProjectReferences do
             for rule in rules do
                 if reference.FromProject = rule.FromProject && reference.ToProject = rule.ForbiddenTarget then

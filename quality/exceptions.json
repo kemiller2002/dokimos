@@ -1,0 +1,6 @@
+{
+  "$schema": "../schemas/dokimos-quality-exceptions.schema.json",
+  "contract": "dokimos.quality-exceptions",
+  "schemaVersion": "1.0.0",
+  "exceptions": []
+}

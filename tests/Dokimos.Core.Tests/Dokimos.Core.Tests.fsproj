@@ -38,6 +38,8 @@
     <Compile Include="EvaluationTests.fs" />
     <Compile Include="ContractsTests.fs" />
     <Compile Include="RepositoryIdentityTests.fs" />
+    <Compile Include="QualitySignalsTests.fs" />
+    <Compile Include="QualityRatchetTests.fs" />
     <Compile Include="EvidenceStoreTests.fs" />
     <Compile Include="HistoryTests.fs" />
   </ItemGroup>

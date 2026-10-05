@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/ratchet-baseline",
+  "title": "Dokimos accepted ratchet baseline (quality/baseline.json)",
+  "description": "Accepted per-rule, per-scope values. Created by `dokimos ratchet baseline init`; lowered only by `dokimos ratchet baseline update`; `dokimos ratchet baseline diff` rejects any loosening. A rule key present in rules is enforced.",
+  "type": "object",
+  "required": [
+    "contract",
+    "schemaVersion",
+    "repository",
+    "acceptedAt",
+    "configuration",
+    "rules"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "contract": {
+      "const": "dokimos.ratchet-baseline"
+    },
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "repository": {
+      "type": "string",
+      "minLength": 1
+    },
+    "acceptedAt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "configuration": {
+      "type": "object",
+      "required": [
+        "sources",
+        "generated",
+        "largeFileLines",
+        "forbiddenReferences"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "generated": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "largeFileLines": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "forbiddenReferences": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "from",
+              "to"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "from": {
+                "type": "string",
+                "minLength": 1
+              },
+              "to": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^DOK-R\\d{3}$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

@@ -34,5 +34,12 @@
     <Compile Include="HistoryContract.fs" />
     <Compile Include="Installation.fs" />
     <Compile Include="Results.fs" />
+    <Compile Include="QualityRules.fs" />
+    <Compile Include="SourceLexing.fs" />
+    <Compile Include="QualitySignals.fs" />
+    <Compile Include="RatchetTypes.fs" />
+    <Compile Include="Ratchet.fs" />
+    <Compile Include="RatchetDtos.fs" />
+    <Compile Include="RatchetContract.fs" />
   </ItemGroup>
 </Project>
