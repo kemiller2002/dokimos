@@ -81,8 +81,30 @@ store; the newest acceptance is the current baseline.
 | 3 | Required evidence unavailable or invalid; incompatible snapshots |
 | 4 | Policy failure |
 | 5 | Evidence-store identity conflict (immutability violation) |
+| 6 | Invalid, incomplete or expired quality exception (`ratchet check`, `evaluate/results --exceptions`) |
 
 Canonical JSON is written to stdout; `dokimos.diagnostic` JSON to stderr.
+
+## Change-quality ratchet
+
+`dokimos ratchet check --build-log <log> --json` judges the working tree
+against the accepted `quality/baseline.json` and `quality/exceptions.json`:
+
+- 0 is `pass`;
+- 4 is `regression`;
+- 6 is `invalid-exceptions`;
+- 3 is `unavailable`.
+
+The output is the `dokimos.ratchet` 1.0.0 contract. Adopt it with
+`dokimos ratchet baseline init --repository <owner/name> --write`. The rule
+catalog, contract, exception process and waiver migration are in
+[`docs/quality/RATCHET-RULES.md`](../quality/RATCHET-RULES.md).
+
+`dokimos identity` checks that `ros.json` identifies the repository it is in:
+
+- 0 is consistent;
+- 4 is a mismatch;
+- 3 is undetermined.
 
 ## Evidence store
 

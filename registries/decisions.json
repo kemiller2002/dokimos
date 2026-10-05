@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "created": "2026-10-05",
+    "id": "DF-DOK-2026-0001",
+    "path": "research/decisions/DF-DOK-2026-0001--baseline-derived-ratchet-and-exceptions.md",
+    "status": "accepted",
+    "tags": [
+      "quality",
+      "ratchet",
+      "policy",
+      "exceptions",
+      "evidence"
+    ],
+    "title": "Quality limits come from an accepted, tighten-only baseline; exceptions are separate, owned and expiring",
+    "type": "decision-record",
+    "updated": "2026-10-05"
+  }
+]

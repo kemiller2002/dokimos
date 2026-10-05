@@ -53,12 +53,13 @@ jobs:
       - name: Restore
         run: dotnet restore Dokimos.sln
       - name: Build (log captured as evidence)
+        id: build
         shell: bash
         run: |
           set -o pipefail
           mkdir -p artifacts/dokimos
           dotnet build Dokimos.sln --configuration Release --no-restore 2>&1 | tee artifacts/dokimos/build.log
-      - name: Repository identity conformance (issue #17)
+      - name: "Repository identity conformance (issue #17)"
         # ros.json must identify this repository; a copied identity exits 4.
         run: dotnet src/Dokimos.Cli/bin/Release/net8.0/Dokimos.Cli.dll identity --root . --expected dokimos
       - name: Test (TRX captured as evidence)
@@ -86,6 +87,37 @@ jobs:
           persist: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') && 'true' || 'auto' }}
           accept-baseline: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && inputs.accept-baseline) && 'true' || 'false' }}
           baseline-reason: ${{ inputs.baseline-reason }}
+      - name: "Dokimos change-quality ratchet (self-application, #16)"
+        # Judges this revision against quality/baseline.json with the exceptions
+        # in quality/exceptions.json. Exit 4 regression, 6 invalid or expired
+        # exception, 3 unavailable; none of them passes.
+        if: always() && steps.build.outcome == 'success'
+        shell: bash
+        run: |
+          set -o pipefail
+          dotnet src/Dokimos.Cli/bin/Release/net8.0/Dokimos.Cli.dll ratchet check \
+            --build-log artifacts/dokimos/build.log --json | tee artifacts/dokimos/ratchet.json
+      - name: Ratchet baseline may only tighten
+        if: always() && steps.build.outcome == 'success' && github.event_name != 'workflow_dispatch'
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          set -euo pipefail
+          if [ -n "${BASE_SHA:-}" ] && git cat-file -e "$BASE_SHA:quality/baseline.json" 2>/dev/null; then
+            git show "$BASE_SHA:quality/baseline.json" > "$RUNNER_TEMP/base-baseline.json"
+            dotnet src/Dokimos.Cli/bin/Release/net8.0/Dokimos.Cli.dll ratchet baseline diff \
+              --from "$RUNNER_TEMP/base-baseline.json" --to quality/baseline.json
+          else
+            echo "No accepted ratchet baseline at the base revision; first adoption."
+          fi
+      - name: Upload the ratchet report
+        if: always() && steps.build.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dokimos-ratchet-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/dokimos/ratchet.json
+          if-no-files-found: warn
       - name: Set up Node for the results UI
         if: always() && steps.gate.outputs.snapshot-id != ''
         uses: actions/setup-node@v4
