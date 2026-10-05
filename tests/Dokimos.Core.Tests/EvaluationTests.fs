@@ -14,7 +14,7 @@ module EvaluationTests =
           Identity = "sha256:test"
           Baseline = "B"
           Ratchets =
-            [ { MetricId = "build.compiler-warnings"; MetricVersion = 1; BestAccepted = 0M; Preference = LowerIsBetter; Disposition = Fail } ]
+            [ { MetricId = "build.compiler-warnings"; MetricVersion = 1; Bound = FixedBound 0M; Preference = LowerIsBetter; Disposition = Fail } ]
           Thresholds = [ { MetricId = "complexity.proxy-cyclomatic"; MetricVersion = 1; Maximum = 20M; Disposition = Warn } ]
           Regressions = Some Warn
           IntroducedFindings = Some Fail
@@ -129,3 +129,35 @@ module EvaluationTests =
         let e = run policy baseline { healthy [] with Repository = "other" }
         Assert.Equal(ExitCodes.EvidenceUnavailable, Evaluation.exitCode e.Disposition)
         Assert.True(match e.Disposition with GateIncompatibleSnapshots _ -> true | _ -> false)
+
+    let baselineBound = { policy with Ratchets = [ { MetricId = "source.mutable-bindings"; MetricVersion = 1; Bound = AcceptedBaseline; Preference = LowerIsBetter; Disposition = Fail } ] }
+
+    [<Fact>]
+    let ``baseline-bound ratchet takes its limit per scope from the accepted baseline`` () =
+        let held = run baselineBound baseline (healthy [ metric "source.mutable-bindings" 1M ])
+        let ratchet = held.Outcomes |> List.find (fun o -> o.Rule = RatchetRuleKind)
+        Assert.Equal(("A.fs", Some 1M, Pass), (ratchet.Scope, ratchet.Baseline, ratchet.Result))
+        let worse = run baselineBound baseline (healthy [ metric "source.mutable-bindings" 2M ])
+        Assert.Equal(GateFailed, worse.Disposition)
+
+    [<Fact>]
+    let ``baseline-bound ratchet never passes a scope the baseline did not measure`` () =
+        let e = run baselineBound baseline (healthy [ metricAt "B.fs" "source.mutable-bindings" 0M; metric "source.mutable-bindings" 1M ])
+        let fresh = e.Outcomes |> List.find (fun o -> o.Rule = RatchetRuleKind && o.Scope = "B.fs")
+        Assert.Equal("unavailable", Contracts.gateTag fresh.Result)
+        Assert.Equal(GateEvidenceUnavailable, e.Disposition)
+
+    [<Fact>]
+    let ``DOK-G001 exceptions become introduced-finding suppressions valid through their expiry date`` () =
+        let exceptions =
+            { Valid =
+                [ { Id = "EXC-G1"; RuleId = QualityRules.IntroducedFinding; Scope = "hotspot"; Rationale = "migration"; Owner = "reviewer"
+                    Created = DateOnly(2026, 9, 20); Review = Expires(DateOnly(2026, 9, 29)); Evidence = [ "#16" ]; AllowedValue = None } ]
+              Invalid = [] }
+        match QualityRatchet.gateSuppressions asOf exceptions with
+        | Error e -> failwith (String.Join("; ", e))
+        | Ok suppressions ->
+            let e = run { policy with Suppressions = suppressions } baseline { healthy [ metric "source.mutable-bindings" 1M ] with Findings = [ finding "hotspot" ] }
+            Assert.Equal(GatePassed, e.Disposition)
+        let expired = { exceptions with Valid = exceptions.Valid |> List.map (fun x -> { x with Review = Expires(DateOnly(2026, 9, 28)) }) }
+        Assert.True(Result.isError (QualityRatchet.gateSuppressions asOf expired))

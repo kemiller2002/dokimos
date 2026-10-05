@@ -16,5 +16,7 @@
     <Compile Include="StoreHistoryCliTests.fs" />
     <Compile Include="InstallationCliTests.fs" />
     <Compile Include="ResultsCliTests.fs" />
+    <Compile Include="IdentityCliTests.fs" />
+    <Compile Include="RatchetCliTests.fs" />
   </ItemGroup>
 </Project>

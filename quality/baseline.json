@@ -1,0 +1,55 @@
+{
+  "$schema": "../schemas/dokimos-ratchet-baseline.schema.json",
+  "contract": "dokimos.ratchet-baseline",
+  "schemaVersion": "1.0.0",
+  "repository": "kemiller2002/dokimos",
+  "acceptedAt": "2026-10-05T10:44:49Z",
+  "configuration": {
+    "sources": [
+      "src",
+      "tests"
+    ],
+    "generated": [
+      "**/bin/**",
+      "**/obj/**"
+    ],
+    "largeFileLines": 400,
+    "forbiddenReferences": [
+      {
+        "from": "Dokimos.Domain",
+        "to": "Dokimos.Core"
+      },
+      {
+        "from": "Dokimos.Domain",
+        "to": "Dokimos.Cli"
+      },
+      {
+        "from": "Dokimos.Core",
+        "to": "Dokimos.Cli"
+      }
+    ]
+  },
+  "rules": {
+    "DOK-R001": {
+      "repository": 0
+    },
+    "DOK-R002": {},
+    "DOK-R003": {},
+    "DOK-R004": {},
+    "DOK-R005": {
+      "src/Dokimos.Cli/Program.fs": 552,
+      "src/Dokimos.Core/Contracts.fs": 661
+    },
+    "DOK-R006": {},
+    "DOK-R007": {
+      "Directory.Build.props": 1,
+      "src/Dokimos.Cli/Dokimos.Cli.fsproj": 1,
+      "tests/Dokimos.Cli.Tests/Dokimos.Cli.Tests.fsproj": 4,
+      "tests/Dokimos.Core.Tests/Dokimos.Core.Tests.fsproj": 3,
+      "tests/Dokimos.Domain.Tests/Dokimos.Domain.Tests.fsproj": 3
+    },
+    "DOK-R008": {
+      "repository": 0
+    }
+  }
+}

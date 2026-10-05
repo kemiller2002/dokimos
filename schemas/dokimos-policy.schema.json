@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://echelonfoundry.com/dokimos/schemas/policy",
   "title": "Dokimos quality policy",
-  "description": "Policy evaluated by `dokimos evaluate`. 1.0.0 supports ratchets only; 1.1.0 adds thresholds, regression and introduced-finding rules, required evidence, and suppressions.",
+  "description": "Policy evaluated by `dokimos evaluate`. 1.0.0 supports ratchets only; 1.1.0 adds thresholds, regression and introduced-finding rules, required evidence, and suppressions. 1.2.0 lets a ratchet's bestAccepted be \"baseline\" (the limit is the accepted baseline snapshot's value for the same metric and scope) and moves suppressions to the exceptions file (quality/exceptions.json, DOK-G001).",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -15,7 +15,8 @@
     "schemaVersion": {
       "enum": [
         "1.0.0",
-        "1.1.0"
+        "1.1.0",
+        "1.2.0"
       ]
     },
     "baseline": {
@@ -43,7 +44,14 @@
             "minimum": 1
           },
           "bestAccepted": {
-            "type": "number"
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "const": "baseline"
+              }
+            ]
           },
           "preference": {
             "enum": [
@@ -203,5 +211,39 @@
       }
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schemaVersion": {
+            "const": "1.2.0"
+          }
+        },
+        "required": [
+          "schemaVersion"
+        ]
+      },
+      "then": {
+        "not": {
+          "required": [
+            "suppressions"
+          ]
+        }
+      },
+      "else": {
+        "properties": {
+          "ratchets": {
+            "items": {
+              "properties": {
+                "bestAccepted": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

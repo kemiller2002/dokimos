@@ -63,6 +63,17 @@ module ContractsTests =
         Assert.Equal("resolved", findingChange.GetProperty("Kind").Text)
 
     [<Fact>]
+    let ``policy 1.2.0 takes ratchet limits from the baseline and rejects embedded suppressions`` () =
+        let v12 = """{"schemaVersion":"1.2.0","baseline":"B","ratchets":[{"metricId":"m","metricVersion":1,"bestAccepted":"baseline","preference":"lower-is-better","disposition":"fail"}]}"""
+        match Contracts.readPolicy v12 with
+        | Ok p -> Assert.Equal(AcceptedBaseline, p.Ratchets.Head.Bound)
+        | Error e -> failwith e
+        Assert.True(Result.isError (Contracts.readPolicy (v12.Replace("\"1.2.0\"", "\"1.1.0\""))))
+        match Contracts.readPolicy """{"schemaVersion":"1.2.0","baseline":"B","suppressions":[]}""" with
+        | Error e -> Assert.Contains("quality/exceptions.json", e)
+        | Ok _ -> failwith "1.2.0 must reject suppressions"
+
+    [<Fact>]
     let ``policy 1.0.0 and 1.1.0 decode; unknown versions and dispositions are rejected`` () =
         let v10 = """{"schemaVersion":"1.0.0","baseline":"B","ratchets":[{"metricId":"m","metricVersion":1,"bestAccepted":0,"preference":"lower-is-better","disposition":"fail"}],"unavailableBehavior":"not-evaluated"}"""
         let v11 = """{"schemaVersion":"1.1.0","baseline":"B","regressions":{"disposition":"warn"},"requiredEvidence":["m"],"suppressions":[{"findingId":"f","reason":"r","scope":"A.fs","created":"2026-09-01T00:00:00Z","expires":null,"status":"active"}]}"""

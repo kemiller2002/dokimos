@@ -1,0 +1,606 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/ratchet",
+  "title": "Dokimos ratchet report (dokimos.ratchet 1.0.0)",
+  "description": "Output of `dokimos ratchet check --json`. Verdict and ExitCode: pass 0, regression 4, invalid-exceptions 6 (malformed, incomplete or expired exception), unavailable 3 (baseline missing/unreadable or an enforced rule could not be measured; never a pass). Invalid invocation exits 2 with a dokimos.diagnostic on stderr; an unexpected fault exits 1.",
+  "type": "object",
+  "required": [
+    "Contract",
+    "SchemaVersion",
+    "DokimosVersion",
+    "CheckedAt",
+    "Repository",
+    "Verdict",
+    "ExitCode",
+    "Reasons",
+    "Baseline",
+    "Exceptions",
+    "Summary",
+    "Rules",
+    "Generated",
+    "Findings"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "Contract": {
+      "const": "dokimos.ratchet"
+    },
+    "SchemaVersion": {
+      "const": "1.0.0"
+    },
+    "DokimosVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "CheckedAt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Repository": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "Verdict": {
+      "enum": [
+        "pass",
+        "regression",
+        "invalid-exceptions",
+        "unavailable"
+      ]
+    },
+    "ExitCode": {
+      "enum": [
+        0,
+        3,
+        4,
+        6
+      ]
+    },
+    "Reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Baseline": {
+      "type": "object",
+      "required": [
+        "Path",
+        "Digest",
+        "SchemaVersion",
+        "AcceptedAt"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Digest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "SchemaVersion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "AcceptedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "Exceptions": {
+      "type": "object",
+      "required": [
+        "Path",
+        "Digest",
+        "Active",
+        "Expired",
+        "Invalid",
+        "Unused"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Digest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Active": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "Id",
+              "RuleId",
+              "Scope",
+              "Rationale",
+              "Owner",
+              "Created",
+              "Expires",
+              "ReviewCondition",
+              "Evidence",
+              "AllowedValue"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "Id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "RuleId": {
+                "type": "string",
+                "pattern": "^DOK-(R|G)\\d{3}$"
+              },
+              "Scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "Rationale": {
+                "type": "string",
+                "minLength": 1
+              },
+              "Owner": {
+                "type": "string",
+                "minLength": 1
+              },
+              "Created": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+              },
+              "Expires": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ReviewCondition": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "Evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "AllowedValue": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "Expired": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "Id",
+              "RuleId",
+              "Scope",
+              "Rationale",
+              "Owner",
+              "Created",
+              "Expires",
+              "ReviewCondition",
+              "Evidence",
+              "AllowedValue"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "Id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "RuleId": {
+                "type": "string",
+                "pattern": "^DOK-(R|G)\\d{3}$"
+              },
+              "Scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "Rationale": {
+                "type": "string",
+                "minLength": 1
+              },
+              "Owner": {
+                "type": "string",
+                "minLength": 1
+              },
+              "Created": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+              },
+              "Expires": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ReviewCondition": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "Evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "AllowedValue": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "Invalid": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "Id",
+              "Problems"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "Id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "Problems": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1
+              }
+            }
+          }
+        },
+        "Unused": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Summary": {
+      "type": "object",
+      "required": [
+        "Regressions",
+        "Excepted",
+        "Improvements",
+        "RulesMeasured",
+        "RulesUnavailable",
+        "RulesNotEnforced",
+        "FilesAnalyzed",
+        "GeneratedFilesExcluded"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Regressions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Excepted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Improvements": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "RulesMeasured": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "RulesUnavailable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "RulesNotEnforced": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "FilesAnalyzed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "GeneratedFilesExcluded": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "Rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "RuleId",
+          "Name",
+          "State",
+          "Reason"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "RuleId": {
+            "type": "string",
+            "pattern": "^DOK-(R|G)\\d{3}$"
+          },
+          "Name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "State": {
+            "enum": [
+              "measured",
+              "unavailable",
+              "not-enforced"
+            ]
+          },
+          "Reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "Generated": {
+      "type": "object",
+      "required": [
+        "Globs",
+        "Files"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Globs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "RuleId",
+          "RuleName",
+          "Scope",
+          "Kind",
+          "Degraded",
+          "Before",
+          "After",
+          "BaselineRecorded",
+          "Description",
+          "Remediation",
+          "ExceptionProcess",
+          "ExceptionId",
+          "Evidence"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "RuleId": {
+            "type": "string",
+            "pattern": "^DOK-(R|G)\\d{3}$"
+          },
+          "RuleName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "Scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "Kind": {
+            "enum": [
+              "regression",
+              "excepted-regression",
+              "improvement"
+            ]
+          },
+          "Degraded": {
+            "type": "string",
+            "minLength": 1
+          },
+          "Before": {
+            "type": "number"
+          },
+          "After": {
+            "type": "number"
+          },
+          "BaselineRecorded": {
+            "type": "boolean"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "Remediation": {
+            "type": "string"
+          },
+          "ExceptionProcess": {
+            "type": "string"
+          },
+          "ExceptionId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "Evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "Verdict": {
+            "const": "pass"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ExitCode": {
+            "const": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "Verdict": {
+            "const": "regression"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ExitCode": {
+            "const": 4
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "Verdict": {
+            "const": "invalid-exceptions"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ExitCode": {
+            "const": 6
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "Verdict": {
+            "const": "unavailable"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ExitCode": {
+            "const": 3
+          }
+        }
+      }
+    }
+  ]
+}

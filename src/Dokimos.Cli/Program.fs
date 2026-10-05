@@ -5,58 +5,6 @@ open System.IO
 open System.Text.Json
 open Dokimos.Core
 
-/// The result of one CLI invocation. Canonical data goes to stdout,
-/// diagnostics to stderr; the exit code is the machine-readable disposition.
-type Output =
-    { Stdout: string option
-      Stderr: string option
-      ExitCode: int }
-
-module Output =
-    let data (json: string) = { Stdout = Some json; Stderr = None; ExitCode = ExitCodes.Continue }
-
-    let dataWithCode code (json: string) = { Stdout = Some json; Stderr = None; ExitCode = code }
-
-    let error code diagnosticCode message =
-        { Stdout = None
-          Stderr = Some(Contracts.serialize (Contracts.diagnostic diagnosticCode message))
-          ExitCode = code }
-
-    let invalid diagnosticCode message = error ExitCodes.InvalidInvocation diagnosticCode message
-
-    let unavailable diagnosticCode message = error ExitCodes.EvidenceUnavailable diagnosticCode message
-
-/// `--name value` options (repeatable) and positional arguments.
-type Arguments =
-    { Positionals: string list
-      Options: Map<string, string list> }
-
-module Arguments =
-    let parse (args: string list) =
-        let rec go positionals options remaining =
-            match remaining with
-            | [] -> Ok { Positionals = List.rev positionals; Options = options |> Map.map (fun _ v -> List.rev v) }
-            | (name: string) :: value :: rest when name.StartsWith("--", StringComparison.Ordinal) && not (value.StartsWith("--", StringComparison.Ordinal)) ->
-                let key = name.Substring 2
-                go positionals (options |> Map.change key (fun existing -> Some(value :: defaultArg existing []))) rest
-            | name :: _ when name.StartsWith("--", StringComparison.Ordinal) -> Error $"option {name} requires a value"
-            | value :: rest -> go (value :: positionals) options rest
-        go [] Map.empty args
-
-    let tryOne name args = args.Options |> Map.tryFind name |> Option.bind List.tryLast
-
-    let many name args = args.Options |> Map.tryFind name |> Option.defaultValue []
-
-    let required name args =
-        match tryOne name args with
-        | Some value -> Ok value
-        | None -> Error $"missing required option --{name}"
-
-    let allowOnly (known: string list) args =
-        match args.Options |> Map.keys |> Seq.filter (fun k -> not (List.contains k known)) |> Seq.tryHead with
-        | Some unknown -> Error $"unknown option --{unknown}"
-        | None -> Ok args
-
 module Program =
     let options = JsonSerializerOptions(WriteIndented = true)
 
@@ -172,7 +120,7 @@ module Program =
             | _ -> Output.invalid "invalid-arguments" "usage: dokimos compare <before-snapshot> <after-snapshot>")
 
     let evaluate args =
-        withArgs [ "baseline"; "current"; "policy"; "at" ] args (fun parsed ->
+        withArgs [ "baseline"; "current"; "policy"; "at"; "exceptions" ] args (fun parsed ->
             match Arguments.required "baseline" parsed, Arguments.required "current" parsed, Arguments.required "policy" parsed with
             | Ok baselinePath, Ok currentPath, Ok policyPath ->
                 let asOf =
@@ -186,11 +134,12 @@ module Program =
                     match Contracts.readPolicy (File.ReadAllText policyPath) with
                     | Error reason -> Output.invalid "policy-invalid" reason
                     | Ok policy ->
+                        RatchetCommand.withGateExceptions asOf parsed policy (fun policy ->
                         readRequiredSnapshot "baseline" baselinePath (fun baseline ->
                             readRequiredSnapshot "current" currentPath (fun current ->
                                 let evaluation = Evaluation.evaluate asOf policy baseline current
                                 let dto = Contracts.evaluationDto evaluation
-                                Output.dataWithCode dto.ExitCode (Contracts.serialize dto)))
+                                Output.dataWithCode dto.ExitCode (Contracts.serialize dto))))
             | Error e, _, _
             | _, Error e, _
             | _, _, Error e -> Output.invalid "invalid-arguments" (e + "; usage: dokimos evaluate --baseline <snapshot> --current <snapshot> --policy <policy>"))
@@ -491,7 +440,7 @@ module Program =
     /// Application-facing results contract: the evaluation plus stored
     /// history, projected for UIs and reports without recomputation.
     let results args =
-        withArgs [ "baseline"; "current"; "policy"; "store"; "at" ] args (fun parsed ->
+        withArgs [ "baseline"; "current"; "policy"; "store"; "at"; "exceptions" ] args (fun parsed ->
             match Arguments.required "baseline" parsed, Arguments.required "current" parsed, Arguments.required "policy" parsed with
             | Ok baselinePath, Ok currentPath, Ok policyPath ->
                 if not (File.Exists policyPath) then Output.invalid "policy-not-found" $"policy {policyPath} does not exist"
@@ -499,12 +448,13 @@ module Program =
                     match Contracts.readPolicy (File.ReadAllText policyPath) with
                     | Error reason -> Output.invalid "policy-invalid" reason
                     | Ok policy ->
+                        let asOf =
+                            Arguments.tryOne "at" parsed
+                            |> Option.bind (fun t -> match DateTimeOffset.TryParse t with | true, v -> Some v | _ -> None)
+                            |> Option.defaultValue DateTimeOffset.UtcNow
+                        RatchetCommand.withGateExceptions asOf parsed policy (fun policy ->
                         readRequiredSnapshot "baseline" baselinePath (fun baseline ->
                             readRequiredSnapshot "current" currentPath (fun current ->
-                                let asOf =
-                                    Arguments.tryOne "at" parsed
-                                    |> Option.bind (fun t -> match DateTimeOffset.TryParse t with | true, v -> Some v | _ -> None)
-                                    |> Option.defaultValue DateTimeOffset.UtcNow
                                 let evaluation = Evaluation.evaluate asOf policy baseline current
                                 let emit history = Output.data (Contracts.serialize (Results.build evaluation history))
                                 match Arguments.tryOne "store" parsed with
@@ -512,7 +462,7 @@ module Program =
                                 | Some root ->
                                     match FileSystemStore.openStore root |> Result.bind (fun store -> store.List()) with
                                     | Ok stored -> emit stored
-                                    | Error e -> storeError e))
+                                    | Error e -> storeError e)))
             | Error e, _, _
             | _, Error e, _
             | _, _, Error e -> Output.invalid "invalid-arguments" (e + "; usage: dokimos results --baseline b --current c --policy p [--store dir]"))
@@ -527,14 +477,16 @@ module Program =
               "  analyze <source-dir> [--git-history f]    raw repository analysis"
               "  snapshot <source-dir>... --repository r --revision sha [options]"
               "  compare <before-snapshot> <after-snapshot>"
-              "  evaluate --baseline b --current c --policy p"
+              "  evaluate --baseline b --current c --policy p [--exceptions quality/exceptions.json]"
               "  results --baseline b --current c --policy p [--store dir]   application-facing results contract"
               "  store init|put|get|accept-baseline|baseline --store dir ..."
               "  init [--root .] [--version v] [--action-ref sha] [--source dir]...   install Dokimos into a repository"
               "  status|verify|doctor [--root .]           read-only installation health checks"
               "  upgrade [--root .] [--version v] [--action-ref sha] [--source dir]...   upgrade Dokimos-owned repository state"
               "  history [findings] --store dir [--repository r] [--metric id [--scope s]] [--file path]"
-              "exit codes: 0 continue, 1 unexpected fault, 2 invalid invocation, 3 evidence unavailable/invalid, 4 policy failure, 5 store conflict" ]
+              "  ratchet check|baseline init|baseline update|baseline diff|rules   baseline-derived change-quality ratchet (see `dokimos ratchet`)"
+              "  identity [--root .] [--expected id] [--remote url]   ros.json repository identity conformance (0 consistent, 4 mismatch, 3 undetermined)"
+              "exit codes: 0 continue, 1 unexpected fault, 2 invalid invocation, 3 evidence unavailable/invalid, 4 policy failure or ratchet regression, 5 store conflict, 6 invalid or expired quality exceptions" ]
 
     /// Dispatches one invocation. Expected Dokimos outcomes are returned as
     /// values; only unexpected operational faults escape as exceptions.
@@ -556,6 +508,8 @@ module Program =
         | "verify" :: rest -> verify "verify" rest
         | "doctor" :: rest -> verify "doctor" rest
         | "upgrade" :: rest -> upgrade rest
+        | "identity" :: rest -> IdentityCommand.identity rest
+        | "ratchet" :: rest -> RatchetCommand.dispatch rest
         | _ -> Output.invalid "invalid-arguments" usage
 
     /// Aegis configuration for the CLI process. Faults are written as Aegis

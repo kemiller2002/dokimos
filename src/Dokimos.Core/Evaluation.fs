@@ -3,10 +3,16 @@ namespace Dokimos.Core
 open System
 open Dokimos.Domain
 
+/// Where a ratchet's limit comes from. Policy 1.2.0 derives it from the
+/// accepted baseline snapshot instead of a hand-typed number.
+type RatchetBound =
+    | FixedBound of decimal
+    | AcceptedBaseline
+
 type RatchetRule =
     { MetricId: string
       MetricVersion: int
-      BestAccepted: decimal
+      Bound: RatchetBound
       Preference: Preference
       Disposition: ThresholdDisposition }
 
@@ -166,28 +172,46 @@ module Evaluation =
                     | _ -> describe result
                 outcome ruleKind metricId metric.Scope result None text
 
-    let private ratchetOutcomes (policy: QualityPolicy) current =
+    let private ratchetOutcome (rule: RatchetRule) (metric: CanonicalMetric) (bound: decimal) =
+        match MetricId.tryCreate rule.MetricId with
+        | Error e -> outcome RatchetRuleKind rule.MetricId metric.Scope (NotEvaluated e) None e
+        | Ok id ->
+            let ratchet = { Metric = id; BestAccepted = bound; Preference = rule.Preference; Disposition = rule.Disposition }
+            let subject = if metric.Scope = CanonicalSnapshot.RepositoryScope then rule.MetricId else $"{rule.MetricId} at {metric.Scope}"
+            let describe result =
+                match result with
+                | Pass -> $"{subject} does not deteriorate beyond the best accepted state {bound} ({preferenceText rule.Preference})."
+                | _ ->
+                    let actual = CanonicalMetric.value metric |> Option.map string |> Option.defaultValue "?"
+                    $"{subject} is {actual}; the best accepted state is {bound} ({preferenceText rule.Preference}). Restore it to at least the best accepted state."
+            { versioned RatchetRuleKind rule.MetricId rule.MetricVersion metric (Policy.evaluateRatchet ratchet) describe with
+                Baseline = Some bound }
+
+    /// A baseline-bound ratchet judges every scope the accepted baseline
+    /// measured, against that scope's accepted value. A scope with no accepted
+    /// value is reported unavailable, never passed.
+    let private baselineBound (rule: RatchetRule) (baseline: CanonicalSnapshot) (metric: CanonicalMetric) =
+        match baseline.Metrics |> List.tryFind (fun b -> b.MetricId = rule.MetricId && b.Scope = metric.Scope) |> Option.bind CanonicalMetric.value with
+        | Some accepted -> ratchetOutcome rule metric accepted
+        | None ->
+            let result = EvidenceUnavailable(InsufficientEvidence $"the accepted baseline has no {rule.MetricId} value at {metric.Scope}")
+            outcome RatchetRuleKind rule.MetricId metric.Scope result None
+                $"{rule.MetricId} at {metric.Scope} has no accepted baseline value; the ratchet was not evaluated and did not pass. New scopes are judged by `dokimos ratchet`."
+
+    let private ratchetOutcomes (policy: QualityPolicy) (baseline: CanonicalSnapshot) current =
         policy.Ratchets
         |> List.collect (fun rule ->
-            match metricsNamed rule.MetricId current |> List.filter (fun m -> m.Scope = CanonicalSnapshot.RepositoryScope) with
-            | [] ->
+            let candidates =
+                match rule.Bound with
+                | FixedBound _ -> metricsNamed rule.MetricId current |> List.filter (fun m -> m.Scope = CanonicalSnapshot.RepositoryScope)
+                | AcceptedBaseline -> metricsNamed rule.MetricId current
+            match candidates, rule.Bound with
+            | [], _ ->
                 let result = absent rule.MetricId
-                [ outcome RatchetRuleKind rule.MetricId CanonicalSnapshot.RepositoryScope result (Some rule.BestAccepted) (unevaluatedExplanation rule.MetricId CanonicalSnapshot.RepositoryScope result) ]
-            | metrics ->
-                metrics
-                |> List.map (fun metric ->
-                    match MetricId.tryCreate rule.MetricId with
-                    | Error e -> outcome RatchetRuleKind rule.MetricId metric.Scope (NotEvaluated e) None e
-                    | Ok id ->
-                        let ratchet = { Metric = id; BestAccepted = rule.BestAccepted; Preference = rule.Preference; Disposition = rule.Disposition }
-                        let describe result =
-                            match result with
-                            | Pass -> $"{rule.MetricId} does not deteriorate beyond the best accepted state {rule.BestAccepted} ({preferenceText rule.Preference})."
-                            | _ ->
-                                let actual = CanonicalMetric.value metric |> Option.map string |> Option.defaultValue "?"
-                                $"{rule.MetricId} is {actual}; the best accepted state is {rule.BestAccepted} ({preferenceText rule.Preference}). Restore it to at least the best accepted state."
-                        { versioned RatchetRuleKind rule.MetricId rule.MetricVersion metric (Policy.evaluateRatchet ratchet) describe with
-                            Baseline = Some rule.BestAccepted }))
+                let limit = match rule.Bound with FixedBound b -> Some b | AcceptedBaseline -> None
+                [ outcome RatchetRuleKind rule.MetricId CanonicalSnapshot.RepositoryScope result limit (unevaluatedExplanation rule.MetricId CanonicalSnapshot.RepositoryScope result) ]
+            | metrics, FixedBound bound -> metrics |> List.map (fun metric -> ratchetOutcome rule metric bound)
+            | metrics, AcceptedBaseline -> metrics |> List.map (baselineBound rule baseline))
 
     let private thresholdOutcomes (policy: QualityPolicy) current =
         policy.Thresholds
@@ -321,8 +345,11 @@ module Evaluation =
         let isFailure o = match o.Result with Failure _ -> true | _ -> false
         let isWarning o = match o.Result with Warning _ -> true | _ -> false
         let missingRequired o = o.Rule = RequiredEvidenceRuleKind && o.Result <> Pass
+        // A baseline-bound ratchet with no accepted value has no limit at all.
+        let unboundRatchet o =
+            o.Rule = RatchetRuleKind && o.Baseline.IsNone && (match o.Result with EvidenceUnavailable _ -> true | _ -> false)
         if any isFailure then GateFailed
-        elif any missingRequired then GateEvidenceUnavailable
+        elif any missingRequired || any unboundRatchet then GateEvidenceUnavailable
         elif any isWarning then GatePassedWithWarnings
         else GatePassed
 
@@ -332,7 +359,7 @@ module Evaluation =
             if baseline.Repository <> current.Repository then []
             else
                 requiredOutcomes policy current
-                @ ratchetOutcomes policy current
+                @ ratchetOutcomes policy baseline current
                 @ thresholdOutcomes policy current
                 @ regressionOutcomes policy comparison
                 @ findingOutcomes asOf policy comparison
