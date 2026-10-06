@@ -1,7 +1,7 @@
 name: Dokimos site quality gate
 description: >-
   The complete website quality gate shared by pull-request validation and
-  production deployment: ROS governance, Visual Engineering verification,
+  production deployment: Praxis governance, Visual Engineering verification,
   site tests, a clean dist/ build, and a browser accessibility audit.
   Communication Engineering has no published verification CLI yet
   (see docs/website/SITE.md); add it here when one exists.
@@ -13,11 +13,12 @@ runs:
       shell: bash
       run: npm ci
 
-    - name: ROS registry and repository validation
+    - name: Praxis registry and repository validation
       shell: bash
+      # ./praxis is a POSIX sh launcher for the pinned native Praxis release.
       run: |
-        node ros registry check
-        node ros validate
+        ./praxis registry check
+        ./praxis validate
 
     - name: Visual Engineering verification
       shell: bash

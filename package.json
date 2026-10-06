@@ -12,7 +12,7 @@
     "serve": "node site/build.mjs && node site/serve.mjs",
     "test": "node --test \"site/test/*.test.mjs\" \"results-ui/test/*.test.mjs\"",
     "echelon:visual:verify": "visual-engineering verify --strict",
-    "ros:validate": "node ros validate",
+    "praxis:validate": "./praxis validate",
     "audit": "node site/audit.mjs",
     "results:render": "node results-ui/render.mjs",
     "results:audit": "node results-ui/audit.mjs",

@@ -17,8 +17,8 @@ Operate Dokimos as Echelon Foundry's longitudinal code-quality evidence system a
 Run:
 
 ```bash
-./ros registry check
-./ros validate
+./praxis registry check
+./praxis validate
 dotnet restore Dokimos.sln
 dotnet build Dokimos.sln --configuration Release
 dotnet test Dokimos.sln --configuration Release --no-build
