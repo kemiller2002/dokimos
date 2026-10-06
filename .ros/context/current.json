@@ -4,7 +4,7 @@
   "repository": "dokimos",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-10-06T16:26:31Z",
+  "updatedAt": "2026-10-06T16:31:02Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -698,13 +698,48 @@
     {
       "id": "WI-0003",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-10-06T16:26:31Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": ".echelon/toolchain.json"
+        },
+        {
+          "type": "implementation",
+          "path": "conditor.json"
+        },
+        {
+          "type": "tests",
+          "path": ".github/workflows/praxis-validation.yml"
+        }
+      ],
+      "updatedAt": "2026-10-06T16:31:02Z",
       "telemetryExecutionIds": [
         "EXE-20261006T162632343Z-9431628f"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "54a95726abfd16045988f4d6",
+        "recordedAt": "2026-10-06T16:30:16Z",
+        "executionId": "EXE-20261006T162632343Z-9431628f",
+        "repository": "dokimos",
+        "branch": "chore/echelon-current-372",
+        "commit": "9a48452ce6bb7b8f927602e7ccec62b2f007f60c",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "chore/echelon-current-372",
+        "remoteCommit": "9a48452ce6bb7b8f927602e7ccec62b2f007f60c",
+        "summary": "Upgraded dokimos to Praxis 3.7.2 / Ordo 1.4.2 (and Visual Engineering 1.0.1 where installed) and adopted Conditor against echelon-current.",
+        "nextAction": "Open the PR and merge once CI is green.",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "completedAt": "2026-10-06T16:31:02Z",
+      "conclusion": "Toolchain at praxis 3.7.2 / ordo 1.4.2; conditor.json adopted; verifiers pass."
     }
   ]
 }
