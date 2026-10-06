@@ -23,9 +23,10 @@ runs:
     - name: Visual Engineering verification
       shell: bash
       run: |
-        # init restores the gitignored research context from the pinned package.
-        # It must not change any tracked file; if it does, the committed
-        # installation is stale and the gate fails.
+        # init re-derives the committed research context from the pinned
+        # package (package.json). It must not change any tracked file; if it
+        # does, the committed installation is stale or the package pin and
+        # .echelon/visual-engineering.json disagree, and the gate fails.
         npx visual-engineering init
         git diff --exit-code
         npx visual-engineering verify --strict

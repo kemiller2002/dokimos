@@ -22,7 +22,7 @@
   "devDependencies": {
     "@echelon-foundry/design-system": "https://github.com/kemiller2002/echelon-design-system/releases/download/v0.3.0/echelon-foundry-design-system-0.3.0.tgz",
     "@echelon-foundry/print-components": "github:kemiller2002/folio#8fd8516dddd599290ad302974210832086112e25",
-    "@echelon-foundry/visual-engineering": "1.0.0",
+    "@echelon-foundry/visual-engineering": "1.0.1",
     "axe-core": "4.13.0",
     "playwright": "1.56.1"
   }
