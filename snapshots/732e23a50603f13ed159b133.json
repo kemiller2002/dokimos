@@ -1,0 +1,5450 @@
+{
+  "Contract": "dokimos.snapshot",
+  "SchemaVersion": "2.0.0",
+  "SnapshotId": "kemiller2002/dokimos@5a4aca602c6b083c1a51023530e5d89407fcb81e:82cd84b1da517f24",
+  "Repository": "kemiller2002/dokimos",
+  "Revision": "5a4aca602c6b083c1a51023530e5d89407fcb81e",
+  "Ref": "main",
+  "CollectedAt": "2026-10-06T14:28:59.3342458+00:00",
+  "Collector": "dokimos/0.2.0+5a4aca602c6b083c1a51023530e5d89407fcb81e",
+  "Producer": {
+    "DokimosVersion": "0.2.0+5a4aca602c6b083c1a51023530e5d89407fcb81e",
+    "ConfigurationId": "dokimos-collection/1;duplicate-block-size=6",
+    "AnalyzedScope": [
+      "src"
+    ],
+    "Analyzers": [
+      {
+        "AnalyzerId": "dokimos.fsharp-structural",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": 118
+      },
+      {
+        "AnalyzerId": "dokimos.fsharp-complexity-proxy",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": null
+      },
+      {
+        "AnalyzerId": "dokimos.fsharp-agent-quality",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": null
+      },
+      {
+        "AnalyzerId": "dokimos.text-duplication",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": null
+      },
+      {
+        "AnalyzerId": "dokimos.hotspot-correlation",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": null
+      },
+      {
+        "AnalyzerId": "dokimos.git-temporal",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": 20
+      },
+      {
+        "AnalyzerId": "dokimos.dotnet-build-diagnostics",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": 10
+      },
+      {
+        "AnalyzerId": "dokimos.dotnet-test-results",
+        "Version": "1",
+        "State": "ran",
+        "Reason": null,
+        "DurationMilliseconds": 12
+      },
+      {
+        "AnalyzerId": "dokimos.cobertura-coverage",
+        "Version": "1",
+        "State": "not-run",
+        "Reason": "input not supplied",
+        "DurationMilliseconds": null
+      }
+    ]
+  },
+  "Performance": {
+    "TotalMilliseconds": 170,
+    "FileCount": 44,
+    "ObservationCount": 454,
+    "UnavailableCollectors": [
+      "dokimos.cobertura-coverage"
+    ],
+    "FailedCollectors": []
+  },
+  "Metrics": [
+    {
+      "MetricId": "build.compiler-errors",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.dotnet-build-diagnostics"
+    },
+    {
+      "MetricId": "build.compiler-warnings",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.dotnet-build-diagnostics"
+    },
+    {
+      "MetricId": "tests.total",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "available",
+      "Value": 217,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.dotnet-test-results"
+    },
+    {
+      "MetricId": "tests.passed",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "available",
+      "Value": 217,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.dotnet-test-results"
+    },
+    {
+      "MetricId": "tests.failed",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.dotnet-test-results"
+    },
+    {
+      "MetricId": "tests.skipped",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.dotnet-test-results"
+    },
+    {
+      "MetricId": "coverage.line-rate",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "unavailable",
+      "Value": null,
+      "Unit": "ratio",
+      "Reason": "not-configured",
+      "Detail": null,
+      "Source": "dokimos.cobertura-coverage"
+    },
+    {
+      "MetricId": "duplication.block-occurrences",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "available",
+      "Value": 24,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.text-duplication"
+    },
+    {
+      "MetricId": "change.region-commits",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "unavailable",
+      "Value": null,
+      "Unit": "count",
+      "Reason": "unsupported",
+      "Detail": null,
+      "Source": "dokimos"
+    },
+    {
+      "MetricId": "debt.age-days",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "unavailable",
+      "Value": null,
+      "Unit": "days",
+      "Reason": "unsupported",
+      "Detail": null,
+      "Source": "dokimos"
+    },
+    {
+      "MetricId": "debt.staleness-days",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "unavailable",
+      "Value": null,
+      "Unit": "days",
+      "Reason": "unsupported",
+      "Detail": null,
+      "Source": "dokimos"
+    },
+    {
+      "MetricId": "api.added",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "unavailable",
+      "Value": null,
+      "Unit": "symbols",
+      "Reason": "unsupported",
+      "Detail": null,
+      "Source": "dokimos"
+    },
+    {
+      "MetricId": "api.removed",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "unavailable",
+      "Value": null,
+      "Unit": "symbols",
+      "Reason": "unsupported",
+      "Detail": null,
+      "Source": "dokimos"
+    },
+    {
+      "MetricId": "api.signature-changed",
+      "MetricVersion": 1,
+      "Scope": "repository",
+      "State": "unavailable",
+      "Value": null,
+      "Unit": "symbols",
+      "Reason": "unsupported",
+      "Detail": null,
+      "Source": "dokimos"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Arguments.fs",
+      "State": "available",
+      "Value": 57,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Arguments.fs",
+      "State": "available",
+      "Value": 43,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Arguments.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Arguments.fs",
+      "State": "available",
+      "Value": 10,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Arguments.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Arguments.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Arguments.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Arguments.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Arguments.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Arguments.fs",
+      "State": "available",
+      "Value": 56,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/IdentityCommand.fs",
+      "State": "available",
+      "Value": 77,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/IdentityCommand.fs",
+      "State": "available",
+      "Value": 71,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/IdentityCommand.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/IdentityCommand.fs",
+      "State": "available",
+      "Value": 20,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/IdentityCommand.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/IdentityCommand.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/IdentityCommand.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/IdentityCommand.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/IdentityCommand.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/IdentityCommand.fs",
+      "State": "available",
+      "Value": 76,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Program.fs",
+      "State": "available",
+      "Value": 553,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Program.fs",
+      "State": "available",
+      "Value": 518,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Program.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Program.fs",
+      "State": "available",
+      "Value": 145,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Program.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Program.fs",
+      "State": "available",
+      "Value": 8,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Program.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Program.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Program.fs",
+      "State": "available",
+      "Value": 18,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/Program.fs",
+      "State": "available",
+      "Value": 952,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/RatchetCommand.fs",
+      "State": "available",
+      "Value": 256,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/RatchetCommand.fs",
+      "State": "available",
+      "Value": 229,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/RatchetCommand.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/RatchetCommand.fs",
+      "State": "available",
+      "Value": 78,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/RatchetCommand.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/RatchetCommand.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/RatchetCommand.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/RatchetCommand.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/RatchetCommand.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Cli/RatchetCommand.fs",
+      "State": "available",
+      "Value": 255,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ApiHistory.fs",
+      "State": "available",
+      "Value": 36,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ApiHistory.fs",
+      "State": "available",
+      "Value": 31,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ApiHistory.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ApiHistory.fs",
+      "State": "available",
+      "Value": 8,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ApiHistory.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ApiHistory.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ApiHistory.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ApiHistory.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ApiHistory.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ApiHistory.fs",
+      "State": "available",
+      "Value": 37,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Architecture.fs",
+      "State": "available",
+      "Value": 40,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Architecture.fs",
+      "State": "available",
+      "Value": 31,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Architecture.fs",
+      "State": "available",
+      "Value": 6,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Architecture.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Architecture.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Architecture.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Architecture.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Architecture.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Architecture.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Architecture.fs",
+      "State": "available",
+      "Value": 41,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalComparison.fs",
+      "State": "available",
+      "Value": 134,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalComparison.fs",
+      "State": "available",
+      "Value": 119,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalComparison.fs",
+      "State": "available",
+      "Value": 6,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalComparison.fs",
+      "State": "available",
+      "Value": 30,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalComparison.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalComparison.fs",
+      "State": "available",
+      "Value": 3,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalComparison.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalComparison.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalComparison.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalComparison.fs",
+      "State": "available",
+      "Value": 229,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalSnapshot.fs",
+      "State": "available",
+      "Value": 151,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalSnapshot.fs",
+      "State": "available",
+      "Value": 130,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalSnapshot.fs",
+      "State": "available",
+      "Value": 9,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalSnapshot.fs",
+      "State": "available",
+      "Value": 12,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalSnapshot.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalSnapshot.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalSnapshot.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalSnapshot.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalSnapshot.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CanonicalSnapshot.fs",
+      "State": "available",
+      "Value": 224,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Capabilities.fs",
+      "State": "available",
+      "Value": 198,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Capabilities.fs",
+      "State": "available",
+      "Value": 175,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Capabilities.fs",
+      "State": "available",
+      "Value": 6,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Capabilities.fs",
+      "State": "available",
+      "Value": 7,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Capabilities.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Capabilities.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Capabilities.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Capabilities.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Capabilities.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Capabilities.fs",
+      "State": "available",
+      "Value": 199,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ChangeQuality.fs",
+      "State": "available",
+      "Value": 30,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ChangeQuality.fs",
+      "State": "available",
+      "Value": 26,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ChangeQuality.fs",
+      "State": "available",
+      "Value": 3,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ChangeQuality.fs",
+      "State": "available",
+      "Value": 12,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ChangeQuality.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ChangeQuality.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ChangeQuality.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ChangeQuality.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ChangeQuality.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/ChangeQuality.fs",
+      "State": "available",
+      "Value": 29,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Collection.fs",
+      "State": "available",
+      "Value": 196,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Collection.fs",
+      "State": "available",
+      "Value": 176,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Collection.fs",
+      "State": "available",
+      "Value": 6,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Collection.fs",
+      "State": "available",
+      "Value": 25,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Collection.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Collection.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Collection.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Collection.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Collection.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Collection.fs",
+      "State": "available",
+      "Value": 195,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Complexity.fs",
+      "State": "available",
+      "Value": 64,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Complexity.fs",
+      "State": "available",
+      "Value": 56,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Complexity.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Complexity.fs",
+      "State": "available",
+      "Value": 12,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Complexity.fs",
+      "State": "available",
+      "Value": 5,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Complexity.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Complexity.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Complexity.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Complexity.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Complexity.fs",
+      "State": "available",
+      "Value": 63,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Contracts.fs",
+      "State": "available",
+      "Value": 662,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Contracts.fs",
+      "State": "available",
+      "Value": 587,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Contracts.fs",
+      "State": "available",
+      "Value": 18,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Contracts.fs",
+      "State": "available",
+      "Value": 99,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Contracts.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Contracts.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Contracts.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Contracts.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Contracts.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Contracts.fs",
+      "State": "available",
+      "Value": 753,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Correlation.fs",
+      "State": "available",
+      "Value": 56,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Correlation.fs",
+      "State": "available",
+      "Value": 46,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Correlation.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Correlation.fs",
+      "State": "available",
+      "Value": 26,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Correlation.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Correlation.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Correlation.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Correlation.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Correlation.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Correlation.fs",
+      "State": "available",
+      "Value": 55,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CorrelationLifecycle.fs",
+      "State": "available",
+      "Value": 25,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CorrelationLifecycle.fs",
+      "State": "available",
+      "Value": 20,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CorrelationLifecycle.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CorrelationLifecycle.fs",
+      "State": "available",
+      "Value": 12,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CorrelationLifecycle.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CorrelationLifecycle.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CorrelationLifecycle.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CorrelationLifecycle.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CorrelationLifecycle.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/CorrelationLifecycle.fs",
+      "State": "available",
+      "Value": 24,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Debt.fs",
+      "State": "available",
+      "Value": 44,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Debt.fs",
+      "State": "available",
+      "Value": 36,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Debt.fs",
+      "State": "available",
+      "Value": 6,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Debt.fs",
+      "State": "available",
+      "Value": 6,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Debt.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Debt.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Debt.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Debt.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Debt.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Debt.fs",
+      "State": "available",
+      "Value": 43,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Evaluation.fs",
+      "State": "available",
+      "Value": 386,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Evaluation.fs",
+      "State": "available",
+      "Value": 345,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Evaluation.fs",
+      "State": "available",
+      "Value": 14,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Evaluation.fs",
+      "State": "available",
+      "Value": 91,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Evaluation.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Evaluation.fs",
+      "State": "available",
+      "Value": 7,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Evaluation.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Evaluation.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Evaluation.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Evaluation.fs",
+      "State": "available",
+      "Value": 429,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/EvidenceStore.fs",
+      "State": "available",
+      "Value": 210,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/EvidenceStore.fs",
+      "State": "available",
+      "Value": 183,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/EvidenceStore.fs",
+      "State": "available",
+      "Value": 6,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/EvidenceStore.fs",
+      "State": "available",
+      "Value": 43,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/EvidenceStore.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/EvidenceStore.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/EvidenceStore.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/EvidenceStore.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/EvidenceStore.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/EvidenceStore.fs",
+      "State": "available",
+      "Value": 211,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/FSharpQuality.fs",
+      "State": "available",
+      "Value": 73,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/FSharpQuality.fs",
+      "State": "available",
+      "Value": 67,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/FSharpQuality.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/FSharpQuality.fs",
+      "State": "available",
+      "Value": 15,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/FSharpQuality.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/FSharpQuality.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/FSharpQuality.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/FSharpQuality.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/FSharpQuality.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/FSharpQuality.fs",
+      "State": "available",
+      "Value": 78,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Findings.fs",
+      "State": "available",
+      "Value": 28,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Findings.fs",
+      "State": "available",
+      "Value": 23,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Findings.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Findings.fs",
+      "State": "available",
+      "Value": 15,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Findings.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Findings.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Findings.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Findings.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Findings.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Findings.fs",
+      "State": "available",
+      "Value": 27,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/GitHistory.fs",
+      "State": "available",
+      "Value": 44,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/GitHistory.fs",
+      "State": "available",
+      "Value": 39,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/GitHistory.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/GitHistory.fs",
+      "State": "available",
+      "Value": 8,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/GitHistory.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/GitHistory.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/GitHistory.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/GitHistory.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/GitHistory.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/GitHistory.fs",
+      "State": "available",
+      "Value": 43,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/History.fs",
+      "State": "available",
+      "Value": 196,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/History.fs",
+      "State": "available",
+      "Value": 178,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/History.fs",
+      "State": "available",
+      "Value": 6,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/History.fs",
+      "State": "available",
+      "Value": 39,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/History.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/History.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/History.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/History.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/History.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/History.fs",
+      "State": "available",
+      "Value": 195,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/HistoryContract.fs",
+      "State": "available",
+      "Value": 170,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/HistoryContract.fs",
+      "State": "available",
+      "Value": 152,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/HistoryContract.fs",
+      "State": "available",
+      "Value": 9,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/HistoryContract.fs",
+      "State": "available",
+      "Value": 15,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/HistoryContract.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/HistoryContract.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/HistoryContract.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/HistoryContract.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/HistoryContract.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/HistoryContract.fs",
+      "State": "available",
+      "Value": 169,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Installation.fs",
+      "State": "available",
+      "Value": 203,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Installation.fs",
+      "State": "available",
+      "Value": 183,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Installation.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Installation.fs",
+      "State": "available",
+      "Value": 30,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Installation.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Installation.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Installation.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Installation.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Installation.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Installation.fs",
+      "State": "available",
+      "Value": 212,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Json.fs",
+      "State": "available",
+      "Value": 128,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Json.fs",
+      "State": "available",
+      "Value": 106,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Json.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Json.fs",
+      "State": "available",
+      "Value": 33,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Json.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Json.fs",
+      "State": "available",
+      "Value": 6,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Json.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Json.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Json.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Json.fs",
+      "State": "available",
+      "Value": 127,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Policy.fs",
+      "State": "available",
+      "Value": 52,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Policy.fs",
+      "State": "available",
+      "Value": 43,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Policy.fs",
+      "State": "available",
+      "Value": 3,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Policy.fs",
+      "State": "available",
+      "Value": 20,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Policy.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Policy.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Policy.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Policy.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Policy.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Policy.fs",
+      "State": "available",
+      "Value": 109,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/PolicyDecoders.fs",
+      "State": "available",
+      "Value": 64,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/PolicyDecoders.fs",
+      "State": "available",
+      "Value": 55,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/PolicyDecoders.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/PolicyDecoders.fs",
+      "State": "available",
+      "Value": 5,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/PolicyDecoders.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/PolicyDecoders.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/PolicyDecoders.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/PolicyDecoders.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/PolicyDecoders.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/PolicyDecoders.fs",
+      "State": "available",
+      "Value": 63,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualityRules.fs",
+      "State": "available",
+      "Value": 157,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualityRules.fs",
+      "State": "available",
+      "Value": 134,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualityRules.fs",
+      "State": "available",
+      "Value": 5,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualityRules.fs",
+      "State": "available",
+      "Value": 7,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualityRules.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualityRules.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualityRules.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualityRules.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualityRules.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualityRules.fs",
+      "State": "available",
+      "Value": 156,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualitySignals.fs",
+      "State": "available",
+      "Value": 248,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualitySignals.fs",
+      "State": "available",
+      "Value": 207,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualitySignals.fs",
+      "State": "available",
+      "Value": 8,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualitySignals.fs",
+      "State": "available",
+      "Value": 35,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualitySignals.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualitySignals.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualitySignals.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualitySignals.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualitySignals.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/QualitySignals.fs",
+      "State": "available",
+      "Value": 247,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Ratchet.fs",
+      "State": "available",
+      "Value": 346,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Ratchet.fs",
+      "State": "available",
+      "Value": 321,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Ratchet.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Ratchet.fs",
+      "State": "available",
+      "Value": 95,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Ratchet.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Ratchet.fs",
+      "State": "available",
+      "Value": 11,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Ratchet.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Ratchet.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Ratchet.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Ratchet.fs",
+      "State": "available",
+      "Value": 345,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetContract.fs",
+      "State": "available",
+      "Value": 381,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetContract.fs",
+      "State": "available",
+      "Value": 344,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetContract.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetContract.fs",
+      "State": "available",
+      "Value": 38,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetContract.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetContract.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetContract.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetContract.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetContract.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetContract.fs",
+      "State": "available",
+      "Value": 380,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetDtos.fs",
+      "State": "available",
+      "Value": 173,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetDtos.fs",
+      "State": "available",
+      "Value": 150,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetDtos.fs",
+      "State": "available",
+      "Value": 19,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetDtos.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetDtos.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetDtos.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetDtos.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetDtos.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetDtos.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetDtos.fs",
+      "State": "available",
+      "Value": 172,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetTypes.fs",
+      "State": "available",
+      "Value": 120,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetTypes.fs",
+      "State": "available",
+      "Value": 101,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetTypes.fs",
+      "State": "available",
+      "Value": 17,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetTypes.fs",
+      "State": "available",
+      "Value": 18,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetTypes.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetTypes.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetTypes.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetTypes.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetTypes.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RatchetTypes.fs",
+      "State": "available",
+      "Value": 119,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Regions.fs",
+      "State": "available",
+      "Value": 38,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Regions.fs",
+      "State": "available",
+      "Value": 31,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Regions.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Regions.fs",
+      "State": "available",
+      "Value": 3,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Regions.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Regions.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Regions.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Regions.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Regions.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Regions.fs",
+      "State": "available",
+      "Value": 41,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryAnalysis.fs",
+      "State": "available",
+      "Value": 52,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryAnalysis.fs",
+      "State": "available",
+      "Value": 44,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryAnalysis.fs",
+      "State": "available",
+      "Value": 3,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryAnalysis.fs",
+      "State": "available",
+      "Value": 8,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryAnalysis.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryAnalysis.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryAnalysis.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryAnalysis.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryAnalysis.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryAnalysis.fs",
+      "State": "available",
+      "Value": 51,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryIdentity.fs",
+      "State": "available",
+      "Value": 129,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryIdentity.fs",
+      "State": "available",
+      "Value": 113,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryIdentity.fs",
+      "State": "available",
+      "Value": 6,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryIdentity.fs",
+      "State": "available",
+      "Value": 28,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryIdentity.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryIdentity.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryIdentity.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryIdentity.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryIdentity.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/RepositoryIdentity.fs",
+      "State": "available",
+      "Value": 128,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Results.fs",
+      "State": "available",
+      "Value": 194,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Results.fs",
+      "State": "available",
+      "Value": 178,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Results.fs",
+      "State": "available",
+      "Value": 8,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Results.fs",
+      "State": "available",
+      "Value": 21,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Results.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Results.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Results.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Results.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Results.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Results.fs",
+      "State": "available",
+      "Value": 193,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Snapshots.fs",
+      "State": "available",
+      "Value": 55,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Snapshots.fs",
+      "State": "available",
+      "Value": 45,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Snapshots.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Snapshots.fs",
+      "State": "available",
+      "Value": 13,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Snapshots.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Snapshots.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Snapshots.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Snapshots.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Snapshots.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Snapshots.fs",
+      "State": "available",
+      "Value": 54,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/SourceLexing.fs",
+      "State": "available",
+      "Value": 115,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/SourceLexing.fs",
+      "State": "available",
+      "Value": 103,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/SourceLexing.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/SourceLexing.fs",
+      "State": "available",
+      "Value": 48,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/SourceLexing.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/SourceLexing.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/SourceLexing.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/SourceLexing.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/SourceLexing.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/SourceLexing.fs",
+      "State": "available",
+      "Value": 114,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Structural.fs",
+      "State": "available",
+      "Value": 43,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Structural.fs",
+      "State": "available",
+      "Value": 37,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Structural.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Structural.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Structural.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Structural.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Structural.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Structural.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Structural.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Structural.fs",
+      "State": "available",
+      "Value": 42,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Temporal.fs",
+      "State": "available",
+      "Value": 71,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Temporal.fs",
+      "State": "available",
+      "Value": 61,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Temporal.fs",
+      "State": "available",
+      "Value": 6,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Temporal.fs",
+      "State": "available",
+      "Value": 11,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Temporal.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Temporal.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Temporal.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Temporal.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Temporal.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Temporal.fs",
+      "State": "available",
+      "Value": 74,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Trend.fs",
+      "State": "available",
+      "Value": 39,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Trend.fs",
+      "State": "available",
+      "Value": 31,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Trend.fs",
+      "State": "available",
+      "Value": 4,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Trend.fs",
+      "State": "available",
+      "Value": 14,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Trend.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Trend.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Trend.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Trend.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Trend.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Trend.fs",
+      "State": "available",
+      "Value": 38,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Wire.fs",
+      "State": "available",
+      "Value": 66,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Wire.fs",
+      "State": "available",
+      "Value": 56,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Wire.fs",
+      "State": "available",
+      "Value": 5,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Wire.fs",
+      "State": "available",
+      "Value": 16,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Wire.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Wire.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Wire.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Wire.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Wire.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Core/Wire.fs",
+      "State": "available",
+      "Value": 65,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "source.lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Domain/Domain.fs",
+      "State": "available",
+      "Value": 113,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.nonblank-lines",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Domain/Domain.fs",
+      "State": "available",
+      "Value": 88,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.public-declarations",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Domain/Domain.fs",
+      "State": "available",
+      "Value": 19,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "complexity.proxy-cyclomatic",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Domain/Domain.fs",
+      "State": "available",
+      "Value": 30,
+      "Unit": "points",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-complexity-proxy"
+    },
+    {
+      "MetricId": "source.mutable-bindings",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Domain/Domain.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "source.broad-catch-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Domain/Domain.fs",
+      "State": "available",
+      "Value": 1,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-structural"
+    },
+    {
+      "MetricId": "quality.type-weakening-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Domain/Domain.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "quality.scaffolding-indicators",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Domain/Domain.fs",
+      "State": "available",
+      "Value": 0,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.fsharp-agent-quality"
+    },
+    {
+      "MetricId": "change.file-commits",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Domain/Domain.fs",
+      "State": "available",
+      "Value": 2,
+      "Unit": "count",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    },
+    {
+      "MetricId": "change.file-churn",
+      "MetricVersion": 1,
+      "Scope": "src/Dokimos.Domain/Domain.fs",
+      "State": "available",
+      "Value": 116,
+      "Unit": "lines",
+      "Reason": null,
+      "Detail": null,
+      "Source": "dokimos.git-temporal"
+    }
+  ],
+  "Findings": [
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Cli/Program.fs",
+      "Scope": "src/Dokimos.Cli/Program.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 145
+        },
+        {
+          "Kind": "frequent-change",
+          "Value": 18
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 952
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Cli/RatchetCommand.fs",
+      "Scope": "src/Dokimos.Cli/RatchetCommand.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 78
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 255
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/CanonicalComparison.fs",
+      "Scope": "src/Dokimos.Core/CanonicalComparison.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 30
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 229
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/CanonicalSnapshot.fs",
+      "Scope": "src/Dokimos.Core/CanonicalSnapshot.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 12
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 224
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/Collection.fs",
+      "Scope": "src/Dokimos.Core/Collection.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 25
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 195
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/Contracts.fs",
+      "Scope": "src/Dokimos.Core/Contracts.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 99
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 753
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/Evaluation.fs",
+      "Scope": "src/Dokimos.Core/Evaluation.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 91
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 429
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/EvidenceStore.fs",
+      "Scope": "src/Dokimos.Core/EvidenceStore.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 43
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 211
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/History.fs",
+      "Scope": "src/Dokimos.Core/History.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 39
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 195
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/HistoryContract.fs",
+      "Scope": "src/Dokimos.Core/HistoryContract.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 15
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 169
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/Installation.fs",
+      "Scope": "src/Dokimos.Core/Installation.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 30
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 212
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/Json.fs",
+      "Scope": "src/Dokimos.Core/Json.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 33
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 127
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/Policy.fs",
+      "Scope": "src/Dokimos.Core/Policy.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 20
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 109
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/QualitySignals.fs",
+      "Scope": "src/Dokimos.Core/QualitySignals.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 35
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 247
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/Ratchet.fs",
+      "Scope": "src/Dokimos.Core/Ratchet.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 95
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 345
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/RatchetContract.fs",
+      "Scope": "src/Dokimos.Core/RatchetContract.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 38
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 380
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/RatchetTypes.fs",
+      "Scope": "src/Dokimos.Core/RatchetTypes.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 18
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 119
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/RepositoryIdentity.fs",
+      "Scope": "src/Dokimos.Core/RepositoryIdentity.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 28
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 128
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/Results.fs",
+      "Scope": "src/Dokimos.Core/Results.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 21
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 193
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Core/SourceLexing.fs",
+      "Scope": "src/Dokimos.Core/SourceLexing.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 48
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 114
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    },
+    {
+      "FindingId": "correlation:maintainability-hotspot:src/Dokimos.Domain/Domain.fs",
+      "Scope": "src/Dokimos.Domain/Domain.fs",
+      "Kind": "maintainability-hotspot",
+      "State": "present",
+      "Evidence": [
+        {
+          "Kind": "structural-complexity",
+          "Value": 30
+        },
+        {
+          "Kind": "high-churn",
+          "Value": 116
+        }
+      ],
+      "Explanation": "Structural complexity coincides with temporal change pressure."
+    }
+  ]
+}
