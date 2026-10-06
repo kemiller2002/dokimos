@@ -42,6 +42,7 @@ jobs:
       - name: Site quality gate
         uses: ./.github/actions/site-gate
         env:
+          PRAXIS_BASE_REF: ${{ github.event.before }}
           ROS_BASE_REF: ${{ github.event.before }}
 
       - name: Configure Pages

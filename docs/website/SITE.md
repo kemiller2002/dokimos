@@ -14,7 +14,7 @@ Deployment and external settings: [`DEPLOYMENT.md`](DEPLOYMENT.md).
 | `npm test` | Unit and output tests: data schemas, derivations, links, metadata, headings, contrast, determinism. |
 | `npm run audit` | Browser audit of `dist/`: axe-core WCAG 2.1 A/AA + best practice, five viewports, 200% zoom, no-JavaScript rendering, forced colours, keyboard skip link, 404 handling. Needs Chromium (`npx playwright install chromium`). |
 | `npm run echelon:visual:verify` | Visual Engineering installation verification (`init` first on a fresh clone). |
-| `npm run ros:validate` | ROS repository validation. |
+| `npm run praxis:validate` | Praxis repository validation. |
 
 The F# system is unaffected: it still builds with `dotnet` and is validated by `.github/workflows/ci.yml`.
 
