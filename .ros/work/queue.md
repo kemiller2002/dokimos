@@ -33,4 +33,4 @@
 | DOK-WEB-002 | Adopt the Echelon Foundry stylesheet and background on the Dokimos site | active | website | high |
 | ROS-INSTALL-3-1-4 | ROS-INSTALL-3-1-4 | complete |  |  |
 | WI-0001 | Move dokimos to Praxis 3.7.1 (ROS -> Praxis rename) and Ordo 1.4.0 | complete | praxis, ordo, toolchain | medium |
-| WI-0002 | Move dokimos to Ordo 1.4.1 | ready | ordo, toolchain | medium |
+| WI-0002 | Move dokimos to Ordo 1.4.1 | complete | ordo, toolchain | medium |
