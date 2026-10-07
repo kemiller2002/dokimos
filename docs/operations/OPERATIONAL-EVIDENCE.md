@@ -61,5 +61,5 @@ was separate from the adoption and landed first.
 ## Still external
 
 - nuget.org publication is an owner decision. The repository is licensed MIT (`LICENSE`).
-- Stable-profile membership (`echelon-engineering` successor version) is an owner decision; Dokimos is currently selected only by the `dokimos-proof` Registry profile.
+- Stable-profile membership: owner decision (2026-10-02) to add Dokimos to `echelon-engineering` 0.2.0; kemiller2002/echelon-registry#23.
 - A macOS clean-host proof is not yet run (no macOS proof infrastructure in Conditor CI).

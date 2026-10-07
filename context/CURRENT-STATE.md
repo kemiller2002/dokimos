@@ -48,7 +48,7 @@ Standard Echelon distribution (DOK-OPS-026 … 029) is proven:
 
 Open, external or owner decisions:
 
-- Stable-profile membership: Dokimos is selected only by `dokimos-proof`; adding it to an `echelon-engineering` successor version is an owner decision. The frozen Indy Init 2026 profile is not modified.
+- Stable-profile membership (owner decision 2026-10-02): Dokimos joins Registry profile `echelon-engineering` 0.2.0 (kemiller2002/echelon-registry#23) as a `repository-lifecycle` component. `echelon-engineering` 0.1.0 and the frozen Indy Init 2026 profile are not modified.
 - A macOS clean-host proof is not yet run.
 - Provenance contract adoption is separate work (issue #12).
 - nuget.org publication needs Trusted Publishing (`DOKIMOS_NUGET_PUBLISH`, `DOKIMOS_NUGET_USER`, environment `nuget`).
@@ -56,6 +56,7 @@ Open, external or owner decisions:
 
 ## Resume point
 
-1. Merge kemiller2002/echelon-registry#21 (catalog + proof profile) and kemiller2002/conditor#23 (generic lifecycle + proof) with merge commits so pinned commits stay reachable.
-2. Decide stable-profile membership for Dokimos.
-3. Bump consumers' pinned version, action ref and package SHA-256 to 0.2.0 where wanted.
+Issue #10 is closed: echelon-registry#21 and conditor#23 are merged, and the proof's pinned commits are on their `main` branches.
+
+1. Merge kemiller2002/echelon-registry#23 (`echelon-engineering` 0.2.0).
+2. Bump consumers' pinned version, action ref and package SHA-256 to 0.2.0 where wanted.
