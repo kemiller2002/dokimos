@@ -569,10 +569,10 @@
         "defect"
       ],
       "priority": "high",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-10-08T10:38:46.000Z",
-      "updatedAt": "2026-10-08T10:39:00.000Z",
+      "updatedAt": "2026-10-08T10:39:42.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",

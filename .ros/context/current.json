@@ -4,7 +4,7 @@
   "repository": "dokimos",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-10-08T10:39:01.000Z",
+  "updatedAt": "2026-10-08T10:39:42.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -798,13 +798,43 @@
     {
       "id": "WI-0005",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-10-08T10:39:01.000Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "actions/quality-gate/install.sh"
+        },
+        {
+          "type": "tests",
+          "path": "tests/actions/install-with-source-mapping.sh"
+        }
+      ],
+      "updatedAt": "2026-10-08T10:39:42.000Z",
       "telemetryExecutionIds": [
         "EXE-20261008T103901551Z-84c18228"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "2cef745dcf32fec2c4ecd788",
+        "recordedAt": "2026-10-08T10:39:41.000Z",
+        "executionId": "EXE-20261008T103901551Z-84c18228",
+        "repository": "dokimos",
+        "branch": "fix/action-install-isolated-nuget-config",
+        "commit": "ab1250aab1789bd9acace13caa431a059d8bf3ca",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "fix/action-install-isolated-nuget-config",
+        "remoteCommit": "ab1250aab1789bd9acace13caa431a059d8bf3ca",
+        "summary": "install.sh isolates its NuGet configuration; regression test and CI job",
+        "nextAction": "Merge after CI; consumers repin with dokimos upgrade --action-ref",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "completedAt": "2026-10-08T10:39:42.000Z"
     }
   ]
 }
