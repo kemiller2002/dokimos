@@ -35,3 +35,4 @@
 | WI-0001 | Move dokimos to Praxis 3.7.1 (ROS -> Praxis rename) and Ordo 1.4.0 | complete | praxis, ordo, toolchain | medium |
 | WI-0002 | Move dokimos to Ordo 1.4.1 | complete | ordo, toolchain | medium |
 | WI-0003 | Move dokimos to Praxis 3.7.2, Ordo 1.4.2, Visual Engineering 1.0.1 and adopt Conditor | complete |  | medium |
+| WI-0004 | Move dokimos to Ordo 1.5.0 via echelon-current 1.2.0 (conditor upgrade --current) | complete |  | medium |
