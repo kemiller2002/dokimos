@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 5,
+  "nextSeq": 6,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -549,6 +549,30 @@
       "attachments": [],
       "createdAt": "2026-10-08T07:15:00.557Z",
       "updatedAt": "2026-10-08T07:15:58.685Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0005",
+      "title": "quality-gate action: install the pinned Dokimos tool with an isolated NuGet configuration, so a consumer's package source mapping cannot break it",
+      "description": "Found on kemiller2002/fides#16: install.sh runs 'dotnet tool install --add-source <feed>' in the consumer's workspace. NuGet reads the consumer's NuGet.config, and when it declares packageSourceMapping (as Conditor's release-asset feed does), --add-source is refused ('cannot be combined with package source mapping') and the gate never runs. Install from RUNNER_TEMP with --configfile pointing at a config that clears every source and names only the checksum-verified release feed; add a CI regression test that runs install.sh in a workspace with source mapping.",
+      "tags": [
+        "action",
+        "defect"
+      ],
+      "priority": "high",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-08T10:38:46.000Z",
+      "updatedAt": "2026-10-08T10:39:42.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",

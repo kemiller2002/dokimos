@@ -34,7 +34,22 @@ if [ "$actual" != "$expected" ]; then
   exit 3
 fi
 
-dotnet tool install "$package" --version "$DOKIMOS_VERSION" --add-source "$feed" --tool-path "$tools" >/dev/null
+# Install with a NuGet configuration of our own, from outside the consumer's
+# workspace: it clears every source and names only the release feed whose
+# package was just verified. The consumer's NuGet.config never applies, so its
+# sources cannot supply the tool, and its package source mapping (which makes
+# NuGet refuse --add-source) cannot break the install.
+config="${RUNNER_TEMP}/dokimos-nuget.config"
+cat > "$config" <<XML
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <clear />
+    <add key="dokimos-release" value="${feed}" />
+  </packageSources>
+</configuration>
+XML
+(cd "$RUNNER_TEMP" && dotnet tool install "$package" --version "$DOKIMOS_VERSION" --configfile "$config" --tool-path "$tools" >/dev/null)
 reported=$("${tools}/dokimos" version | sed -n 's/.*"DokimosVersion": "\([^"+]*\).*/\1/p')
 if [ "$reported" != "$DOKIMOS_VERSION" ]; then
   echo "::error title=Dokimos::Installed Dokimos reports version '${reported}', expected '${DOKIMOS_VERSION}'."

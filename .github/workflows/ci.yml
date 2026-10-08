@@ -40,6 +40,23 @@ jobs:
         if: github.event_name != 'workflow_dispatch'
         run: sleep 600
 
+  action-install:
+    # The reusable action must install the pinned Dokimos even when the
+    # consumer's NuGet.config declares package source mapping (as Conditor's
+    # release-asset feed does); SDK 10.0.4xx refuses --add-source there.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+      - name: Install with package source mapping in the consumer workspace
+        env:
+          DOKIMOS_VERSION: "0.2.0"
+        run: tests/actions/install-with-source-mapping.sh
+
   build-test-gate:
     needs: debounce
     runs-on: ubuntu-latest
