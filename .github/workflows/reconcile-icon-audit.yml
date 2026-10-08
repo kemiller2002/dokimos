@@ -1,0 +1,43 @@
+# One-time recovery of Github-committed work: use Praxis Git evidence, never fabricated events.
+name: Reconcile Dokimos icon audit attribution
+on:
+  push:
+    branches: [feature/dokimos-forma-icon-audit]
+    paths: [.github/workflows/reconcile-icon-audit.yml]
+permissions:
+  contents: write
+jobs:
+  reconcile:
+    if: github.repository == 'kemiller2002/dokimos'
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Test then attribute actual changes to issue 25
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main --no-tags
+          chmod +x ./praxis
+          node --test site/test/icon-usage.test.mjs
+          ./praxis registry check
+          if ! ./praxis work show GH-25 >/dev/null 2>&1; then
+            ./praxis add "Add Forma icon usage audit from pinned registry" --id GH-25 --source github-issue --source-reference "https://github.com/kemiller2002/dokimos/issues/25" --priority high
+          fi
+          base="$(git merge-base HEAD origin/main)"
+          timestamp="$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
+          reason="Icon audit authored in GitHub connector without executable Praxis context; recover post-hoc attribution from unmodified Git commits"
+          ./praxis work reconcile --id GH-25 --reason "$reason" --range "$base..HEAD" --occurred-at "$timestamp" --dry-run
+          ./praxis work reconcile --id GH-25 --reason "$reason" --range "$base..HEAD" --occurred-at "$timestamp"
+          ./praxis registry build
+          ./praxis validate
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .ros/work .ros/events .ros/telemetry registries
+          if ! git diff --cached --quiet; then
+            git commit -m "praxis: reconcile Dokimos icon audit GH-25 using Git evidence"
+            git push origin "HEAD:feature/dokimos-forma-icon-audit"
+          fi
