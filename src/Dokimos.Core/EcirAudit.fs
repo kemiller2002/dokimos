@@ -26,17 +26,17 @@ type EcirAuditReport =
 
 [<RequireQualifiedAccess>]
 module EcirAudit =
-    let private get name (value: JsonElement) =
+    let private get (name: string) (value: JsonElement) =
         let mutable property = Unchecked.defaultof<JsonElement>
         if value.ValueKind = JsonValueKind.Object && value.TryGetProperty(name, &property) then Some property else None
 
-    let private text name element =
+    let private text (name: string) element =
         match get name element with
         | Some value when value.ValueKind = JsonValueKind.String ->
             value.GetString() |> Option.ofObj |> Option.defaultValue ""
         | _ -> ""
 
-    let private array name element =
+    let private array (name: string) element =
         match get name element with
         | Some value when value.ValueKind = JsonValueKind.Array -> value.EnumerateArray() |> Seq.toList
         | _ -> []
