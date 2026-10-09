@@ -4,6 +4,7 @@ open System
 open System.IO
 open System.Text.Json
 open Dokimos.Core
+open Dokimos.Cli.CliInputs
 
 module Program =
     let options = JsonSerializerOptions(WriteIndented = true)
@@ -31,17 +32,6 @@ module Program =
         match tryReadSnapshot path with
         | Ok snapshot -> k snapshot
         | Error reason -> Output.unavailable (label + "-snapshot-unavailable") $"{label}: {reason}"
-
-    let private withArgs known args k =
-        match Arguments.parse args |> Result.bind (Arguments.allowOnly known) with
-        | Ok parsed -> k parsed
-        | Error message -> Output.invalid "invalid-arguments" message
-
-    let private optionalFile name args k =
-        match Arguments.tryOne name args with
-        | None -> k None
-        | Some path when File.Exists path -> k (Some(File.ReadAllText path))
-        | Some path -> Output.unavailable $"{name}-not-found" $"--{name} {path} does not exist"
 
     /// TRX inputs may be files or directories containing *.trx files.
     let private trxFiles (paths: string list) =
@@ -477,6 +467,7 @@ module Program =
               "  analyze <source-dir> [--git-history f]    raw repository analysis"
               "  snapshot <source-dir>... --repository r --revision sha [options]"
               "  compare <before-snapshot> <after-snapshot>"
+              "  ecir audit --manifest FILE --blueprint FILE   independent source conservation audit"
               "  evaluate --baseline b --current c --policy p [--exceptions quality/exceptions.json]"
               "  results --baseline b --current c --policy p [--store dir]   application-facing results contract"
               "  store init|put|get|accept-baseline|baseline --store dir ..."
@@ -496,6 +487,7 @@ module Program =
         | [ "--version" ] -> version ()
         | [ "capabilities" ] -> capabilities ()
         | "compare" :: rest -> compare rest
+        | "ecir" :: "audit" :: rest -> EcirCommand.ecirAudit rest
         | "evaluate" :: rest -> evaluate rest
         | "snapshot" :: rest -> snapshot rest
         | "measure" :: rest -> measure rest

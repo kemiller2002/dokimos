@@ -18,6 +18,8 @@
     <Compile Include="Arguments.fs" />
     <Compile Include="RatchetCommand.fs" />
     <Compile Include="IdentityCommand.fs" />
+    <Compile Include="CliInputs.fs" />
+    <Compile Include="EcirCommand.fs" />
     <Compile Include="Program.fs" />
     <None Include="PACKAGE-README.md" Pack="true" PackagePath="README.md" />
   </ItemGroup>
