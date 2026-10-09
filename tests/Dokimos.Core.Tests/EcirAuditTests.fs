@@ -62,6 +62,15 @@ let ``independent audit rejects orphaned verification nodes`` () =
     Assert.Contains("nonreciprocal-link", codes report)
 
 [<Fact>]
+let ``modeled requirement stranded outside every cohort fails independent audit`` () =
+    let blueprint =
+        (valid ()).Replace(
+            "\"nodeIds\":[\"COHORT\",\"VERIFY\"]",
+            "\"nodeIds\":[\"VERIFY\"]"
+        )
+    Assert.Contains("no-construction-cohort", codes (read (manifest ()) blueprint))
+
+[<Fact>]
 let ``deferred scope is separately counted and never automatically accepted`` () =
     let blueprint = model """["COHORT","VERIFY"]""" source """{"kind":"deferred","reason":"next release"}"""
     let report = read (manifest ()) blueprint
