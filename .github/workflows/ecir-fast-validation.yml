@@ -1,0 +1,40 @@
+name: ECIR fast validation
+
+# Fast feedback for the construction-IR contract. This is an additional
+# gate; it never replaces Dokimos' delayed full CI and quality ratchet.
+on:
+  pull_request:
+    paths:
+      - "src/Dokimos.Core/EcirAudit.fs"
+      - "src/Dokimos.Cli/Program.fs"
+      - "src/Dokimos.Core/Dokimos.Core.fsproj"
+      - "tests/Dokimos.Core.Tests/EcirAuditTests.fs"
+      - "tests/Dokimos.Core.Tests/Dokimos.Core.Tests.fsproj"
+      - ".github/workflows/ecir-fast-validation.yml"
+  push:
+    paths:
+      - "src/Dokimos.Core/EcirAudit.fs"
+      - "src/Dokimos.Cli/Program.fs"
+      - "src/Dokimos.Core/Dokimos.Core.fsproj"
+      - "tests/Dokimos.Core.Tests/EcirAuditTests.fs"
+      - "tests/Dokimos.Core.Tests/Dokimos.Core.Tests.fsproj"
+      - ".github/workflows/ecir-fast-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Restore
+        run: dotnet restore Dokimos.sln
+      - name: Build full solution
+        run: dotnet build Dokimos.sln -c Release --no-restore
+      - name: Run core tests
+        run: dotnet test tests/Dokimos.Core.Tests/Dokimos.Core.Tests.fsproj -c Release --no-build
