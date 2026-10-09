@@ -42,5 +42,6 @@
     <Compile Include="Ratchet.fs" />
     <Compile Include="RatchetDtos.fs" />
     <Compile Include="RatchetContract.fs" />
+    <Compile Include="EcirAudit.fs" />
   </ItemGroup>
 </Project>
