@@ -147,6 +147,8 @@ module EcirAudit =
                 | "modeled" ->
                     if not (hasNodeOfKind "verificationObligation") then
                         add "no-verification-obligation" key "The requirement has no declared independent verification obligation"
+                    if not (hasNodeOfKind "cohort") then
+                        add "no-construction-cohort" key "Modeled requirement is absent from every build cohort"
                 | "deferred" | "unresolved" | "rejected" | "superseded" ->
                     if disposition |> Option.map (text "reason") |> Option.defaultValue "" |> String.IsNullOrWhiteSpace then
                         add "unjustified-disposition" key "Non-modeled requirement must preserve a reason"
