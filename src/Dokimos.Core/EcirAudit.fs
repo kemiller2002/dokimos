@@ -141,8 +141,8 @@ module EcirAudit =
                         Map.tryFind id nodeIndex
                         |> Option.exists (fun node ->
                             text "kind" node = expected
-                            && array "requirementKeys" node
-                               |> List.exists (fun value -> value.ValueKind = JsonValueKind.String && value.GetString() = key)))
+                            && (array "requirementKeys" node
+                                |> List.exists (fun value -> value.ValueKind = JsonValueKind.String && value.GetString() = key))))
                 match kind with
                 | "modeled" ->
                     if not (hasNodeOfKind "verificationObligation") then
