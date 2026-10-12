@@ -10,6 +10,12 @@ restricted construction removed forbidden actions **and** kept the required
 behavior. It never accepts the generator's self-attestation, a constructor's
 summary or a claimed test result as proof.
 
+For candidates that were not produced by a generator, such as the baseline
+arm of the timer experiment, see
+[adapter-driven behavioral verification](behavior-verification.md)
+(`dokimos behavior verify`). It judges every arm through one frozen adapter
+with the same oracle-integrity checks.
+
 ## Inputs: separate and independently pinned
 
 | Input | Option | How Dokimos pins it |
