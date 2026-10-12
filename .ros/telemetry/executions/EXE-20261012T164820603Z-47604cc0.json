@@ -1411,6 +1411,23 @@
         "name": "step",
         "mechanism": "step-lifecycle"
       }
+    },
+    {
+      "type": "step.completed",
+      "occurredAt": "2026-10-12T17:18:04.000Z",
+      "stepId": "STEP-20261012T170842000Z-40f96383",
+      "actor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": {
+        "type": "ros-cli",
+        "name": "step",
+        "mechanism": "step-lifecycle"
+      }
     }
   ],
   "repository": {
@@ -1722,12 +1739,12 @@
       "name": "Adversarial construction verification tests, schema and docs",
       "description": null,
       "classification": [],
-      "status": "active",
+      "status": "completed",
       "plannedAt": "2026-10-12T17:08:42.000Z",
       "startedAt": "2026-10-12T17:08:42.000Z",
-      "completedAt": null,
-      "endedAt": null,
-      "updatedAt": "2026-10-12T17:08:42.000Z",
+      "completedAt": "2026-10-12T17:18:04.000Z",
+      "endedAt": "2026-10-12T17:18:04.000Z",
+      "updatedAt": "2026-10-12T17:18:04.000Z",
       "actor": {
         "kind": "agent",
         "id": "anthropic/claude-code",
@@ -1949,6 +1966,19 @@
           "from": null,
           "to": "active",
           "occurredAt": "2026-10-12T17:08:42.000Z",
+          "reason": null,
+          "actor": {
+            "kind": "agent",
+            "id": "anthropic/claude-code",
+            "provider": "anthropic",
+            "model": "unknown",
+            "runtime": "claude-code"
+          }
+        },
+        {
+          "from": "active",
+          "to": "completed",
+          "occurredAt": "2026-10-12T17:18:04.000Z",
           "reason": null,
           "actor": {
             "kind": "agent",
