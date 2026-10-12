@@ -886,7 +886,27 @@
       "updatedAt": "2026-10-12T17:36:46.000Z",
       "telemetryExecutionIds": [
         "EXE-20261012T173646636Z-9af59377"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "7e59137e6bbaced2b866d202",
+        "recordedAt": "2026-10-12T17:56:27.000Z",
+        "executionId": "EXE-20261012T173646636Z-9af59377",
+        "repository": "dokimos",
+        "branch": "feat/gh-30-adapter-behavior-oracle",
+        "commit": "d8e77a94d2f5431ac48eccf74e696e9dcb2cc3f2",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "feat/gh-30-adapter-behavior-oracle",
+        "remoteCommit": "d8e77a94d2f5431ac48eccf74e696e9dcb2cc3f2",
+        "summary": "Frozen DOK-ORACLE-TIMER-ADAPTER-1 (own commit 0eff8bb), dokimos behavior verify runner, driver, schemas, tests and docs committed and pushed; full suite green locally",
+        "nextAction": "Complete WI-0006, registry build, validate, open draft PR",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      }
     }
   ]
 }
