@@ -43,5 +43,8 @@
     <Compile Include="EvidenceStoreTests.fs" />
     <Compile Include="HistoryTests.fs" />
     <Compile Include="EcirAuditTests.fs" />
+    <Compile Include="ConstructionFixtures.fs" />
+    <Compile Include="ConstructionVerificationTests.fs" />
+    <Compile Include="ConstructionEvidenceTests.fs" />
   </ItemGroup>
 </Project>

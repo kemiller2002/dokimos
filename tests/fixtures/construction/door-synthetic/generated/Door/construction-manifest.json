@@ -1,0 +1,238 @@
+{
+  "generatorVersion": "ordo.construction/1",
+  "planDigest": "sha256:9cb35aacff51e5e6f4e6398bd9cbb4e634f805cd5f60962f13d2c7a051011418",
+  "binding": {
+    "sourceManifestDigest": "sha256:0eef13e0357b09d2a7f7954f88b63d5faa2623719f2ac7f4ab979bbd94e10c01",
+    "blueprintDigest": "sha256:3f01b259bc026a1806c6f26600db61a108c8508dcfe0f3b129f8002b88bb195f",
+    "cohortId": "COH-DOOR",
+    "decisionIds": [
+      "DEC-DOOR"
+    ]
+  },
+  "notice": "Generated structure only. Not authorization to apply, not evidence of behavioral verification.",
+  "ownershipRoot": "generated/Door/",
+  "artifacts": [
+    {
+      "path": "generated/Door/Door.Model.g.fs",
+      "tier": "semantic-model",
+      "ownership": "generated",
+      "sha256": "sha256:22472dc7b7f9f36f59a21eb1e28f6524e56a63b3a99fed87120176b940f6a05a",
+      "operations": [
+        "invariant:Latched",
+        "port:transitionEffect/Unlock",
+        "state:Closed",
+        "state:Locked",
+        "state:Open",
+        "transition:Closed/Lock",
+        "transition:Closed/Open",
+        "transition:Locked/Unlock",
+        "transition:Open/Close",
+        "workflow:Door"
+      ],
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-1",
+        "synthetic/door.md#DOOR-2",
+        "synthetic/door.md#DOOR-3"
+      ]
+    },
+    {
+      "path": "generated/Door/Door.Transition.g.fs",
+      "tier": "transition",
+      "ownership": "generated",
+      "sha256": "sha256:cc122a2e0a1b525477407bb328f295e0da72677ed2befc47875c2411a3c44c69",
+      "operations": [
+        "capability:Unlock/door.unlock",
+        "invariant:Latched",
+        "port:transitionEffect/Unlock",
+        "transition:Closed/Lock",
+        "transition:Closed/Open",
+        "transition:Locked/Unlock",
+        "transition:Open/Close",
+        "workflow:Door"
+      ],
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-1",
+        "synthetic/door.md#DOOR-2",
+        "synthetic/door.md#DOOR-3"
+      ]
+    },
+    {
+      "path": "generated/Door/Door.Orchestration.g.fs",
+      "tier": "orchestration",
+      "ownership": "generated",
+      "sha256": "sha256:a7142da8dc8f052cf6577087029af256eef56b2798555a284c5b489f5b2aa117",
+      "operations": [
+        "port:currentTime",
+        "port:transitionEffect/Unlock",
+        "workflow:Door"
+      ],
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-1",
+        "synthetic/door.md#DOOR-3"
+      ]
+    }
+  ],
+  "extensionContracts": [
+    {
+      "name": "DoorRules.Guard/KeyPresent",
+      "kind": "guard-predicate",
+      "ownership": "handwritten",
+      "operations": [
+        "transition:Closed/Lock",
+        "transition:Locked/Unlock"
+      ],
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-1",
+        "synthetic/door.md#DOOR-2"
+      ]
+    },
+    {
+      "name": "DoorRules.Invariant/Latched",
+      "kind": "invariant-predicate",
+      "ownership": "handwritten",
+      "operations": [
+        "invariant:Latched"
+      ],
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-2"
+      ]
+    },
+    {
+      "name": "IDoorPorts.CurrentTime",
+      "kind": "current-time-port",
+      "ownership": "handwritten",
+      "operations": [
+        "port:currentTime"
+      ],
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-3"
+      ]
+    },
+    {
+      "name": "IDoorPorts.Perform/Unlock",
+      "kind": "effect-port",
+      "ownership": "handwritten",
+      "operations": [
+        "port:transitionEffect/Unlock"
+      ],
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-3"
+      ]
+    }
+  ],
+  "obligations": [
+    {
+      "id": "IMPLEMENT:DoorRules.Guard/KeyPresent",
+      "kind": "implement",
+      "contract": "DoorRules.Guard/KeyPresent",
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-1",
+        "synthetic/door.md#DOOR-2"
+      ]
+    },
+    {
+      "id": "IMPLEMENT:DoorRules.Invariant/Latched",
+      "kind": "implement",
+      "contract": "DoorRules.Invariant/Latched",
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-2"
+      ]
+    },
+    {
+      "id": "IMPLEMENT:IDoorPorts.CurrentTime",
+      "kind": "implement",
+      "contract": "IDoorPorts.CurrentTime",
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-3"
+      ]
+    },
+    {
+      "id": "IMPLEMENT:IDoorPorts.Perform/Unlock",
+      "kind": "implement",
+      "contract": "IDoorPorts.Perform/Unlock",
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-3"
+      ]
+    },
+    {
+      "id": "VERIFY:Door",
+      "kind": "verify-independently",
+      "what": "Behavior against the original requirements. Generated structure and its derived checks are not independent acceptance evidence.",
+      "requirementKeys": [
+        "synthetic/door.md#DOOR-1",
+        "synthetic/door.md#DOOR-2",
+        "synthetic/door.md#DOOR-3"
+      ]
+    }
+  ],
+  "structuralChecks": {
+    "independence": "derived-from-plan",
+    "pairs": [
+      {
+        "state": "Closed",
+        "command": "Close",
+        "expected": "invalid-transition"
+      },
+      {
+        "state": "Closed",
+        "command": "Lock",
+        "expected": "Locked"
+      },
+      {
+        "state": "Closed",
+        "command": "Open",
+        "expected": "Open"
+      },
+      {
+        "state": "Closed",
+        "command": "Unlock",
+        "expected": "invalid-transition"
+      },
+      {
+        "state": "Locked",
+        "command": "Close",
+        "expected": "invalid-transition"
+      },
+      {
+        "state": "Locked",
+        "command": "Lock",
+        "expected": "invalid-transition"
+      },
+      {
+        "state": "Locked",
+        "command": "Open",
+        "expected": "invalid-transition"
+      },
+      {
+        "state": "Locked",
+        "command": "Unlock",
+        "expected": "Closed"
+      },
+      {
+        "state": "Open",
+        "command": "Close",
+        "expected": "Closed"
+      },
+      {
+        "state": "Open",
+        "command": "Lock",
+        "expected": "invalid-transition"
+      },
+      {
+        "state": "Open",
+        "command": "Open",
+        "expected": "invalid-transition"
+      },
+      {
+        "state": "Open",
+        "command": "Unlock",
+        "expected": "invalid-transition"
+      }
+    ]
+  },
+  "coverage": {
+    "synthetic/door.md#DOOR-1": "constructed",
+    "synthetic/door.md#DOOR-2": "constructed",
+    "synthetic/door.md#DOOR-3": "constructed"
+  }
+}

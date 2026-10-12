@@ -1,0 +1,14 @@
+        start
+Idle ─────────────► Running ──stop──► (produces TimeEntry, back to Idle)
+                       │  ▲
+                 pause │  │ resume
+                       ▼  │
+                     Paused ──stop──► (produces TimeEntry, back to Idle)
+```
+
+`TimerState = NoTimer | ActiveTimer of ActiveTimer`, `ActiveTimer.Status:
+TimerRunning | TimerPaused`, `Segments: TimerSegment list` (each with a
+`Start` and optional open `End`). Legal transitions only: `start` requires
+`NoTimer`; `pause` requires `TimerRunning` (closes the open segment);
+`resume` requires `TimerPaused` (opens a new segment); `stop` requires
+either status (closes any open segment, then completes).

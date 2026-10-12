@@ -1,0 +1,14 @@
+**`stop` does not become a second creation path.** `Timer.stop` computes
+elapsed seconds from segments and rounds to the nearest **whole minute**
+(recording is exact by the minute — `DF-TE-2026-A005`, which superseded the
+original six-minute-unit version of this decision), then calls the *same*
+`Commands.create` used by manual entry — so overlap checking,
+project/person/label legality, and description validation are identical for
+a timer-produced entry and a manually-typed one; there is exactly one place
+duration-legality is decided. The only thing unique to a timer-produced
+entry is that its `Provenance` additionally carries
+`TimerSegments: (DateTimeOffset * DateTimeOffset) list option` — the exact
+clock times, kept as audit evidence of *how* the time was captured. Six-minute
+rounding still happens, but only later and uniformly for every entry, via
+`Billing.unitsFor`/`Billing.minutesFor` — never at recording time.
+

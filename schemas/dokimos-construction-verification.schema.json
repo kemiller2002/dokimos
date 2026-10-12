@@ -1,0 +1,822 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/construction-verification",
+  "title": "Dokimos construction verification (dokimos.construction-verification 1.0.0)",
+  "description": "Output of `dokimos construction verify`. Verdict and ExitCode: verified 0 (no open findings and every frozen oracle case passed in a run Dokimos itself observed), rejected 4 (at least one open finding), incomplete 3 (no open finding, but independent behavioral acceptance is unknown). Unknown evidence is never reported as passed or failed. Invalid invocation exits 2 and unreadable inputs exit 3, both with a dokimos.diagnostic on stderr.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "Contract",
+    "SchemaVersion",
+    "DokimosVersion",
+    "CheckedAt",
+    "WorkItem",
+    "Verdict",
+    "ExitCode",
+    "Reasons",
+    "Inputs",
+    "SourceConservation",
+    "StructuralConformance",
+    "BehavioralAcceptance",
+    "Containment",
+    "Dependencies",
+    "Requirements",
+    "Counts",
+    "Exceptions",
+    "Findings",
+    "Limitations"
+  ],
+  "properties": {
+    "Contract": {
+      "const": "dokimos.construction-verification"
+    },
+    "SchemaVersion": {
+      "const": "1.0.0"
+    },
+    "DokimosVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "CheckedAt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "WorkItem": {
+      "type": "string"
+    },
+    "Verdict": {
+      "enum": [
+        "verified",
+        "rejected",
+        "incomplete"
+      ]
+    },
+    "ExitCode": {
+      "enum": [
+        0,
+        3,
+        4
+      ]
+    },
+    "Reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "SourceManifestDigest",
+        "BlueprintDigest",
+        "Plan",
+        "Generator",
+        "Candidate",
+        "ReferenceManifest",
+        "Oracle",
+        "SourceDocuments"
+      ],
+      "properties": {
+        "SourceManifestDigest": {
+          "type": "string"
+        },
+        "BlueprintDigest": {
+          "type": "string"
+        },
+        "Plan": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "Expected",
+            "Recomputed",
+            "Manifest"
+          ],
+          "properties": {
+            "Expected": {
+              "type": "string"
+            },
+            "Recomputed": {
+              "type": "string"
+            },
+            "Manifest": {
+              "type": "string"
+            }
+          }
+        },
+        "Generator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "Expected",
+            "ManifestMatches"
+          ],
+          "properties": {
+            "Expected": {
+              "type": "string"
+            },
+            "ManifestMatches": {
+              "type": "boolean"
+            }
+          }
+        },
+        "Candidate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "Commit",
+            "CommittedAt",
+            "Base",
+            "ManifestPath",
+            "OwnershipRoot"
+          ],
+          "properties": {
+            "Commit": {
+              "type": "string"
+            },
+            "CommittedAt": {
+              "type": "string"
+            },
+            "Base": {
+              "type": "string"
+            },
+            "ManifestPath": {
+              "type": "string"
+            },
+            "OwnershipRoot": {
+              "type": "string"
+            }
+          }
+        },
+        "ReferenceManifest": {
+          "enum": [
+            "supplied",
+            "absent"
+          ]
+        },
+        "Oracle": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "Id",
+            "Digest",
+            "ExpectedDigest",
+            "FrozenAt",
+            "Producer"
+          ],
+          "properties": {
+            "Id": {
+              "type": "string"
+            },
+            "Digest": {
+              "type": "string"
+            },
+            "ExpectedDigest": {
+              "type": "string"
+            },
+            "FrozenAt": {
+              "type": "string"
+            },
+            "Producer": {
+              "type": "string"
+            }
+          }
+        },
+        "SourceDocuments": {
+          "type": "string"
+        }
+      }
+    },
+    "SourceConservation": {
+      "type": "array",
+      "maxItems": 1,
+      "description": "The reused ECIR source-conservation audit (dokimos.ecir-audit/1), absent when its inputs could not be read.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "Contract",
+          "Imported",
+          "Represented",
+          "Modeled",
+          "Deferred",
+          "Unresolved",
+          "Rejected",
+          "Superseded",
+          "Findings"
+        ],
+        "properties": {
+          "Contract": {
+            "const": "dokimos.ecir-audit/1"
+          },
+          "Imported": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "Represented": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "Modeled": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "Deferred": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "Unresolved": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "Rejected": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "Superseded": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "Findings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "Code",
+                "RequirementKey",
+                "Detail"
+              ],
+              "properties": {
+                "Code": {
+                  "type": "string"
+                },
+                "RequirementKey": {
+                  "type": "string"
+                },
+                "Detail": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "StructuralConformance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Status",
+        "Artifacts",
+        "GeneratorStructuralChecks",
+        "Compile"
+      ],
+      "properties": {
+        "Status": {
+          "enum": [
+            "conformant",
+            "nonconformant"
+          ]
+        },
+        "Artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "Path",
+              "Status"
+            ],
+            "properties": {
+              "Path": {
+                "type": "string"
+              },
+              "Status": {
+                "enum": [
+                  "verified",
+                  "modified",
+                  "missing",
+                  "non-regular"
+                ]
+              }
+            }
+          }
+        },
+        "GeneratorStructuralChecks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "Independence",
+            "ConsistentWithPlan",
+            "CountsAsAcceptance"
+          ],
+          "properties": {
+            "Independence": {
+              "const": "derived-from-plan"
+            },
+            "ConsistentWithPlan": {
+              "type": "boolean"
+            },
+            "CountsAsAcceptance": {
+              "const": false
+            }
+          }
+        },
+        "Compile": {
+          "enum": [
+            "passed",
+            "failed",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "BehavioralAcceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Status",
+        "Reason",
+        "Run",
+        "Cases",
+        "EscapedConstraints"
+      ],
+      "properties": {
+        "Status": {
+          "enum": [
+            "passed",
+            "failed",
+            "unknown"
+          ]
+        },
+        "Reason": {
+          "type": "string"
+        },
+        "Run": {
+          "type": "array",
+          "maxItems": 1,
+          "description": "The oracle run Dokimos started and observed; empty when none ran.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "ObservedBy",
+              "Runner",
+              "RunnerVersion",
+              "CommandLine",
+              "StartedAt",
+              "FinishedAt",
+              "ExitCode",
+              "StdoutDigest",
+              "HarnessDigest",
+              "CandidateCommit",
+              "OracleDigest"
+            ],
+            "properties": {
+              "ObservedBy": {
+                "const": "dokimos"
+              },
+              "Runner": {
+                "type": "string"
+              },
+              "RunnerVersion": {
+                "type": "string"
+              },
+              "CommandLine": {
+                "type": "string"
+              },
+              "StartedAt": {
+                "type": "string"
+              },
+              "FinishedAt": {
+                "type": "string"
+              },
+              "ExitCode": {
+                "type": "integer"
+              },
+              "StdoutDigest": {
+                "type": "string"
+              },
+              "HarnessDigest": {
+                "type": "string"
+              },
+              "CandidateCommit": {
+                "type": "string"
+              },
+              "OracleDigest": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "Cases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "Id",
+              "RequirementKeys",
+              "Verdict",
+              "Detail",
+              "Citation"
+            ],
+            "properties": {
+              "Id": {
+                "type": "string"
+              },
+              "RequirementKeys": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "Verdict": {
+                "enum": [
+                  "passed",
+                  "failed",
+                  "unknown"
+                ]
+              },
+              "Detail": {
+                "type": "string"
+              },
+              "Citation": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "EscapedConstraints": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Oracle failures on candidates whose generator structural checks agree with the plan: behavior the generator's own checks would have passed."
+        }
+      }
+    },
+    "Containment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Status",
+        "Reason",
+        "Host",
+        "Mechanism",
+        "UnavailableProofs",
+        "HostRecordedDenials",
+        "UnenforcedProtectedWrites"
+      ],
+      "properties": {
+        "Status": {
+          "enum": [
+            "confined",
+            "not-confined",
+            "unknown"
+          ]
+        },
+        "Reason": {
+          "type": "string"
+        },
+        "Host": {
+          "type": "string"
+        },
+        "Mechanism": {
+          "type": "string"
+        },
+        "UnavailableProofs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "HostRecordedDenials": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "UnenforcedProtectedWrites": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "Dependencies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Status"
+      ],
+      "properties": {
+        "Status": {
+          "type": "string"
+        }
+      }
+    },
+    "Requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "RequirementKey",
+          "Disposition",
+          "InCohort",
+          "Represented",
+          "Modeled",
+          "Generated",
+          "Implemented",
+          "IndependentlyVerified",
+          "Deferred",
+          "Unresolved",
+          "Waived",
+          "Artifacts",
+          "Operations",
+          "OracleCases",
+          "OpenObligations",
+          "FindingCodes",
+          "Notes"
+        ],
+        "properties": {
+          "RequirementKey": {
+            "type": "string"
+          },
+          "Disposition": {
+            "enum": [
+              "modeled",
+              "deferred",
+              "unresolved",
+              "rejected",
+              "superseded",
+              "missing",
+              ""
+            ]
+          },
+          "InCohort": {
+            "type": "boolean"
+          },
+          "Represented": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "Modeled": {
+            "enum": [
+              "yes",
+              "no"
+            ]
+          },
+          "Generated": {
+            "enum": [
+              "yes",
+              "no",
+              "unknown",
+              "not-applicable"
+            ]
+          },
+          "Implemented": {
+            "enum": [
+              "yes",
+              "no",
+              "unknown",
+              "not-applicable"
+            ]
+          },
+          "IndependentlyVerified": {
+            "enum": [
+              "verified",
+              "partial",
+              "failed",
+              "unknown",
+              "not-applicable"
+            ]
+          },
+          "Deferred": {
+            "type": "boolean"
+          },
+          "Unresolved": {
+            "type": "boolean"
+          },
+          "Waived": {
+            "type": "boolean"
+          },
+          "Artifacts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Operations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "OracleCases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "OpenObligations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "FindingCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Imported",
+        "Represented",
+        "Modeled",
+        "Generated",
+        "Implemented",
+        "IndependentlyVerified",
+        "PartiallyVerified",
+        "VerificationFailed",
+        "Deferred",
+        "Unresolved",
+        "Waived",
+        "GeneratedUnknown",
+        "ImplementedUnknown",
+        "VerificationUnknown"
+      ],
+      "properties": {
+        "Imported": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Represented": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Modeled": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Generated": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Implemented": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "IndependentlyVerified": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "PartiallyVerified": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "VerificationFailed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Deferred": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Unresolved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Waived": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "GeneratedUnknown": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ImplementedUnknown": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "VerificationUnknown": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "Exceptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Applied",
+        "Offered"
+      ],
+      "properties": {
+        "Applied": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Offered": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "Findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "Code",
+          "Subject",
+          "RequirementKeys",
+          "Detail",
+          "Disposition",
+          "WorkItem"
+        ],
+        "properties": {
+          "Code": {
+            "anyOf": [
+              {
+                "enum": [
+                  "generated-artifact-modified",
+                  "generated-artifact-missing",
+                  "missing-required-guard",
+                  "fake-test-result",
+                  "generator-version-changed",
+                  "plan-digest-changed",
+                  "undocumented-generated-file",
+                  "handwritten-claims-generated",
+                  "requirement-silently-omitted",
+                  "invented-behavior",
+                  "unauthorized-dependency",
+                  "host-denial-without-evidence",
+                  "clean-diff-not-denial",
+                  "protected-write-allowed",
+                  "confinement-claim-unsupported",
+                  "oracle-behavior-mismatch",
+                  "oracle-digest-mismatch",
+                  "oracle-not-frozen-before-candidate",
+                  "oracle-not-independent",
+                  "oracle-source-mismatch",
+                  "candidate-compile-failed",
+                  "binding-mismatch",
+                  "manifest-plan-divergence",
+                  "generator-self-attestation",
+                  "manifest-location-mismatch",
+                  "artifact-outside-ownership-root",
+                  "non-regular-generated-entry",
+                  "provenance-trailer-mismatch",
+                  "source-content-mismatch",
+                  "unsupported-input"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^ecir-[a-z-]+$"
+              }
+            ]
+          },
+          "Subject": {
+            "type": "string"
+          },
+          "RequirementKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Detail": {
+            "type": "string"
+          },
+          "Disposition": {
+            "enum": [
+              "open",
+              "excepted"
+            ]
+          },
+          "WorkItem": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
