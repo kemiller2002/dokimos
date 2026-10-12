@@ -1,0 +1,488 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/adapter-oracle",
+  "title": "Dokimos adapter-bound behavioral oracle (dokimos.adapter-oracle/1)",
+  "description": "A frozen behavioral oracle that drives a candidate only through a declared adapter (binding.kind = adapter), so that independently built implementations are judged through the same minimal interface. Pinned by SHA-256 and frozen before any candidate. Unscored cases carry no expectation and are reported, never judged.",
+  "type": "object",
+  "required": [
+    "schema",
+    "oracleId",
+    "frozenAt",
+    "producer",
+    "subject",
+    "binding",
+    "derivedFrom",
+    "cases"
+  ],
+  "properties": {
+    "schema": {
+      "const": "dokimos.adapter-oracle/1"
+    },
+    "oracleId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "frozenAt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "type": "object",
+      "required": [
+        "kind",
+        "system"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "not": {
+            "const": "generator"
+          }
+        },
+        "system": {
+          "type": "string",
+          "not": {
+            "const": "ordo"
+          }
+        },
+        "method": {
+          "type": "string"
+        }
+      }
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "workflow"
+      ],
+      "properties": {
+        "workflow": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "restates": {
+      "type": "object",
+      "required": [
+        "oracleId",
+        "digest"
+      ],
+      "properties": {
+        "oracleId": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "binding": {
+      "type": "object",
+      "required": [
+        "kind",
+        "contract",
+        "namespace",
+        "module",
+        "functions"
+      ],
+      "properties": {
+        "kind": {
+          "const": "adapter"
+        },
+        "contract": {
+          "type": "string",
+          "minLength": 1
+        },
+        "namespace": {
+          "type": "string",
+          "minLength": 1
+        },
+        "module": {
+          "type": "string",
+          "minLength": 1
+        },
+        "functions": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "signature"
+            ],
+            "properties": {
+              "signature": {
+                "type": "string",
+                "minLength": 1
+              },
+              "meaning": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "states": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "derivedFrom": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "requirementKey",
+          "excerpt",
+          "contentDigest",
+          "coverage"
+        ],
+        "properties": {
+          "requirementKey": {
+            "type": "string"
+          },
+          "excerpt": {
+            "type": "string"
+          },
+          "contentDigest": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "coverage": {
+            "enum": [
+              "full",
+              "partial",
+              "none"
+            ]
+          },
+          "remainder": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "excludedCases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "reason"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "id",
+              "kind",
+              "state",
+              "command",
+              "expect",
+              "requirementKeys",
+              "citation"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "requirementKeys": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "citation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "const": "decide"
+              },
+              "state": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string"
+              },
+              "expect": {
+                "type": "object",
+                "required": [
+                  "outcome"
+                ],
+                "properties": {
+                  "outcome": {
+                    "enum": [
+                      "accepted",
+                      "refused"
+                    ]
+                  },
+                  "next": {
+                    "enum": [
+                      "NoTimer",
+                      "Running",
+                      "Paused"
+                    ]
+                  },
+                  "effects": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "complete-entry"
+                      ]
+                    }
+                  }
+                },
+                "additionalProperties": false
+              },
+              "scored": {
+                "const": true
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "id",
+              "kind",
+              "state",
+              "steps",
+              "requirementKeys",
+              "citation"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "requirementKeys": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "citation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "const": "sequence"
+              },
+              "state": {
+                "type": "string"
+              },
+              "scored": {
+                "const": true
+              },
+              "steps": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "command",
+                    "expect"
+                  ],
+                  "properties": {
+                    "command": {
+                      "type": "string"
+                    },
+                    "expect": {
+                      "type": "object",
+                      "required": [
+                        "outcome"
+                      ],
+                      "properties": {
+                        "outcome": {
+                          "enum": [
+                            "accepted",
+                            "refused"
+                          ]
+                        },
+                        "next": {
+                          "enum": [
+                            "NoTimer",
+                            "Running",
+                            "Paused"
+                          ]
+                        },
+                        "effects": {
+                          "type": "array",
+                          "items": {
+                            "enum": [
+                              "complete-entry"
+                            ]
+                          }
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "id",
+              "kind",
+              "segments",
+              "expect",
+              "requirementKeys",
+              "citation"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "requirementKeys": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "citation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "const": "recorded-minutes"
+              },
+              "segments": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "scored": {
+                "const": true
+              },
+              "expect": {
+                "type": "object",
+                "required": [
+                  "recorded",
+                  "minutes"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "recorded": {
+                    "const": true
+                  },
+                  "minutes": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "id",
+              "kind",
+              "segments",
+              "scored",
+              "classification",
+              "requirementKeys",
+              "citation"
+            ],
+            "not": {
+              "required": [
+                "expect"
+              ]
+            },
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "requirementKeys": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "citation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "const": "recorded-minutes"
+              },
+              "segments": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "scored": {
+                "const": false
+              },
+              "classification": {
+                "type": "string",
+                "minLength": 1
+              },
+              "conflict": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

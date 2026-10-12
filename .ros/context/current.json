@@ -4,7 +4,7 @@
   "repository": "dokimos",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-10-12T17:18:19.000Z",
+  "updatedAt": "2026-10-12T17:56:39.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -876,6 +876,63 @@
         }
       },
       "completedAt": "2026-10-12T17:18:19.000Z"
+    },
+    {
+      "id": "WI-0006",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Cli/BehaviorCommand.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/BehaviorVerification.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Cli.Tests/BehaviorVerifyCliTests.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/BehaviorOracleTests.fs"
+        },
+        {
+          "type": "oracle",
+          "path": "oracles/construction/time-entry-timer/oracle-adapter.json"
+        },
+        {
+          "type": "documentation",
+          "path": "docs/behavior-verification.md"
+        }
+      ],
+      "updatedAt": "2026-10-12T17:56:39.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20261012T173646636Z-9af59377"
+      ],
+      "latestCheckpoint": {
+        "id": "7e59137e6bbaced2b866d202",
+        "recordedAt": "2026-10-12T17:56:27.000Z",
+        "executionId": "EXE-20261012T173646636Z-9af59377",
+        "repository": "dokimos",
+        "branch": "feat/gh-30-adapter-behavior-oracle",
+        "commit": "d8e77a94d2f5431ac48eccf74e696e9dcb2cc3f2",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "feat/gh-30-adapter-behavior-oracle",
+        "remoteCommit": "d8e77a94d2f5431ac48eccf74e696e9dcb2cc3f2",
+        "summary": "Frozen DOK-ORACLE-TIMER-ADAPTER-1 (own commit 0eff8bb), dokimos behavior verify runner, driver, schemas, tests and docs committed and pushed; full suite green locally",
+        "nextAction": "Complete WI-0006, registry build, validate, open draft PR",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "completedAt": "2026-10-12T17:56:39.000Z"
     }
   ]
 }

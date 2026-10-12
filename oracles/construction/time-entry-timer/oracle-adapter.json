@@ -1,0 +1,132 @@
+{
+  "schema": "dokimos.adapter-oracle/1",
+  "oracleId": "DOK-ORACLE-TIMER-ADAPTER-1",
+  "frozenAt": "2026-10-12T17:39:33Z",
+  "producer": {
+    "kind": "independent-evaluator",
+    "system": "dokimos",
+    "method": "Hand-written by the Dokimos evaluator from the original requirement excerpts only (tests/fixtures/construction/time-entry-timer/sources/). The decide and sequence cases restate DOK-ORACLE-TIMER-1 with the same IDs, citations and requirement keys. No candidate implementation, generated code, construction plan or manifest was consulted."
+  },
+  "subject": {
+    "workflow": "Timer",
+    "notes": "Arm-neutral: both the baseline (an agent's own F# implementation) and the treatment (Ordo-generated code plus bounded handwritten code) are driven through the same minimal adapter. The empty state is named NoTimer (the source diagram calls it Idle)."
+  },
+  "restates": {
+    "oracleId": "DOK-ORACLE-TIMER-1",
+    "path": "oracles/construction/time-entry-timer/oracle.json",
+    "digest": "sha256:b08518c9932932d93e48268488b43889446b56052deebfbd8a0d78e2f9437a98"
+  },
+  "binding": {
+    "kind": "adapter",
+    "contract": "dokimos.timer-oracle-adapter/1",
+    "namespace": "TimerPilot",
+    "module": "TimerOracleAdapter",
+    "functions": {
+      "decide": {
+        "signature": "state: string -> command: string -> Result<string * string list, string>",
+        "meaning": "Ok (nextState, effects) when the command is accepted, Error reason when it is refused."
+      },
+      "recordedMinutes": {
+        "signature": "segments: (int64 * int64) list -> int option",
+        "meaning": "Closed segments (start, end) in whole seconds from an arbitrary epoch. None = nothing is recorded; Some n = n whole minutes recorded."
+      }
+    },
+    "states": [
+      "NoTimer",
+      "Running",
+      "Paused"
+    ],
+    "commands": [
+      "start",
+      "pause",
+      "resume",
+      "stop"
+    ],
+    "effects": [
+      "complete-entry"
+    ]
+  },
+  "derivedFrom": [
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+      "excerpt": "timer-transitions.txt",
+      "contentDigest": "sha256:9f6b6100a59f0db96e2a7e0e939ecef25e52ad148567b151468e3e3992d9e200",
+      "coverage": "full",
+      "remainder": ""
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+      "excerpt": "timer-command-rejection.txt",
+      "contentDigest": "sha256:498a6522b033471eee5cc4386b705c23195e385460e592e0d129ae98b0fc6928",
+      "coverage": "full",
+      "remainder": ""
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104",
+      "excerpt": "timer-single-active.txt",
+      "contentDigest": "sha256:d46b048e14df7088be6dcb0807e933f87b0443c55dfcbffbbcb8b265717039e4",
+      "coverage": "partial",
+      "remainder": "Only the single-instance reading is checked; whether one timer is allowed per person or per session is not decided by the source text."
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144",
+      "excerpt": "timer-stop-completion.txt",
+      "contentDigest": "sha256:6e1ac69a563e156189d9498023a7514b91be09e83042ec387a63746eab2ef17c",
+      "coverage": "partial",
+      "remainder": "Observed: an accepted stop, and nothing else, requests entry completion (decide); elapsed seconds from segments rounded to the nearest whole minute, exact by the minute with no six-minute unit at recording time (recordedMinutes). Not observed: the shared Commands.create path, TimerSegments provenance, and whether the candidate's own stop path calls the same arithmetic it exposes through the adapter. The excerpt states no rule for an exact half-minute tie, so no case has a total of whole minutes plus exactly 30 seconds."
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107",
+      "excerpt": "timer-paused-time-excluded.txt",
+      "contentDigest": "sha256:bd10153509354a418f173e88f564d693ff945503d2fb6530fe4582c581392945",
+      "coverage": "partial",
+      "remainder": "Observed: repeated pause/resume cycles are legal (decide) and recordedMinutes sums only the closed working segments it is given, excluding the gaps between them. Not observed: how the candidate opens and closes segments against a clock."
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148",
+      "excerpt": "timer-session-scoped.txt",
+      "contentDigest": "sha256:63244f8a375fb18191c6234901381daae5c8488247f154ca595cb9370e490929",
+      "coverage": "none",
+      "remainder": "The adapter contract exposes no port or persistence surface, so per-session placement is not observable through it. TIMER-ORACLE-015 (port surface) is therefore not restated; see excludedCases."
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L113-L114",
+      "excerpt": "timer-under-thirty-seconds.txt",
+      "contentDigest": "sha256:7016f024e9e2da8c9e4df44430e54f4e9ad42e24e6de2791543ec7d8faec9dd0",
+      "coverage": "none",
+      "remainder": "The excerpt says nothing is recorded, but the approved ECIR blueprint records CONFLICT-TIMER-SHORT-STOP (refusal versus return to NoTimer). Its cases are unscored: the candidate's answer is reported as agent-decided behavior on an unresolved conflict and never counted as pass or fail."
+    }
+  ],
+  "excludedCases": [
+    {
+      "id": "TIMER-ORACLE-015",
+      "reason": "A port-surface case of the Ordo naming binding. The adapter contract deliberately exposes no ports, so it is not observable through this oracle and is not restated."
+    }
+  ],
+  "cases": [
+    {"id": "TIMER-ORACLE-001", "kind": "decide", "state": "NoTimer", "command": "start", "expect": {"outcome": "accepted", "next": "Running", "effects": []}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129"], "citation": "timer-transitions.txt: 'Idle ---start---> Running'; '`start` requires `NoTimer`'"},
+    {"id": "TIMER-ORACLE-002", "kind": "decide", "state": "NoTimer", "command": "pause", "expect": {"outcome": "refused"}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"], "citation": "timer-transitions.txt: '`pause` requires `TimerRunning`'; timer-command-rejection.txt: 'a timer command issued with no active timer'"},
+    {"id": "TIMER-ORACLE-003", "kind": "decide", "state": "NoTimer", "command": "resume", "expect": {"outcome": "refused"}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"], "citation": "timer-transitions.txt: '`resume` requires `TimerPaused`'; timer-command-rejection.txt: 'a timer command issued with no active timer'"},
+    {"id": "TIMER-ORACLE-004", "kind": "decide", "state": "NoTimer", "command": "stop", "expect": {"outcome": "refused"}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"], "citation": "timer-transitions.txt: '`stop` requires either status'; timer-command-rejection.txt: 'a timer command issued with no active timer'"},
+    {"id": "TIMER-ORACLE-005", "kind": "decide", "state": "Running", "command": "start", "expect": {"outcome": "refused"}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"], "citation": "timer-transitions.txt: '`start` requires `NoTimer`'; timer-single-active.txt: 'Only one timer may be active at a time.'"},
+    {"id": "TIMER-ORACLE-006", "kind": "decide", "state": "Running", "command": "pause", "expect": {"outcome": "accepted", "next": "Paused", "effects": []}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129"], "citation": "timer-transitions.txt: 'Running ... pause ... Paused'; '`pause` requires `TimerRunning` (closes the open segment)'"},
+    {"id": "TIMER-ORACLE-007", "kind": "decide", "state": "Running", "command": "resume", "expect": {"outcome": "refused"}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"], "citation": "timer-transitions.txt: '`resume` requires `TimerPaused`'; timer-command-rejection.txt: 'issued against a timer already in the wrong run/pause state'"},
+    {"id": "TIMER-ORACLE-008", "kind": "decide", "state": "Running", "command": "stop", "expect": {"outcome": "accepted", "next": "NoTimer", "effects": ["complete-entry"]}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"], "citation": "timer-transitions.txt: 'Running ──stop──► (produces TimeEntry, back to Idle)'; timer-stop-completion.txt: '`Timer.stop` ... then calls the *same* `Commands.create`'"},
+    {"id": "TIMER-ORACLE-009", "kind": "decide", "state": "Paused", "command": "start", "expect": {"outcome": "refused"}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"], "citation": "timer-transitions.txt: '`start` requires `NoTimer`'; timer-single-active.txt: 'Only one timer may be active at a time.'"},
+    {"id": "TIMER-ORACLE-010", "kind": "decide", "state": "Paused", "command": "pause", "expect": {"outcome": "refused"}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"], "citation": "timer-transitions.txt: '`pause` requires `TimerRunning`'; timer-command-rejection.txt: 'issued against a timer already in the wrong run/pause state'"},
+    {"id": "TIMER-ORACLE-011", "kind": "decide", "state": "Paused", "command": "resume", "expect": {"outcome": "accepted", "next": "Running", "effects": []}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129"], "citation": "timer-transitions.txt: 'Paused ... resume ... Running'; '`resume` requires `TimerPaused` (opens a new segment)'"},
+    {"id": "TIMER-ORACLE-012", "kind": "decide", "state": "Paused", "command": "stop", "expect": {"outcome": "accepted", "next": "NoTimer", "effects": ["complete-entry"]}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"], "citation": "timer-transitions.txt: 'Paused ──stop──► (produces TimeEntry, back to Idle)'; '`stop` requires either status (closes any open segment, then completes)'"},
+    {"id": "TIMER-ORACLE-013", "kind": "sequence", "state": "NoTimer", "steps": [{"command": "start", "expect": {"outcome": "accepted", "next": "Running", "effects": []}}, {"command": "pause", "expect": {"outcome": "accepted", "next": "Paused", "effects": []}}, {"command": "resume", "expect": {"outcome": "accepted", "next": "Running", "effects": []}}, {"command": "pause", "expect": {"outcome": "accepted", "next": "Paused", "effects": []}}, {"command": "resume", "expect": {"outcome": "accepted", "next": "Running", "effects": []}}, {"command": "stop", "expect": {"outcome": "accepted", "next": "NoTimer", "effects": ["complete-entry"]}}, {"command": "start", "expect": {"outcome": "accepted", "next": "Running", "effects": []}}], "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107"], "citation": "timer-paused-time-excluded.txt: 'Pausing and resuming produces multiple tracked segments'; timer-transitions.txt: 'back to Idle' makes a new start legal"},
+    {"id": "TIMER-ORACLE-014", "kind": "sequence", "state": "NoTimer", "steps": [{"command": "start", "expect": {"outcome": "accepted", "next": "Running", "effects": []}}, {"command": "start", "expect": {"outcome": "refused"}}, {"command": "pause", "expect": {"outcome": "accepted", "next": "Paused", "effects": []}}, {"command": "start", "expect": {"outcome": "refused"}}], "requirementKeys": ["kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"], "citation": "timer-single-active.txt: 'Only one timer may be active at a time.'"},
+    {"id": "TIMER-MINUTES-001", "kind": "recorded-minutes", "segments": [[0, 600]], "expect": {"recorded": true, "minutes": 10}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"], "citation": "timer-stop-completion.txt: '`Timer.stop` computes elapsed seconds from segments and rounds to the nearest **whole minute**'; 600 seconds is exactly 10 minutes"},
+    {"id": "TIMER-MINUTES-002", "kind": "recorded-minutes", "segments": [[1760259600, 1760260040]], "expect": {"recorded": true, "minutes": 7}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"], "citation": "timer-stop-completion.txt: '`Timer.stop` computes elapsed seconds from segments and rounds to the nearest **whole minute**'; 440 seconds is 7 min 20 s, nearest whole minute 7"},
+    {"id": "TIMER-MINUTES-003", "kind": "recorded-minutes", "segments": [[1760259600, 1760260060]], "expect": {"recorded": true, "minutes": 8}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"], "citation": "timer-stop-completion.txt: '`Timer.stop` computes elapsed seconds from segments and rounds to the nearest **whole minute**'; 460 seconds is 7 min 40 s, nearest whole minute 8 (not truncated to 7)"},
+    {"id": "TIMER-MINUTES-004", "kind": "recorded-minutes", "segments": [[1760259600, 1760260020]], "expect": {"recorded": true, "minutes": 7}, "requirementKeys": ["kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"], "citation": "timer-stop-completion.txt: '`Timer.stop` computes elapsed seconds from segments and rounds to the nearest **whole minute**'; '(recording is exact by the minute ...)'; 'Six-minute rounding still happens, but only later ... never at recording time.' 420 seconds records 7, not a six-minute unit"},
+    {"id": "TIMER-MINUTES-005", "kind": "recorded-minutes", "segments": [[1760259600, 1760259900], [1760260600, 1760261000], [1760263600, 1760263700]], "expect": {"recorded": true, "minutes": 13}, "requirementKeys": ["kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107", "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"], "citation": "timer-paused-time-excluded.txt: 'Pausing and resuming produces multiple tracked segments of actual working time; time spent paused is excluded from what's ultimately recorded.'; 300+400+100 = 800 seconds of working time (13 min 20 s) -> 13; the 4100-second wall span is not recorded"},
+    {"id": "TIMER-MINUTES-006", "kind": "recorded-minutes", "segments": [[1760259600, 1760259700], [1760260600, 1760260700]], "expect": {"recorded": true, "minutes": 3}, "requirementKeys": ["kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107", "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"], "citation": "timer-stop-completion.txt: '`Timer.stop` computes elapsed seconds from segments and rounds to the nearest **whole minute**'; timer-paused-time-excluded.txt: 'time spent paused is excluded'; elapsed seconds are computed from the segments (100+100 = 200 s = 3 min 20 s) and then rounded -> 3"},
+    {"id": "TIMER-MINUTES-007", "kind": "recorded-minutes", "segments": [[1760259600, 1760259700], [1760260600, 1760260725]], "expect": {"recorded": true, "minutes": 4}, "requirementKeys": ["kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107", "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"], "citation": "timer-stop-completion.txt: '`Timer.stop` computes elapsed seconds from segments and rounds to the nearest **whole minute**'; timer-paused-time-excluded.txt: 'time spent paused is excluded'; 100+125 = 225 s = 3 min 45 s -> nearest whole minute 4"},
+    {"id": "TIMER-SHORT-001", "kind": "recorded-minutes", "segments": [[1760259600, 1760259610]], "scored": false, "classification": "unresolved-conflict", "conflict": "CONFLICT-TIMER-SHORT-STOP", "requirementKeys": ["kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L113-L114"], "citation": "timer-under-thirty-seconds.txt: 'If the timer is stopped after running for less than thirty seconds, nothing is recorded.' 10 seconds of working time."},
+    {"id": "TIMER-SHORT-002", "kind": "recorded-minutes", "segments": [[1760259600, 1760259629]], "scored": false, "classification": "unresolved-conflict", "conflict": "CONFLICT-TIMER-SHORT-STOP", "requirementKeys": ["kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L113-L114"], "citation": "timer-under-thirty-seconds.txt: 'If the timer is stopped after running for less than thirty seconds, nothing is recorded.' 29 seconds of working time."},
+    {"id": "TIMER-SHORT-003", "kind": "recorded-minutes", "segments": [[1760259600, 1760259610], [1760259700, 1760259715]], "scored": false, "classification": "unresolved-conflict", "conflict": "CONFLICT-TIMER-SHORT-STOP", "requirementKeys": ["kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L113-L114"], "citation": "timer-under-thirty-seconds.txt: 'If the timer is stopped after running for less than thirty seconds, nothing is recorded.' 25 seconds of working time across two segments; the wall span is 115 seconds, so whether 'running for' means working or wall time is itself undecided."}
+  ]
+}

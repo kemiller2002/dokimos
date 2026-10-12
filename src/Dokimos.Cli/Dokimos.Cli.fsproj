@@ -23,6 +23,8 @@
     <Compile Include="ConstructionGit.fs" />
     <Compile Include="ConstructionOracleRunner.fs" />
     <Compile Include="ConstructionCommand.fs" />
+    <Compile Include="BehaviorRunner.fs" />
+    <Compile Include="BehaviorCommand.fs" />
     <Compile Include="Program.fs" />
     <None Include="PACKAGE-README.md" Pack="true" PackagePath="README.md" />
   </ItemGroup>
