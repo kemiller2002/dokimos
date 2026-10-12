@@ -1,0 +1,1 @@
+Locking and unlocking require the key to be present. A locked door must be latched.

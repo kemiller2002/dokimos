@@ -1,0 +1,29 @@
+{
+  "digest": "sha256:0eef13e0357b09d2a7f7954f88b63d5faa2623719f2ac7f4ab979bbd94e10c01",
+  "requirements": [
+    {
+      "key": "synthetic/door.md#DOOR-1",
+      "originalId": "DOOR-1",
+      "document": "synthetic/door.md",
+      "location": "DOOR-1",
+      "revision": "synthetic-1",
+      "contentDigest": "sha256:d07a2bf049b46f4598f006f8506ce1a48f468ac1b499220b9dfbd6cbf1a1ebb2"
+    },
+    {
+      "key": "synthetic/door.md#DOOR-2",
+      "originalId": "DOOR-2",
+      "document": "synthetic/door.md",
+      "location": "DOOR-2",
+      "revision": "synthetic-1",
+      "contentDigest": "sha256:eb5f573ca8573d34e25ca273c4faac33f7708a85199cd5b7efdc285fc37f965f"
+    },
+    {
+      "key": "synthetic/door.md#DOOR-3",
+      "originalId": "DOOR-3",
+      "document": "synthetic/door.md",
+      "location": "DOOR-3",
+      "revision": "synthetic-1",
+      "contentDigest": "sha256:4c60a6c582ae623f2254de250dc9f243e2fbaa2313b8538fce66f99fa5d9fd97"
+    }
+  ]
+}

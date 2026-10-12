@@ -1,0 +1,152 @@
+{
+  "schema": "dokimos.construction-oracle/1",
+  "oracleId": "DOK-ORACLE-TIMER-1",
+  "frozenAt": "2026-10-12T16:56:04Z",
+  "producer": {
+    "kind": "independent-evaluator",
+    "system": "dokimos",
+    "method": "Hand-written by the Dokimos evaluator from the original requirement excerpts only. Not derived from the construction plan, the generated code, the construction manifest, its structuralChecks or Ordo's own tests."
+  },
+  "subject": {
+    "workflow": "Timer",
+    "notes": "The source text names the empty state Idle in its diagram and NoTimer in its type sketch; this oracle uses NoTimer. Stop returning to the empty state is stated by the diagram text '(produces TimeEntry, back to Idle)'."
+  },
+  "binding": {
+    "convention": "ordo.construction/1 published naming (docs/architecture/construction-engine-v1.md in Ordo): namespace Generated.<Workflow>, <Workflow>State, <Workflow>Command, <Workflow>Effect, module <Workflow>Transition.decide, interface I<Workflow>Ports",
+    "namespace": "Generated.Timer",
+    "stateType": "TimerState",
+    "commandType": "TimerCommand",
+    "effectType": "TimerEffect",
+    "transitionModule": "TimerTransition",
+    "portsInterface": "ITimerPorts",
+    "states": { "NoTimer": "NoTimer", "Running": "Running", "Paused": "Paused" },
+    "commands": { "start": "Start", "pause": "Pause", "resume": "Resume", "stop": "Stop" },
+    "effects": { "complete-entry": "Stop" }
+  },
+  "derivedFrom": [
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+      "excerpt": "timer-transitions.txt",
+      "contentDigest": "sha256:9f6b6100a59f0db96e2a7e0e939ecef25e52ad148567b151468e3e3992d9e200",
+      "coverage": "full",
+      "remainder": ""
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+      "excerpt": "timer-command-rejection.txt",
+      "contentDigest": "sha256:498a6522b033471eee5cc4386b705c23195e385460e592e0d129ae98b0fc6928",
+      "coverage": "full",
+      "remainder": ""
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104",
+      "excerpt": "timer-single-active.txt",
+      "contentDigest": "sha256:d46b048e14df7088be6dcb0807e933f87b0443c55dfcbffbbcb8b265717039e4",
+      "coverage": "partial",
+      "remainder": "Only the single-instance reading is checked; whether one timer is allowed per person or per session is not decided by the source text."
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144",
+      "excerpt": "timer-stop-completion.txt",
+      "contentDigest": "sha256:6e1ac69a563e156189d9498023a7514b91be09e83042ec387a63746eab2ef17c",
+      "coverage": "partial",
+      "remainder": "Only that an accepted stop, and nothing else, requests entry completion. Elapsed-seconds arithmetic, whole-minute rounding, the shared Commands.create path and TimerSegments provenance are handwritten and not observable in generated code."
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107",
+      "excerpt": "timer-paused-time-excluded.txt",
+      "contentDigest": "sha256:bd10153509354a418f173e88f564d693ff945503d2fb6530fe4582c581392945",
+      "coverage": "partial",
+      "remainder": "Only that repeated pause/resume cycles are legal and a current-time source exists. Excluding paused time from the recorded duration is handwritten arithmetic."
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148",
+      "excerpt": "timer-session-scoped.txt",
+      "contentDigest": "sha256:63244f8a375fb18191c6234901381daae5c8488247f154ca595cb9370e490929",
+      "coverage": "partial",
+      "remainder": "Only that the workflow exposes no port other than reading time and performing effects, so it cannot persist timer state. Per-session placement is a host decision."
+    },
+    {
+      "requirementKey": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L113-L114",
+      "excerpt": "timer-under-thirty-seconds.txt",
+      "contentDigest": "sha256:7016f024e9e2da8c9e4df44430e54f4e9ad42e24e6de2791543ec7d8faec9dd0",
+      "coverage": "none",
+      "remainder": "The source states that nothing is recorded, but whether the stop is a refusal or a return to NoTimer is in conflict between sources. No expectation is frozen for it."
+    }
+  ],
+  "cases": [
+    { "id": "TIMER-ORACLE-001", "kind": "decide", "state": "NoTimer", "command": "start",
+      "expect": { "outcome": "accepted", "next": "Running", "effects": [] },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129" ],
+      "citation": "timer-transitions.txt: 'Idle ---start---> Running'; '`start` requires `NoTimer`'" },
+    { "id": "TIMER-ORACLE-002", "kind": "decide", "state": "NoTimer", "command": "pause",
+      "expect": { "outcome": "refused" },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368" ],
+      "citation": "timer-transitions.txt: '`pause` requires `TimerRunning`'; timer-command-rejection.txt: 'a timer command issued with no active timer'" },
+    { "id": "TIMER-ORACLE-003", "kind": "decide", "state": "NoTimer", "command": "resume",
+      "expect": { "outcome": "refused" },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368" ],
+      "citation": "timer-transitions.txt: '`resume` requires `TimerPaused`'; timer-command-rejection.txt: 'a timer command issued with no active timer'" },
+    { "id": "TIMER-ORACLE-004", "kind": "decide", "state": "NoTimer", "command": "stop",
+      "expect": { "outcome": "refused" },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368" ],
+      "citation": "timer-transitions.txt: '`stop` requires either status'; timer-command-rejection.txt: 'a timer command issued with no active timer'" },
+    { "id": "TIMER-ORACLE-005", "kind": "decide", "state": "Running", "command": "start",
+      "expect": { "outcome": "refused" },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368" ],
+      "citation": "timer-transitions.txt: '`start` requires `NoTimer`'; timer-single-active.txt: 'Only one timer may be active at a time.'" },
+    { "id": "TIMER-ORACLE-006", "kind": "decide", "state": "Running", "command": "pause",
+      "expect": { "outcome": "accepted", "next": "Paused", "effects": [] },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129" ],
+      "citation": "timer-transitions.txt: 'Running ... pause ... Paused'; '`pause` requires `TimerRunning` (closes the open segment)'" },
+    { "id": "TIMER-ORACLE-007", "kind": "decide", "state": "Running", "command": "resume",
+      "expect": { "outcome": "refused" },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368" ],
+      "citation": "timer-transitions.txt: '`resume` requires `TimerPaused`'; timer-command-rejection.txt: 'issued against a timer already in the wrong run/pause state'" },
+    { "id": "TIMER-ORACLE-008", "kind": "decide", "state": "Running", "command": "stop",
+      "expect": { "outcome": "accepted", "next": "NoTimer", "effects": [ "complete-entry" ] },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144" ],
+      "citation": "timer-transitions.txt: 'Running ──stop──► (produces TimeEntry, back to Idle)'; timer-stop-completion.txt: '`Timer.stop` ... then calls the *same* `Commands.create`'" },
+    { "id": "TIMER-ORACLE-009", "kind": "decide", "state": "Paused", "command": "start",
+      "expect": { "outcome": "refused" },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368" ],
+      "citation": "timer-transitions.txt: '`start` requires `NoTimer`'; timer-single-active.txt: 'Only one timer may be active at a time.'" },
+    { "id": "TIMER-ORACLE-010", "kind": "decide", "state": "Paused", "command": "pause",
+      "expect": { "outcome": "refused" },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368" ],
+      "citation": "timer-transitions.txt: '`pause` requires `TimerRunning`'; timer-command-rejection.txt: 'issued against a timer already in the wrong run/pause state'" },
+    { "id": "TIMER-ORACLE-011", "kind": "decide", "state": "Paused", "command": "resume",
+      "expect": { "outcome": "accepted", "next": "Running", "effects": [] },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129" ],
+      "citation": "timer-transitions.txt: 'Paused ... resume ... Running'; '`resume` requires `TimerPaused` (opens a new segment)'" },
+    { "id": "TIMER-ORACLE-012", "kind": "decide", "state": "Paused", "command": "stop",
+      "expect": { "outcome": "accepted", "next": "NoTimer", "effects": [ "complete-entry" ] },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144" ],
+      "citation": "timer-transitions.txt: 'Paused ──stop──► (produces TimeEntry, back to Idle)'; '`stop` requires either status (closes any open segment, then completes)'" },
+    { "id": "TIMER-ORACLE-013", "kind": "sequence", "state": "NoTimer",
+      "steps": [
+        { "command": "start", "expect": { "outcome": "accepted", "next": "Running", "effects": [] } },
+        { "command": "pause", "expect": { "outcome": "accepted", "next": "Paused", "effects": [] } },
+        { "command": "resume", "expect": { "outcome": "accepted", "next": "Running", "effects": [] } },
+        { "command": "pause", "expect": { "outcome": "accepted", "next": "Paused", "effects": [] } },
+        { "command": "resume", "expect": { "outcome": "accepted", "next": "Running", "effects": [] } },
+        { "command": "stop", "expect": { "outcome": "accepted", "next": "NoTimer", "effects": [ "complete-entry" ] } },
+        { "command": "start", "expect": { "outcome": "accepted", "next": "Running", "effects": [] } }
+      ],
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129", "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107" ],
+      "citation": "timer-paused-time-excluded.txt: 'Pausing and resuming produces multiple tracked segments'; timer-transitions.txt: 'back to Idle' makes a new start legal" },
+    { "id": "TIMER-ORACLE-014", "kind": "sequence", "state": "NoTimer",
+      "steps": [
+        { "command": "start", "expect": { "outcome": "accepted", "next": "Running", "effects": [] } },
+        { "command": "start", "expect": { "outcome": "refused" } },
+        { "command": "pause", "expect": { "outcome": "accepted", "next": "Paused", "effects": [] } },
+        { "command": "start", "expect": { "outcome": "refused" } }
+      ],
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104" ],
+      "citation": "timer-single-active.txt: 'Only one timer may be active at a time.'" },
+    { "id": "TIMER-ORACLE-015", "kind": "port-surface",
+      "expect": { "members": [ "CurrentTime", "Perform" ] },
+      "requirementKeys": [ "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148", "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107" ],
+      "citation": "timer-session-scoped.txt: 'it isn't a durable record until `stop` produces one'; timer-paused-time-excluded.txt: segments of actual working time require reading the current time" }
+  ]
+}

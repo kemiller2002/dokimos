@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "ordo.construction-plan/1",
+  "vocabularyVersion": "ordo.construction-vocabulary/1",
+  "binding": {
+    "sourceManifestDigest": "sha256:0eef13e0357b09d2a7f7954f88b63d5faa2623719f2ac7f4ab979bbd94e10c01",
+    "blueprintDigest": "sha256:3f01b259bc026a1806c6f26600db61a108c8508dcfe0f3b129f8002b88bb195f",
+    "cohortId": "COH-DOOR",
+    "decisionIds": [
+      "DEC-DOOR"
+    ]
+  },
+  "operations": [
+    {
+      "op": "defineWorkflow",
+      "name": "Door",
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-1"
+        ],
+        "nodeIds": [
+          "CON-DOOR"
+        ]
+      }
+    },
+    {
+      "op": "defineState",
+      "name": "Closed",
+      "role": "initial",
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-1"
+        ],
+        "nodeIds": [
+          "CON-DOOR"
+        ]
+      }
+    },
+    {
+      "op": "defineState",
+      "name": "Open",
+      "role": "ordinary",
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-1"
+        ],
+        "nodeIds": [
+          "CON-DOOR"
+        ]
+      }
+    },
+    {
+      "op": "defineState",
+      "name": "Locked",
+      "role": "ordinary",
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-1"
+        ],
+        "nodeIds": [
+          "CON-DOOR"
+        ]
+      }
+    },
+    {
+      "op": "defineTransition",
+      "command": "Open",
+      "from": "Closed",
+      "to": "Open",
+      "guards": [],
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-1"
+        ],
+        "nodeIds": [
+          "CON-DOOR"
+        ]
+      }
+    },
+    {
+      "op": "defineTransition",
+      "command": "Close",
+      "from": "Open",
+      "to": "Closed",
+      "guards": [],
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-1"
+        ],
+        "nodeIds": [
+          "CON-DOOR"
+        ]
+      }
+    },
+    {
+      "op": "defineTransition",
+      "command": "Lock",
+      "from": "Closed",
+      "to": "Locked",
+      "guards": [
+        {
+          "name": "key present",
+          "predicate": "extension"
+        }
+      ],
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-1",
+          "synthetic/door.md#DOOR-2"
+        ],
+        "nodeIds": [
+          "CON-DOOR"
+        ]
+      }
+    },
+    {
+      "op": "defineTransition",
+      "command": "Unlock",
+      "from": "Locked",
+      "to": "Closed",
+      "guards": [
+        {
+          "name": "key present",
+          "predicate": "extension"
+        }
+      ],
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-1",
+          "synthetic/door.md#DOOR-2"
+        ],
+        "nodeIds": [
+          "CON-DOOR"
+        ]
+      }
+    },
+    {
+      "op": "defineInvariant",
+      "name": "latched",
+      "predicate": "extension",
+      "holdsIn": [
+        "Locked"
+      ],
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-2"
+        ],
+        "nodeIds": [
+          "CON-DOOR"
+        ]
+      }
+    },
+    {
+      "op": "bindCapability",
+      "command": "Unlock",
+      "capability": "door.unlock",
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-3"
+        ],
+        "nodeIds": [
+          "DEC-DOOR"
+        ]
+      }
+    },
+    {
+      "op": "declarePort",
+      "port": "currentTime",
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-3"
+        ],
+        "nodeIds": [
+          "CON-DOOR"
+        ]
+      }
+    },
+    {
+      "op": "declarePort",
+      "port": "transitionEffect",
+      "command": "Unlock",
+      "trace": {
+        "requirementKeys": [
+          "synthetic/door.md#DOOR-3"
+        ],
+        "nodeIds": [
+          "CON-DOOR"
+        ]
+      }
+    }
+  ]
+}

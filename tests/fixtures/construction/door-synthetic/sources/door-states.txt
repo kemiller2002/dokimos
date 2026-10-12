@@ -1,0 +1,1 @@
+A door is closed, open or locked. Closed doors may be opened and locked; open doors may be closed; locked doors may be unlocked.

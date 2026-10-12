@@ -1,0 +1,2 @@
+- If the timer is stopped after running for less than thirty seconds,
+  nothing is recorded.

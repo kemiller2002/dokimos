@@ -1,0 +1,2 @@
+identities; a timer command issued with no active timer, or issued
+against a timer already in the wrong run/pause state.

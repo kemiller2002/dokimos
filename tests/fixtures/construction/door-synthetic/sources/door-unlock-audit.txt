@@ -1,0 +1,1 @@
+Only holders of the door.unlock capability may unlock. Every unlock is recorded in the audit log with the time it happened.

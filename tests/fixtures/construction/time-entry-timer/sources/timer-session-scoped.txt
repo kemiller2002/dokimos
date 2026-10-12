@@ -1,0 +1,4 @@
+Timer state is per-session, not part of `WeekDocument` — it isn't a durable
+record until `stop` produces one, matching the blueprint's own placement of
+"active timer state" outside the durable ledger (its Durable
+Objects/KV/D1, our `Session.fs`).

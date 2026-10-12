@@ -1,0 +1,1 @@
+- Only one timer may be active at a time.
