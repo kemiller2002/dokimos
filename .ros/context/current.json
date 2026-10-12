@@ -845,7 +845,27 @@
       "updatedAt": "2026-10-12T16:48:20.000Z",
       "telemetryExecutionIds": [
         "EXE-20261012T164820603Z-47604cc0"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "63de186d475dc1ec455e406c",
+        "recordedAt": "2026-10-12T17:18:11.000Z",
+        "executionId": "EXE-20261012T164820603Z-47604cc0",
+        "repository": "dokimos",
+        "branch": "feat/gh-30-construction-verification",
+        "commit": "e05a04c45200bab7374eb1bdcdf5fb334f2a7f94",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "feat/gh-30-construction-verification",
+        "remoteCommit": "e05a04c45200bab7374eb1bdcdf5fb334f2a7f94",
+        "summary": "dokimos construction verify implemented with independent oracle execution, adversarial fixture tests for every finding code, schemas and docs; full suite green",
+        "nextAction": "Complete GH-30, build registry, validate, open draft PR",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      }
     }
   ]
 }
