@@ -52,6 +52,10 @@
     <Compile Include="ConstructionRequirements.fs" />
     <Compile Include="ConstructionVerification.fs" />
     <Compile Include="ConstructionWire.fs" />
+    <Compile Include="BehaviorOracle.fs" />
+    <Compile Include="BehaviorVerification.fs" />
+    <Compile Include="BehaviorWire.fs" />
     <EmbeddedResource Include="ConstructionHarness.fsx" LogicalName="Dokimos.Core.ConstructionHarness.fsx" />
+    <EmbeddedResource Include="BehaviorDriver.fsx" LogicalName="Dokimos.Core.BehaviorDriver.fsx" />
   </ItemGroup>
 </Project>

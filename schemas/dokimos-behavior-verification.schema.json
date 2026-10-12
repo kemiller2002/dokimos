@@ -1,0 +1,686 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/behavior-verification",
+  "title": "Dokimos adapter behavior verification (dokimos.behavior-verification 1.0.0)",
+  "description": "Output of `dokimos behavior verify`. FirstPassVerdict and ExitCode: passed 0 (the candidate compiled, every scored case passed on the first Dokimos-observed run and no finding is open), failed 4 (at least one open finding), unknown 3 (no open finding but behavior was not fully observed), refused 4 (the oracle failed its integrity checks; the candidate was neither built nor executed). Unscored cases (for example unresolved conflicts) appear only in ConflictObservations and are never counted. Invalid invocation exits 2 and unreadable inputs exit 3, both with a dokimos.diagnostic on stderr. A run executes candidate code and is not containment evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "Contract",
+    "SchemaVersion",
+    "DokimosVersion",
+    "CheckedAt",
+    "WorkItem",
+    "FirstPassVerdict",
+    "ExitCode",
+    "Reasons",
+    "Oracle",
+    "Candidate",
+    "Compile",
+    "Adapter",
+    "Cases",
+    "Counts",
+    "ConflictObservations",
+    "Requirements",
+    "Run",
+    "Findings",
+    "Limitations"
+  ],
+  "properties": {
+    "Contract": {
+      "const": "dokimos.behavior-verification"
+    },
+    "SchemaVersion": {
+      "const": "1.0.0"
+    },
+    "DokimosVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "CheckedAt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "WorkItem": {
+      "type": "string"
+    },
+    "FirstPassVerdict": {
+      "enum": [
+        "passed",
+        "failed",
+        "unknown",
+        "refused"
+      ]
+    },
+    "ExitCode": {
+      "enum": [
+        0,
+        3,
+        4
+      ]
+    },
+    "Reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Oracle": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "Digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "ExpectedDigest": {
+          "type": "string"
+        },
+        "Producer": {
+          "type": "string"
+        },
+        "Binding": {
+          "type": "object",
+          "properties": {
+            "Kind": {
+              "const": "adapter"
+            },
+            "Contract": {
+              "type": "string"
+            },
+            "Namespace": {
+              "type": "string"
+            },
+            "Module": {
+              "type": "string"
+            },
+            "Functions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Name": {
+                    "type": "string"
+                  },
+                  "Signature": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "Name",
+                  "Signature"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "Kind",
+            "Contract",
+            "Namespace",
+            "Module",
+            "Functions"
+          ],
+          "additionalProperties": false
+        },
+        "ExcludedCases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Id": {
+                "type": "string"
+              },
+              "Reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "Id",
+              "Reason"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "Integrity": {
+          "type": "object",
+          "properties": {
+            "Usable": {
+              "type": "boolean"
+            },
+            "DeclaredFrozenAt": {
+              "type": "string"
+            },
+            "History": {
+              "type": "string",
+              "pattern": "^(committed-before-candidate|committed-after-candidate|unavailable: .+)$"
+            },
+            "HistoryCommit": {
+              "type": "string"
+            },
+            "HistoryCommittedAt": {
+              "type": "string"
+            },
+            "SourceDocuments": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Usable",
+            "DeclaredFrozenAt",
+            "History",
+            "HistoryCommit",
+            "HistoryCommittedAt",
+            "SourceDocuments"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "Id",
+        "Digest",
+        "ExpectedDigest",
+        "Producer",
+        "Binding",
+        "ExcludedCases",
+        "Integrity"
+      ],
+      "additionalProperties": false
+    },
+    "Candidate": {
+      "type": "object",
+      "properties": {
+        "Commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40,64}$"
+        },
+        "CommittedAt": {
+          "type": "string"
+        },
+        "Project": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Commit",
+        "CommittedAt",
+        "Project"
+      ],
+      "additionalProperties": false
+    },
+    "Compile": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "enum": [
+            "passed",
+            "failed",
+            "not-run",
+            "unknown"
+          ]
+        },
+        "Diagnostics": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Status",
+        "Diagnostics"
+      ],
+      "additionalProperties": false
+    },
+    "Adapter": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "Assembly": {
+            "enum": [
+              "loaded",
+              "unloadable"
+            ]
+          },
+          "Module": {
+            "type": "string"
+          },
+          "Functions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Name": {
+                  "type": "string"
+                },
+                "Status": {
+                  "enum": [
+                    "ok",
+                    "missing",
+                    "signature-mismatch",
+                    "adapter-missing"
+                  ]
+                }
+              },
+              "required": [
+                "Name",
+                "Status"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "Detail": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Assembly",
+          "Module",
+          "Functions",
+          "Detail"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "Cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "Kind": {
+            "enum": [
+              "decide",
+              "sequence",
+              "recorded-minutes"
+            ]
+          },
+          "RequirementKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Verdict": {
+            "enum": [
+              "passed",
+              "failed",
+              "unknown"
+            ]
+          },
+          "Detail": {
+            "type": "string"
+          },
+          "Observed": {
+            "type": "string"
+          },
+          "Citation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Id",
+          "Kind",
+          "RequirementKeys",
+          "Verdict",
+          "Detail",
+          "Observed",
+          "Citation"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "Counts": {
+      "type": "object",
+      "properties": {
+        "Scored": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Passed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Unknown": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Unscored": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "Scored",
+        "Passed",
+        "Failed",
+        "Unknown",
+        "Unscored"
+      ],
+      "additionalProperties": false
+    },
+    "ConflictObservations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "Classification": {
+            "type": "string",
+            "minLength": 1
+          },
+          "Conflict": {
+            "type": "string"
+          },
+          "RequirementKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Input": {
+            "type": "string"
+          },
+          "Observed": {
+            "type": "string"
+          },
+          "Status": {
+            "type": "string"
+          },
+          "Citation": {
+            "type": "string"
+          },
+          "Note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Id",
+          "Classification",
+          "Conflict",
+          "RequirementKeys",
+          "Input",
+          "Observed",
+          "Status",
+          "Citation",
+          "Note"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "Requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "RequirementKey": {
+            "type": "string"
+          },
+          "Coverage": {
+            "enum": [
+              "full",
+              "partial",
+              "none"
+            ]
+          },
+          "Remainder": {
+            "type": "string"
+          },
+          "IndependentlyVerified": {
+            "enum": [
+              "verified",
+              "partial",
+              "failed",
+              "unknown",
+              "not-observed",
+              "unresolved-conflict"
+            ]
+          },
+          "ScoredCases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "FailedCases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "UnknownCases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "UnscoredCases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "RequirementKey",
+          "Coverage",
+          "Remainder",
+          "IndependentlyVerified",
+          "ScoredCases",
+          "FailedCases",
+          "UnknownCases",
+          "UnscoredCases"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "Run": {
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "ObservedBy": {
+            "const": "dokimos"
+          },
+          "Sdk": {
+            "type": "string"
+          },
+          "CandidateCommit": {
+            "type": "string"
+          },
+          "CandidateTree": {
+            "type": "string"
+          },
+          "MaterializedFiles": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "MaterializedDigest": {
+            "type": "string",
+            "pattern": "^(sha256:[0-9a-f]{64})?$"
+          },
+          "Project": {
+            "type": "string"
+          },
+          "Assembly": {
+            "type": "string"
+          },
+          "AssemblyDigest": {
+            "type": "string",
+            "pattern": "^(sha256:[0-9a-f]{64})?$"
+          },
+          "DriverDigest": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "DriverInputDigest": {
+            "type": "string",
+            "pattern": "^(sha256:[0-9a-f]{64})?$"
+          },
+          "ObservationsDigest": {
+            "type": "string",
+            "pattern": "^(sha256:[0-9a-f]{64})?$"
+          },
+          "OracleDigest": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "StartedAt": {
+            "type": "string"
+          },
+          "FinishedAt": {
+            "type": "string"
+          },
+          "DurationMs": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "Commands": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Purpose": {
+                  "enum": [
+                    "sdk-version",
+                    "build",
+                    "locate-assembly",
+                    "drive-adapter"
+                  ]
+                },
+                "CommandLine": {
+                  "type": "string"
+                },
+                "WorkingDirectory": {
+                  "type": "string"
+                },
+                "StartedAt": {
+                  "type": "string"
+                },
+                "FinishedAt": {
+                  "type": "string"
+                },
+                "DurationMs": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "Outcome": {
+                  "enum": [
+                    "completed",
+                    "timeout",
+                    "could-not-start"
+                  ]
+                },
+                "ExitCode": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "StdoutDigest": {
+                  "type": "string",
+                  "pattern": "^(sha256:[0-9a-f]{64})?$"
+                },
+                "StderrDigest": {
+                  "type": "string",
+                  "pattern": "^(sha256:[0-9a-f]{64})?$"
+                }
+              },
+              "required": [
+                "Purpose",
+                "CommandLine",
+                "WorkingDirectory",
+                "StartedAt",
+                "FinishedAt",
+                "DurationMs",
+                "Outcome",
+                "ExitCode",
+                "StdoutDigest",
+                "StderrDigest"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "ObservedBy",
+          "Sdk",
+          "CandidateCommit",
+          "CandidateTree",
+          "MaterializedFiles",
+          "MaterializedDigest",
+          "Project",
+          "Assembly",
+          "AssemblyDigest",
+          "DriverDigest",
+          "DriverInputDigest",
+          "ObservationsDigest",
+          "OracleDigest",
+          "StartedAt",
+          "FinishedAt",
+          "DurationMs",
+          "Commands"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "Findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "Subject": {
+            "type": "string"
+          },
+          "RequirementKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Detail": {
+            "type": "string"
+          },
+          "Disposition": {
+            "enum": [
+              "open",
+              "excepted"
+            ]
+          },
+          "WorkItem": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Code",
+          "Subject",
+          "RequirementKeys",
+          "Detail",
+          "Disposition",
+          "WorkItem"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "Limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
