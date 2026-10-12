@@ -1,0 +1,567 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/construction-inputs",
+  "title": "Dokimos construction verification inputs",
+  "description": "Independently supplied inputs to `dokimos construction verify`, discriminated by `schema`. The oracle is frozen before the candidate exists and pinned by SHA-256; host observations count only when recorded by the host; claims and authorization are checked, never trusted as evidence.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/oracle"
+    },
+    {
+      "$ref": "#/$defs/hostObservations"
+    },
+    {
+      "$ref": "#/$defs/claims"
+    },
+    {
+      "$ref": "#/$defs/authorization"
+    }
+  ],
+  "$defs": {
+    "oracle": {
+      "type": "object",
+      "required": [
+        "schema",
+        "oracleId",
+        "frozenAt",
+        "producer",
+        "subject",
+        "binding",
+        "derivedFrom",
+        "cases"
+      ],
+      "properties": {
+        "schema": {
+          "const": "dokimos.construction-oracle/1"
+        },
+        "oracleId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "frozenAt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "producer": {
+          "type": "object",
+          "required": [
+            "kind",
+            "system"
+          ],
+          "properties": {
+            "kind": {
+              "type": "string",
+              "not": {
+                "const": "generator"
+              }
+            },
+            "system": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string"
+            }
+          }
+        },
+        "subject": {
+          "type": "object",
+          "required": [
+            "workflow"
+          ],
+          "properties": {
+            "workflow": {
+              "type": "string"
+            },
+            "notes": {
+              "type": "string"
+            }
+          }
+        },
+        "binding": {
+          "type": "object",
+          "required": [
+            "namespace",
+            "stateType",
+            "commandType",
+            "transitionModule",
+            "portsInterface"
+          ],
+          "properties": {
+            "convention": {
+              "type": "string"
+            },
+            "namespace": {
+              "type": "string"
+            },
+            "stateType": {
+              "type": "string"
+            },
+            "commandType": {
+              "type": "string"
+            },
+            "effectType": {
+              "type": "string"
+            },
+            "transitionModule": {
+              "type": "string"
+            },
+            "portsInterface": {
+              "type": "string"
+            },
+            "states": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "commands": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "effects": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "derivedFrom": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "requirementKey",
+              "excerpt",
+              "contentDigest",
+              "coverage"
+            ],
+            "properties": {
+              "requirementKey": {
+                "type": "string"
+              },
+              "excerpt": {
+                "type": "string"
+              },
+              "contentDigest": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              },
+              "coverage": {
+                "enum": [
+                  "full",
+                  "partial",
+                  "none"
+                ]
+              },
+              "remainder": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "cases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "kind",
+              "requirementKeys",
+              "citation"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "decide",
+                  "sequence",
+                  "port-surface"
+                ]
+              },
+              "state": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string"
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "command",
+                    "expect"
+                  ],
+                  "properties": {
+                    "command": {
+                      "type": "string"
+                    },
+                    "expect": {
+                      "type": "object",
+                      "required": [],
+                      "properties": {
+                        "outcome": {
+                          "enum": [
+                            "accepted",
+                            "refused"
+                          ]
+                        },
+                        "next": {
+                          "type": "string"
+                        },
+                        "effects": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "members": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "expect": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "outcome": {
+                    "enum": [
+                      "accepted",
+                      "refused"
+                    ]
+                  },
+                  "next": {
+                    "type": "string"
+                  },
+                  "effects": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "members": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "requirementKeys": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "citation": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "hostObservations": {
+      "type": "object",
+      "required": [
+        "schema",
+        "host",
+        "observations"
+      ],
+      "properties": {
+        "schema": {
+          "const": "dokimos.host-observations/1"
+        },
+        "host": {
+          "type": "object",
+          "required": [
+            "id",
+            "recorder",
+            "enforcement"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "recorder": {
+              "enum": [
+                "host",
+                "worker",
+                "agent",
+                "unknown"
+              ]
+            },
+            "enforcement": {
+              "enum": [
+                "enforced",
+                "unprotected",
+                "unknown"
+              ]
+            },
+            "mechanism": {
+              "type": "string"
+            },
+            "platformProofs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "status"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "enum": [
+                      "available",
+                      "unavailable",
+                      "unknown"
+                    ]
+                  },
+                  "detail": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "observations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "kind",
+              "path",
+              "outcome",
+              "recordedBy"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "attemptId": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "outcome": {
+                "enum": [
+                  "denied",
+                  "allowed",
+                  "unknown"
+                ]
+              },
+              "recordedBy": {
+                "type": "string"
+              },
+              "protected": {
+                "type": "boolean"
+              },
+              "detail": {
+                "type": "string"
+              },
+              "at": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "claims": {
+      "type": "object",
+      "required": [
+        "schema",
+        "source"
+      ],
+      "properties": {
+        "schema": {
+          "const": "dokimos.construction-claims/1"
+        },
+        "source": {
+          "type": "string"
+        },
+        "confinement": {
+          "enum": [
+            "confined",
+            "unconfined",
+            "unknown"
+          ]
+        },
+        "denials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "evidence"
+            ],
+            "properties": {
+              "attemptId": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "testResults": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "outcome"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "outcome": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "required": [
+        "schema",
+        "authority"
+      ],
+      "properties": {
+        "schema": {
+          "const": "dokimos.construction-authorization/1"
+        },
+        "authority": {
+          "type": "string"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "project",
+              "kind",
+              "include",
+              "change",
+              "reason",
+              "owner"
+            ],
+            "properties": {
+              "project": {
+                "type": "string"
+              },
+              "kind": {
+                "enum": [
+                  "package",
+                  "project"
+                ]
+              },
+              "include": {
+                "type": "string"
+              },
+              "change": {
+                "enum": [
+                  "added",
+                  "removed",
+                  "changed"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "waivers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "requirementKey",
+              "reason",
+              "owner"
+            ],
+            "properties": {
+              "requirementKey": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "exceptions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "code",
+              "subject",
+              "reason",
+              "owner",
+              "expires"
+            ],
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "subject": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "owner": {
+                "type": "string",
+                "minLength": 1
+              },
+              "expires": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

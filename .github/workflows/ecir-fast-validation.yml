@@ -9,6 +9,11 @@ on:
       - "src/Dokimos.Cli/Program.fs"
       - "src/Dokimos.Core/Dokimos.Core.fsproj"
       - "tests/Dokimos.Core.Tests/EcirAuditTests.fs"
+      - "src/Dokimos.Core/Construction*"
+      - "src/Dokimos.Cli/Construction*"
+      - "tests/Dokimos.Core.Tests/Construction*"
+      - "tests/fixtures/construction/**"
+      - "oracles/construction/**"
       - "tests/Dokimos.Core.Tests/Dokimos.Core.Tests.fsproj"
       - ".github/workflows/ecir-fast-validation.yml"
   push:
@@ -17,6 +22,11 @@ on:
       - "src/Dokimos.Cli/Program.fs"
       - "src/Dokimos.Core/Dokimos.Core.fsproj"
       - "tests/Dokimos.Core.Tests/EcirAuditTests.fs"
+      - "src/Dokimos.Core/Construction*"
+      - "src/Dokimos.Cli/Construction*"
+      - "tests/Dokimos.Core.Tests/Construction*"
+      - "tests/fixtures/construction/**"
+      - "oracles/construction/**"
       - "tests/Dokimos.Core.Tests/Dokimos.Core.Tests.fsproj"
       - ".github/workflows/ecir-fast-validation.yml"
 

@@ -27,6 +27,13 @@ module ConstructionOracleRunner =
 
     let private stamp () = DateTimeOffset.UtcNow
 
+    /// Best-effort removal of the run's scratch copy. A leftover directory
+    /// changes no evidence, so a failure to remove it is not reported.
+    let private remove (directory: string) =
+        try Directory.Delete(directory, true) with
+        | :? IOException as ex -> ignore ex.Message
+        | :? UnauthorizedAccessException as ex -> ignore ex.Message
+
     let run (runner: string) (oracle: ConstructionOracle) (oracleDigest: string) (manifestPath: string) (candidate: CandidateSnapshot) =
         match harness (), candidate.Contents |> Map.tryFind manifestPath |> Option.map (Encoding.UTF8.GetString >> ConstructionModels.readManifest) with
         | Error reason, _ -> NotExecuted reason
@@ -60,6 +67,7 @@ module ConstructionOracleRunner =
                 let args = [ "fsi"; "--quiet"; "harness.fsx"; "cases.json" ]
                 let outcome = ConstructionGit.run runner args (Some work) (TimeSpan.FromMinutes 5.0)
                 let finished = stamp ()
+                remove work
                 match outcome with
                 | Error reason -> NotExecuted("the oracle runner could not run: " + reason)
                 | Ok o ->
