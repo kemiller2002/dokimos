@@ -43,5 +43,15 @@
     <Compile Include="RatchetDtos.fs" />
     <Compile Include="RatchetContract.fs" />
     <Compile Include="EcirAudit.fs" />
+    <Compile Include="ConstructionCanonical.fs" />
+    <Compile Include="ConstructionModels.fs" />
+    <Compile Include="ConstructionOracle.fs" />
+    <Compile Include="ConstructionEvidence.fs" />
+    <Compile Include="ConstructionChecks.fs" />
+    <Compile Include="ConstructionEvidenceChecks.fs" />
+    <Compile Include="ConstructionRequirements.fs" />
+    <Compile Include="ConstructionVerification.fs" />
+    <Compile Include="ConstructionWire.fs" />
+    <EmbeddedResource Include="ConstructionHarness.fsx" LogicalName="Dokimos.Core.ConstructionHarness.fsx" />
   </ItemGroup>
 </Project>

@@ -468,6 +468,7 @@ module Program =
               "  snapshot <source-dir>... --repository r --revision sha [options]"
               "  compare <before-snapshot> <after-snapshot>"
               "  ecir audit --manifest FILE --blueprint FILE   independent source conservation audit"
+              "  construction verify ...                   independent construction verification (see `dokimos construction verify`)"
               "  evaluate --baseline b --current c --policy p [--exceptions quality/exceptions.json]"
               "  results --baseline b --current c --policy p [--store dir]   application-facing results contract"
               "  store init|put|get|accept-baseline|baseline --store dir ..."
@@ -488,6 +489,7 @@ module Program =
         | [ "capabilities" ] -> capabilities ()
         | "compare" :: rest -> compare rest
         | "ecir" :: "audit" :: rest -> EcirCommand.ecirAudit rest
+        | "construction" :: "verify" :: rest -> ConstructionCommand.verify rest
         | "evaluate" :: rest -> evaluate rest
         | "snapshot" :: rest -> snapshot rest
         | "measure" :: rest -> measure rest
