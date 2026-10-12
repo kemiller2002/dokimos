@@ -165,3 +165,11 @@ let ``source excerpts are hashed against the pinned content digests`` () =
     let tampered = docs |> Map.add "timer-single-active.txt" (Encoding.UTF8.GetBytes "- Many timers may be active at a time.\n")
     let report = verify { timerInputs () with SourceDocuments = Some tampered }
     Assert.Contains("timer-single-active.txt", subjects ConstructionCodes.SourceContentMismatch report)
+
+[<Fact>]
+let ``a generated artifact committed as a symlink is a non-regular entry`` () =
+    let inputs = timerInputs ()
+    let path = "generated/Timer/Timer.Model.g.fs"
+    let entries = inputs.Candidate.Entries |> Map.add path { inputs.Candidate.Entries[path] with Mode = "120000" }
+    let report = verify { inputs with Candidate = { inputs.Candidate with Entries = entries } }
+    Assert.Contains(path, subjects ConstructionCodes.NonRegularGeneratedEntry report)

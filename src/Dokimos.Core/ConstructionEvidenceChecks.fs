@@ -41,8 +41,9 @@ module ConstructionEvidenceChecks =
                 let path = mount + a.Path
                 let status =
                     match blobOf candidate path, Map.tryFind path candidate.Contents with
-                    | None, _ | _, None -> "missing"
+                    | None, _ -> "missing"
                     | Some entry, _ when entry.Mode <> "100644" -> "non-regular"
+                    | Some _, None -> "missing"
                     | Some _, Some bytes when ConstructionJson.sha256Bytes bytes <> a.Sha256 -> "modified"
                     | Some _, Some _ -> "verified"
                 a, path, status)
