@@ -32,9 +32,11 @@
 | DOK-WEB-001 | Public Dokimos website on GitHub Pages | active | website | high |
 | DOK-WEB-002 | Adopt the Echelon Foundry stylesheet and background on the Dokimos site | active | website | high |
 | GH-25 | Add Forma icon usage audit from pinned registry | captured |  | high |
+| GH-30 | GH-30 | complete |  |  |
 | ROS-INSTALL-3-1-4 | ROS-INSTALL-3-1-4 | complete |  |  |
 | WI-0001 | Move dokimos to Praxis 3.7.1 (ROS -> Praxis rename) and Ordo 1.4.0 | complete | praxis, ordo, toolchain | medium |
 | WI-0002 | Move dokimos to Ordo 1.4.1 | complete | ordo, toolchain | medium |
 | WI-0003 | Move dokimos to Praxis 3.7.2, Ordo 1.4.2, Visual Engineering 1.0.1 and adopt Conditor | complete |  | medium |
 | WI-0004 | Move dokimos to Ordo 1.5.0 via echelon-current 1.2.0 (conditor upgrade --current) | complete |  | medium |
 | WI-0005 | quality-gate action: install the pinned Dokimos tool with an isolated NuGet configuration, so a consumer's package source mapping cannot break it | complete | action, defect | high |
+| WI-0006 | Adapter-driven behavioral oracle run for the timer workflow (GH-30 follow-up): frozen adapter contract, DOK-ORACLE-TIMER-ADAPTER-1, behavior verify runner | ready |  | medium |
