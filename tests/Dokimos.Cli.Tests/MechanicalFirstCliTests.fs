@@ -132,35 +132,46 @@ let private refused (output: Dokimos.Cli.Output) code subject checkName =
     Assert.Equal("failed", check report checkName)
     hit |> Option.map (fun (_, _, d) -> d) |> Option.defaultValue ""
 
+/// CONSTRUCT-010 baseline of the vocabulary-1 B1 candidate: its generated
+/// table refuses seven unlisted pairs by omission, and its stop-completion
+/// extension (no decision inventory, so OPT-14's rounding tie is unstated) is
+/// claimed implemented. Every CONSTRUCT-008 check is unaffected.
+let private b1DecisionFindings =
+    set [ for pair in [ "NoTimer/Pause"; "NoTimer/Resume"; "NoTimer/Stop"; "Paused/Pause"; "Paused/Start"; "Running/Resume"; "Running/Start" ] ->
+              "refusal-by-omission", "pair:" + pair
+          yield "unsupported-choice-claimed-implemented", "extension:effect/Stop" ]
+
+/// Findings other than the CONSTRUCT-010 baseline above.
+let private construct008 (report: JsonElement) =
+    findings report |> List.filter (fun (c, s, _) -> not (Set.contains (c, s) b1DecisionFindings))
+
+let private construct008Checks =
+    [ "plan-provenance"; "requirement-coverage"; "deterministic-generation"; "obligation-tracking"
+      "file-mutations"; "extension-boundary"; "architecture-compliance"; "rejected-operations" ]
+
 [<Fact>]
-let ``pilot-01 B1 with a prepared artifact passes every mechanical-first check and the frozen oracle`` () =
+let ``pilot-01 B1 passes every CONSTRUCT-008 check and the frozen oracle but is refused for refusal by omission`` () =
     let repo = clone ()
     let output = run (args repo [ "--oracle-runner"; "dotnet" ] Map.empty)
     let report = parse output
-    Assert.Empty(findings report)
-    Assert.Equal(0, output.ExitCode)
-    Assert.Equal("verified", report.GetProperty("Verdict").Text)
-    Assert.Equal("1.1.0", report.GetProperty("SchemaVersion").Text)
+    Assert.Equal<Set<string * string>>(b1DecisionFindings, findings report |> List.map (fun (c, s, _) -> c, s) |> Set.ofList)
+    Assert.Equal(4, output.ExitCode)
+    Assert.Equal("rejected", report.GetProperty("Verdict").Text)
+    Assert.Equal("1.2.0", report.GetProperty("SchemaVersion").Text)
     let mechanical = report.GetProperty("MechanicalFirst")[0]
-    for c in mechanical.GetProperty("Checks").EnumerateArray() do
-        Assert.Equal("passed", c.GetProperty("Status").Text)
-    Assert.Equal(8, mechanical.GetProperty("Checks").GetArrayLength())
+    Assert.Equal(14, mechanical.GetProperty("Checks").GetArrayLength())
+    for name in construct008Checks do
+        Assert.Equal("passed", check report name)
+    Assert.Equal("failed", check report "closed-world")
+    Assert.Equal("failed", check report "decision-completeness")
+    let decisions = mechanical.GetProperty("Decisions")
+    Assert.Equal("violated", decisions.GetProperty("Completeness").Text)
+    Assert.Equal("ordo.construction-vocabulary/1", decisions.GetProperty("VocabularyVersion").Text)
     Assert.Equal(sha (File.ReadAllBytes(b1 "prepared.json")), mechanical.GetProperty("PreparedDigest").Text)
     Assert.Equal(tryApply, mechanical.GetProperty("ReplicaCommit").Text)
     let handwritten = [ for p in mechanical.GetProperty("HandwrittenPaths").EnumerateArray() -> p.Text ]
     Assert.Equal<string list>([ "pilot/Timer/Completion.fs"; "pilot/Timer/Extensions.fs"; "pilot/Timer/TimerOracleAdapter.fs" ], handwritten)
     Assert.Equal("passed", report.GetProperty("BehavioralAcceptance").GetProperty("Status").Text)
-
-[<Fact>]
-let ``an unobserved mechanical-first check keeps an otherwise clean candidate incomplete`` () =
-    let repo = clone ()
-    let output = run (args repo [ "--oracle-runner"; "dotnet" ] Map.empty |> List.filter (fun a -> a <> "--replica-commit" && a <> tryApply))
-    let report = parse output
-    Assert.Equal(3, output.ExitCode)
-    Assert.Equal("incomplete", report.GetProperty("Verdict").Text)
-    Assert.Equal("unknown", check report "deterministic-generation")
-    let reasons = report.GetProperty("Reasons")
-    Assert.Contains("deterministic-generation", reasons[0].Text)
 
 [<Fact>]
 let ``without --prepared the B-arm invocation is unchanged and mechanical-only options are refused`` () =
@@ -345,7 +356,13 @@ let ``an undecided effect failure closed by a decided onFailure may be implement
                 .ReplaceWith(JsonValue.Create(sha (File.ReadAllBytes decisions))))
     let output = run (args repo [] (Map.ofList [ "prepared", prepared; "decisions", decisions; "dispositions", claimImplemented id ]))
     let report = parse output
-    Assert.Empty(findings report)
+    // CONSTRUCT-010 still refuses the record itself: a decided onFailure with
+    // no onUnknown also governs an unknown outcome, and vocabulary 1 cannot
+    // carry the decision without an unsupportedVocabulary obligation.
+    Assert.Equal<(string * string) list>(
+        [ "unknown-outcome-assumed", "decisionRecords:IFC-TIMER-PORTS/Stop"
+          "unsupported-operation-dropped", "decisionRecords:IFC-TIMER-PORTS/onFailure:Stop" ],
+        construct008 report |> List.map (fun (c, s, _) -> c, s))
     Assert.Equal("passed", check report "obligation-tracking")
     Assert.Equal("passed", check report "plan-provenance")
     // A decision record whose digest the prepared artifact does not declare closes nothing.
@@ -369,7 +386,7 @@ let ``an adapter edit in an acceptanceAdapter slot passes the boundary check and
         variant (b1 "dispositions.json") (fun n ->
             (obj n "dispositions").AsArray().Add(JsonNode.Parse """{"obligationId":"VERIFY:DOK-ORACLE-TIMER-ADAPTER-1","disposition":"implemented"}"""))
     let report = parse (run (args repo [] (Map.ofList [ "prepared", prepared; "dispositions", dispositions ])))
-    Assert.Empty(findings report)
+    Assert.Empty(construct008 report)
     Assert.Equal("passed", check report "extension-boundary")
     Assert.Equal("passed", check report "file-mutations")
     Assert.Equal("passed", check report "obligation-tracking")

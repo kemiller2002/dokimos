@@ -21,5 +21,6 @@
     <Compile Include="ConstructionVerifyCliTests.fs" />
     <Compile Include="BehaviorVerifyCliTests.fs" />
     <Compile Include="MechanicalFirstCliTests.fs" />
+    <Compile Include="DecisionCompletenessCliTests.fs" />
   </ItemGroup>
 </Project>
