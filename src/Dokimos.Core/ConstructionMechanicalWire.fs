@@ -12,7 +12,10 @@ type PreparedObligation =
     { Id: string
       Kind: string
       RequirementKeys: string list
-      NodeIds: string list }
+      NodeIds: string list
+      /// Extension contracts or ports the obligation touches, e.g.
+      /// `ITimerPorts.Perform/Stop` or `port:transitionEffect/Stop`.
+      ExtensionSurface: string list }
 
 /// One generated path the constructor will emit, optionally with the SHA-256
 /// of its bytes.
@@ -33,6 +36,9 @@ type PreparedArtifact =
       /// Declared input digests by input: blueprint, sourceManifest, decisionRecords.
       InputDigests: Map<string, string>
       PermittedExtensionFiles: string list
+      /// `permittedExtensionSlots` as (kind, path); every slot path is a
+      /// permitted handwritten path (e.g. kind `acceptanceAdapter`).
+      PermittedExtensionSlots: (string * string) list
       /// Obligation ids in the agent handoff, when the artifact carries one.
       HandoffObligationIds: string list option }
 
@@ -116,6 +122,7 @@ type MechanicalReport =
 [<RequireQualifiedAccess>]
 module MechanicalCodes =
     let PreparedArtifactInvalid = "prepared-artifact-invalid"
+    let UnresolvedObligationClaimedImplemented = "unresolved-obligation-claimed-implemented"
     let ProvenanceDigestMismatch = "provenance-digest-mismatch"
     let NondeterministicGeneration = "nondeterministic-generation"
     let ObligationDropped = "obligation-dropped"
@@ -218,7 +225,7 @@ module MechanicalWire =
     let private obligation at (o: JsonElement) =
         if not (kindIs JsonValueKind.Object o) then Error [ at + " must be an object" ]
         else
-            Ok(fun id kind keys nodes -> ({ Id = id; Kind = kind; RequirementKeys = keys; NodeIds = nodes }: PreparedObligation))
+            Ok(fun id kind keys nodes surface -> ({ Id = id; Kind = kind; RequirementKeys = keys; NodeIds = nodes; ExtensionSurface = surface }: PreparedObligation))
             <*> requiredText (at + ".") [ "id" ] o
             <*> (requiredText (at + ".") [ "kind" ] o
                  |> Result.bind (fun k ->
@@ -230,6 +237,7 @@ module MechanicalWire =
                  | None -> Error [ at + ".requirementKeys is required" ]
                  | Some _ -> stringList (at + ".") "requirementKeys" o)
             <*> stringList (at + ".") "nodeIds" o
+            <*> stringList (at + ".") "extensionSurface" o
 
     let private obligations path (defaultPlan: JsonElement) =
         let list p (v: JsonElement) =
@@ -268,6 +276,21 @@ module MechanicalWire =
             | None, _ -> Ok None
         | Some _ -> Error [ "handoff must be an object" ]
 
+    /// Optional `permittedExtensionSlots`: objects with a required `path`
+    /// and an optional `kind`; other slot fields are ignored.
+    let private slots (root: JsonElement) =
+        match ConstructionJson.get "permittedExtensionSlots" root with
+        | None -> Ok []
+        | Some v when kindIs JsonValueKind.Array v ->
+            v.EnumerateArray()
+            |> Seq.mapi (fun i slot ->
+                let at = $"permittedExtensionSlots[{i}]."
+                if kindIs JsonValueKind.Object slot then
+                    requiredText at [ "path" ] slot |> Result.map (fun path -> ConstructionJson.text "kind" slot, path)
+                else Error [ $"permittedExtensionSlots[{i}] must be an object with path" ])
+            |> Seq.fold (fun acc r -> Ok(fun xs x -> xs @ [ x ]) <*> acc <*> r) (Ok [])
+        | Some _ -> Error [ "permittedExtensionSlots must be an array" ]
+
     let private planOf (defaultPlan: JsonElement) =
         match member' "defaultPlan." [ "plan"; "draft" ] defaultPlan with
         | Some(_, v) when kindIs JsonValueKind.Object v ->
@@ -301,7 +324,7 @@ module MechanicalWire =
             | Ok dp ->
                 let provenance = requiredObject "defaultPlan." [ "provenance" ] dp
                 let fromProvenance f = provenance |> Result.bind f
-                Ok(fun () cacheKey plan planDigest obligations layout generatorId generatorVersion vocabulary inputs permitted handoff ->
+                Ok(fun () cacheKey plan planDigest obligations layout generatorId generatorVersion vocabulary inputs permitted slots handoff ->
                     { Digest = ConstructionJson.sha256Bytes bytes
                       CacheKey = cacheKey
                       Plan = plan
@@ -313,6 +336,7 @@ module MechanicalWire =
                       VocabularyVersion = vocabulary
                       InputDigests = inputs
                       PermittedExtensionFiles = permitted |> List.map (fun (l: LayoutFile) -> l.Path)
+                      PermittedExtensionSlots = slots
                       HandoffObligationIds = handoff })
                 <*> schema
                 <*> requiredText "" [ "cacheKey" ] root
@@ -325,6 +349,7 @@ module MechanicalWire =
                 <*> fromProvenance (requiredText "defaultPlan.provenance." [ "vocabularyVersion" ])
                 <*> fromProvenance inputDigests
                 <*> pathArray "" [ "permittedExtensionFiles" ] root
+                <*> slots root
                 <*> handoff root
 
     /// Only the embedded plan of a prepared artifact, so that the plan can be

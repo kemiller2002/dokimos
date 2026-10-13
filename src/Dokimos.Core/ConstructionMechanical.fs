@@ -184,8 +184,9 @@ module ConstructionMechanical =
             "Replicas from identical inputs are byte-identical (prepared artifact and/or every generated file)"
 
     let private obligationTracking (m: MechanicalInputs) (dispositions: Result<DispositionRecord, string list> option)
-                                   (p: PreparedArtifact) (handwritten: Set<string>) (permitted: Set<string>) =
+                                   (p: PreparedArtifact) (handwritten: Set<string>) (permitted: Set<string>) (closed: Set<string>) =
         let ids = p.Obligations |> List.map _.Id
+        let kindOf id = p.Obligations |> List.tryFind (fun o -> o.Id = id) |> Option.map _.Kind |> Option.defaultValue ""
         let handoffFindings =
             match p.HandoffObligationIds with
             | None -> []
@@ -194,7 +195,7 @@ module ConstructionMechanical =
                     if not (List.contains id handed) then
                         f MechanicalCodes.ObligationDropped id [] "The agent handoff omits an obligation of the default plan"
                   for id in handed do
-                    if not (List.contains id ids) then
+                    if not (List.contains id ids) && not (MechanicalObligations.isAuxiliaryId id) then
                         f MechanicalCodes.ObligationDispositionInvalid id [] "The agent handoff names an obligation the default plan does not carry" ]
         let keysOf id = p.Obligations |> List.tryFind (fun o -> o.Id = id) |> Option.map _.RequirementKeys |> Option.defaultValue []
         let invalid = MechanicalCodes.ObligationDispositionInvalid
@@ -218,13 +219,16 @@ module ConstructionMechanical =
                               f invalid id (keysOf id) $"Disposition '{d.Status}' is not implemented or escalated"
                           if d.Status = "escalated" && String.IsNullOrWhiteSpace d.Note then
                               f invalid id (keysOf id) "An escalated obligation must record its unresolved question in note"
+                          if d.Status = "implemented" && Set.contains (kindOf id) MechanicalObligations.unresolvedKinds && not (Set.contains id closed) then
+                              f MechanicalCodes.UnresolvedObligationClaimedImplemented id (keysOf id)
+                                  $"A {kindOf id} obligation records an undecided question; it may only be escalated unless an approved decision record closes it"
                           if d.Status = "implemented" && handwritten.IsEmpty then
                               f invalid id (keysOf id) "The obligation is claimed implemented but the candidate changes no permitted extension file"
                           for file in d.Files do
                               if not (Set.contains file permitted) then
                                   f invalid (id + "@" + file) (keysOf id) "The disposition names a file outside the permitted extension files"
                   for KeyValue(id, _) in byId do
-                      if not (List.contains id ids) then
+                      if not (List.contains id ids) && not (MechanicalObligations.isAuxiliaryId id) then
                           f invalid id [] "A disposition for an obligation the default plan does not carry" ]
             let traces =
                 p.Obligations
@@ -328,7 +332,7 @@ module ConstructionMechanical =
             let manifestArtifacts = ctx.Manifest.Artifacts |> List.map (fun a -> ctx.Ownership.Mount + a.Path) |> Set.ofList
             let layout = p.GeneratedLayout |> List.map (fun l -> resolve ctx l.Path) |> Set.ofList
             let generated = Set.unionMany [ layout; manifestArtifacts; set [ ctx.ManifestPath ] ]
-            let permitted = Set.ofList p.PermittedExtensionFiles
+            let permitted = Set.ofList (p.PermittedExtensionFiles @ (p.PermittedExtensionSlots |> List.map snd))
             let allowed = Set.union generated permitted
             let handwritten =
                 match m.GeneratedCommit with
@@ -343,7 +347,7 @@ module ConstructionMechanical =
                     if not (Map.containsKey path ctx.Candidate.Entries) then
                         f ConstructionCodes.GeneratedArtifactMissing path [] "The prepared layout names a generated file the candidate commit does not contain" ]
             let (provenanceCheck, provenanceFindings), decisionsDigest = provenance m ctx p
-            let (obligationCheck, obligationFindings), traces = obligationTracking m dispositions p handwritten permitted
+            let (obligationCheck, obligationFindings), traces = obligationTracking m dispositions p handwritten permitted (MechanicalObligations.closedObligations m p)
             let boundaryCheck, boundaryFindings = boundary m ctx p generated permitted handwritten
             let boundaryWithLayout =
                 if layoutFindings.IsEmpty then boundaryCheck
@@ -367,7 +371,7 @@ module ConstructionMechanical =
               GeneratedCommit = m.GeneratedCommit |> Option.map _.Commit |> Option.defaultValue ""
               ReplicaCommit = m.Replica |> Option.map _.Commit |> Option.defaultValue ""
               GeneratedPaths = generated |> Set.toList
-              PermittedExtensionFiles = p.PermittedExtensionFiles
+              PermittedExtensionFiles = permitted |> Set.toList
               HandwrittenPaths = handwritten |> Set.toList
               Obligations = traces
               Checks = results |> List.map fst }

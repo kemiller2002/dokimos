@@ -793,7 +793,8 @@
                   "extension-boundary-violation",
                   "generated-layout-mismatch",
                   "rejected-operation-unrecorded",
-                  "rejected-operation-applied"
+                  "rejected-operation-applied",
+                  "unresolved-obligation-claimed-implemented"
                 ]
               },
               {

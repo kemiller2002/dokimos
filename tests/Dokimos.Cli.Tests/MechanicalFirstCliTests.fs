@@ -284,3 +284,98 @@ let ``an invalid prepared artifact is refused field by field and unknown fields 
     Assert.Contains("permittedExtensionFiles is required", details)
     Assert.Contains("defaultPlan.provenance.generatorId must be a non-empty string", details)
     Assert.Equal(2, details.Length)
+
+let private obligationOfKind kind =
+    let prepared = JsonNode.Parse(File.ReadAllText(b1 "prepared.json"))
+    [ for o in (obj (obj (obj prepared "defaultPlan") "obligations") "obligations").AsArray() do
+        if (obj o "kind").GetValue<string>() = kind then (obj o "id").GetValue<string>() ]
+    |> List.head
+
+/// Dispositions where the given obligation is claimed implemented.
+let private claimImplemented (id: string) =
+    variant (b1 "dispositions.json") (fun n ->
+        for d in (obj n "dispositions").AsArray() do
+            if (obj d "obligationId").GetValue<string>() = id then
+                (obj d "disposition").ReplaceWith(JsonValue.Create "implemented"))
+
+[<Fact>]
+let ``an unresolved conflict claimed implemented is refused`` () =
+    let repo = clone ()
+    let id = obligationOfKind "conflict"
+    let detail =
+        refused (run (args repo [] (Map.ofList [ "dispositions", claimImplemented id ]))) "unresolved-obligation-claimed-implemented" id "obligation-tracking"
+    Assert.Contains("may only be escalated", detail)
+
+[<Fact>]
+let ``an undecided effect failure claimed implemented is refused while the decision record leaves onFailure null`` () =
+    let repo = clone ()
+    let id = obligationOfKind "undecidedEffectFailure"
+    refused (run (args repo [] (Map.ofList [ "dispositions", claimImplemented id ]))) "unresolved-obligation-claimed-implemented" id "obligation-tracking" |> ignore
+
+[<Fact>]
+let ``an uncovered requirement claimed implemented is refused`` () =
+    let repo = clone ()
+    let key = "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148"
+    let prepared =
+        variant (b1 "prepared.json") (fun n ->
+            (obj (obj (obj n "defaultPlan") "obligations") "obligations").AsArray()
+                .Add(JsonNode.Parse("""{"id":"OBL-COH-TIMER-uncoveredRequirement-test","kind":"uncoveredRequirement","requirementKeys":[""" + "\"" + key + "\"" + """],"nodeIds":["VER-TIMER-SESSION"]}"""))
+            (obj (obj n "handoff") "obligationIds").AsArray().Add(JsonValue.Create "OBL-COH-TIMER-uncoveredRequirement-test"))
+    let dispositions =
+        variant (b1 "dispositions.json") (fun n ->
+            (obj n "dispositions").AsArray()
+                .Add(JsonNode.Parse """{"obligationId":"OBL-COH-TIMER-uncoveredRequirement-test","disposition":"implemented","files":["pilot/Timer/Completion.fs"]}"""))
+    let output = run (args repo [] (Map.ofList [ "prepared", prepared; "dispositions", dispositions ]))
+    refused output "unresolved-obligation-claimed-implemented" "OBL-COH-TIMER-uncoveredRequirement-test" "obligation-tracking" |> ignore
+
+[<Fact>]
+let ``an undecided effect failure closed by a decided onFailure may be implemented`` () =
+    let repo = clone ()
+    let id = obligationOfKind "undecidedEffectFailure"
+    let decisions =
+        variant (b1 "decisions.json") (fun n ->
+            for r in (obj n "records").AsArray() do
+                if (obj r "nodeId").GetValue<string>() = "IFC-TIMER-PORTS" then
+                    for port in (obj (obj r "content") "ports").AsArray() do
+                        if (obj port "port").GetValue<string>() = "transitionEffect" then
+                            (obj port "port").Parent |> Option.ofObj |> Option.iter (fun p -> p.AsObject()["onFailure"] <- JsonValue.Create "stay"))
+    let prepared =
+        variant (b1 "prepared.json") (fun n ->
+            (obj (obj (obj (obj n "defaultPlan") "provenance") "inputDigests") "decisionRecords")
+                .ReplaceWith(JsonValue.Create(sha (File.ReadAllBytes decisions))))
+    let output = run (args repo [] (Map.ofList [ "prepared", prepared; "decisions", decisions; "dispositions", claimImplemented id ]))
+    let report = parse output
+    Assert.Empty(findings report)
+    Assert.Equal("passed", check report "obligation-tracking")
+    Assert.Equal("passed", check report "plan-provenance")
+    // A decision record whose digest the prepared artifact does not declare closes nothing.
+    let undeclared = run (args repo [] (Map.ofList [ "decisions", decisions; "dispositions", claimImplemented id ]))
+    Assert.Contains("unresolved-obligation-claimed-implemented", findings (parse undeclared) |> List.map (fun (c, _, _) -> c))
+
+[<Fact>]
+let ``an adapter edit in an acceptanceAdapter slot passes the boundary check and auxiliary handoff ids are ignored`` () =
+    let repo = clone ()
+    let adapter = "pilot/Timer/TimerOracleAdapter.fs"
+    let prepared =
+        variant (b1 "prepared.json") (fun n ->
+            let files = (obj n "permittedExtensionFiles").AsArray()
+            let index = files |> Seq.findIndex (fun f -> (match f with null -> "" | f -> f.GetValue<string>()) = adapter)
+            files.RemoveAt index
+            n.AsObject().Add("permittedExtensionSlots", JsonNode.Parse("""[{"kind":"acceptanceAdapter","path":""" + "\"" + adapter + "\"" + ""","maxBytes":65536}]"""))
+            let handed = (obj (obj n "handoff") "obligationIds").AsArray()
+            handed.Add(JsonValue.Create "IMPLEMENT:ITimerPorts.Perform/Stop")
+            handed.Add(JsonValue.Create "VERIFY:DOK-ORACLE-TIMER-ADAPTER-1"))
+    let dispositions =
+        variant (b1 "dispositions.json") (fun n ->
+            (obj n "dispositions").AsArray().Add(JsonNode.Parse """{"obligationId":"VERIFY:DOK-ORACLE-TIMER-ADAPTER-1","disposition":"implemented"}"""))
+    let report = parse (run (args repo [] (Map.ofList [ "prepared", prepared; "dispositions", dispositions ])))
+    Assert.Empty(findings report)
+    Assert.Equal("passed", check report "extension-boundary")
+    Assert.Equal("passed", check report "file-mutations")
+    Assert.Equal("passed", check report "obligation-tracking")
+    // A slot never makes a project file writable.
+    let projectSlot =
+        variant (b1 "prepared.json") (fun n ->
+            n.AsObject().Add("permittedExtensionSlots", JsonNode.Parse """[{"kind":"acceptanceAdapter","path":"pilot/Timer/Timer.fsproj"}]"""))
+    let detail = refused (run (args repo [] (Map.ofList [ "prepared", projectSlot ]))) "extension-boundary-violation" "pilot/Timer/Timer.fsproj" "extension-boundary"
+    Assert.Contains("permits handwritten edits to a project", detail)
