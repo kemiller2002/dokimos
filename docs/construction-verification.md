@@ -37,7 +37,7 @@ Input formats are in
 [`schemas/dokimos-construction-inputs.schema.json`](../schemas/dokimos-construction-inputs.schema.json).
 The report is
 [`schemas/dokimos-construction-verification.schema.json`](../schemas/dokimos-construction-verification.schema.json)
-(`dokimos.construction-verification` 1.0.0).
+(`dokimos.construction-verification` 1.1.0; 1.1.0 only adds the optional `MechanicalFirst` block).
 
 The plan and blueprint digests are recomputed by Dokimos's own
 implementation of the canonical forms that Ordo publishes in
@@ -147,12 +147,126 @@ Tier 4 hosts and extension contracts are not executed.
 | `manifest-location-mismatch`, `artifact-outside-ownership-root`, `non-regular-generated-entry` | Ownership-root violations |
 | `provenance-trailer-mismatch` | A `Construction-*` commit trailer contradicts the pinned inputs |
 | `source-content-mismatch` | A cited excerpt does not hash to the pinned `contentDigest` |
+| `prepared-artifact-invalid`, `provenance-digest-mismatch`, `nondeterministic-generation`, `obligation-dropped`, `obligation-disposition-invalid`, `unauthorized-file-mutation`, `generated-file-edited`, `extension-boundary-violation`, `generated-layout-mismatch`, `rejected-operation-unrecorded`, `rejected-operation-applied`, `unresolved-obligation-claimed-implemented` | Mechanical-first checks (see below), only with `--prepared` |
 | `ecir-*` | Any other ECIR source-conservation finding, prefixed |
 
 Every finding has a `Subject`, its original requirement keys and the
 `--work-item` link. An unexpired exception with a reason and an owner marks a
 finding `excepted`. The finding stays in the report, and `Exceptions.Applied`
 counts it. An expired exception does not apply.
+
+## Mechanical-first (arm C) checks
+
+Tracking: CONSTRUCT-008 (`WI-0007`). In the mechanical-first flow, Ordo
+generates a default plan with typed obligations, Praxis prepares and applies
+it (`praxis.construction-prepared/1`), and an agent writes only the permitted
+handwritten files plus one disposition per obligation. `--prepared` turns on
+eight additional checks. Without `--prepared` the command behaves exactly as
+before (the B-arm invocation is unchanged; its report carries an empty
+`MechanicalFirst` array).
+
+Dokimos references no Ordo or Praxis code. Every check is computed from Git
+trees and blobs, the frozen oracle files and the declared JSON of the supplied
+artifacts. The prepared plan is never its own proof: its digest is
+recomputed, compared with the pinned `--expected-plan-digest`, and the
+candidate is still checked structurally and by the frozen oracle.
+
+### Additional options
+
+| Option | Meaning |
+|---|---|
+| `--prepared F` | The prepared artifact. With it, `--plan` is optional and defaults to `defaultPlan.plan` (if `--plan` is also given, both must recompute to the same digest) |
+| `--dispositions F` | The agent's obligation dispositions (`dispositions.json`) |
+| `--decisions F` | The approved `ordo.construction-decisions/1` file the plan was generated from |
+| `--generated-commit REV` | The host's apply commit that carried only generated output; isolates handwritten changes (`REV..--commit`) |
+| `--replica-commit REV` [`--replica-repository DIR`] | A second candidate built from identical inputs; generated files must be byte-identical (same Git blob) |
+| `--prepared-replica F` | A second prepared artifact; with an equal `cacheKey` it must be byte-identical |
+| `--base REV` | As before; for arm C pass the pre-construction commit |
+| `--host-observations F` | As before (`dokimos.host-observations/1`); host refusal records |
+
+`--dispositions`, `--decisions`, `--prepared-replica`, `--generated-commit`,
+`--replica-commit` and `--replica-repository` without `--prepared` exit 2.
+
+### Fields read from `praxis.construction-prepared/1`
+
+Only these fields are read. Every other field (host binding stamp, the rest of
+the handoff, the whole-default-plan digest, and so on) is ignored. Required
+fields are validated strictly, and every violation is reported as its own
+`prepared-artifact-invalid` finding.
+
+| Field | Required | Rule |
+|---|---|---|
+| `schemaVersion` | yes | `praxis.construction-prepared/1` |
+| `cacheKey` | yes | non-empty string |
+| `defaultPlan.plan` (alias `defaultPlan.draft`) | yes | an `ordo.construction-plan/1` object |
+| `defaultPlan.planDigest` | yes | `sha256:<64 hex>` |
+| `defaultPlan.obligations` | yes | an array, or an `ordo.construction-obligations/1` object with an `obligations` array; each item has `id` (unique), `kind` (`extensionBehavior`, `undecidedEffectFailure`, `conflict`, `uncoveredRequirement`, `unsupportedVocabulary`), `requirementKeys` (array) and optionally `nodeIds` |
+| `defaultPlan.generatedLayout` | yes | an array (or `{files: [...]}`) of path strings or `{path, sha256?}` objects; a path relative to the manifest's mount point is resolved against it |
+| `defaultPlan.provenance.generatorId` (alias `generator`) | yes | must be `ordo.default-plan` |
+| `defaultPlan.provenance.generatorVersion`, `.vocabularyVersion` | yes | non-empty strings |
+| `defaultPlan.provenance.inputDigests` (alias `inputs`) `.blueprint`, `.sourceManifest`, `.decisionRecords` (each also accepted with a `Digest` suffix) | yes | `sha256:<64 hex>` |
+| `defaultPlan.obligations[].extensionSurface` | no | strings; an `undecidedEffectFailure` names its command here (`IXPorts.Perform/Stop` or `port:transitionEffect/Stop`) |
+| `permittedExtensionFiles` | yes | an array of repository paths (strings or `{path}`) |
+| `permittedExtensionSlots` | no | objects with a required `path` and an optional `kind` (e.g. `acceptanceAdapter`); every slot path is a permitted handwritten path. Other slot fields are ignored. Project, generated and dependency files stay forbidden even in a slot |
+| `handoff.obligationIds` or `handoff.obligations[].id` | no | when present, must name every default-plan obligation; `IMPLEMENT:*` and `VERIFY:*` ids are auxiliary and ignored |
+
+### Fields read from the dispositions file
+
+`schemaVersion` is optional and only echoed. `dispositions` is required, either
+as an array of `{obligationId (or id), disposition (or status), note, files}`
+or as an object keyed by obligation id whose values are a status string or
+that object. `disposition` must be `implemented` or `escalated`; an
+`escalated` disposition needs a non-empty `note`; `files` must be permitted
+extension files. The optional `rejectedOperations` array lists
+`{path, reason}` host refusals the agent received. Unknown fields are ignored.
+
+### Checks and their findings
+
+| Check | Passes when | Finding codes |
+|---|---|---|
+| `plan-provenance` | The prepared plan recomputes to its declared `planDigest`, to the pinned digest and to `--plan`; `generatorId` is `ordo.default-plan`; the declared blueprint digest equals the supplied blueprint's canonical or file digest; the source-manifest digest equals its declared or file digest; the decision-records digest equals the `--decisions` file's or canonical digest, the records are `ordo.construction-decisions/1` for the same blueprint and cohort, and every bound decision has a record. Unknown without `--decisions` | `provenance-digest-mismatch`, `binding-mismatch`, `prepared-artifact-invalid` |
+| `requirement-coverage` | Every requirement key of the plan's cohort node is traced by a plan operation or cited by an obligation; obligation keys exist in the intake, and only `conflict` obligations cite keys outside the cohort | `requirement-silently-omitted`, `invented-behavior` |
+| `deterministic-generation` | Every generated path is the same Git blob in the candidate (or `--generated-commit`) and in `--replica-commit`; two prepared artifacts with the same `cacheKey` are byte-identical. Unknown without a replica | `nondeterministic-generation` |
+| `obligation-tracking` | Every obligation has exactly one valid disposition, the handoff drops none, no disposition names an unknown obligation (`IMPLEMENT:*`/`VERIFY:*` ids are ignored), and an `implemented` claim comes with at least one changed permitted file. A `conflict`, `undecidedEffectFailure` or `uncoveredRequirement` obligation may only be `escalated` unless the `--decisions` file (matching the declared digest) closes it: an `undecidedEffectFailure` is closed when a `portContract` record of one of its `nodeIds` has a `transitionEffect` port for its command with a non-null `onFailure`; `conflict` and `uncoveredRequirement` are never closed today (no approved record kind resolves them). Unknown without `--dispositions` when obligations exist | `obligation-dropped`, `obligation-disposition-invalid`, `unresolved-obligation-claimed-implemented` |
+| `file-mutations` | Every path changed between `--base` and `--commit` is a generated path (layout, manifest artifacts, the manifest) or a permitted extension file; the apply commit changes only generated paths | `unauthorized-file-mutation` |
+| `extension-boundary` | Handwritten changes (`--generated-commit..--commit`, otherwise base changes outside the generated paths) touch only permitted files; no generated file, project, solution, build or package/dependency file; the host did not permit such a file; layout `sha256` values match the committed bytes; the layout and the construction manifest agree | `generated-file-edited`, `extension-boundary-violation`, `generated-layout-mismatch`, `generated-artifact-missing`, `generated-artifact-modified` |
+| `architecture-compliance` | The existing structural, ownership, binding, dependency and oracle checks above report nothing (no new finding is added, so nothing is counted twice) | the existing codes |
+| `rejected-operations` | Every refusal the agent reports was recorded by the host (`recordedBy: host`, `outcome: denied`, same path); no host-denied path is changed in the candidate; the host allowed no write outside the permitted paths. Unknown without `--host-observations` | `rejected-operation-unrecorded`, `rejected-operation-applied`, `unauthorized-file-mutation` |
+
+Each check reports `passed`, `failed` or `unknown` in
+`MechanicalFirst[0].Checks`. Any open finding makes the verdict `rejected`;
+otherwise a check that is `unknown` makes it `incomplete` (exit 3), so
+`verified` with `--prepared` means all eight checks passed and the frozen
+oracle passed. The report also lists the generated, permitted and handwritten
+paths and each obligation with its recorded disposition.
+
+**Limits.** The whole-default-plan digest (`provenance.defaultPlanDigest`) is
+not recomputed, because its serialization is Ordo's; determinism is evidenced
+by replicas instead. Without `--generated-commit`, a handwritten edit to a
+generated file is caught by the manifest and layout SHA-256 checks, not by
+the boundary diff. Host refusal records are read from
+`dokimos.host-observations/1`; Dokimos checks their consistency, not their
+authenticity.
+
+### Example (pilot-01 B1 Git objects with synthetic prepared inputs)
+
+```bash
+dokimos construction verify \
+  --source-manifest tests/fixtures/construction/time-entry-timer/source-manifest.json \
+  --sources tests/fixtures/construction/time-entry-timer/sources \
+  --blueprint tests/fixtures/construction/time-entry-timer/blueprint.json \
+  --expected-plan-digest sha256:1993df015678980493b7e9c7e8a602205c75bf2eb40c4aaa8ac4541f4afbcfa8 \
+  --expected-generator ordo.construction/1 \
+  --repository b1 --base 4f1e14c --commit 35ead6f --generated-commit f7f477f --replica-commit 0cbcdd6 \
+  --manifest-path pilot/Timer/generated/Timer/construction-manifest.json \
+  --oracle oracles/construction/time-entry-timer/oracle.json \
+  --expected-oracle-digest sha256:b08518c9932932d93e48268488b43889446b56052deebfbd8a0d78e2f9437a98 \
+  --oracle-runner dotnet \
+  --prepared tests/fixtures/construction/pilot-01-b1/prepared.json \
+  --dispositions tests/fixtures/construction/pilot-01-b1/dispositions.json \
+  --decisions tests/fixtures/construction/pilot-01-b1/decisions.json \
+  --host-observations tests/fixtures/construction/pilot-01-b1/host-observations.json
+```
 
 ## Example
 

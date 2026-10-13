@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "dokimos.obligation-dispositions/1",
+  "dispositions": [
+    {
+      "obligationId": "OBL-COH-TIMER-extensionBehavior-de9ec4b0",
+      "disposition": "implemented",
+      "note": "Completion.fs computes elapsed minutes from closed segments.",
+      "files": [
+        "pilot/Timer/Completion.fs"
+      ]
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedEffectFailure-aaca5481",
+      "disposition": "escalated",
+      "note": "The failure disposition of the Stop effect is not decided; escalated."
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-conflict-1acc0d6b",
+      "disposition": "escalated",
+      "note": "Short-stop outcome conflicts between sources; escalated."
+    }
+  ],
+  "rejectedOperations": []
+}

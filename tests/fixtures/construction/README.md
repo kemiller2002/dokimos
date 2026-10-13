@@ -20,3 +20,20 @@ Their `structuralChecks` are derived from the plan and are **not** independent
 acceptance evidence. The independent behavioral oracle for the timer is
 `oracles/construction/time-entry-timer/oracle.json`, written by Dokimos from
 `time-entry-timer/sources/` only.
+
+## `pilot-01-b1/` (CONSTRUCT-008 mechanical-first checks)
+
+- `candidate.bundle` and `plan.json` are byte-for-byte copies of
+  `kemiller2002/research-documents`
+  `research/construction-by-design/time-entry-timer-01/results/B1/candidate.bundle`
+  and `.../B1/outbox/plan.json` (sha256 `ab1355d6...` and `bf26bd20...`). The
+  bundle holds the pilot skeleton (`4f1e14c`), the Praxis host's apply commit
+  (`f7f477f`), the handwritten commit (`35ead6f`) and two earlier `try`
+  applications of the same plan (`0cbcdd6`, `87d2248`), whose generated files
+  are the same blobs as `f7f477f`.
+- `prepared.json`, `decisions.json`, `dispositions.json` and
+  `host-observations.json` are **synthetic**, written by Dokimos to exercise
+  the mechanical-first checks: pilot 01 predates the prepared artifact. They
+  follow the field list in `docs/construction-verification.md` and include an
+  unknown field to prove it is ignored. They are not evidence about what the
+  B1 agent decided.

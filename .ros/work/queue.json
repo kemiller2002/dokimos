@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 7,
+  "nextSeq": 8,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -615,6 +615,29 @@
       "attachments": [],
       "createdAt": "2026-10-12T17:36:38.352Z",
       "updatedAt": "2026-10-12T17:56:39.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0007",
+      "title": "CONSTRUCT-008: independent mechanical-first construction checks in dokimos construction verify",
+      "description": null,
+      "tags": [
+        "construction"
+      ],
+      "priority": "high",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-13T07:20:50.224Z",
+      "updatedAt": "2026-10-13T07:40:37.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
