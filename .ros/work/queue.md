@@ -41,3 +41,4 @@
 | WI-0005 | quality-gate action: install the pinned Dokimos tool with an isolated NuGet configuration, so a consumer's package source mapping cannot break it | complete | action, defect | high |
 | WI-0006 | Adapter-driven behavioral oracle run for the timer workflow (GH-30 follow-up): frozen adapter contract, DOK-ORACLE-TIMER-ADAPTER-1, behavior verify runner | complete |  | medium |
 | WI-0007 | CONSTRUCT-008: independent mechanical-first construction checks in dokimos construction verify | complete | construction | high |
+| WI-0008 | CONSTRUCT-010 phase 4 (Dokimos): independent decision-completeness verification in dokimos construction verify | complete |  | medium |

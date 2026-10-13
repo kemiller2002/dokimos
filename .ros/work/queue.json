@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 8,
+  "nextSeq": 9,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -638,6 +638,27 @@
       "attachments": [],
       "createdAt": "2026-10-13T07:20:50.224Z",
       "updatedAt": "2026-10-13T07:40:37.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0008",
+      "title": "CONSTRUCT-010 phase 4 (Dokimos): independent decision-completeness verification in dokimos construction verify",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-13T21:06:52.796Z",
+      "updatedAt": "2026-10-13T22:33:58.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
