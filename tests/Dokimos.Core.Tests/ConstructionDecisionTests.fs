@@ -336,5 +336,5 @@ let ``the wording fallback is still needed: remove it when Ordo emits planSubjec
 [<Fact>]
 let ``the failure-semantics finding names the onUnknown fix`` () =
     let _, findings = DecisionChecks.failureSemantics (timerContext (v3 "ordo-golden/plan.v2-remain.json"))
-    Assert.Contains("Ordo increment 2", findings.Head.Detail)
+    Assert.Contains("declareEffectPolicy", findings.Head.Detail)
     Assert.Contains("onUnknown reconcile|escalate", findings.Head.Detail)

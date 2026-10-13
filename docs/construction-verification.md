@@ -341,9 +341,13 @@ version.
 **Failure semantics before `onUnknown`.** Ordo's vocabulary-2 goldens with a
 decided `remain` or `proceed` disposition fail `failure-semantics` today: the
 generated orchestration handles an unknown outcome in the same arm as a
-failure, which assumes failure (or success). The finding names the fix,
-`onUnknown: reconcile | escalate` on transition-effect ports (Ordo
-increment 2). That is the correct, reported state until it lands.
+failure, which assumes failure (or success). Ordo's vocabulary 2-4 contract
+says exactly that (`onFailure` governs Failed and Unknown alike), so this is a
+stricter policy than Ordo's, by design. The finding names the fix: state the
+unknown outcome separately, which Ordo's vocabulary 5 does with
+`declareEffectPolicy {onFailed, onUnknown: reconcile | escalate | unresolved}`
+(ordo#83, not yet merged; Dokimos does not read vocabulary 5 yet and refuses
+it as unsupported input).
 
 **Approvals are checked for consistency, not authenticity.** `--approvals`
 must bind the same cohort, blueprint and decision records as the other inputs,
@@ -356,9 +360,12 @@ into the operator's grant; Dokimos does not authenticate approvals.
 `undecidedTransition` and `undecidedExtensionDecision`, so those are matched by
 Ordo's question wording (`command C does in state S`, the point name) until it
 does; a test fails as soon as the pinned Ordo fixtures carry `planSubject`, so
-the wording fallback is removed then. `onUnknown` and `compensate` are not yet
-in ordo#78's wire format; Dokimos reads them when present. Generated effect
+the wording fallback is removed then (Ordo will add a typed `planSubject` with
+its next default-plan generator version). Generated effect
 dispositions are read from the orchestration's `onFailure` arms only.
+Dokimos also reads an `onUnknown` member on a port and the value `compensate`;
+Ordo emits neither in vocabularies 1-3 (vocabulary 5 moves both into
+`declareEffectPolicy`), so for Ordo plans these paths are dormant.
 
 ### Example (pilot-01 B1 Git objects with synthetic prepared inputs)
 
