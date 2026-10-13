@@ -1,0 +1,2186 @@
+{
+  "blueprintDigest": "sha256:5456d28901886a4ab49863c2b37131ebd3ccba12f97f50a429ff7b257afd198f",
+  "defaultPlanDigests": [
+    "sha256:bb0599da77072684bd74f8b5d4a5b72370dda9b1136b58532d6406aef6d2d979"
+  ],
+  "rows": [
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "conflict",
+        "deferral"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION"
+      ],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-9f33d1249b9d, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-f5d0a7c71036."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-9f33d1249b9d",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-f5d0a7c71036"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement40a9d6ca"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:d6c4d7ec8f33dff52cccf456806055cf6e1596e3e593b7a2b6818a351d93878a",
+        "document": "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md",
+        "key": "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356",
+        "location": "L340-L356",
+        "originalId": "L340-L356",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-COMMAND-RESULTS"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-520d274ff378."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-520d274ff378"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement7a9ca382"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:95640d50bf1607478768ef3c54607a046f43d01c05d8cf3e31bb05a32290efe0",
+        "document": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md",
+        "key": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138",
+        "location": "L136-L138",
+        "originalId": "L136-L138",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-COMMAND-RESULTS",
+        "VER-RANDOMIZED-SEQUENCES"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "interface",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION"
+      ],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-9f33d1249b9d, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-784827527b2e."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-9f33d1249b9d",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-784827527b2e"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement6bb98e70"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:366f04637ffd7988527d10c58c24b24b3c24a49373842ca3d20e30025b452235",
+        "document": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md",
+        "key": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148",
+        "location": "L140-L148",
+        "originalId": "L140-L148",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-COMMAND-RESULTS"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O9-HISTORY-DURABILITY"
+      ],
+      "dependencyNodeIds": [
+        "CON-CREATE-RULES",
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-4bdd5bbb3a29, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-c6d960d7c217."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-4bdd5bbb3a29",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-c6d960d7c217"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement1c840406"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:f1e70f59887369eb07b5ec2b023abdc37021b9e0549e99401d0dac909870e7eb",
+        "document": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md",
+        "key": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56",
+        "location": "L56",
+        "originalId": "L56",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CORRECTION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant",
+        "interface",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O13-IDEMPOTENCY-NOT-PORTED",
+        "CONFLICT-O8-OPERATION-ID-REUSE"
+      ],
+      "dependencyNodeIds": [
+        "CON-WEEK-DOCUMENT",
+        "IFC-STORAGE-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-4930ad299b1c, OBL-COH-TIME-ENTRY-WEEK-conflict-6c12922144e0, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-adf52a06dd1e."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-4930ad299b1c",
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-6c12922144e0",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-adf52a06dd1e"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementE4523306"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:9441dfdb3fd100af5301344c265ed13db83d5c1787d1cc785609e474642eaa92",
+        "document": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md",
+        "key": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73",
+        "location": "L69-L73",
+        "originalId": "L69-L73",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-RANDOMIZED-SEQUENCES",
+        "VER-SAVE-RECONCILE"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES"
+      ],
+      "dependencyNodeIds": [
+        "CON-WEEK-DOCUMENT",
+        "IFC-STORAGE-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-14206bd5446d, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-f90bd2bc588d."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-14206bd5446d",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-f90bd2bc588d"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement3b79470d"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:fa13aaf4653ddeef99794664ee57eefb2b1a22fc9b167bb716d8b270af65abbf",
+        "document": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md",
+        "key": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79",
+        "location": "L75-L79",
+        "originalId": "L75-L79",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-SAVE-RECONCILE"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O10-SAVE-OVER-INVALID-STORE"
+      ],
+      "dependencyNodeIds": [
+        "CON-WEEK-DOCUMENT",
+        "IFC-STORAGE-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-e0a3daf183f8, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-6c21a0b1c0d1."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-e0a3daf183f8",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-6c21a0b1c0d1"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementBe038dfb"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:94ba0ea86e72a4c365776d074709bf0a5b9eb7b47cde79f30e797d8b77dafec7",
+        "document": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md",
+        "key": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121",
+        "location": "L117-L121",
+        "originalId": "L117-L121",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-STORED-DOCUMENT"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "CON-SAVE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-dae7b95ee626."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-dae7b95ee626"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementDa193ec6"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:92db946bdbee9e77901cbdce3e5358db29e9f0ddd4f3f152d672c95307a3697a",
+        "document": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md",
+        "key": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129",
+        "location": "L123-L129",
+        "originalId": "L123-L129",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-RANDOMIZED-SEQUENCES",
+        "VER-SAVE-RECONCILE"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-09c7bae92fea."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-09c7bae92fea"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementBb7e249c"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:aff538099382bebb611f2a7880d8c1e7db6eb508208b15283c091b22ea653074",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L100",
+        "location": "L100",
+        "originalId": "L100",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-VOID-AND-TOTALS"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "decision",
+        "contract",
+        "invariant"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "partiallyImplemented",
+        "rationale": "Constructed in cohort COH-TIME-ENTRY-WEEK; no passing independent acceptance evidence."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [
+        "generated/TimeEntry/TimeEntry.Model.g.fs",
+        "generated/TimeEntry/TimeEntry.Transition.g.fs",
+        "generated/TimeEntry/construction-manifest.json"
+      ],
+      "openObligationIds": [],
+      "operationLabels": [
+        "state:Recorded",
+        "state:Voided",
+        "transition:Recorded/Void",
+        "workflow:TimeEntry"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:028130446ec13753256061d8ae4e8a74e2c47b81ba7edc03e1eafd0352599ec9",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101",
+        "location": "L101",
+        "originalId": "L101",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "alreadyApproved",
+        "mechanicallyDetermined"
+      ],
+      "verificationNodeIds": [
+        "VER-ENTRY-LIFECYCLE",
+        "VER-VOID-AND-TOTALS"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-f2debc648e17."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-f2debc648e17"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementF13cf784"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:b3dfabd6d58bba8fbed07fc4e2abbdc2814acae01bc2158ce8c446e59643ac4f",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103",
+        "location": "L102-L103",
+        "originalId": "L102-L103",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-VOID-AND-TOTALS"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-470503fb1a6c."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-470503fb1a6c"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementBa9bfef1"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:a73fe0a1dbee484f48908b7b3f7aef77a625bee8f3cab9a943267014a1b77fd6",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L104",
+        "location": "L104",
+        "originalId": "L104",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-VOID-AND-TOTALS"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-8fea3faa7f91."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-8fea3faa7f91"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement99d0b917"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:3dc41d09ec4544b71fec099abc00f4fca00fda3560d63f9b20e0897cd15c1c24",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109",
+        "location": "L108-L109",
+        "originalId": "L108-L109",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-RANDOMIZED-SEQUENCES",
+        "VER-VOID-AND-TOTALS"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "interface",
+        "deferral"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "IFC-DIRECTORY-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-41f1e309cdf5."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-41f1e309cdf5"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement14ae957b"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:79819bbfdefec84421e509f283a1b583032de3fc4b6e30915bb35b521bcf0be7",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12",
+        "location": "L11-L12",
+        "originalId": "L11-L12",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-1fe45f4f4d17."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-1fe45f4f4d17"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementCbee03e0"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:71ee55bec31037518d0534ee7f60515f5db41205312db58f03e9f284b3d3d75b",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L120-L121",
+        "location": "L120-L121",
+        "originalId": "L120-L121",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-STORED-DOCUMENT"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e44e92718f11."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e44e92718f11"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement10188f65"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:60a820f36963d070d5ca747f64cb5180b277b7a972cd278ac77ffe27e17806db",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123",
+        "location": "L122-L123",
+        "originalId": "L122-L123",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-RANDOMIZED-SEQUENCES",
+        "VER-STORED-DOCUMENT"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "CON-CREATE-RULES",
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-ab7171e596b3."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-ab7171e596b3"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement113540e5"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:4c794f31bf4f9fe21f42b28731e5cceae23f60aadb0955e5f44f438e4a23b50d",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127",
+        "location": "L124-L127",
+        "originalId": "L124-L127",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CORRECTION",
+        "VER-STORED-DOCUMENT"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "interface",
+        "deferral"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "IFC-DIRECTORY-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-714f31a74086."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-714f31a74086"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement38f7398b"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:7cc4748c502ead4f19e76135ea225c9eb38bacbaff0df4a5a3bb8502deb74a55",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14",
+        "location": "L13-L14",
+        "originalId": "L13-L14",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION"
+      ],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-9f33d1249b9d, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-fa1e48f851e5."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-9f33d1249b9d",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-fa1e48f851e5"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement1018b04f"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:57aadea52b318d895d3d89920fdc76d1a6f3d471c82858076a377276e93c921b",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148",
+        "location": "L138-L148",
+        "originalId": "L138-L148",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-COMMAND-RESULTS"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant",
+        "conflict",
+        "deferral"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O3-DATE-OUTSIDE-WEEK"
+      ],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-eb1fe8ff2920, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-442f011be4b2."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-eb1fe8ff2920",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-442f011be4b2"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementC5ffc1b4"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:25f057e35d5ff38104be6154cade80c4b662157ff8f4d4059dfa85755ca7c999",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19",
+        "location": "L15-L19",
+        "originalId": "L15-L19",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "interface",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES",
+        "CONFLICT-O3-DATE-OUTSIDE-WEEK"
+      ],
+      "dependencyNodeIds": [
+        "CON-WEEK-DOCUMENT",
+        "IFC-STORAGE-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-14206bd5446d, OBL-COH-TIME-ENTRY-WEEK-conflict-eb1fe8ff2920, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-b75db13c73f7."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-14206bd5446d",
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-eb1fe8ff2920",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-b75db13c73f7"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement24fe13ef"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:5e3571e8f2d5f06e59ce33f17ceea46a0215d2e5d5dca896590b7c9d3023489a",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155",
+        "location": "L152-L155",
+        "originalId": "L152-L155",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-STORED-DOCUMENT"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant",
+        "interface",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O10-SAVE-OVER-INVALID-STORE",
+        "CONFLICT-O11-RECONCILE-AFTER-EXTERNAL-WRITE"
+      ],
+      "dependencyNodeIds": [
+        "CON-WEEK-DOCUMENT",
+        "IFC-STORAGE-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-9db097907949, OBL-COH-TIME-ENTRY-WEEK-conflict-e0a3daf183f8, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e60f44c805ba."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-9db097907949",
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-e0a3daf183f8",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e60f44c805ba"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement723931ef"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:2e59a1c758fea4bb151736a30c44f7eca9d0ecff859d1c10ae8d7e09ccc48136",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163",
+        "location": "L156-L163",
+        "originalId": "L156-L163",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-RANDOMIZED-SEQUENCES",
+        "VER-SAVE-RECONCILE"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant",
+        "interface",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O11-RECONCILE-AFTER-EXTERNAL-WRITE"
+      ],
+      "dependencyNodeIds": [
+        "CON-SAVE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-9db097907949, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-083959b2089d."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-9db097907949",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-083959b2089d"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement0542db27"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:e3d4a50516ed25b0510ddf7f875c195342ad63e1628ba0b6cfd29f1231c0e186",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166",
+        "location": "L164-L166",
+        "originalId": "L164-L166",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-RANDOMIZED-SEQUENCES",
+        "VER-SAVE-RECONCILE"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "decision"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "partiallyImplemented",
+        "rationale": "Constructed in cohort COH-TIME-ENTRY-WEEK; no passing independent acceptance evidence."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [
+        "generated/TimeEntry/TimeEntry.Model.g.fs",
+        "generated/TimeEntry/TimeEntry.Transition.g.fs",
+        "generated/TimeEntry/construction-manifest.json"
+      ],
+      "openObligationIds": [],
+      "operationLabels": [
+        "state:Recorded",
+        "state:Superseded",
+        "state:Voided",
+        "transition:Recorded/Correct",
+        "transition:Recorded/Split",
+        "transition:Recorded/Void",
+        "workflow:TimeEntry"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:5d78e27807ea1b5b8194f0e40f46a0e3b8887884170452621c25e49832703b88",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+        "location": "L33",
+        "originalId": "L33",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "alreadyApproved",
+        "mechanicallyDetermined"
+      ],
+      "verificationNodeIds": [
+        "VER-ENTRY-LIFECYCLE"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "decision",
+        "invariant"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "partiallyImplemented",
+        "rationale": "Constructed in cohort COH-TIME-ENTRY-WEEK; no passing independent acceptance evidence."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [
+        "generated/TimeEntry/TimeEntry.Model.g.fs",
+        "generated/TimeEntry/TimeEntry.Transition.g.fs",
+        "generated/TimeEntry/construction-manifest.json"
+      ],
+      "openObligationIds": [],
+      "operationLabels": [
+        "state:Recorded",
+        "state:Superseded",
+        "state:Voided",
+        "transition:Recorded/Correct",
+        "transition:Recorded/Split",
+        "transition:Recorded/Void",
+        "workflow:TimeEntry"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:9e870b935734edbff41cc560c5be06310b465f7073df8dc4ec76e45e96eb9aba",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+        "location": "L34",
+        "originalId": "L34",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "alreadyApproved",
+        "mechanicallyDetermined"
+      ],
+      "verificationNodeIds": [
+        "VER-ENTRY-LIFECYCLE"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "decision"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "partiallyImplemented",
+        "rationale": "Constructed in cohort COH-TIME-ENTRY-WEEK; no passing independent acceptance evidence."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [
+        "generated/TimeEntry/TimeEntry.Model.g.fs",
+        "generated/TimeEntry/TimeEntry.Transition.g.fs",
+        "generated/TimeEntry/construction-manifest.json"
+      ],
+      "openObligationIds": [],
+      "operationLabels": [
+        "state:Recorded",
+        "state:Superseded",
+        "state:Voided",
+        "transition:Recorded/Correct",
+        "transition:Recorded/Split",
+        "transition:Recorded/Void",
+        "workflow:TimeEntry"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:932b5985ee194cf3c5896ca909d2e830a450edbf4d9e3e744a37988c25943bb8",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+        "location": "L35",
+        "originalId": "L35",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "alreadyApproved",
+        "mechanicallyDetermined"
+      ],
+      "verificationNodeIds": [
+        "VER-ENTRY-LIFECYCLE"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "decision",
+        "invariant"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "partiallyImplemented",
+        "rationale": "Constructed in cohort COH-TIME-ENTRY-WEEK; no passing independent acceptance evidence."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [
+        "generated/TimeEntry/TimeEntry.Model.g.fs",
+        "generated/TimeEntry/TimeEntry.Transition.g.fs",
+        "generated/TimeEntry/construction-manifest.json"
+      ],
+      "openObligationIds": [],
+      "operationLabels": [
+        "state:Recorded",
+        "state:Voided",
+        "transition:Recorded/Correct",
+        "transition:Recorded/Void",
+        "workflow:TimeEntry"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:3368f031d34b8f3ee86b7321c8c99b3f05652009986379d5f934f6a090de8eff",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37",
+        "location": "L36-L37",
+        "originalId": "L36-L37",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "alreadyApproved",
+        "mechanicallyDetermined"
+      ],
+      "verificationNodeIds": [
+        "VER-ENTRY-LIFECYCLE",
+        "VER-RANDOMIZED-SEQUENCES"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "decision",
+        "contract",
+        "invariant"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "partiallyImplemented",
+        "rationale": "Constructed in cohort COH-TIME-ENTRY-WEEK; no passing independent acceptance evidence."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [
+        "generated/TimeEntry/TimeEntry.Model.g.fs",
+        "generated/TimeEntry/TimeEntry.Transition.g.fs",
+        "generated/TimeEntry/construction-manifest.json"
+      ],
+      "openObligationIds": [],
+      "operationLabels": [
+        "state:Recorded",
+        "state:Superseded",
+        "transition:Recorded/Split",
+        "workflow:TimeEntry"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:4f255d08f764cfd334c957538c741991a31e1dfdca9cb5d59b1d2fca0d1bab3d",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41",
+        "location": "L38-L41",
+        "originalId": "L38-L41",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "alreadyApproved",
+        "mechanicallyDetermined"
+      ],
+      "verificationNodeIds": [
+        "VER-ENTRY-LIFECYCLE",
+        "VER-RANDOMIZED-SEQUENCES"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "interface"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "CON-ENTRY-VALUES",
+        "IFC-DIRECTORY-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-cc13452eff5f."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-cc13452eff5f"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementE431ac8e"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:e90ee0dc021998cb788c9a4151f2b4eeba9324d40d074d92ba384a49f8c3fd51",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L48",
+        "location": "L48",
+        "originalId": "L48",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O14-TIMER-DECISIONS",
+        "CONFLICT-O5-MIDNIGHT-END"
+      ],
+      "dependencyNodeIds": [
+        "CON-ENTRY-VALUES",
+        "IFC-DIRECTORY-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-0fc1c07b46ed, OBL-COH-TIME-ENTRY-WEEK-conflict-72f3df06ea34, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-b4dbdae0467c."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-0fc1c07b46ed",
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-72f3df06ea34",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-b4dbdae0467c"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement002c4fa9"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:63cbe2773ce71a2fe2e60652e5d7fcea56de4ebd12657575b307074d2833e1d6",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51",
+        "location": "L51",
+        "originalId": "L51",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "CON-ENTRY-VALUES",
+        "IFC-DIRECTORY-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-597c9c203edd."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-597c9c203edd"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement08734626"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:f1c8a39bd0da29e1473636f00a0091294e848b73c15a8a131ac2859a94478d05",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L52",
+        "location": "L52",
+        "originalId": "L52",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "interface"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "CON-ENTRY-VALUES",
+        "IFC-DIRECTORY-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-3f34327a772f."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-3f34327a772f"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementE16fbe05"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:c057bdbaf39c9403293e2fa8e8176e046793ccdcf177cc640bafcd032efe4d89",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L53-L54",
+        "location": "L53-L54",
+        "originalId": "L53-L54",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "CON-ENTRY-VALUES",
+        "IFC-DIRECTORY-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-9825af857d2d."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-9825af857d2d"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement148040da"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:91a5264d893833cd32d1a3d02473330867c793e2de28d79eff178a562e70fd41",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61",
+        "location": "L60-L61",
+        "originalId": "L60-L61",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CREATE-VALIDATION",
+        "VER-RANDOMIZED-SEQUENCES"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "CON-CREATE-RULES",
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-a97b53a870ea."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-a97b53a870ea"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementAe87ecf3"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:d108b9cb8c31d060f6fd895608aa9e58d73ee03cecf1539d8345442abe684a07",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L65-L67",
+        "location": "L65-L67",
+        "originalId": "L65-L67",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CORRECTION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O1-INACTIVE-PERSON-CORRECTION"
+      ],
+      "dependencyNodeIds": [
+        "CON-CREATE-RULES",
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-f18e76564143, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-db970d75ae89."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-f18e76564143",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-db970d75ae89"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement45a625b4"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:48a388c172358e52896d61bb35765faa1cbb80127cf4d132131259c8b4ea3674",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70",
+        "location": "L68-L70",
+        "originalId": "L68-L70",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CORRECTION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "CON-CREATE-RULES",
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e84af9877451."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e84af9877451"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement188761c2"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:02c170e9a0d4cb762cf4a067b14b060928092b26555e3e086ff33e372aa1a410",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L71-L74",
+        "location": "L71-L74",
+        "originalId": "L71-L74",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CORRECTION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "CON-CREATE-RULES",
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e76c2ab7cbab."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e76c2ab7cbab"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementD1ff6e0a"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:b424f729bfc0c5b339797ea26a9e766f7505b5cb3cb18e35c9b641b4852e03bb",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L84",
+        "location": "L84",
+        "originalId": "L84",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CORRECTION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES"
+      ],
+      "dependencyNodeIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-895f96fceef2, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e3511c7b0390."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-895f96fceef2",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e3511c7b0390"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementCae980ee"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:98d70e920474fa5d64666aede185bcbd1feff7586712610bd41260a40ecab66b",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88",
+        "location": "L88",
+        "originalId": "L88",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-SPLIT"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "interface",
+        "conflict",
+        "deferral"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O1-INACTIVE-PERSON-CORRECTION"
+      ],
+      "dependencyNodeIds": [
+        "IFC-DIRECTORY-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-f18e76564143, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-84c9fd9fe5f9."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-f18e76564143",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-84c9fd9fe5f9"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement8efb28bf"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:73571e45627fb30f053707ced165d5e7df1c7105a9afa4357a99ac11d1fb99e0",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10",
+        "location": "L9-L10",
+        "originalId": "L9-L10",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-34ad22d8d66d."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-34ad22d8d66d"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement8236ec50"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:914b148eae9108dfc05bcf714d341f876e2a5580a7b80d199bd8583a3b605cfa",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L91-L92",
+        "location": "L91-L92",
+        "originalId": "L91-L92",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-SPLIT"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "invariant",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES"
+      ],
+      "dependencyNodeIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-895f96fceef2, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-1c076c216d96."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-895f96fceef2",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-1c076c216d96"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement5240ecc2"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:56d3edae74549c1a19bc0c12026f99b3483f6c8a756dbc78c7c7dde039a9d470",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96",
+        "location": "L93-L96",
+        "originalId": "L93-L96",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-RANDOMIZED-SEQUENCES",
+        "VER-SPLIT"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O14-TIMER-DECISIONS"
+      ],
+      "dependencyNodeIds": [
+        "CON-ENTRY-VALUES",
+        "IFC-DIRECTORY-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-72f3df06ea34, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-62b67a51ff96."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-72f3df06ea34",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-62b67a51ff96"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement32b722af"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:7c851a27541474af013a05422c37e723b321993c75e76644bf329e7b842a59bb",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22",
+        "location": "L18-L22",
+        "originalId": "L18-L22",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-72f42361051c."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-72f42361051c"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementA26940a0"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:bf099bf1549de31cc42ac72836eb1a796a3cec87c1d7621eb05df1c48c67e4d2",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L30-L33",
+        "location": "L30-L33",
+        "originalId": "L30-L33",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-SPLIT"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "interface",
+        "conflict",
+        "deferral"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O12-LABEL-RULE-RATIFICATION",
+        "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES"
+      ],
+      "dependencyNodeIds": [
+        "CON-CREATE-RULES",
+        "CON-ENTRY-VALUES",
+        "DEC-ENTRY-LIFECYCLE",
+        "IFC-DIRECTORY-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-895f96fceef2, OBL-COH-TIME-ENTRY-WEEK-conflict-c0727f171ee3, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-b81c70b9dfcc."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-895f96fceef2",
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-c0727f171ee3",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-b81c70b9dfcc"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementD457e5ba"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:2d3672699becb59fa76cf81c095dc703b04d545daae8c37f837a666358153ac7",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48",
+        "location": "L35-L48",
+        "originalId": "L35-L48",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CORRECTION",
+        "VER-CREATE-VALIDATION",
+        "VER-STORED-DOCUMENT"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O6-PURPOSE-EQUALS-DESCRIPTION"
+      ],
+      "dependencyNodeIds": [
+        "CON-ENTRY-VALUES",
+        "IFC-DIRECTORY-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-13307695a7c3, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e408d5a6b2b3."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-13307695a7c3",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e408d5a6b2b3"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirement1d3cb2b7"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:1711d6603a5fea68dca3b2dc4ede5865e30f9e00e3dd2d2c90e8ae5753ab91b5",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54",
+        "location": "L50-L54",
+        "originalId": "L50-L54",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "contract",
+        "interface",
+        "conflict",
+        "deferral"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "conflictNodeIds": [
+        "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES"
+      ],
+      "dependencyNodeIds": [
+        "CON-WEEK-DOCUMENT",
+        "IFC-STORAGE-PORT"
+      ],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIME-ENTRY-WEEK: OBL-COH-TIME-ENTRY-WEEK-conflict-14206bd5446d, OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-2e8b528636e6."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIME-ENTRY-WEEK-conflict-14206bd5446d",
+        "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-2e8b528636e6"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementE85888c7"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:5b567b5d424999634d4cc4684486d17043fe58ba53cdb2436dc535c931c899e6",
+        "document": "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md",
+        "key": "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86",
+        "location": "L65-L86",
+        "originalId": "L65-L86",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-SAVE-RECONCILE"
+      ]
+    }
+  ],
+  "schemaVersion": "ordo.requirements-ledger/1",
+  "sourceManifestDigest": "sha256:6a9ceb2ccd8afe252be6c08669b212529382a44b6a826d20013100c86df337dc"
+}

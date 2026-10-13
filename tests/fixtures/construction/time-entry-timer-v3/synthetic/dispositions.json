@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "synthetic-dispositions/1",
+  "dispositions": [
+    {
+      "obligationId": "OBL-COH-TIMER-conflict-f569e9ac9d77",
+      "disposition": "escalated",
+      "note": "Open: Conflict CONFLICT-TIMER-SHORT-STOP is outside cohort COH-TIMER and this plan does not resolve it. The blueprint relates "
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-extensionBehavior-03835228233e",
+      "disposition": "implemented",
+      "files": [
+        "app/TimerPorts.fs"
+      ],
+      "note": "CurrentTime reads the host clock"
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-uncoveredRequirement-fce50292ef11",
+      "disposition": "escalated",
+      "note": "Open: Requirement kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148 is"
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedEffectFailure-9843158a9897",
+      "disposition": "escalated",
+      "note": "Open: Decision record IFC-TIMER-PORTS leaves the failure disposition of the Stop effect undecided. When the Stop effect fails "
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedExtensionDecision-73e53dd97e12",
+      "disposition": "escalated",
+      "note": "Open: Decision record IFC-TIMER-PORTS leaves decision point Rounding tie of the Stop effect undecided: The requirement says to"
+    }
+  ]
+}

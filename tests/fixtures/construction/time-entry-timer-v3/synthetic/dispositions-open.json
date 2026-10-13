@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "synthetic-dispositions/1",
+  "dispositions": [
+    {
+      "obligationId": "OBL-COH-TIMER-conflict-f569e9ac9d77",
+      "disposition": "escalated",
+      "note": "Open: Conflict CONFLICT-TIMER-SHORT-STOP is outside cohort COH-TIMER and this plan does not resolve it. The blueprint relates "
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-extensionBehavior-03835228233e",
+      "disposition": "implemented",
+      "files": [
+        "app/TimerPorts.fs"
+      ],
+      "note": "CurrentTime reads the host clock"
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-uncoveredRequirement-fce50292ef11",
+      "disposition": "escalated",
+      "note": "Open: Requirement kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148 is"
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedEffectFailure-9843158a9897",
+      "disposition": "escalated",
+      "note": "Open: Decision record IFC-TIMER-PORTS leaves the failure disposition of the Stop effect undecided. When the Stop effect fails "
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedExtensionDecision-73e53dd97e12",
+      "disposition": "escalated",
+      "note": "Open: Decision record IFC-TIMER-PORTS leaves decision point Rounding tie of the Stop effect undecided: The requirement says to"
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedTransition-0acc0f108e83",
+      "disposition": "escalated",
+      "note": "Open: Decision record DEC-TIMER-STATES leaves unlisted pairs undecided, so what command Pause does in state Paused of workflow"
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedTransition-0de0569ef310",
+      "disposition": "escalated",
+      "note": "Open: Decision record DEC-TIMER-STATES leaves unlisted pairs undecided, so what command Pause does in state NoTimer of workflo"
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedTransition-202f9a07f464",
+      "disposition": "escalated",
+      "note": "Open: Decision record DEC-TIMER-STATES leaves unlisted pairs undecided, so what command Resume does in state NoTimer of workfl"
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedTransition-46653bc40216",
+      "disposition": "escalated",
+      "note": "Open: Decision record DEC-TIMER-STATES leaves unlisted pairs undecided, so what command Start does in state Paused of workflow"
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedTransition-94d0a8b1ac83",
+      "disposition": "escalated",
+      "note": "Open: Decision record DEC-TIMER-STATES leaves unlisted pairs undecided, so what command Stop does in state NoTimer of workflow"
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedTransition-bec123120dbc",
+      "disposition": "escalated",
+      "note": "Open: Decision record DEC-TIMER-STATES leaves unlisted pairs undecided, so what command Resume does in state Running of workfl"
+    },
+    {
+      "obligationId": "OBL-COH-TIMER-undecidedTransition-e61d96be7633",
+      "disposition": "escalated",
+      "note": "Open: Decision record DEC-TIMER-STATES leaves unlisted pairs undecided, so what command Start does in state Running of workflo"
+    }
+  ]
+}

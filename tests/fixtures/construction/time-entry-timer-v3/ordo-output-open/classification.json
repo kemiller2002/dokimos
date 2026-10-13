@@ -1,0 +1,267 @@
+{
+  "choices": [
+    {
+      "class": "unresolved",
+      "kind": "effectFailure",
+      "question": "Decision record IFC-TIMER-PORTS leaves the failure disposition of the Stop effect undecided. When the Stop effect fails or its outcome is unknown, does workflow Timer remain in the transition's source state or proceed to its target state?",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"
+      ],
+      "subject": "effectFailure:Stop"
+    },
+    {
+      "class": "required",
+      "kind": "extensionBehavior",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"
+      ],
+      "subject": "extension:effect/Stop"
+    },
+    {
+      "class": "required",
+      "kind": "extensionDecision",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"
+      ],
+      "subject": "extension:effect/Stop/point:CreateThroughTheSharedEntryPath"
+    },
+    {
+      "class": "required",
+      "kind": "extensionDecision",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107"
+      ],
+      "subject": "extension:effect/Stop/point:ExcludePausedTime"
+    },
+    {
+      "class": "required",
+      "kind": "extensionDecision",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"
+      ],
+      "subject": "extension:effect/Stop/point:RoundToTheNearestWholeMinute"
+    },
+    {
+      "class": "unresolved",
+      "kind": "extensionDecision",
+      "question": "The requirement says to round elapsed time to the nearest whole minute but not which way an elapsed time ending exactly half a minute past a whole minute rounds. Does it round up or down?",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"
+      ],
+      "subject": "extension:effect/Stop/point:RoundingTie"
+    },
+    {
+      "class": "unresolved",
+      "kind": "pair",
+      "question": "The requirements do not decide what command Pause does in state NoTimer of workflow Timer.",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"
+      ],
+      "subject": "pair:NoTimer/Pause"
+    },
+    {
+      "class": "unresolved",
+      "kind": "pair",
+      "question": "The requirements do not decide what command Resume does in state NoTimer of workflow Timer.",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"
+      ],
+      "subject": "pair:NoTimer/Resume"
+    },
+    {
+      "class": "approved",
+      "decisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "kind": "pair",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"
+      ],
+      "subject": "pair:NoTimer/Start"
+    },
+    {
+      "class": "unresolved",
+      "kind": "pair",
+      "question": "The requirements do not decide what command Stop does in state NoTimer of workflow Timer.",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"
+      ],
+      "subject": "pair:NoTimer/Stop"
+    },
+    {
+      "class": "unresolved",
+      "kind": "pair",
+      "question": "The requirements do not decide what command Pause does in state Paused of workflow Timer.",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"
+      ],
+      "subject": "pair:Paused/Pause"
+    },
+    {
+      "class": "approved",
+      "decisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "kind": "pair",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"
+      ],
+      "subject": "pair:Paused/Resume"
+    },
+    {
+      "class": "unresolved",
+      "kind": "pair",
+      "question": "The requirements do not decide what command Start does in state Paused of workflow Timer.",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"
+      ],
+      "subject": "pair:Paused/Start"
+    },
+    {
+      "class": "approved",
+      "decisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "kind": "pair",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"
+      ],
+      "subject": "pair:Paused/Stop"
+    },
+    {
+      "class": "approved",
+      "decisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "kind": "pair",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"
+      ],
+      "subject": "pair:Running/Pause"
+    },
+    {
+      "class": "unresolved",
+      "kind": "pair",
+      "question": "The requirements do not decide what command Resume does in state Running of workflow Timer.",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"
+      ],
+      "subject": "pair:Running/Resume"
+    },
+    {
+      "class": "unresolved",
+      "kind": "pair",
+      "question": "The requirements do not decide what command Start does in state Running of workflow Timer.",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"
+      ],
+      "subject": "pair:Running/Start"
+    },
+    {
+      "class": "approved",
+      "decisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "kind": "pair",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"
+      ],
+      "subject": "pair:Running/Stop"
+    },
+    {
+      "class": "required",
+      "kind": "port",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107"
+      ],
+      "subject": "port:currentTime"
+    },
+    {
+      "class": "required",
+      "kind": "port",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"
+      ],
+      "subject": "port:transitionEffect/Stop"
+    },
+    {
+      "class": "approved",
+      "decisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "kind": "state",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"
+      ],
+      "subject": "state:NoTimer"
+    },
+    {
+      "class": "approved",
+      "decisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "kind": "state",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"
+      ],
+      "subject": "state:Paused"
+    },
+    {
+      "class": "approved",
+      "decisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "kind": "state",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"
+      ],
+      "subject": "state:Running"
+    },
+    {
+      "class": "unresolved",
+      "kind": "openQuestion",
+      "question": "Requirement kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148 is assigned to cohort COH-TIMER, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-TIMER-SESSION.",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148"
+      ],
+      "subject": "unresolved:UncoveredRequirementFfc2989b"
+    }
+  ],
+  "complete": false,
+  "planDigest": "sha256:59659d5e57d95f378482143c8094c34f90ab7e2f240e15ba2b2dafad2068509f",
+  "schemaVersion": "ordo.choice-classification/1",
+  "summary": {
+    "approved": 8,
+    "implied": 0,
+    "required": 6,
+    "unresolved": 10,
+    "unsupported": 0
+  },
+  "vocabularyVersion": "ordo.construction-vocabulary/3"
+}

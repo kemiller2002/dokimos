@@ -92,7 +92,8 @@ module ConstructionVerification =
     /// CONSTRUCT-008 mechanical-first checks.
     let verifyWith (mechanical: MechanicalInputs option) (inputs: ConstructionInputs) : Result<ConstructionVerificationReport, string list> =
         parseAll inputs
-        |> Result.map (fun (source, blueprint, plan, manifest) ->
+        |> Result.bind (fun parsed -> ConstructionJson.parse "plan" inputs.PlanJson |> Result.mapError List.singleton |> Result.map (fun p -> parsed, p))
+        |> Result.map (fun ((source, blueprint, plan, manifest), planJson) ->
             let s = ConstructionJson.text
             let ecir = EcirAudit.audit inputs.SourceManifestJson inputs.BlueprintJson |> Result.toOption
             let sourceRows = ConstructionJson.array "requirements" source
@@ -191,12 +192,25 @@ module ConstructionVerification =
                 match mechanical with
                 | None -> [], None
                 | Some m ->
+                    let acceptance =
+                        sourceRows
+                        |> List.map (fun r ->
+                            let key = s "key" r
+                            let covering = verdicts |> List.filter (fun (c, _) -> List.contains key c.RequirementKeys) |> List.map snd
+                            key,
+                            (if not executed || not oracleBlocking.IsEmpty then "unknown"
+                             elif covering.IsEmpty then "none"
+                             elif covering |> List.exists (function CaseFailed _ -> true | _ -> false) then "failed"
+                             elif covering |> List.forall ((=) CasePassed) then "passed"
+                             else "unknown"))
+                        |> Map.ofList
                     let context =
                         { SourceManifest = source; SourceManifestText = inputs.SourceManifestJson
                           Blueprint = blueprint; BlueprintText = inputs.BlueprintJson
                           Plan = plan; ExpectedPlanDigest = inputs.ExpectedPlanDigest
                           ManifestPath = inputs.ManifestPath; Manifest = manifest; Ownership = ownership
-                          Candidate = inputs.Candidate; Base = inputs.Base; Host = inputs.Host; Existing = existing }
+                          Candidate = inputs.Candidate; Base = inputs.Base; Host = inputs.Host; Existing = existing
+                          PlanJson = planJson; Acceptance = acceptance }
                     let found, report = ConstructionMechanical.assess m context
                     found, Some report
             let raw = existing @ mechanicalFindings |> List.distinct
@@ -223,11 +237,18 @@ module ConstructionVerification =
                 else 0
             let unknownChecks =
                 mechanicalReport |> Option.map _.Checks |> Option.defaultValue [] |> List.filter (fun c -> c.Status = "unknown")
+            let openItems = mechanicalReport |> Option.map _.Decisions.OpenItems |> Option.defaultValue []
+            let incompleteReasons =
+                [ if behaviorStatus <> "passed" then yield "Independent behavioral acceptance is " + behaviorStatus + ": " + behaviorReason
+                  for c in unknownChecks do yield $"Mechanical-first check {c.Name} is unknown: {c.Detail}"
+                  if not openItems.IsEmpty then
+                      let byClass =
+                          openItems |> List.countBy _.Class |> List.map (fun (k, n) -> $"{n} {k}") |> String.concat ", "
+                      let subjects = openItems |> List.map _.Subject |> String.concat ", "
+                      yield $"Intentionally incomplete: {openItems.Length} open decision item(s) ({byClass}) may not be generated as completed construction: {subjects}" ]
             let verdict, code, reasons =
                 if not openFindings.IsEmpty then "rejected", 4, [ $"{openFindings.Length} open finding(s)" ]
-                elif behaviorStatus <> "passed" then "incomplete", 3, [ "Independent behavioral acceptance is " + behaviorStatus + ": " + behaviorReason ]
-                elif not unknownChecks.IsEmpty then
-                    "incomplete", 3, [ for c in unknownChecks -> $"Mechanical-first check {c.Name} is unknown: {c.Detail}" ]
+                elif not incompleteReasons.IsEmpty then "incomplete", 3, incompleteReasons
                 else
                     let partial = requirements |> List.filter (fun r -> r.IndependentlyVerified = "partial") |> List.length
                     let pending = requirements |> List.filter (fun r -> r.Implemented = "unknown") |> List.length

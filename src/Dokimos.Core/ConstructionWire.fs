@@ -1,7 +1,8 @@
 namespace Dokimos.Core
 
-/// The `dokimos.construction-verification` 1.1.0 wire contract (1.1.0 adds the
-/// optional `MechanicalFirst` block; every 1.0.0 field is unchanged)
+/// The `dokimos.construction-verification` 1.2.0 wire contract (1.1.0 adds the
+/// optional `MechanicalFirst` block; 1.2.0 adds the CONSTRUCT-010 decision
+/// checks and `MechanicalFirst[].Decisions`; every earlier field is unchanged)
 /// (schemas/dokimos-construction-verification.schema.json).
 [<RequireQualifiedAccess>]
 module ConstructionWire =
@@ -9,7 +10,7 @@ module ConstructionWire =
     let Contract = "dokimos.construction-verification"
 
     [<Literal>]
-    let SchemaVersion = "1.1.0"
+    let SchemaVersion = "1.2.0"
 
     let private orEmpty (value: string option) = value |> Option.defaultValue ""
 
@@ -115,6 +116,7 @@ module ConstructionWire =
                    PermittedExtensionFiles = m.PermittedExtensionFiles
                    HandwrittenPaths = m.HandwrittenPaths
                    Obligations = m.Obligations
-                   Checks = m.Checks |})
+                   Checks = m.Checks
+                   Decisions = m.Decisions |})
             |> Option.toList
            Limitations = report.Limitations |}

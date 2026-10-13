@@ -1,138 +1,8 @@
 namespace Dokimos.Core
-
 open System
 open System.Text
 open System.Text.Json
 open System.Text.RegularExpressions
-
-/// One typed obligation (`ordo.construction-obligations/1`) as Dokimos reads
-/// it from a prepared artifact. Only the fields the CONSTRUCT-008 contract
-/// names are read; every other field is ignored.
-type PreparedObligation =
-    { Id: string
-      Kind: string
-      RequirementKeys: string list
-      NodeIds: string list
-      /// Extension contracts or ports the obligation touches, e.g.
-      /// `ITimerPorts.Perform/Stop` or `port:transitionEffect/Stop`.
-      ExtensionSurface: string list }
-
-/// One generated path the constructor will emit, optionally with the SHA-256
-/// of its bytes.
-type LayoutFile = { Path: string; Sha256: string option }
-
-/// The parts of `praxis.construction-prepared/1` that Dokimos checks.
-type PreparedArtifact =
-    { /// SHA-256 of the prepared artifact's bytes, as supplied.
-      Digest: string
-      CacheKey: string
-      Plan: JsonElement
-      DeclaredPlanDigest: string
-      Obligations: PreparedObligation list
-      GeneratedLayout: LayoutFile list
-      GeneratorId: string
-      GeneratorVersion: string
-      VocabularyVersion: string
-      /// Declared input digests by input: blueprint, sourceManifest, decisionRecords.
-      InputDigests: Map<string, string>
-      PermittedExtensionFiles: string list
-      /// `permittedExtensionSlots` as (kind, path); every slot path is a
-      /// permitted handwritten path (e.g. kind `acceptanceAdapter`).
-      PermittedExtensionSlots: (string * string) list
-      /// Obligation ids in the agent handoff, when the artifact carries one.
-      HandoffObligationIds: string list option }
-
-/// The constructing agent's disposition of one obligation.
-type ObligationDisposition =
-    { ObligationId: string
-      Status: string
-      Note: string
-      Files: string list }
-
-/// A host refusal the agent says it received.
-type ReportedRejection = { Path: string; Reason: string }
-
-/// The agent's obligation dispositions (`dispositions.json`).
-type DispositionRecord =
-    { SchemaVersion: string
-      Dispositions: ObligationDisposition list
-      RejectedOperations: ReportedRejection list }
-
-/// A commit's tree, read from Git objects.
-type TreeAt = { Commit: string; Entries: Map<string, TreeEntry> }
-
-/// Optional mechanical-first (arm C) inputs. Each is independently supplied;
-/// none is derived from the candidate.
-type MechanicalInputs =
-    { PreparedBytes: byte[]
-      DispositionsJson: string option
-      DecisionRecordsBytes: byte[] option
-      PreparedReplicaBytes: byte[] option
-      /// The host's apply commit that carried only generated output.
-      GeneratedCommit: TreeAt option
-      /// A second candidate built from identical inputs.
-      Replica: TreeAt option }
-
-/// What Dokimos already established about the candidate, passed to the
-/// mechanical-first checks so that nothing is recomputed twice.
-type MechanicalContext =
-    { SourceManifest: JsonElement
-      SourceManifestText: string
-      Blueprint: JsonElement
-      BlueprintText: string
-      Plan: PlanModel
-      ExpectedPlanDigest: string
-      ManifestPath: string
-      Manifest: ConstructionManifest
-      Ownership: OwnershipResult
-      Candidate: CandidateSnapshot
-      Base: BaseSnapshot option
-      Host: HostEvidence option
-      /// Findings of the existing construction checks.
-      Existing: ConstructionFinding list }
-
-/// One mechanical-first check: `passed`, `failed` or `unknown`.
-type MechanicalCheck =
-    { Name: string
-      Status: string
-      Detail: string
-      Findings: string list }
-
-type ObligationTrace =
-    { Id: string
-      Kind: string
-      RequirementKeys: string list
-      Disposition: string }
-
-type MechanicalReport =
-    { PreparedDigest: string
-      CacheKey: string
-      GeneratorId: string
-      GeneratorVersion: string
-      VocabularyVersion: string
-      DecisionRecordsDigest: string
-      GeneratedCommit: string
-      ReplicaCommit: string
-      GeneratedPaths: string list
-      PermittedExtensionFiles: string list
-      HandwrittenPaths: string list
-      Obligations: ObligationTrace list
-      Checks: MechanicalCheck list }
-
-[<RequireQualifiedAccess>]
-module MechanicalCodes =
-    let PreparedArtifactInvalid = "prepared-artifact-invalid"
-    let UnresolvedObligationClaimedImplemented = "unresolved-obligation-claimed-implemented"
-    let ProvenanceDigestMismatch = "provenance-digest-mismatch"
-    let NondeterministicGeneration = "nondeterministic-generation"
-    let ObligationDropped = "obligation-dropped"
-    let ObligationDispositionInvalid = "obligation-disposition-invalid"
-    let UnauthorizedFileMutation = "unauthorized-file-mutation"
-    let GeneratedFileEdited = "generated-file-edited"
-    let ExtensionBoundaryViolation = "extension-boundary-violation"
-    let GeneratedLayoutMismatch = "generated-layout-mismatch"
-    let RejectedOperationUnrecorded = "rejected-operation-unrecorded"
-    let RejectedOperationApplied = "rejected-operation-applied"
 
 /// Readers for the mechanical-first wire inputs. Required fields are
 /// validated strictly and every violation is reported, not only the first.
@@ -147,13 +17,24 @@ module MechanicalWire =
     [<Literal>]
     let DecisionsSchema = "ordo.construction-decisions/1"
 
+    /// Version 2 records (ordo#78) generate vocabulary-3 plans; version 1
+    /// records generate vocabularies 1 and 2. Any other pairing is refused.
+    [<Literal>]
+    let DecisionsSchema2 = "ordo.construction-decisions/2"
+
+    let decisionsSchemaFor vocabulary =
+        if vocabulary = DecisionModel.Vocabulary3 then DecisionsSchema2 else DecisionsSchema
+
     [<Literal>]
     let DefaultPlanGenerator = "ordo.default-plan"
 
     let obligationKinds =
-        set [ "extensionBehavior"; "undecidedEffectFailure"; "conflict"; "uncoveredRequirement"; "unsupportedVocabulary" ]
+        set [ "extensionBehavior"; "undecidedEffectFailure"; "conflict"; "uncoveredRequirement"; "unsupportedVocabulary"
+              // CONSTRUCT-010 (ordo#78, ordo.construction-vocabulary/3)
+              "undecidedTransition"; "undecidedExtensionDecision" ]
 
-    let dispositionStatuses = set [ "implemented"; "escalated" ]
+    /// `resolved` (CONSTRUCT-010) claims an open obligation closed by a cited decision.
+    let dispositionStatuses = set [ "implemented"; "escalated"; "resolved" ]
 
     let private apply (f: Result<'a -> 'b, string list>) (x: Result<'a, string list>) =
         match f, x with
@@ -225,7 +106,9 @@ module MechanicalWire =
     let private obligation at (o: JsonElement) =
         if not (kindIs JsonValueKind.Object o) then Error [ at + " must be an object" ]
         else
-            Ok(fun id kind keys nodes surface -> ({ Id = id; Kind = kind; RequirementKeys = keys; NodeIds = nodes; ExtensionSurface = surface }: PreparedObligation))
+            Ok(fun id kind keys nodes surface ->
+                ({ Id = id; Kind = kind; RequirementKeys = keys; NodeIds = nodes; ExtensionSurface = surface
+                   Question = ConstructionJson.text "question" o; PlanSubject = ConstructionJson.text "planSubject" o }: PreparedObligation))
             <*> requiredText (at + ".") [ "id" ] o
             <*> (requiredText (at + ".") [ "kind" ] o
                  |> Result.bind (fun k ->
@@ -363,10 +246,12 @@ module MechanicalWire =
         match e.ValueKind with
         | JsonValueKind.String ->
             match id with
-            | Some i -> Ok { ObligationId = i; Status = e.GetString() |> string; Note = ""; Files = [] }
+            | Some i -> Ok { ObligationId = i; Status = e.GetString() |> string; Note = ""; Files = []; DecisionId = "" }
             | None -> Error [ at + " must be an object" ]
         | JsonValueKind.Object ->
-            Ok(fun i status files -> { ObligationId = i; Status = status; Note = ConstructionJson.text "note" e; Files = files })
+            Ok(fun i status files ->
+                { ObligationId = i; Status = status; Note = ConstructionJson.text "note" e; Files = files
+                  DecisionId = [ "decisionId"; "closingDecisionId" ] |> List.map (fun n -> ConstructionJson.text n e) |> List.tryFind ((<>) "") |> Option.defaultValue "" })
             <*> (match id with Some i -> Ok i | None -> requiredText (at + ".") [ "obligationId"; "id" ] e)
             <*> requiredText (at + ".") [ "disposition"; "status" ] e
             <*> stringList (at + ".") "files" e

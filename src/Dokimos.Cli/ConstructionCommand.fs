@@ -14,10 +14,12 @@ module ConstructionCommand =
           "repository"; "commit"; "base"; "manifest-path"; "reference-manifest"; "oracle"; "expected-oracle-digest"
           "oracle-runner"; "host-observations"; "claims"; "claimed-results"; "authorization"; "work-item"; "at"
           // CONSTRUCT-008 mechanical-first (arm C) inputs; all optional.
-          "prepared"; "dispositions"; "decisions"; "prepared-replica"; "generated-commit"; "replica-commit"; "replica-repository" ]
+          "prepared"; "dispositions"; "decisions"; "prepared-replica"; "generated-commit"; "replica-commit"; "replica-repository"
+          // CONSTRUCT-010 decision-completeness inputs; also optional.
+          "ledger"; "approvals" ]
 
     let private mechanicalOnly =
-        [ "dispositions"; "decisions"; "prepared-replica"; "generated-commit"; "replica-commit"; "replica-repository" ]
+        [ "dispositions"; "decisions"; "prepared-replica"; "generated-commit"; "replica-commit"; "replica-repository"; "ledger"; "approvals" ]
 
     let usage =
         "usage: dokimos construction verify --source-manifest F --blueprint F --plan F --expected-plan-digest sha256:H "
@@ -25,7 +27,8 @@ module ConstructionCommand =
         + "[--reference-manifest F] [--oracle F --expected-oracle-digest sha256:H [--oracle-runner dotnet]] "
         + "[--host-observations F] [--claims F] [--claimed-results TRX]... [--authorization F] [--work-item ID] [--at ISO-8601] "
         + "[--prepared F [--dispositions F] [--decisions F] [--prepared-replica F] [--generated-commit REV] "
-        + "[--replica-commit REV [--replica-repository DIR]]] (with --prepared, --plan defaults to the prepared plan)"
+        + "[--replica-commit REV [--replica-repository DIR]] [--ledger F] [--approvals F]] "
+        + "(with --prepared, --plan defaults to the prepared plan)"
 
     let private readFile name path =
         if File.Exists path then Ok(File.ReadAllText path) else Error(name + " not found: " + path)
@@ -139,8 +142,12 @@ module ConstructionCommand =
                                 match optional "dispositions" parsed Ok, bytes "decisions", bytes "prepared-replica",
                                       optionalTree repository "generated-commit", optionalTree replicaRepository "replica-commit" with
                                 | Ok dispositions, Ok decisions, Ok replicaPrepared, Ok generatedCommit, Ok replica ->
-                                    Ok(Some { PreparedBytes = prepared; DispositionsJson = dispositions; DecisionRecordsBytes = decisions
-                                              PreparedReplicaBytes = replicaPrepared; GeneratedCommit = generatedCommit; Replica = replica })
+                                    match bytes "ledger", bytes "approvals" with
+                                    | Ok ledger, Ok approvals ->
+                                        Ok(Some { PreparedBytes = prepared; DispositionsJson = dispositions; DecisionRecordsBytes = decisions
+                                                  PreparedReplicaBytes = replicaPrepared; GeneratedCommit = generatedCommit; Replica = replica
+                                                  LedgerBytes = ledger; ApprovalsBytes = approvals })
+                                    | Error e, _ | _, Error e -> Error e
                                 | Error e, _, _, _, _ | _, Error e, _, _, _ | _, _, Error e, _, _ | _, _, _, Error e, _ | _, _, _, _, Error e -> Error e
                         match oracleBytes, gitInputs, mechanical with
                         | Error e, _, _ -> Output.unavailable "construction-input-unavailable" e

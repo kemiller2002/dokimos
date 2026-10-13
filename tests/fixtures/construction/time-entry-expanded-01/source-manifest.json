@@ -1,0 +1,373 @@
+{
+  "digest": "sha256:6a9ceb2ccd8afe252be6c08669b212529382a44b6a826d20013100c86df337dc",
+  "requirements": [
+    {
+      "key": "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356",
+      "originalId": "L340-L356",
+      "document": "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md",
+      "location": "L340-L356",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:d6c4d7ec8f33dff52cccf456806055cf6e1596e3e593b7a2b6818a351d93878a"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138",
+      "originalId": "L136-L138",
+      "document": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md",
+      "location": "L136-L138",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:95640d50bf1607478768ef3c54607a046f43d01c05d8cf3e31bb05a32290efe0"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148",
+      "originalId": "L140-L148",
+      "document": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md",
+      "location": "L140-L148",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:366f04637ffd7988527d10c58c24b24b3c24a49373842ca3d20e30025b452235"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56",
+      "originalId": "L56",
+      "document": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md",
+      "location": "L56",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:f1e70f59887369eb07b5ec2b023abdc37021b9e0549e99401d0dac909870e7eb"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73",
+      "originalId": "L69-L73",
+      "document": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md",
+      "location": "L69-L73",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:9441dfdb3fd100af5301344c265ed13db83d5c1787d1cc785609e474642eaa92"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79",
+      "originalId": "L75-L79",
+      "document": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md",
+      "location": "L75-L79",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:fa13aaf4653ddeef99794664ee57eefb2b1a22fc9b167bb716d8b270af65abbf"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121",
+      "originalId": "L117-L121",
+      "document": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md",
+      "location": "L117-L121",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:94ba0ea86e72a4c365776d074709bf0a5b9eb7b47cde79f30e797d8b77dafec7"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129",
+      "originalId": "L123-L129",
+      "document": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md",
+      "location": "L123-L129",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:92db946bdbee9e77901cbdce3e5358db29e9f0ddd4f3f152d672c95307a3697a"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L100",
+      "originalId": "L100",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L100",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:aff538099382bebb611f2a7880d8c1e7db6eb508208b15283c091b22ea653074"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101",
+      "originalId": "L101",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L101",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:028130446ec13753256061d8ae4e8a74e2c47b81ba7edc03e1eafd0352599ec9"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103",
+      "originalId": "L102-L103",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L102-L103",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:b3dfabd6d58bba8fbed07fc4e2abbdc2814acae01bc2158ce8c446e59643ac4f"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L104",
+      "originalId": "L104",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L104",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:a73fe0a1dbee484f48908b7b3f7aef77a625bee8f3cab9a943267014a1b77fd6"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109",
+      "originalId": "L108-L109",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L108-L109",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:3dc41d09ec4544b71fec099abc00f4fca00fda3560d63f9b20e0897cd15c1c24"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12",
+      "originalId": "L11-L12",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L11-L12",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:79819bbfdefec84421e509f283a1b583032de3fc4b6e30915bb35b521bcf0be7"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L120-L121",
+      "originalId": "L120-L121",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L120-L121",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:71ee55bec31037518d0534ee7f60515f5db41205312db58f03e9f284b3d3d75b"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123",
+      "originalId": "L122-L123",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L122-L123",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:60a820f36963d070d5ca747f64cb5180b277b7a972cd278ac77ffe27e17806db"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127",
+      "originalId": "L124-L127",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L124-L127",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:4c794f31bf4f9fe21f42b28731e5cceae23f60aadb0955e5f44f438e4a23b50d"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14",
+      "originalId": "L13-L14",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L13-L14",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:7cc4748c502ead4f19e76135ea225c9eb38bacbaff0df4a5a3bb8502deb74a55"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148",
+      "originalId": "L138-L148",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L138-L148",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:57aadea52b318d895d3d89920fdc76d1a6f3d471c82858076a377276e93c921b"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19",
+      "originalId": "L15-L19",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L15-L19",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:25f057e35d5ff38104be6154cade80c4b662157ff8f4d4059dfa85755ca7c999"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155",
+      "originalId": "L152-L155",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L152-L155",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:5e3571e8f2d5f06e59ce33f17ceea46a0215d2e5d5dca896590b7c9d3023489a"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163",
+      "originalId": "L156-L163",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L156-L163",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:2e59a1c758fea4bb151736a30c44f7eca9d0ecff859d1c10ae8d7e09ccc48136"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166",
+      "originalId": "L164-L166",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L164-L166",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:e3d4a50516ed25b0510ddf7f875c195342ad63e1628ba0b6cfd29f1231c0e186"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+      "originalId": "L33",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L33",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:5d78e27807ea1b5b8194f0e40f46a0e3b8887884170452621c25e49832703b88"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+      "originalId": "L34",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L34",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:9e870b935734edbff41cc560c5be06310b465f7073df8dc4ec76e45e96eb9aba"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+      "originalId": "L35",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L35",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:932b5985ee194cf3c5896ca909d2e830a450edbf4d9e3e744a37988c25943bb8"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37",
+      "originalId": "L36-L37",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L36-L37",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:3368f031d34b8f3ee86b7321c8c99b3f05652009986379d5f934f6a090de8eff"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41",
+      "originalId": "L38-L41",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L38-L41",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:4f255d08f764cfd334c957538c741991a31e1dfdca9cb5d59b1d2fca0d1bab3d"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L48",
+      "originalId": "L48",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L48",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:e90ee0dc021998cb788c9a4151f2b4eeba9324d40d074d92ba384a49f8c3fd51"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51",
+      "originalId": "L51",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L51",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:63cbe2773ce71a2fe2e60652e5d7fcea56de4ebd12657575b307074d2833e1d6"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L52",
+      "originalId": "L52",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L52",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:f1c8a39bd0da29e1473636f00a0091294e848b73c15a8a131ac2859a94478d05"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L53-L54",
+      "originalId": "L53-L54",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L53-L54",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:c057bdbaf39c9403293e2fa8e8176e046793ccdcf177cc640bafcd032efe4d89"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61",
+      "originalId": "L60-L61",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L60-L61",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:91a5264d893833cd32d1a3d02473330867c793e2de28d79eff178a562e70fd41"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L65-L67",
+      "originalId": "L65-L67",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L65-L67",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:d108b9cb8c31d060f6fd895608aa9e58d73ee03cecf1539d8345442abe684a07"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70",
+      "originalId": "L68-L70",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L68-L70",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:48a388c172358e52896d61bb35765faa1cbb80127cf4d132131259c8b4ea3674"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L71-L74",
+      "originalId": "L71-L74",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L71-L74",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:02c170e9a0d4cb762cf4a067b14b060928092b26555e3e086ff33e372aa1a410"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L84",
+      "originalId": "L84",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L84",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:b424f729bfc0c5b339797ea26a9e766f7505b5cb3cb18e35c9b641b4852e03bb"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88",
+      "originalId": "L88",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L88",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:98d70e920474fa5d64666aede185bcbd1feff7586712610bd41260a40ecab66b"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10",
+      "originalId": "L9-L10",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L9-L10",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:73571e45627fb30f053707ced165d5e7df1c7105a9afa4357a99ac11d1fb99e0"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L91-L92",
+      "originalId": "L91-L92",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L91-L92",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:914b148eae9108dfc05bcf714d341f876e2a5580a7b80d199bd8583a3b605cfa"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96",
+      "originalId": "L93-L96",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+      "location": "L93-L96",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:56d3edae74549c1a19bc0c12026f99b3483f6c8a756dbc78c7c7dde039a9d470"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22",
+      "originalId": "L18-L22",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+      "location": "L18-L22",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:7c851a27541474af013a05422c37e723b321993c75e76644bf329e7b842a59bb"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L30-L33",
+      "originalId": "L30-L33",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+      "location": "L30-L33",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:bf099bf1549de31cc42ac72836eb1a796a3cec87c1d7621eb05df1c48c67e4d2"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48",
+      "originalId": "L35-L48",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+      "location": "L35-L48",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:2d3672699becb59fa76cf81c095dc703b04d545daae8c37f837a666358153ac7"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54",
+      "originalId": "L50-L54",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+      "location": "L50-L54",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:1711d6603a5fea68dca3b2dc4ede5865e30f9e00e3dd2d2c90e8ae5753ab91b5"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86",
+      "originalId": "L65-L86",
+      "document": "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md",
+      "location": "L65-L86",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:5b567b5d424999634d4cc4684486d17043fe58ba53cdb2436dc535c931c899e6"
+    }
+  ]
+}

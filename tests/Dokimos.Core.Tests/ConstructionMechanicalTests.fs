@@ -54,7 +54,9 @@ let private mechanical bytes =
       DecisionRecordsBytes = None
       PreparedReplicaBytes = None
       GeneratedCommit = None
-      Replica = None }
+      Replica = None
+      LedgerBytes = None
+      ApprovalsBytes = None }
 
 let private run (m: MechanicalInputs) inputs =
     match ConstructionVerification.verifyWith (Some m) inputs with
@@ -67,7 +69,14 @@ let private status name (report: ConstructionVerificationReport) =
 [<Fact>]
 let ``a valid prepared artifact for the golden timer raises no mechanical-first finding`` () =
     let report = run (mechanical (prepared ignore)) (timerInputs ())
-    Assert.Empty(report.Findings)
+    // CONSTRUCT-010: vocabulary 1 states no pair rule, so the golden timer's
+    // generated table refuses its seven unlisted pairs by omission. That is
+    // the only finding; every CONSTRUCT-008 check is unaffected.
+    Assert.Equal<(string * string) list>(
+        [ for pair in [ "NoTimer/Pause"; "NoTimer/Resume"; "NoTimer/Stop"; "Paused/Pause"; "Paused/Start"; "Running/Resume"; "Running/Start" ] ->
+            MechanicalCodes.RefusalByOmission, "pair:" + pair ],
+        report.Findings |> List.map (fun f -> f.Code, f.Subject))
+    Assert.Equal("failed", status DecisionSupport.Names.ClosedWorld report)
     Assert.Equal("passed", status ConstructionMechanical.Names.Coverage report)
     Assert.Equal("passed", status ConstructionMechanical.Names.Obligations report)
     // Decision records and replicas were not supplied: unknown, never passed.

@@ -132,6 +132,18 @@ module ConstructionCanonical =
         Obj [ "requirementKeys", sortedSet (ConstructionJson.strings "requirementKeys" t)
               "nodeIds", sortedSet (ConstructionJson.strings "nodeIds" t) ]
 
+    /// A member that is present as a string, even an empty one.
+    let private optionalText name (op: JsonElement) =
+        ConstructionJson.get name op
+        |> Option.filter (fun v -> v.ValueKind = JsonValueKind.String)
+        |> Option.map (fun v -> v.GetString() |> Option.ofObj |> Option.defaultValue "")
+
+    /// Inventories are ordered guards, invariants, effects, then by name.
+    let private extensionOrder (op: JsonElement) =
+        let extension = ConstructionJson.get "extension" op |> Option.defaultValue op
+        let rank = match s "kind" extension with "guard" -> 0 | "invariant" -> 1 | _ -> 2
+        rank, nameKey (s "name" extension)
+
     let private canonicalOperations (operations: JsonElement list) =
         let ofKind kind = operations |> List.filter (fun o -> s "op" o = kind)
         let key name o = nameKey (s name o)
@@ -152,12 +164,41 @@ module ConstructionCanonical =
           for o in ofKind "declarePort" |> List.sortBy (fun o -> if s "port" o = "currentTime" then "" else key "command" o) ->
               let kind =
                   if s "port" o = "currentTime" then [ ("port", Str "currentTime") ]
-                  else [ ("port", Str "transitionEffect"); ("command", Str(key "command" o)) ]
+                  else
+                      [ ("port", Str "transitionEffect"); ("command", Str(key "command" o)) ]
+                      @ (optionalText "onFailure" o |> Option.map (fun d -> "onFailure", Str d) |> Option.toList)
               Obj([ ("op", Str "declarePort") ] @ kind @ [ ("trace", trace o) ])
           for o in ofKind "bindCapability" |> List.sortBy (fun o -> key "command" o, s "capability" o) ->
               Obj [ "op", Str "bindCapability"; "command", Str(key "command" o); "capability", Str(s "capability" o); "trace", trace o ]
           for o in ofKind "declareUnresolved" |> List.sortBy (key "subject") ->
-              Obj [ "op", Str "declareUnresolved"; "subject", Str(key "subject" o); "question", Str(s "question" o); "trace", trace o ] ]
+              Obj(
+                  [ "op", Str "declareUnresolved"; "subject", Str(key "subject" o) ]
+                  @ (optionalText "effect" o |> Option.map (fun e -> "effect", Str(nameKey e)) |> Option.toList)
+                  @ [ "question", Str(s "question" o); "trace", trace o ])
+          // Vocabulary 3 (ordo.construction-vocabulary/3): pair rule, refusals,
+          // undecided pairs and extension inventories, in that order.
+          for o in ofKind "declarePairRule" |> List.truncate 1 ->
+              Obj [ "op", Str "declarePairRule"; "unlisted", Str(s "unlisted" o); "trace", trace o ]
+          for o in ofKind "defineRefusal" |> List.sortBy (fun o -> key "from" o, key "command" o) ->
+              Obj [ "op", Str "defineRefusal"; "command", Str(key "command" o); "from", Str(key "from" o); "trace", trace o ]
+          for o in ofKind "declareUndecidedTransition" |> List.sortBy (fun o -> key "from" o, key "command" o) ->
+              Obj [ "op", Str "declareUndecidedTransition"; "command", Str(key "command" o); "from", Str(key "from" o)
+                    "question", Str(s "question" o); "trace", trace o ]
+          for o in ofKind "declareExtensionInventory" |> List.sortBy extensionOrder ->
+              let extension = ConstructionJson.get "extension" o |> Option.defaultValue o
+              let points =
+                  ConstructionJson.array "decisionPoints" o
+                  |> List.sortBy (key "point")
+                  |> List.map (fun p ->
+                      let decided = ConstructionJson.get "decided" p |> Option.exists (fun d -> d.ValueKind = JsonValueKind.True)
+                      Obj(
+                          [ "point", Str(key "point" p); "decided", Raw(if decided then "true" else "false") ]
+                          @ (if decided then [] else [ "question", Str(s "question" p) ])
+                          @ [ "trace", trace p ]))
+              Obj [ "op", Str "declareExtensionInventory"
+                    "extension", Obj [ "kind", Str(s "kind" extension); "name", Str(key "name" extension) ]
+                    "decisionPoints", Arr points
+                    "trace", trace o ] ]
 
     /// SHA-256 of the canonical plan: normalized names, initial state first,
     /// transitions by (from, command), other lists sorted, keys sorted.

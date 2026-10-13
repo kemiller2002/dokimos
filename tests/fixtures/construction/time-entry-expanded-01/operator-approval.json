@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "time-entry-expanded-01.operator-approval/1",
+  "approver": "Echelon Foundry lead session session_01CCNYo6KT77aWEoXGMskz74, acting as operator for the user (Kevin Miller), who authorized running the benchmark (3 per arm, no extension) on 2026-10-13",
+  "approvedAt": "2026-10-13T14:28:32Z",
+  "cohort": "COH-TIME-ENTRY-WEEK",
+  "decisions": [
+    "DEC-ENTRY-LIFECYCLE"
+  ],
+  "sourceManifestDigest": "sha256:6a9ceb2ccd8afe252be6c08669b212529382a44b6a826d20013100c86df337dc",
+  "blueprintDigest": "sha256:5456d28901886a4ab49863c2b37131ebd3ccba12f97f50a429ff7b257afd198f",
+  "decisionRecordsDigest": "sha256:79886081fe3a77df0d2ce4a6fc39432c90893e6561667124d5b9f5643c9b387f",
+  "sourceManifestFileSha256": "b0617336efcce7fe59deeb323d4a2e94ca44245a812f7bcb5c94d50fc29257b6",
+  "blueprintFileSha256": "777ba324c79aef63bbf1002a3eee823374383ece4c4e2e9829a93fdff9438860",
+  "decisionRecordsFileSha256": "79886081fe3a77df0d2ce4a6fc39432c90893e6561667124d5b9f5643c9b387f"
+}

@@ -64,7 +64,8 @@ module ConstructionChecks =
     let binding (expectedPlan: string) (expectedGenerator: string) (sourceDigest: string) (blueprintDigest: string)
                 (cohortNodes: string list) (plan: PlanModel) (manifest: ConstructionManifest) =
         let mismatch = ConstructionCodes.BindingMismatch
-        [ yield! when' (plan.SchemaVersion <> "ordo.construction-plan/1" || plan.VocabularyVersion <> "ordo.construction-vocabulary/1")
+        let vocabularies = set [ DecisionModel.Vocabulary1; DecisionModel.Vocabulary2; DecisionModel.Vocabulary3 ]
+        [ yield! when' (plan.SchemaVersion <> "ordo.construction-plan/1" || not (Set.contains plan.VocabularyVersion vocabularies))
                     ConstructionCodes.UnsupportedInput "plan" [] ("Unsupported plan schema " + plan.SchemaVersion + " / " + plan.VocabularyVersion)
           yield! when' (plan.RecomputedDigest <> expectedPlan) ConstructionCodes.PlanDigestChanged "plan" []
                     $"The supplied plan's canonical digest is {plan.RecomputedDigest}, not the pinned {expectedPlan}"
@@ -92,7 +93,7 @@ module ConstructionChecks =
         let guardContracts = manifest.ExtensionContracts |> List.filter (fun c -> c.Kind = "guard-predicate")
         let obligationIds = manifest.Obligations |> List.map _.Id |> Set.ofList
         let pairs = manifest.StructuralPairs |> List.sort
-        [ for op in Set.difference (Set.union claimedOps contractOps) plan.Labels do
+        [ for op in Set.difference (Set.union claimedOps contractOps) (Set.union plan.Labels plan.OptionalLabels) do
               finding ConstructionCodes.InventedBehavior op [] "The manifest claims an operation that the pinned plan does not define"
           for op in Set.difference plan.Labels claimedOps do
               finding ConstructionCodes.ManifestPlanDivergence op [] "A plan operation is absent from every generated artifact"
@@ -168,7 +169,7 @@ module ConstructionChecks =
           match modelCode with
           | None -> ()
           | Some code ->
-              let commands = plan.Transitions |> List.map _.Command |> Set.ofList
+              let commands = ConstructionModels.commands plan |> Set.ofList
               for typeName, expected in [ w + "State", Set.ofList plan.States; w + "Command", commands ] do
                   match unionCases typeName code with
                   | None -> finding ConstructionCodes.ManifestPlanDivergence typeName [] "The generated model does not declare this union"

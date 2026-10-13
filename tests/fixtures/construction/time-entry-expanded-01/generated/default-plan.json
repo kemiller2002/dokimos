@@ -1,0 +1,1628 @@
+{
+  "generatedLayout": [
+    "generated/TimeEntry/TimeEntry.Model.g.fs",
+    "generated/TimeEntry/TimeEntry.Transition.g.fs",
+    "generated/TimeEntry/construction-manifest.json"
+  ],
+  "obligations": {
+    "cohortId": "COH-TIME-ENTRY-WEEK",
+    "obligations": [
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-0fc1c07b46ed",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O5-MIDNIGHT-END"
+        ],
+        "question": "Conflict CONFLICT-O5-MIDNIGHT-END is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-13307695a7c3",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O6-PURPOSE-EQUALS-DESCRIPTION"
+        ],
+        "question": "Conflict CONFLICT-O6-PURPOSE-EQUALS-DESCRIPTION is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-14206bd5446d",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES"
+        ],
+        "question": "Conflict CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79",
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155",
+          "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-4930ad299b1c",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O8-OPERATION-ID-REUSE"
+        ],
+        "question": "Conflict CONFLICT-O8-OPERATION-ID-REUSE is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-4bdd5bbb3a29",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O9-HISTORY-DURABILITY"
+        ],
+        "question": "Conflict CONFLICT-O9-HISTORY-DURABILITY is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-6c12922144e0",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O13-IDEMPOTENCY-NOT-PORTED"
+        ],
+        "question": "Conflict CONFLICT-O13-IDEMPOTENCY-NOT-PORTED is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-72f3df06ea34",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O14-TIMER-DECISIONS"
+        ],
+        "question": "Conflict CONFLICT-O14-TIMER-DECISIONS is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51",
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-895f96fceef2",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES"
+        ],
+        "question": "Conflict CONFLICT-O7-SPLIT-INACTIVE-REFERENCES is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88",
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96",
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-9db097907949",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O11-RECONCILE-AFTER-EXTERNAL-WRITE"
+        ],
+        "question": "Conflict CONFLICT-O11-RECONCILE-AFTER-EXTERNAL-WRITE is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163",
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-9f33d1249b9d",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION"
+        ],
+        "question": "Conflict CONFLICT-O4-DIAGNOSTIC-ACCUMULATION is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356",
+          "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148",
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-c0727f171ee3",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O12-LABEL-RULE-RATIFICATION"
+        ],
+        "question": "Conflict CONFLICT-O12-LABEL-RULE-RATIFICATION is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-e0a3daf183f8",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O10-SAVE-OVER-INVALID-STORE"
+        ],
+        "question": "Conflict CONFLICT-O10-SAVE-OVER-INVALID-STORE is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121",
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-eb1fe8ff2920",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O3-DATE-OUTSIDE-WEEK"
+        ],
+        "question": "Conflict CONFLICT-O3-DATE-OUTSIDE-WEEK is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19",
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-conflict-f18e76564143",
+        "kind": "conflict",
+        "nodeIds": [
+          "CONFLICT-O1-INACTIVE-PERSON-CORRECTION"
+        ],
+        "question": "Conflict CONFLICT-O1-INACTIVE-PERSON-CORRECTION is inside cohort COH-TIME-ENTRY-WEEK and no approved decision resolves it. Which outcome is authoritative for the cohort's behavior?",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70",
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-083959b2089d",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-RECONCILE",
+          "CONFLICT-O11-RECONCILE-AFTER-EXTERNAL-WRITE",
+          "IFC-COMMAND-SESSION",
+          "INV-UNKNOWN-NOT-COLLAPSED",
+          "VER-RANDOMIZED-SEQUENCES",
+          "VER-SAVE-RECONCILE"
+        ],
+        "planSubject": "Uncovered requirement 0542db27",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE, VER-RANDOMIZED-SEQUENCES.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-09c7bae92fea",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-COMMAND-RESULT",
+          "CON-VOID-RULES",
+          "VER-VOID-AND-TOTALS"
+        ],
+        "planSubject": "Uncovered requirement bb7e249c",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L100 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-VOID-AND-TOTALS.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L100"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-1c076c216d96",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-SPLIT-RULES",
+          "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES",
+          "INV-SPLIT-CONSERVES-TIME",
+          "VER-RANDOMIZED-SEQUENCES",
+          "VER-SPLIT"
+        ],
+        "planSubject": "Uncovered requirement 5240ecc2",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SPLIT, VER-RANDOMIZED-SEQUENCES.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-1fe45f4f4d17",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-WEEK-DOCUMENT",
+          "VER-STORED-DOCUMENT"
+        ],
+        "planSubject": "Uncovered requirement cbee03e0",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L120-L121 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-STORED-DOCUMENT.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L120-L121"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-2e8b528636e6",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-LOAD",
+          "CON-SAVE",
+          "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES",
+          "DEFER-PERS-009-SHIPPED-PATH",
+          "IFC-STORAGE-PORT",
+          "VER-SAVE-RECONCILE"
+        ],
+        "planSubject": "Uncovered requirement e85888c7",
+        "question": "Requirement kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-34ad22d8d66d",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-SPLIT-RULES",
+          "VER-SPLIT"
+        ],
+        "planSubject": "Uncovered requirement 8236ec50",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L91-L92 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SPLIT.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L91-L92"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-3f34327a772f",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CREATE-RULES",
+          "IFC-DIRECTORY-PORT",
+          "VER-CREATE-VALIDATION"
+        ],
+        "planSubject": "Uncovered requirement e16fbe05",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L53-L54 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L53-L54"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-41f1e309cdf5",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-REFERENCE-DATA",
+          "DEFER-REFERENCE-DATA-ATTRIBUTES",
+          "IFC-DIRECTORY-PORT",
+          "VER-CREATE-VALIDATION"
+        ],
+        "planSubject": "Uncovered requirement 14ae957b",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-442f011be4b2",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-ENTRY-VALUES",
+          "CON-PROJECTION",
+          "CONFLICT-O3-DATE-OUTSIDE-WEEK",
+          "DEFER-REFERENCE-DATA-ATTRIBUTES",
+          "INV-UNIQUE-ENTRY-IDS",
+          "VER-CREATE-VALIDATION"
+        ],
+        "planSubject": "Uncovered requirement c5ffc1b4",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-470503fb1a6c",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-VOID-RULES",
+          "VER-VOID-AND-TOTALS"
+        ],
+        "planSubject": "Uncovered requirement ba9bfef1",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L104 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-VOID-AND-TOTALS.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L104"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-520d274ff378",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-COMMAND-RESULT",
+          "INV-COMMAND-ATOMIC",
+          "VER-COMMAND-RESULTS",
+          "VER-RANDOMIZED-SEQUENCES"
+        ],
+        "planSubject": "Uncovered requirement 7a9ca382",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-COMMAND-RESULTS, VER-RANDOMIZED-SEQUENCES.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-597c9c203edd",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CREATE-RULES",
+          "VER-CREATE-VALIDATION"
+        ],
+        "planSubject": "Uncovered requirement 08734626",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L52 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L52"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-62b67a51ff96",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CREATE-RULES",
+          "CON-ENTRY-VALUES",
+          "CONFLICT-O14-TIMER-DECISIONS",
+          "VER-CREATE-VALIDATION"
+        ],
+        "planSubject": "Uncovered requirement 32b722af",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-6c21a0b1c0d1",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-LOAD",
+          "CON-WEEK-DOCUMENT",
+          "CONFLICT-O10-SAVE-OVER-INVALID-STORE",
+          "VER-STORED-DOCUMENT"
+        ],
+        "planSubject": "Uncovered requirement be038dfb",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-STORED-DOCUMENT.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-714f31a74086",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-REFERENCE-DATA",
+          "DEFER-REFERENCE-DATA-ATTRIBUTES",
+          "IFC-DIRECTORY-PORT",
+          "VER-CREATE-VALIDATION"
+        ],
+        "planSubject": "Uncovered requirement 38f7398b",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-72f42361051c",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-SPLIT-RULES",
+          "VER-SPLIT"
+        ],
+        "planSubject": "Uncovered requirement a26940a0",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L30-L33 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SPLIT.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L30-L33"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-784827527b2e",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-COMMAND-RESULT",
+          "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION",
+          "IFC-COMMAND-SESSION",
+          "VER-COMMAND-RESULTS"
+        ],
+        "planSubject": "Uncovered requirement 6bb98e70",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-COMMAND-RESULTS.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-84c9fd9fe5f9",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-REFERENCE-DATA",
+          "CONFLICT-O1-INACTIVE-PERSON-CORRECTION",
+          "DEFER-REFERENCE-DATA-ATTRIBUTES",
+          "IFC-DIRECTORY-PORT",
+          "VER-CREATE-VALIDATION"
+        ],
+        "planSubject": "Uncovered requirement 8efb28bf",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-8fea3faa7f91",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-PROJECTION",
+          "INV-RECORDED-TOTAL",
+          "VER-RANDOMIZED-SEQUENCES",
+          "VER-VOID-AND-TOTALS"
+        ],
+        "planSubject": "Uncovered requirement 99d0b917",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-VOID-AND-TOTALS, VER-RANDOMIZED-SEQUENCES.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-9825af857d2d",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CREATE-RULES",
+          "INV-NO-OVERLAP",
+          "VER-CREATE-VALIDATION",
+          "VER-RANDOMIZED-SEQUENCES"
+        ],
+        "planSubject": "Uncovered requirement 148040da",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION, VER-RANDOMIZED-SEQUENCES.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-a97b53a870ea",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-COMMAND-RESULT",
+          "CON-CORRECT-RULES",
+          "VER-CORRECTION"
+        ],
+        "planSubject": "Uncovered requirement ae87ecf3",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L65-L67 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L65-L67"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-ab7171e596b3",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CORRECT-RULES",
+          "CON-WEEK-DOCUMENT",
+          "VER-CORRECTION",
+          "VER-STORED-DOCUMENT"
+        ],
+        "planSubject": "Uncovered requirement 113540e5",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION, VER-STORED-DOCUMENT.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-adf52a06dd1e",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-SAVE",
+          "CONFLICT-O13-IDEMPOTENCY-NOT-PORTED",
+          "CONFLICT-O8-OPERATION-ID-REUSE",
+          "IFC-STORAGE-PORT",
+          "INV-ONE-WRITE-PER-OPERATION",
+          "VER-RANDOMIZED-SEQUENCES",
+          "VER-SAVE-RECONCILE"
+        ],
+        "planSubject": "Uncovered requirement e4523306",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE, VER-RANDOMIZED-SEQUENCES.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-b4dbdae0467c",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CREATE-RULES",
+          "CONFLICT-O14-TIMER-DECISIONS",
+          "CONFLICT-O5-MIDNIGHT-END",
+          "VER-CREATE-VALIDATION"
+        ],
+        "planSubject": "Uncovered requirement 002c4fa9",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-b75db13c73f7",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-LOAD",
+          "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES",
+          "CONFLICT-O3-DATE-OUTSIDE-WEEK",
+          "IFC-COMMAND-SESSION",
+          "IFC-STORAGE-PORT",
+          "VER-STORED-DOCUMENT"
+        ],
+        "planSubject": "Uncovered requirement 24fe13ef",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-STORED-DOCUMENT.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-b81c70b9dfcc",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CORRECT-RULES",
+          "CON-CREATE-RULES",
+          "CON-WEEK-DOCUMENT",
+          "CONFLICT-O12-LABEL-RULE-RATIFICATION",
+          "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES",
+          "DEFER-LABEL-001-MERGE-RESTORE",
+          "IFC-DIRECTORY-PORT",
+          "VER-CORRECTION",
+          "VER-CREATE-VALIDATION",
+          "VER-STORED-DOCUMENT"
+        ],
+        "planSubject": "Uncovered requirement d457e5ba",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION, VER-CORRECTION, VER-STORED-DOCUMENT.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-c6d960d7c217",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CORRECT-RULES",
+          "CON-PROJECTION",
+          "CONFLICT-O9-HISTORY-DURABILITY",
+          "VER-CORRECTION"
+        ],
+        "planSubject": "Uncovered requirement 1c840406",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-cc13452eff5f",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CREATE-RULES",
+          "IFC-DIRECTORY-PORT",
+          "VER-CREATE-VALIDATION"
+        ],
+        "planSubject": "Uncovered requirement e431ac8e",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L48 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L48"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-dae7b95ee626",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-RECONCILE",
+          "INV-INSPECT-BEFORE-NEW-OPERATION",
+          "VER-RANDOMIZED-SEQUENCES",
+          "VER-SAVE-RECONCILE"
+        ],
+        "planSubject": "Uncovered requirement da193ec6",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE, VER-RANDOMIZED-SEQUENCES.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-db970d75ae89",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CORRECT-RULES",
+          "CONFLICT-O1-INACTIVE-PERSON-CORRECTION",
+          "INV-NO-OVERLAP",
+          "VER-CORRECTION"
+        ],
+        "planSubject": "Uncovered requirement 45a625b4",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e3511c7b0390",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-COMMAND-RESULT",
+          "CON-SPLIT-RULES",
+          "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES",
+          "VER-SPLIT"
+        ],
+        "planSubject": "Uncovered requirement cae980ee",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SPLIT.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e408d5a6b2b3",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CREATE-RULES",
+          "CON-ENTRY-VALUES",
+          "CONFLICT-O6-PURPOSE-EQUALS-DESCRIPTION",
+          "VER-CREATE-VALIDATION"
+        ],
+        "planSubject": "Uncovered requirement 1d3cb2b7",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e44e92718f11",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-WEEK-DOCUMENT",
+          "INV-UNIQUE-ENTRY-IDS",
+          "VER-RANDOMIZED-SEQUENCES",
+          "VER-STORED-DOCUMENT"
+        ],
+        "planSubject": "Uncovered requirement 10188f65",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-STORED-DOCUMENT, VER-RANDOMIZED-SEQUENCES.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e60f44c805ba",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-SAVE",
+          "CONFLICT-O10-SAVE-OVER-INVALID-STORE",
+          "CONFLICT-O11-RECONCILE-AFTER-EXTERNAL-WRITE",
+          "IFC-COMMAND-SESSION",
+          "IFC-STORAGE-PORT",
+          "INV-UNKNOWN-NOT-COLLAPSED",
+          "VER-RANDOMIZED-SEQUENCES",
+          "VER-SAVE-RECONCILE"
+        ],
+        "planSubject": "Uncovered requirement 723931ef",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE, VER-RANDOMIZED-SEQUENCES.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e76c2ab7cbab",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CORRECT-RULES",
+          "VER-CORRECTION"
+        ],
+        "planSubject": "Uncovered requirement d1ff6e0a",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L84 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L84"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-e84af9877451",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-CORRECT-RULES",
+          "VER-CORRECTION"
+        ],
+        "planSubject": "Uncovered requirement 188761c2",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L71-L74 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L71-L74"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-f2debc648e17",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-PROJECTION",
+          "CON-VOID-RULES",
+          "INV-RECORDED-TOTAL",
+          "VER-VOID-AND-TOTALS"
+        ],
+        "planSubject": "Uncovered requirement f13cf784",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-VOID-AND-TOTALS.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-f5d0a7c71036",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-COMMAND-RESULT",
+          "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION",
+          "DEFER-DIAG-002-OUT-OF-SLICE-CODES",
+          "VER-COMMAND-RESULTS"
+        ],
+        "planSubject": "Uncovered requirement 40a9d6ca",
+        "question": "Requirement kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-COMMAND-RESULTS.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-f90bd2bc588d",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-SAVE",
+          "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES",
+          "VER-SAVE-RECONCILE"
+        ],
+        "planSubject": "Uncovered requirement 3b79470d",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79"
+        ]
+      },
+      {
+        "extensionSurface": [],
+        "id": "OBL-COH-TIME-ENTRY-WEEK-uncoveredRequirement-fa1e48f851e5",
+        "kind": "uncoveredRequirement",
+        "nodeIds": [
+          "CON-COMMAND-RESULT",
+          "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION",
+          "VER-COMMAND-RESULTS"
+        ],
+        "planSubject": "Uncovered requirement 1018b04f",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-COMMAND-RESULTS.",
+        "requirementKeys": [
+          "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148"
+        ]
+      }
+    ],
+    "planDigest": "sha256:cdd5745ba47b0d780889988a060c5f3fbf0eac0ca16882680d49f3019c6e9e1e",
+    "schemaVersion": "ordo.construction-obligations/1"
+  },
+  "plan": {
+    "binding": {
+      "blueprintDigest": "sha256:5456d28901886a4ab49863c2b37131ebd3ccba12f97f50a429ff7b257afd198f",
+      "cohortId": "COH-TIME-ENTRY-WEEK",
+      "decisionIds": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "sourceManifestDigest": "sha256:6a9ceb2ccd8afe252be6c08669b212529382a44b6a826d20013100c86df337dc"
+    },
+    "operations": [
+      {
+        "name": "TimeEntry",
+        "op": "defineWorkflow",
+        "trace": {
+          "nodeIds": [
+            "DEC-ENTRY-LIFECYCLE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41"
+          ]
+        }
+      },
+      {
+        "name": "Recorded",
+        "op": "defineState",
+        "role": "initial",
+        "trace": {
+          "nodeIds": [
+            "DEC-ENTRY-LIFECYCLE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41"
+          ]
+        }
+      },
+      {
+        "name": "Superseded",
+        "op": "defineState",
+        "role": "terminal",
+        "trace": {
+          "nodeIds": [
+            "DEC-ENTRY-LIFECYCLE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41"
+          ]
+        }
+      },
+      {
+        "name": "Voided",
+        "op": "defineState",
+        "role": "terminal",
+        "trace": {
+          "nodeIds": [
+            "DEC-ENTRY-LIFECYCLE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37"
+          ]
+        }
+      },
+      {
+        "command": "Correct",
+        "from": "Recorded",
+        "guards": [],
+        "op": "defineTransition",
+        "to": "Recorded",
+        "trace": {
+          "nodeIds": [
+            "DEC-ENTRY-LIFECYCLE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37"
+          ]
+        }
+      },
+      {
+        "command": "Split",
+        "from": "Recorded",
+        "guards": [],
+        "op": "defineTransition",
+        "to": "Superseded",
+        "trace": {
+          "nodeIds": [
+            "DEC-ENTRY-LIFECYCLE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41"
+          ]
+        }
+      },
+      {
+        "command": "Void",
+        "from": "Recorded",
+        "guards": [],
+        "op": "defineTransition",
+        "to": "Voided",
+        "trace": {
+          "nodeIds": [
+            "DEC-ENTRY-LIFECYCLE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "subject": "UncoveredRequirement002c4fa9",
+        "trace": {
+          "nodeIds": [
+            "CON-CREATE-RULES",
+            "CONFLICT-O14-TIMER-DECISIONS",
+            "CONFLICT-O5-MIDNIGHT-END",
+            "VER-CREATE-VALIDATION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE, VER-RANDOMIZED-SEQUENCES.",
+        "subject": "UncoveredRequirement0542db27",
+        "trace": {
+          "nodeIds": [
+            "CON-RECONCILE",
+            "CONFLICT-O11-RECONCILE-AFTER-EXTERNAL-WRITE",
+            "IFC-COMMAND-SESSION",
+            "INV-UNKNOWN-NOT-COLLAPSED",
+            "VER-RANDOMIZED-SEQUENCES",
+            "VER-SAVE-RECONCILE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L52 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "subject": "UncoveredRequirement08734626",
+        "trace": {
+          "nodeIds": [
+            "CON-CREATE-RULES",
+            "VER-CREATE-VALIDATION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L52"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-STORED-DOCUMENT, VER-RANDOMIZED-SEQUENCES.",
+        "subject": "UncoveredRequirement10188f65",
+        "trace": {
+          "nodeIds": [
+            "CON-WEEK-DOCUMENT",
+            "INV-UNIQUE-ENTRY-IDS",
+            "VER-RANDOMIZED-SEQUENCES",
+            "VER-STORED-DOCUMENT"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-COMMAND-RESULTS.",
+        "subject": "UncoveredRequirement1018b04f",
+        "trace": {
+          "nodeIds": [
+            "CON-COMMAND-RESULT",
+            "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION",
+            "VER-COMMAND-RESULTS"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION, VER-STORED-DOCUMENT.",
+        "subject": "UncoveredRequirement113540e5",
+        "trace": {
+          "nodeIds": [
+            "CON-CORRECT-RULES",
+            "CON-WEEK-DOCUMENT",
+            "VER-CORRECTION",
+            "VER-STORED-DOCUMENT"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION, VER-RANDOMIZED-SEQUENCES.",
+        "subject": "UncoveredRequirement148040da",
+        "trace": {
+          "nodeIds": [
+            "CON-CREATE-RULES",
+            "INV-NO-OVERLAP",
+            "VER-CREATE-VALIDATION",
+            "VER-RANDOMIZED-SEQUENCES"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "subject": "UncoveredRequirement14ae957b",
+        "trace": {
+          "nodeIds": [
+            "CON-REFERENCE-DATA",
+            "DEFER-REFERENCE-DATA-ATTRIBUTES",
+            "IFC-DIRECTORY-PORT",
+            "VER-CREATE-VALIDATION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L71-L74 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION.",
+        "subject": "UncoveredRequirement188761c2",
+        "trace": {
+          "nodeIds": [
+            "CON-CORRECT-RULES",
+            "VER-CORRECTION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L71-L74"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION.",
+        "subject": "UncoveredRequirement1c840406",
+        "trace": {
+          "nodeIds": [
+            "CON-CORRECT-RULES",
+            "CON-PROJECTION",
+            "CONFLICT-O9-HISTORY-DURABILITY",
+            "VER-CORRECTION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "subject": "UncoveredRequirement1d3cb2b7",
+        "trace": {
+          "nodeIds": [
+            "CON-CREATE-RULES",
+            "CON-ENTRY-VALUES",
+            "CONFLICT-O6-PURPOSE-EQUALS-DESCRIPTION",
+            "VER-CREATE-VALIDATION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-STORED-DOCUMENT.",
+        "subject": "UncoveredRequirement24fe13ef",
+        "trace": {
+          "nodeIds": [
+            "CON-LOAD",
+            "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES",
+            "CONFLICT-O3-DATE-OUTSIDE-WEEK",
+            "IFC-COMMAND-SESSION",
+            "IFC-STORAGE-PORT",
+            "VER-STORED-DOCUMENT"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "subject": "UncoveredRequirement32b722af",
+        "trace": {
+          "nodeIds": [
+            "CON-CREATE-RULES",
+            "CON-ENTRY-VALUES",
+            "CONFLICT-O14-TIMER-DECISIONS",
+            "VER-CREATE-VALIDATION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "subject": "UncoveredRequirement38f7398b",
+        "trace": {
+          "nodeIds": [
+            "CON-REFERENCE-DATA",
+            "DEFER-REFERENCE-DATA-ATTRIBUTES",
+            "IFC-DIRECTORY-PORT",
+            "VER-CREATE-VALIDATION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE.",
+        "subject": "UncoveredRequirement3b79470d",
+        "trace": {
+          "nodeIds": [
+            "CON-SAVE",
+            "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES",
+            "VER-SAVE-RECONCILE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-COMMAND-RESULTS.",
+        "subject": "UncoveredRequirement40a9d6ca",
+        "trace": {
+          "nodeIds": [
+            "CON-COMMAND-RESULT",
+            "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION",
+            "DEFER-DIAG-002-OUT-OF-SLICE-CODES",
+            "VER-COMMAND-RESULTS"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION.",
+        "subject": "UncoveredRequirement45a625b4",
+        "trace": {
+          "nodeIds": [
+            "CON-CORRECT-RULES",
+            "CONFLICT-O1-INACTIVE-PERSON-CORRECTION",
+            "INV-NO-OVERLAP",
+            "VER-CORRECTION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SPLIT, VER-RANDOMIZED-SEQUENCES.",
+        "subject": "UncoveredRequirement5240ecc2",
+        "trace": {
+          "nodeIds": [
+            "CON-SPLIT-RULES",
+            "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES",
+            "INV-SPLIT-CONSERVES-TIME",
+            "VER-RANDOMIZED-SEQUENCES",
+            "VER-SPLIT"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-COMMAND-RESULTS.",
+        "subject": "UncoveredRequirement6bb98e70",
+        "trace": {
+          "nodeIds": [
+            "CON-COMMAND-RESULT",
+            "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION",
+            "IFC-COMMAND-SESSION",
+            "VER-COMMAND-RESULTS"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE, VER-RANDOMIZED-SEQUENCES.",
+        "subject": "UncoveredRequirement723931ef",
+        "trace": {
+          "nodeIds": [
+            "CON-SAVE",
+            "CONFLICT-O10-SAVE-OVER-INVALID-STORE",
+            "CONFLICT-O11-RECONCILE-AFTER-EXTERNAL-WRITE",
+            "IFC-COMMAND-SESSION",
+            "IFC-STORAGE-PORT",
+            "INV-UNKNOWN-NOT-COLLAPSED",
+            "VER-RANDOMIZED-SEQUENCES",
+            "VER-SAVE-RECONCILE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-COMMAND-RESULTS, VER-RANDOMIZED-SEQUENCES.",
+        "subject": "UncoveredRequirement7a9ca382",
+        "trace": {
+          "nodeIds": [
+            "CON-COMMAND-RESULT",
+            "INV-COMMAND-ATOMIC",
+            "VER-COMMAND-RESULTS",
+            "VER-RANDOMIZED-SEQUENCES"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L91-L92 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SPLIT.",
+        "subject": "UncoveredRequirement8236ec50",
+        "trace": {
+          "nodeIds": [
+            "CON-SPLIT-RULES",
+            "VER-SPLIT"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L91-L92"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "subject": "UncoveredRequirement8efb28bf",
+        "trace": {
+          "nodeIds": [
+            "CON-REFERENCE-DATA",
+            "CONFLICT-O1-INACTIVE-PERSON-CORRECTION",
+            "DEFER-REFERENCE-DATA-ATTRIBUTES",
+            "IFC-DIRECTORY-PORT",
+            "VER-CREATE-VALIDATION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-VOID-AND-TOTALS, VER-RANDOMIZED-SEQUENCES.",
+        "subject": "UncoveredRequirement99d0b917",
+        "trace": {
+          "nodeIds": [
+            "CON-PROJECTION",
+            "INV-RECORDED-TOTAL",
+            "VER-RANDOMIZED-SEQUENCES",
+            "VER-VOID-AND-TOTALS"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L30-L33 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SPLIT.",
+        "subject": "UncoveredRequirementA26940a0",
+        "trace": {
+          "nodeIds": [
+            "CON-SPLIT-RULES",
+            "VER-SPLIT"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L30-L33"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L65-L67 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION.",
+        "subject": "UncoveredRequirementAe87ecf3",
+        "trace": {
+          "nodeIds": [
+            "CON-COMMAND-RESULT",
+            "CON-CORRECT-RULES",
+            "VER-CORRECTION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L65-L67"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L104 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-VOID-AND-TOTALS.",
+        "subject": "UncoveredRequirementBa9bfef1",
+        "trace": {
+          "nodeIds": [
+            "CON-VOID-RULES",
+            "VER-VOID-AND-TOTALS"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L104"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L100 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-VOID-AND-TOTALS.",
+        "subject": "UncoveredRequirementBb7e249c",
+        "trace": {
+          "nodeIds": [
+            "CON-COMMAND-RESULT",
+            "CON-VOID-RULES",
+            "VER-VOID-AND-TOTALS"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L100"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-STORED-DOCUMENT.",
+        "subject": "UncoveredRequirementBe038dfb",
+        "trace": {
+          "nodeIds": [
+            "CON-LOAD",
+            "CON-WEEK-DOCUMENT",
+            "CONFLICT-O10-SAVE-OVER-INVALID-STORE",
+            "VER-STORED-DOCUMENT"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "subject": "UncoveredRequirementC5ffc1b4",
+        "trace": {
+          "nodeIds": [
+            "CON-ENTRY-VALUES",
+            "CON-PROJECTION",
+            "CONFLICT-O3-DATE-OUTSIDE-WEEK",
+            "DEFER-REFERENCE-DATA-ATTRIBUTES",
+            "INV-UNIQUE-ENTRY-IDS",
+            "VER-CREATE-VALIDATION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SPLIT.",
+        "subject": "UncoveredRequirementCae980ee",
+        "trace": {
+          "nodeIds": [
+            "CON-COMMAND-RESULT",
+            "CON-SPLIT-RULES",
+            "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES",
+            "VER-SPLIT"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L120-L121 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-STORED-DOCUMENT.",
+        "subject": "UncoveredRequirementCbee03e0",
+        "trace": {
+          "nodeIds": [
+            "CON-WEEK-DOCUMENT",
+            "VER-STORED-DOCUMENT"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L120-L121"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L84 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CORRECTION.",
+        "subject": "UncoveredRequirementD1ff6e0a",
+        "trace": {
+          "nodeIds": [
+            "CON-CORRECT-RULES",
+            "VER-CORRECTION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L84"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION, VER-CORRECTION, VER-STORED-DOCUMENT.",
+        "subject": "UncoveredRequirementD457e5ba",
+        "trace": {
+          "nodeIds": [
+            "CON-CORRECT-RULES",
+            "CON-CREATE-RULES",
+            "CON-WEEK-DOCUMENT",
+            "CONFLICT-O12-LABEL-RULE-RATIFICATION",
+            "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES",
+            "DEFER-LABEL-001-MERGE-RESTORE",
+            "IFC-DIRECTORY-PORT",
+            "VER-CORRECTION",
+            "VER-CREATE-VALIDATION",
+            "VER-STORED-DOCUMENT"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE, VER-RANDOMIZED-SEQUENCES.",
+        "subject": "UncoveredRequirementDa193ec6",
+        "trace": {
+          "nodeIds": [
+            "CON-RECONCILE",
+            "INV-INSPECT-BEFORE-NEW-OPERATION",
+            "VER-RANDOMIZED-SEQUENCES",
+            "VER-SAVE-RECONCILE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L53-L54 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "subject": "UncoveredRequirementE16fbe05",
+        "trace": {
+          "nodeIds": [
+            "CON-CREATE-RULES",
+            "IFC-DIRECTORY-PORT",
+            "VER-CREATE-VALIDATION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L53-L54"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L48 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-CREATE-VALIDATION.",
+        "subject": "UncoveredRequirementE431ac8e",
+        "trace": {
+          "nodeIds": [
+            "CON-CREATE-RULES",
+            "IFC-DIRECTORY-PORT",
+            "VER-CREATE-VALIDATION"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L48"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE, VER-RANDOMIZED-SEQUENCES.",
+        "subject": "UncoveredRequirementE4523306",
+        "trace": {
+          "nodeIds": [
+            "CON-SAVE",
+            "CONFLICT-O13-IDEMPOTENCY-NOT-PORTED",
+            "CONFLICT-O8-OPERATION-ID-REUSE",
+            "IFC-STORAGE-PORT",
+            "INV-ONE-WRITE-PER-OPERATION",
+            "VER-RANDOMIZED-SEQUENCES",
+            "VER-SAVE-RECONCILE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-SAVE-RECONCILE.",
+        "subject": "UncoveredRequirementE85888c7",
+        "trace": {
+          "nodeIds": [
+            "CON-LOAD",
+            "CON-SAVE",
+            "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES",
+            "DEFER-PERS-009-SHIPPED-PATH",
+            "IFC-STORAGE-PORT",
+            "VER-SAVE-RECONCILE"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86"
+          ]
+        }
+      },
+      {
+        "op": "declareUnresolved",
+        "question": "Requirement kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103 is assigned to cohort COH-TIME-ENTRY-WEEK, but no approved decision record constructs it. Which approved decision or extension implements it? Independent verification: VER-VOID-AND-TOTALS.",
+        "subject": "UncoveredRequirementF13cf784",
+        "trace": {
+          "nodeIds": [
+            "CON-PROJECTION",
+            "CON-VOID-RULES",
+            "INV-RECORDED-TOTAL",
+            "VER-VOID-AND-TOTALS"
+          ],
+          "requirementKeys": [
+            "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103"
+          ]
+        }
+      }
+    ],
+    "schemaVersion": "ordo.construction-plan/1",
+    "vocabularyVersion": "ordo.construction-vocabulary/2"
+  },
+  "provenance": {
+    "blueprintDigest": "sha256:5456d28901886a4ab49863c2b37131ebd3ccba12f97f50a429ff7b257afd198f",
+    "cohortId": "COH-TIME-ENTRY-WEEK",
+    "decisionRecordsDigest": "sha256:79886081fe3a77df0d2ce4a6fc39432c90893e6561667124d5b9f5643c9b387f",
+    "generatorId": "ordo.default-plan",
+    "generatorVersion": "ordo.default-plan/2",
+    "obligationsDigest": "sha256:eb186eadb61beec5f7109e05e8be2d3df77f89c3c117e0ca205023f0cb1d6965",
+    "planDigest": "sha256:cdd5745ba47b0d780889988a060c5f3fbf0eac0ca16882680d49f3019c6e9e1e",
+    "sourceManifestDigest": "sha256:6a9ceb2ccd8afe252be6c08669b212529382a44b6a826d20013100c86df337dc",
+    "vocabularyVersion": "ordo.construction-vocabulary/2"
+  },
+  "schemaVersion": "ordo.default-plan/1"
+}

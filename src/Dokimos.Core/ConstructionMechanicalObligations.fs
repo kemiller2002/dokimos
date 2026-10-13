@@ -9,7 +9,10 @@ open System.Text.RegularExpressions
 module MechanicalObligations =
     /// Obligation kinds that record an open semantic question: the agent
     /// may only escalate them unless an approved decision record closes them.
-    let unresolvedKinds = set [ "conflict"; "undecidedEffectFailure"; "uncoveredRequirement" ]
+    let unresolvedKinds =
+        set [ "conflict"; "undecidedEffectFailure"; "uncoveredRequirement"
+              // CONSTRUCT-010 (ordo.construction-vocabulary/3)
+              "undecidedTransition"; "undecidedExtensionDecision" ]
 
     /// Handoff work-item ids that are not default-plan obligations.
     let isAuxiliaryId (id: string) =
