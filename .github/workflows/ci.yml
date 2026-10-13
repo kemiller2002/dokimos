@@ -54,7 +54,7 @@ jobs:
             10.0.x
       - name: Install with package source mapping in the consumer workspace
         env:
-          DOKIMOS_VERSION: "0.2.0"
+          DOKIMOS_VERSION: "0.3.0"
         run: tests/actions/install-with-source-mapping.sh
 
   build-test-gate:
