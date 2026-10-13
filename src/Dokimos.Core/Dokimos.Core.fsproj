@@ -60,6 +60,7 @@
     <Compile Include="ConstructionMechanical.fs" />
     <Compile Include="ConstructionVerification.fs" />
     <Compile Include="ConstructionWire.fs" />
+    <Compile Include="RecognitionAudit.fs" />
     <Compile Include="BehaviorOracle.fs" />
     <Compile Include="BehaviorVerification.fs" />
     <Compile Include="BehaviorWire.fs" />

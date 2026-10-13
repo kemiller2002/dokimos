@@ -651,14 +651,14 @@
     },
     {
       "id": "WI-0008",
-      "title": "CONSTRUCT-010 phase 4 (Dokimos): independent decision-completeness verification in dokimos construction verify",
+      "title": "Independent audit of Ordo pattern recognition reports and delegation packets (ORDO-PATTERN-001)",
       "description": null,
       "tags": [],
       "priority": "medium",
-      "status": "complete",
+      "status": "ready",
       "attachments": [],
-      "createdAt": "2026-10-13T21:06:52.796Z",
-      "updatedAt": "2026-10-13T22:33:58.000Z",
+      "createdAt": "2026-10-13T20:37:02.316Z",
+      "updatedAt": "2026-10-13T20:37:05Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
