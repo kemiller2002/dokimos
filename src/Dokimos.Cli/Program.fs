@@ -468,6 +468,7 @@ module Program =
               "  snapshot <source-dir>... --repository r --revision sha [options]"
               "  compare <before-snapshot> <after-snapshot>"
               "  ecir audit --manifest FILE --blueprint FILE   independent source conservation audit"
+              "  ecir recognition-audit --manifest FILE --blueprint FILE --report FILE [--decisions FILE] [--approvals FILE] [--packets DIR]   independent audit of an Ordo pattern-recognition report and its delegation packets"
               "  construction verify ...                   independent construction verification (see `dokimos construction verify`)"
               "  behavior verify ...                       build a candidate commit and drive its frozen oracle adapter (executes candidate code; see `dokimos behavior verify`)"
               "  evaluate --baseline b --current c --policy p [--exceptions quality/exceptions.json]"
@@ -490,6 +491,7 @@ module Program =
         | [ "capabilities" ] -> capabilities ()
         | "compare" :: rest -> compare rest
         | "ecir" :: "audit" :: rest -> EcirCommand.ecirAudit rest
+        | "ecir" :: "recognition-audit" :: rest -> EcirCommand.recognitionAudit rest
         | "construction" :: "verify" :: rest -> ConstructionCommand.verify rest
         | "behavior" :: "verify" :: rest -> BehaviorCommand.verify rest
         | "evaluate" :: rest -> evaluate rest

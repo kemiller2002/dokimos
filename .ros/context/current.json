@@ -4,7 +4,7 @@
   "repository": "dokimos",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-10-13T07:40:37.000Z",
+  "updatedAt": "2026-10-13T20:37:05Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -986,6 +986,37 @@
         }
       },
       "completedAt": "2026-10-13T07:40:37.000Z"
+    },
+    {
+      "id": "WI-0008",
+      "type": "task",
+      "state": "active",
+      "semanticState": "active",
+      "evidence": [],
+      "updatedAt": "2026-10-13T20:37:05Z",
+      "telemetryExecutionIds": [
+        "EXE-20261013T203706514Z-33872914"
+      ],
+      "latestCheckpoint": {
+        "id": "fd43fad29aa5f6d7f0266374",
+        "recordedAt": "2026-10-13T20:44:40Z",
+        "executionId": "EXE-20261013T203706514Z-33872914",
+        "repository": "dokimos",
+        "branch": "claude/ordo-pattern-discovery-rd6l7x",
+        "commit": "a3dc8739144ed80cde906da9feb5a0ac1f90745d",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "claude/ordo-pattern-discovery-rd6l7x",
+        "remoteCommit": "a3dc8739144ed80cde906da9feb5a0ac1f90745d",
+        "summary": "recognition-audit implemented, tested, pushed",
+        "nextAction": "PR review; use in arm-D benchmark harness",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      }
     }
   ]
 }

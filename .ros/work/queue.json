@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 8,
+  "nextSeq": 9,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -638,6 +638,27 @@
       "attachments": [],
       "createdAt": "2026-10-13T07:20:50.224Z",
       "updatedAt": "2026-10-13T07:40:37.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0008",
+      "title": "Independent audit of Ordo pattern recognition reports and delegation packets (ORDO-PATTERN-001)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-10-13T20:37:02.316Z",
+      "updatedAt": "2026-10-13T20:37:05Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",

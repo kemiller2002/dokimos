@@ -1,0 +1,46 @@
+{
+  "allowedPaths": [
+    "src/Timer/Extensions/**"
+  ],
+  "approvedDecisions": [],
+  "architectureConstraints": [],
+  "cohortId": "COH-TIMER",
+  "completionSchema": "ordo.delegation-completion/1",
+  "contracts": [
+    {
+      "justification": "Every command reads the current instant; Stop completes through the shared entry-creation path",
+      "nodeId": "IFC-TIMER-PORTS"
+    }
+  ],
+  "escalationRequired": [],
+  "forbiddenPaths": [
+    "generated/Timer/**"
+  ],
+  "generatedBy": [],
+  "id": "DLG-COH-TIMER-d007e4855306",
+  "interfaces": [
+    "ITimerPorts.CurrentTime"
+  ],
+  "invariants": [],
+  "openQuestions": [],
+  "requirementKeys": [
+    "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107"
+  ],
+  "schemaVersion": "ordo.delegation-contract/1",
+  "sources": [
+    {
+      "contentDigest": "sha256:bd10153509354a418f173e88f564d693ff945503d2fb6530fe4582c581392945",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107",
+      "location": "L105-L107",
+      "originalId": "L105-L107",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+    }
+  ],
+  "verificationObligations": [
+    {
+      "justification": "Elapsed time excludes paused segments and Stop creates the entry through the shared path; handwritten behavior, independently verified",
+      "nodeId": "VER-TIMER-COMPLETION"
+    }
+  ]
+}
