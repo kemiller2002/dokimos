@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "synthetic.operator-approval/1",
+  "approver": "synthetic test operator (not a real approval)",
+  "cohort": "COH-TIMER",
+  "decisions": [
+    "DEC-TIMER-STATES"
+  ],
+  "blueprintDigest": "sha256:28dd3964f9c49f3492f3c34174ab04d57f4ddcba298276b2a287b4a6f3fdc4cb",
+  "decisionRecordsDigest": "sha256:65d757ae57f2ee7b39821fec3e2240827d16b686ec13d0c3ce921c93bbbfad8a"
+}

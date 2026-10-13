@@ -37,3 +37,37 @@ acceptance evidence. The independent behavioral oracle for the timer is
   follow the field list in `docs/construction-verification.md` and include an
   unknown field to prove it is ignored. They are not evidence about what the
   B1 agent decided.
+
+## `time-entry-timer-v3/` (CONSTRUCT-010 decision completeness)
+
+Source: `kemiller2002/ordo` PR #78 at commit `4d3c827` (CONSTRUCT-010 phase 4,
+vocabulary 3). The timer `source-manifest.json` and `blueprint.json` there are
+byte-identical to `time-entry-timer/`.
+
+- `ordo-golden/` holds byte-for-byte copies of Ordo's fixtures and goldens:
+  `construction-decisions-v2.json`, `plan.v3-open.json`, `plan.v2-remain.json`,
+  `plan.v2-proceed.json` (`tests/fixtures/construction/time-entry-timer/`) and
+  `generated/TimerOpen/` (`tests/Ordo.Construction.Tests/Golden/time-entry-timer-v3-open/`).
+- `ordo-output/` is Ordo's own output, produced by running Ordo at `4d3c827`
+  (`prepareCohort` with authorized `DEC-TIMER-STATES`, `generateDefaultPlan`
+  vocabulary 3, `ConstructionClassification.classify`, `Construction.construct`,
+  `buildLedger` with no evidence) over `ordo-golden/construction-decisions-v2.json`:
+  `default-plan.json`, `classification.json`, `ledger.json`, `generated/Timer/`.
+  Dokimos does not read `classification.json` at runtime; tests use it only to
+  prove that Dokimos's own classification matches.
+- `ordo-output-open/` is the same pipeline over
+  `synthetic/construction-decisions-v2-open.json`, which differs from the v2
+  records only in `"unlisted": {"disposition": "undecided"}` (authored by
+  Dokimos to obtain Ordo's undecided-pair output).
+- `synthetic/` holds Dokimos-authored wrappers: `prepared*.json` (the
+  `praxis.construction-prepared/1` shape around Ordo's default plan),
+  `dispositions*.json` and `approvals*.json`. The approvals are **not** a real
+  operator approval.
+
+## `time-entry-expanded-01/` (frozen expanded ECIR)
+
+Byte-for-byte copies from `kemiller2002/research-documents` at `f6778c2`,
+`research/construction-by-design/time-entry-expanded-01/harness/`:
+`ecir/{source-manifest,blueprint,construction-decisions}.json`,
+`ecir/generated/{construction-plan,default-plan,ledger}.json` (Ordo 1.9.0,
+vocabulary 2) and `operator-approval.json`.

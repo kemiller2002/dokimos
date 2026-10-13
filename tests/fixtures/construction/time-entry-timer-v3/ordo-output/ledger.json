@@ -1,0 +1,354 @@
+{
+  "blueprintDigest": "sha256:28dd3964f9c49f3492f3c34174ab04d57f4ddcba298276b2a287b4a6f3fdc4cb",
+  "defaultPlanDigests": [
+    "sha256:3142a8457f28fad55d6940015c7a729c0a30d01d9620cab628f4a540682a488c"
+  ],
+  "rows": [
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "decision"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIMER",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "partiallyImplemented",
+        "rationale": "Constructed in cohort COH-TIMER; no passing independent acceptance evidence."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [
+        "generated/Timer/Timer.Model.g.fs",
+        "generated/Timer/Timer.Orchestration.g.fs",
+        "generated/Timer/Timer.Transition.g.fs",
+        "generated/Timer/construction-manifest.json"
+      ],
+      "openObligationIds": [],
+      "operationLabels": [
+        "state:NoTimer",
+        "state:Paused",
+        "state:Running",
+        "transition:NoTimer/Start",
+        "transition:Paused/Resume",
+        "transition:Paused/Stop",
+        "transition:Running/Pause",
+        "transition:Running/Stop",
+        "workflow:Timer"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:9f6b6100a59f0db96e2a7e0e939ecef25e52ad148567b151468e3e3992d9e200",
+        "document": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md",
+        "key": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+        "location": "L116-L129",
+        "originalId": "L116-L129",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "alreadyApproved",
+        "mechanicallyDetermined"
+      ],
+      "verificationNodeIds": [
+        "VER-TIMER-TABLE"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "interface"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIMER",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "partiallyImplemented",
+        "rationale": "Open obligations in cohort COH-TIMER: OBL-COH-TIMER-undecidedEffectFailure-9843158a9897, OBL-COH-TIMER-undecidedExtensionDecision-73e53dd97e12."
+      },
+      "extensionSurface": [
+        "ITimerPorts.Perform/Stop"
+      ],
+      "generatedArtifacts": [
+        "generated/Timer/Timer.Model.g.fs",
+        "generated/Timer/Timer.Orchestration.g.fs",
+        "generated/Timer/Timer.Transition.g.fs",
+        "generated/Timer/construction-manifest.json"
+      ],
+      "openObligationIds": [
+        "OBL-COH-TIMER-undecidedEffectFailure-9843158a9897",
+        "OBL-COH-TIMER-undecidedExtensionDecision-73e53dd97e12"
+      ],
+      "operationLabels": [
+        "inventory:effect/Stop",
+        "port:currentTime",
+        "port:transitionEffect/Stop",
+        "unresolved:StopEffectFailure"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:6e1ac69a563e156189d9498023a7514b91be09e83042ec387a63746eab2ef17c",
+        "document": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md",
+        "key": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144",
+        "location": "L131-L144",
+        "originalId": "L131-L144",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "mechanicallyDetermined",
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-TIMER-COMPLETION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "decision"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIMER",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Open obligations in cohort COH-TIMER: OBL-COH-TIMER-uncoveredRequirement-fce50292ef11."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIMER-uncoveredRequirement-fce50292ef11"
+      ],
+      "operationLabels": [
+        "unresolved:UncoveredRequirementFfc2989b"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:63244f8a375fb18191c6234901381daae5c8488247f154ca595cb9370e490929",
+        "document": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md",
+        "key": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148",
+        "location": "L145-L148",
+        "originalId": "L145-L148",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "alreadyApproved",
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": [
+        "VER-TIMER-SESSION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "decision"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIMER",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "partiallyImplemented",
+        "rationale": "Constructed in cohort COH-TIMER; no passing independent acceptance evidence."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [
+        "generated/Timer/Timer.Model.g.fs",
+        "generated/Timer/Timer.Orchestration.g.fs",
+        "generated/Timer/Timer.Transition.g.fs",
+        "generated/Timer/construction-manifest.json"
+      ],
+      "openObligationIds": [],
+      "operationLabels": [
+        "pairRule",
+        "state:NoTimer",
+        "state:Paused",
+        "state:Running",
+        "transition:NoTimer/Start",
+        "transition:Paused/Resume",
+        "transition:Paused/Stop",
+        "transition:Running/Pause",
+        "transition:Running/Stop",
+        "workflow:Timer"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:498a6522b033471eee5cc4386b705c23195e385460e592e0d129ae98b0fc6928",
+        "document": "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md",
+        "key": "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+        "location": "L367-L368",
+        "originalId": "L367-L368",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "alreadyApproved",
+        "mechanicallyDetermined"
+      ],
+      "verificationNodeIds": [
+        "VER-TIMER-TABLE"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [
+        "DEC-TIMER-STATES"
+      ],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "decision"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIMER",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "partiallyImplemented",
+        "rationale": "Constructed in cohort COH-TIMER; no passing independent acceptance evidence."
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [
+        "generated/Timer/Timer.Model.g.fs",
+        "generated/Timer/Timer.Orchestration.g.fs",
+        "generated/Timer/Timer.Transition.g.fs",
+        "generated/Timer/construction-manifest.json"
+      ],
+      "openObligationIds": [],
+      "operationLabels": [
+        "state:NoTimer",
+        "state:Running",
+        "transition:NoTimer/Start",
+        "workflow:Timer"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:d46b048e14df7088be6dcb0807e933f87b0443c55dfcbffbbcb8b265717039e4",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104",
+        "location": "L104",
+        "originalId": "L104",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "alreadyApproved",
+        "mechanicallyDetermined"
+      ],
+      "verificationNodeIds": [
+        "VER-TIMER-TABLE"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "modeled"
+      },
+      "categories": [
+        "interface"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": "COH-TIMER",
+      "conflictNodeIds": [],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "partiallyImplemented",
+        "rationale": "Constructed in cohort COH-TIMER; no passing independent acceptance evidence."
+      },
+      "extensionSurface": [
+        "ITimerPorts.CurrentTime"
+      ],
+      "generatedArtifacts": [
+        "generated/Timer/Timer.Model.g.fs",
+        "generated/Timer/Timer.Orchestration.g.fs",
+        "generated/Timer/Timer.Transition.g.fs",
+        "generated/Timer/construction-manifest.json"
+      ],
+      "openObligationIds": [],
+      "operationLabels": [
+        "port:currentTime"
+      ],
+      "requirement": {
+        "contentDigest": "sha256:bd10153509354a418f173e88f564d693ff945503d2fb6530fe4582c581392945",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107",
+        "location": "L105-L107",
+        "originalId": "L105-L107",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "mechanicallyDetermined"
+      ],
+      "verificationNodeIds": [
+        "VER-TIMER-COMPLETION"
+      ]
+    },
+    {
+      "acceptanceCaseIds": [],
+      "acceptanceVerdict": null,
+      "approvedDecisionIds": [],
+      "blueprintDisposition": {
+        "kind": "unresolved",
+        "reason": "Code and state model disagree on whether a stop under thirty seconds is a rejection or a transition to NoTimer"
+      },
+      "categories": [
+        "conflict"
+      ],
+      "closingDecisionIds": [],
+      "cohortId": null,
+      "conflictNodeIds": [
+        "CONFLICT-TIMER-SHORT-STOP"
+      ],
+      "dependencyNodeIds": [],
+      "disposition": {
+        "kind": "unresolved",
+        "rationale": "Code and state model disagree on whether a stop under thirty seconds is a rejection or a transition to NoTimer"
+      },
+      "extensionSurface": [],
+      "generatedArtifacts": [],
+      "openObligationIds": [
+        "OBL-COH-TIMER-conflict-f569e9ac9d77"
+      ],
+      "operationLabels": [],
+      "requirement": {
+        "contentDigest": "sha256:7016f024e9e2da8c9e4df44430e54f4e9ad42e24e6de2791543ec7d8faec9dd0",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L113-L114",
+        "location": "L113-L114",
+        "originalId": "L113-L114",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81"
+      },
+      "resolutionClasses": [
+        "genuineDomainDecision"
+      ],
+      "verificationNodeIds": []
+    }
+  ],
+  "schemaVersion": "ordo.requirements-ledger/1",
+  "sourceManifestDigest": "sha256:03e29eddb6e528baea0707ec6660f18b0495ac8a6424f3c794a53cc2f5925a01"
+}

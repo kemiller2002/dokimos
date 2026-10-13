@@ -27,6 +27,10 @@ type PlanModel =
       Invariants: string list
       /// Operation labels in Ordo's derived form (`state:X`, `transition:A/B`, ...).
       Labels: Set<string>
+      /// Labels a manifest may name without being required to (`unresolved:*`, `inventory:*`).
+      OptionalLabels: Set<string>
+      /// (state, command) pairs the plan leaves undecided (vocabulary 3).
+      UndecidedPairs: Set<string * string>
       /// Unresolved subjects and the requirement keys they trace to.
       Unresolved: (string * string list) list
       /// Each labelled operation and the requirement keys it traces to.
@@ -93,6 +97,19 @@ module ConstructionModels =
         | "declarePort" when s "port" op = "currentTime" -> Some "port:currentTime"
         | "declarePort" -> Some("port:transitionEffect/" + key (s "command" op))
         | "bindCapability" -> Some(sprintf "capability:%s/%s" (key (s "command" op)) (s "capability" op))
+        // Vocabulary 3 (ordo#78).
+        | "declarePairRule" -> Some "pairRule"
+        | "defineRefusal" -> Some(sprintf "refusal:%s/%s" (key (s "from" op)) (key (s "command" op)))
+        | "declareUndecidedTransition" -> Some(sprintf "undecided:%s/%s" (key (s "from" op)) (key (s "command" op)))
+        | _ -> None
+
+    /// Labels a manifest may claim but need not: open questions and inventories.
+    let private optionalLabel (op: JsonElement) =
+        match s "op" op with
+        | "declareUnresolved" -> Some("unresolved:" + key (s "subject" op))
+        | "declareExtensionInventory" ->
+            let extension = ConstructionJson.get "extension" op |> Option.defaultValue op
+            Some(sprintf "inventory:%s/%s" (s "kind" extension) (key (s "name" extension)))
         | _ -> None
 
     let readPlan (json: string) : Result<PlanModel, string> =
@@ -121,6 +138,15 @@ module ConstructionModels =
                       RequirementKeys = traceKeys o })
               Invariants = ofKind "defineInvariant" |> List.map (fun o -> key (s "name" o)) |> List.sort
               Labels = ops |> List.choose label |> Set.ofList
+              OptionalLabels = ops |> List.choose optionalLabel |> Set.ofList
+              UndecidedPairs =
+                let decision = DecisionModel.readPlan plan
+                DecisionModel.pairs decision
+                |> List.choose (fun (state, command, p) ->
+                    match p with
+                    | DecisionModel.PairPlan.Undecided _ | DecisionModel.PairPlan.RuleUndecided _ -> Some(state.Name, command)
+                    | _ -> None)
+                |> Set.ofList
               Unresolved = ofKind "declareUnresolved" |> List.map (fun o -> key (s "subject" o), traceKeys o)
               Traces = ops |> List.choose (fun o -> label o |> Option.map (fun l -> l, traceKeys o))
               TracedKeys = ops |> List.collect traceKeys |> Set.ofList
@@ -156,16 +182,22 @@ module ConstructionModels =
               CoveredKeys = ConstructionJson.members "coverage" m |> List.map fst
               Root = m })
 
+    /// The plan's commands: those of transitions, refusals and undecided pairs.
+    let commands (plan: PlanModel) =
+        (plan.Transitions |> List.map _.Command) @ (plan.UndecidedPairs |> Set.toList |> List.map snd)
+        @ (plan.Labels |> Set.toList |> List.filter (fun l -> l.StartsWith "refusal:") |> List.map (fun l -> l.Split('/')[1]))
+        |> List.distinct |> List.sort
+
     /// What the plan alone says every (state, command) pair must do.
     let expectedPairs (plan: PlanModel) =
-        let commands = plan.Transitions |> List.map _.Command |> List.distinct |> List.sort
+        let commands = commands plan
         [ for state in plan.States do
             for command in commands do
                 let target =
                     plan.Transitions
                     |> List.tryFind (fun t -> t.From = state && t.Command = command)
                     |> Option.map _.To
-                    |> Option.defaultValue "invalid-transition"
+                    |> Option.defaultValue (if Set.contains (state, command) plan.UndecidedPairs then "undecided" else "invalid-transition")
                 state, command, target ]
 
     /// Guard extension contracts the plan requires: name and guarded transitions.

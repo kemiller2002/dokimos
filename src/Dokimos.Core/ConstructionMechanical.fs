@@ -19,7 +19,7 @@ module ConstructionMechanical =
         let Boundary = "extension-boundary"
         let Architecture = "architecture-compliance"
         let Rejections = "rejected-operations"
-        let all = [ Provenance; Coverage; Determinism; Obligations; Mutations; Boundary; Architecture; Rejections ]
+        let all = [ Provenance; Coverage; Determinism; Obligations; Mutations; Boundary; Architecture; Rejections ] @ DecisionSupport.Names.all
 
     /// Build, solution, project and package files a handwritten extension
     /// may never touch.
@@ -35,17 +35,7 @@ module ConstructionMechanical =
         |> Set.filter (fun p -> Map.tryFind p before <> Map.tryFind p after)
 
     /// A check and the findings it raised; the report lists their codes.
-    let private check name (findings: ConstructionFinding list) (unknown: string option) (passed: string) =
-        let status = if not findings.IsEmpty then "failed" elif unknown.IsSome then "unknown" else "passed"
-        { Name = name
-          Status = status
-          Detail =
-            match status, unknown with
-            | "failed", _ -> $"{findings.Length} finding(s)" + (unknown |> Option.map (fun u -> "; also " + u) |> Option.defaultValue "")
-            | "unknown", Some u -> u
-            | _ -> passed
-          Findings = findings |> List.map (fun x -> x.Code + ":" + x.Subject) |> List.distinct },
-        findings
+    let private check = DecisionSupport.make
 
     let private architectureCodes =
         set [ ConstructionCodes.GeneratedArtifactModified; ConstructionCodes.GeneratedArtifactMissing; ConstructionCodes.ManifestPlanDivergence
@@ -90,8 +80,10 @@ module ConstructionMechanical =
                     [ if not (List.contains declaredRecords [ raw; canonical ]) then
                           f code "provenance.inputDigests.decisionRecords" []
                               $"The prepared artifact declares decision records {declaredRecords}; the supplied file hashes to {raw} (canonical {canonical})"
-                      if schema <> MechanicalWire.DecisionsSchema then
-                          f code "decisionRecords.schemaVersion" [] $"The decision records are '{schema}', not {MechanicalWire.DecisionsSchema}"
+                      let expectedSchema = MechanicalWire.decisionsSchemaFor ctx.Plan.VocabularyVersion
+                      if schema <> expectedSchema then
+                          f code "decisionRecords.schemaVersion" []
+                              $"The decision records are '{schema}'; a {ctx.Plan.VocabularyVersion} plan is generated from {expectedSchema}"
                       if not (List.contains approvedAgainst blueprintDigests) then
                           f code "decisionRecords.blueprintDigest" [] $"The decision records were approved against blueprint {approvedAgainst}, not the supplied blueprint"
                       if cohort <> ctx.Plan.CohortId then
@@ -315,9 +307,14 @@ module ConstructionMechanical =
     let assess (m: MechanicalInputs) (ctx: MechanicalContext) : ConstructionFinding list * MechanicalReport =
         let dispositions = m.DispositionsJson |> Option.map MechanicalWire.readDispositions
         let changed = ctx.Base |> Option.map (fun b -> changedPaths b.Entries ctx.Candidate.Entries) |> Option.defaultValue Set.empty
+        let digestOf bytes = bytes |> Option.map ConstructionJson.sha256Bytes |> Option.defaultValue ""
+        let decide p =
+            let decisionChecks, closures, block = DecisionChecks.assess (DecisionInputs.context m ctx p dispositions) (digestOf m.LedgerBytes) (digestOf m.ApprovalsBytes)
+            decisionChecks, closures, block
         match MechanicalWire.readPrepared m.PreparedBytes with
         | Error errors ->
             let findings = errors |> List.map (fun e -> f MechanicalCodes.PreparedArtifactInvalid "prepared" [] e)
+            let _, _, block = decide None
             let unknown name = { Name = name; Status = "unknown"; Detail = "The prepared artifact is invalid"; Findings = [] }
             let checks =
                 Names.all |> List.map (fun n ->
@@ -327,7 +324,8 @@ module ConstructionMechanical =
             findings,
             { PreparedDigest = ConstructionJson.sha256Bytes m.PreparedBytes; CacheKey = ""; GeneratorId = ""; GeneratorVersion = ""
               VocabularyVersion = ""; DecisionRecordsDigest = ""; GeneratedCommit = ""; ReplicaCommit = ""
-              GeneratedPaths = []; PermittedExtensionFiles = []; HandwrittenPaths = []; Obligations = []; Checks = checks }
+              GeneratedPaths = []; PermittedExtensionFiles = []; HandwrittenPaths = []; Obligations = []; Checks = checks
+              Decisions = block }
         | Ok p ->
             let manifestArtifacts = ctx.Manifest.Artifacts |> List.map (fun a -> ctx.Ownership.Mount + a.Path) |> Set.ofList
             let layout = p.GeneratedLayout |> List.map (fun l -> resolve ctx l.Path) |> Set.ofList
@@ -347,7 +345,9 @@ module ConstructionMechanical =
                     if not (Map.containsKey path ctx.Candidate.Entries) then
                         f ConstructionCodes.GeneratedArtifactMissing path [] "The prepared layout names a generated file the candidate commit does not contain" ]
             let (provenanceCheck, provenanceFindings), decisionsDigest = provenance m ctx p
-            let (obligationCheck, obligationFindings), traces = obligationTracking m dispositions p handwritten permitted (MechanicalObligations.closedObligations m p)
+            let decisionChecks, closures, block = decide (Some p)
+            let closed = Set.union (MechanicalObligations.closedObligations m p) closures
+            let (obligationCheck, obligationFindings), traces = obligationTracking m dispositions p handwritten permitted closed
             let boundaryCheck, boundaryFindings = boundary m ctx p generated permitted handwritten
             let boundaryWithLayout =
                 if layoutFindings.IsEmpty then boundaryCheck
@@ -365,6 +365,7 @@ module ConstructionMechanical =
                   (boundaryWithLayout, boundaryFindings @ layoutFindings)
                   architecture ctx
                   rejections dispositions ctx allowed changed ]
+                @ decisionChecks
             (results |> List.collect snd |> List.distinct),
             { PreparedDigest = p.Digest; CacheKey = p.CacheKey; GeneratorId = p.GeneratorId; GeneratorVersion = p.GeneratorVersion
               VocabularyVersion = p.VocabularyVersion; DecisionRecordsDigest = decisionsDigest
@@ -374,4 +375,5 @@ module ConstructionMechanical =
               PermittedExtensionFiles = permitted |> Set.toList
               HandwrittenPaths = handwritten |> Set.toList
               Obligations = traces
-              Checks = results |> List.map fst }
+              Checks = results |> List.map fst
+              Decisions = block }

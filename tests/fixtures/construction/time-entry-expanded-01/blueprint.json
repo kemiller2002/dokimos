@@ -1,0 +1,1604 @@
+{
+  "schemaVersion": "ecir/1",
+  "sourceManifestDigest": "sha256:6a9ceb2ccd8afe252be6c08669b212529382a44b6a826d20013100c86df337dc",
+  "requirements": [
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356",
+        "originalId": "L340-L356",
+        "document": "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md",
+        "location": "L340-L356",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:d6c4d7ec8f33dff52cccf456806055cf6e1596e3e593b7a2b6818a351d93878a"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-COMMAND-RESULT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-COMMAND-RESULTS",
+        "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION",
+        "DEFER-DIAG-002-OUT-OF-SLICE-CODES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138",
+        "originalId": "L136-L138",
+        "document": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md",
+        "location": "L136-L138",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:95640d50bf1607478768ef3c54607a046f43d01c05d8cf3e31bb05a32290efe0"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-COMMAND-RESULT",
+        "INV-COMMAND-ATOMIC",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-COMMAND-RESULTS",
+        "VER-RANDOMIZED-SEQUENCES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148",
+        "originalId": "L140-L148",
+        "document": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md",
+        "location": "L140-L148",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:366f04637ffd7988527d10c58c24b24b3c24a49373842ca3d20e30025b452235"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-COMMAND-RESULT",
+        "IFC-COMMAND-SESSION",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-COMMAND-RESULTS",
+        "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56",
+        "originalId": "L56",
+        "document": "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md",
+        "location": "L56",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:f1e70f59887369eb07b5ec2b023abdc37021b9e0549e99401d0dac909870e7eb"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CORRECT-RULES",
+        "CON-PROJECTION",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CORRECTION",
+        "CONFLICT-O9-HISTORY-DURABILITY"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73",
+        "originalId": "L69-L73",
+        "document": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md",
+        "location": "L69-L73",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:9441dfdb3fd100af5301344c265ed13db83d5c1787d1cc785609e474642eaa92"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-SAVE",
+        "INV-ONE-WRITE-PER-OPERATION",
+        "IFC-STORAGE-PORT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-SAVE-RECONCILE",
+        "VER-RANDOMIZED-SEQUENCES",
+        "CONFLICT-O8-OPERATION-ID-REUSE",
+        "CONFLICT-O13-IDEMPOTENCY-NOT-PORTED"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79",
+        "originalId": "L75-L79",
+        "document": "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md",
+        "location": "L75-L79",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:fa13aaf4653ddeef99794664ee57eefb2b1a22fc9b167bb716d8b270af65abbf"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-SAVE",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-SAVE-RECONCILE",
+        "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121",
+        "originalId": "L117-L121",
+        "document": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md",
+        "location": "L117-L121",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:94ba0ea86e72a4c365776d074709bf0a5b9eb7b47cde79f30e797d8b77dafec7"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-WEEK-DOCUMENT",
+        "CON-LOAD",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-STORED-DOCUMENT",
+        "CONFLICT-O10-SAVE-OVER-INVALID-STORE"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129",
+        "originalId": "L123-L129",
+        "document": "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md",
+        "location": "L123-L129",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:92db946bdbee9e77901cbdce3e5358db29e9f0ddd4f3f152d672c95307a3697a"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-RECONCILE",
+        "INV-INSPECT-BEFORE-NEW-OPERATION",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-SAVE-RECONCILE",
+        "VER-RANDOMIZED-SEQUENCES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L100",
+        "originalId": "L100",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L100",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:aff538099382bebb611f2a7880d8c1e7db6eb508208b15283c091b22ea653074"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-VOID-RULES",
+        "CON-COMMAND-RESULT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-VOID-AND-TOTALS"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101",
+        "originalId": "L101",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L101",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:028130446ec13753256061d8ae4e8a74e2c47b81ba7edc03e1eafd0352599ec9"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "DEC-ENTRY-LIFECYCLE",
+        "CON-VOID-RULES",
+        "INV-REVISION-INCREMENTS",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-ENTRY-LIFECYCLE",
+        "VER-VOID-AND-TOTALS"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103",
+        "originalId": "L102-L103",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L102-L103",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:b3dfabd6d58bba8fbed07fc4e2abbdc2814acae01bc2158ce8c446e59643ac4f"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-VOID-RULES",
+        "CON-PROJECTION",
+        "INV-RECORDED-TOTAL",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-VOID-AND-TOTALS"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L104",
+        "originalId": "L104",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L104",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:a73fe0a1dbee484f48908b7b3f7aef77a625bee8f3cab9a943267014a1b77fd6"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-VOID-RULES",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-VOID-AND-TOTALS"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109",
+        "originalId": "L108-L109",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L108-L109",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:3dc41d09ec4544b71fec099abc00f4fca00fda3560d63f9b20e0897cd15c1c24"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-PROJECTION",
+        "INV-RECORDED-TOTAL",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-VOID-AND-TOTALS",
+        "VER-RANDOMIZED-SEQUENCES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12",
+        "originalId": "L11-L12",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L11-L12",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:79819bbfdefec84421e509f283a1b583032de3fc4b6e30915bb35b521bcf0be7"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-REFERENCE-DATA",
+        "IFC-DIRECTORY-PORT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION",
+        "DEFER-REFERENCE-DATA-ATTRIBUTES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L120-L121",
+        "originalId": "L120-L121",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L120-L121",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:71ee55bec31037518d0534ee7f60515f5db41205312db58f03e9f284b3d3d75b"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-WEEK-DOCUMENT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-STORED-DOCUMENT"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123",
+        "originalId": "L122-L123",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L122-L123",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:60a820f36963d070d5ca747f64cb5180b277b7a972cd278ac77ffe27e17806db"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-WEEK-DOCUMENT",
+        "INV-UNIQUE-ENTRY-IDS",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-STORED-DOCUMENT",
+        "VER-RANDOMIZED-SEQUENCES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127",
+        "originalId": "L124-L127",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L124-L127",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:4c794f31bf4f9fe21f42b28731e5cceae23f60aadb0955e5f44f438e4a23b50d"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CORRECT-RULES",
+        "CON-WEEK-DOCUMENT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CORRECTION",
+        "VER-STORED-DOCUMENT"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14",
+        "originalId": "L13-L14",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L13-L14",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:7cc4748c502ead4f19e76135ea225c9eb38bacbaff0df4a5a3bb8502deb74a55"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-REFERENCE-DATA",
+        "IFC-DIRECTORY-PORT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION",
+        "DEFER-REFERENCE-DATA-ATTRIBUTES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148",
+        "originalId": "L138-L148",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L138-L148",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:57aadea52b318d895d3d89920fdc76d1a6f3d471c82858076a377276e93c921b"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-COMMAND-RESULT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-COMMAND-RESULTS",
+        "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19",
+        "originalId": "L15-L19",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L15-L19",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:25f057e35d5ff38104be6154cade80c4b662157ff8f4d4059dfa85755ca7c999"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-ENTRY-VALUES",
+        "CON-PROJECTION",
+        "INV-UNIQUE-ENTRY-IDS",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION",
+        "CONFLICT-O3-DATE-OUTSIDE-WEEK",
+        "DEFER-REFERENCE-DATA-ATTRIBUTES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155",
+        "originalId": "L152-L155",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L152-L155",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:5e3571e8f2d5f06e59ce33f17ceea46a0215d2e5d5dca896590b7c9d3023489a"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-LOAD",
+        "IFC-COMMAND-SESSION",
+        "IFC-STORAGE-PORT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-STORED-DOCUMENT",
+        "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES",
+        "CONFLICT-O3-DATE-OUTSIDE-WEEK"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163",
+        "originalId": "L156-L163",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L156-L163",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:2e59a1c758fea4bb151736a30c44f7eca9d0ecff859d1c10ae8d7e09ccc48136"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-SAVE",
+        "INV-UNKNOWN-NOT-COLLAPSED",
+        "IFC-COMMAND-SESSION",
+        "IFC-STORAGE-PORT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-SAVE-RECONCILE",
+        "VER-RANDOMIZED-SEQUENCES",
+        "CONFLICT-O10-SAVE-OVER-INVALID-STORE",
+        "CONFLICT-O11-RECONCILE-AFTER-EXTERNAL-WRITE"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166",
+        "originalId": "L164-L166",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L164-L166",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:e3d4a50516ed25b0510ddf7f875c195342ad63e1628ba0b6cfd29f1231c0e186"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-RECONCILE",
+        "INV-UNKNOWN-NOT-COLLAPSED",
+        "IFC-COMMAND-SESSION",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-SAVE-RECONCILE",
+        "VER-RANDOMIZED-SEQUENCES",
+        "CONFLICT-O11-RECONCILE-AFTER-EXTERNAL-WRITE"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+        "originalId": "L33",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L33",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:5d78e27807ea1b5b8194f0e40f46a0e3b8887884170452621c25e49832703b88"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "DEC-ENTRY-LIFECYCLE",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-ENTRY-LIFECYCLE"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+        "originalId": "L34",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L34",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:9e870b935734edbff41cc560c5be06310b465f7073df8dc4ec76e45e96eb9aba"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "DEC-ENTRY-LIFECYCLE",
+        "INV-REVISION-INCREMENTS",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-ENTRY-LIFECYCLE"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+        "originalId": "L35",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L35",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:932b5985ee194cf3c5896ca909d2e830a450edbf4d9e3e744a37988c25943bb8"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "DEC-ENTRY-LIFECYCLE",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-ENTRY-LIFECYCLE"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37",
+        "originalId": "L36-L37",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L36-L37",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:3368f031d34b8f3ee86b7321c8c99b3f05652009986379d5f934f6a090de8eff"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "DEC-ENTRY-LIFECYCLE",
+        "INV-REVISION-INCREMENTS",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-ENTRY-LIFECYCLE",
+        "VER-RANDOMIZED-SEQUENCES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41",
+        "originalId": "L38-L41",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L38-L41",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:4f255d08f764cfd334c957538c741991a31e1dfdca9cb5d59b1d2fca0d1bab3d"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "DEC-ENTRY-LIFECYCLE",
+        "CON-SPLIT-RULES",
+        "CON-PROJECTION",
+        "INV-REVISION-INCREMENTS",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-ENTRY-LIFECYCLE",
+        "VER-RANDOMIZED-SEQUENCES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L48",
+        "originalId": "L48",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L48",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:e90ee0dc021998cb788c9a4151f2b4eeba9324d40d074d92ba384a49f8c3fd51"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CREATE-RULES",
+        "IFC-DIRECTORY-PORT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51",
+        "originalId": "L51",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L51",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:63cbe2773ce71a2fe2e60652e5d7fcea56de4ebd12657575b307074d2833e1d6"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CREATE-RULES",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION",
+        "CONFLICT-O5-MIDNIGHT-END",
+        "CONFLICT-O14-TIMER-DECISIONS"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L52",
+        "originalId": "L52",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L52",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:f1c8a39bd0da29e1473636f00a0091294e848b73c15a8a131ac2859a94478d05"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CREATE-RULES",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L53-L54",
+        "originalId": "L53-L54",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L53-L54",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:c057bdbaf39c9403293e2fa8e8176e046793ccdcf177cc640bafcd032efe4d89"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CREATE-RULES",
+        "IFC-DIRECTORY-PORT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61",
+        "originalId": "L60-L61",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L60-L61",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:91a5264d893833cd32d1a3d02473330867c793e2de28d79eff178a562e70fd41"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CREATE-RULES",
+        "INV-NO-OVERLAP",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION",
+        "VER-RANDOMIZED-SEQUENCES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L65-L67",
+        "originalId": "L65-L67",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L65-L67",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:d108b9cb8c31d060f6fd895608aa9e58d73ee03cecf1539d8345442abe684a07"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CORRECT-RULES",
+        "CON-COMMAND-RESULT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CORRECTION"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70",
+        "originalId": "L68-L70",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L68-L70",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:48a388c172358e52896d61bb35765faa1cbb80127cf4d132131259c8b4ea3674"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CORRECT-RULES",
+        "INV-NO-OVERLAP",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CORRECTION",
+        "CONFLICT-O1-INACTIVE-PERSON-CORRECTION"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L71-L74",
+        "originalId": "L71-L74",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L71-L74",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:02c170e9a0d4cb762cf4a067b14b060928092b26555e3e086ff33e372aa1a410"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CORRECT-RULES",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CORRECTION"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L84",
+        "originalId": "L84",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L84",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:b424f729bfc0c5b339797ea26a9e766f7505b5cb3cb18e35c9b641b4852e03bb"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CORRECT-RULES",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CORRECTION"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88",
+        "originalId": "L88",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L88",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:98d70e920474fa5d64666aede185bcbd1feff7586712610bd41260a40ecab66b"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-SPLIT-RULES",
+        "CON-COMMAND-RESULT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-SPLIT",
+        "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10",
+        "originalId": "L9-L10",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L9-L10",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:73571e45627fb30f053707ced165d5e7df1c7105a9afa4357a99ac11d1fb99e0"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-REFERENCE-DATA",
+        "IFC-DIRECTORY-PORT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION",
+        "CONFLICT-O1-INACTIVE-PERSON-CORRECTION",
+        "DEFER-REFERENCE-DATA-ATTRIBUTES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L91-L92",
+        "originalId": "L91-L92",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L91-L92",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:914b148eae9108dfc05bcf714d341f876e2a5580a7b80d199bd8583a3b605cfa"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-SPLIT-RULES",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-SPLIT"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96",
+        "originalId": "L93-L96",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md",
+        "location": "L93-L96",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:56d3edae74549c1a19bc0c12026f99b3483f6c8a756dbc78c7c7dde039a9d470"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-SPLIT-RULES",
+        "INV-SPLIT-CONSERVES-TIME",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-SPLIT",
+        "VER-RANDOMIZED-SEQUENCES",
+        "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22",
+        "originalId": "L18-L22",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+        "location": "L18-L22",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:7c851a27541474af013a05422c37e723b321993c75e76644bf329e7b842a59bb"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-ENTRY-VALUES",
+        "CON-CREATE-RULES",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION",
+        "CONFLICT-O14-TIMER-DECISIONS"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L30-L33",
+        "originalId": "L30-L33",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+        "location": "L30-L33",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:bf099bf1549de31cc42ac72836eb1a796a3cec87c1d7621eb05df1c48c67e4d2"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-SPLIT-RULES",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-SPLIT"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48",
+        "originalId": "L35-L48",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+        "location": "L35-L48",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:2d3672699becb59fa76cf81c095dc703b04d545daae8c37f837a666358153ac7"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-CREATE-RULES",
+        "CON-CORRECT-RULES",
+        "CON-WEEK-DOCUMENT",
+        "IFC-DIRECTORY-PORT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION",
+        "VER-CORRECTION",
+        "VER-STORED-DOCUMENT",
+        "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES",
+        "CONFLICT-O12-LABEL-RULE-RATIFICATION",
+        "DEFER-LABEL-001-MERGE-RESTORE"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54",
+        "originalId": "L50-L54",
+        "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+        "location": "L50-L54",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:1711d6603a5fea68dca3b2dc4ede5865e30f9e00e3dd2d2c90e8ae5753ab91b5"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-ENTRY-VALUES",
+        "CON-CREATE-RULES",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-CREATE-VALIDATION",
+        "CONFLICT-O6-PURPOSE-EQUALS-DESCRIPTION"
+      ]
+    },
+    {
+      "source": {
+        "key": "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86",
+        "originalId": "L65-L86",
+        "document": "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md",
+        "location": "L65-L86",
+        "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+        "contentDigest": "sha256:5b567b5d424999634d4cc4684486d17043fe58ba53cdb2436dc535c931c899e6"
+      },
+      "disposition": {
+        "kind": "modeled"
+      },
+      "nodeIds": [
+        "CON-LOAD",
+        "CON-SAVE",
+        "IFC-STORAGE-PORT",
+        "COH-TIME-ENTRY-WEEK",
+        "VER-SAVE-RECONCILE",
+        "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES",
+        "DEFER-PERS-009-SHIPPED-PATH"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "DEC-ENTRY-LIFECYCLE",
+      "kind": "decision",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101"
+      ],
+      "dependsOn": [],
+      "justification": "Entry lifecycle exactly as the requirement text states it: status is Recorded, Voided or Superseded (LIFE-001); a new entry starts Recorded at revision 1 (LIFE-002); only a Recorded entry may be corrected, split or voided (LIFE-003); correcting or voiding keeps the identity and increments the revision (LIFE-004), voiding marks the entry Voided (VOID-002); splitting marks the source Superseded and creates two Recorded children at revision 1 (LIFE-005). Within this slice no command leaves Voided or Superseded (LIFE-003); restore (TE-REQ-REST-001) is outside the slice and is not decided here."
+    },
+    {
+      "id": "CON-ENTRY-VALUES",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54"
+      ],
+      "dependsOn": [],
+      "justification": "An entry allocates a person's time to a project on a date with a start, a duration, a description, labels, a status, a revision and provenance (ENT-004); it may start at any minute and last any positive whole number of minutes (TIME-004, accepted DF-TE-2026-A005); it carries a business purpose held separately from its description (PURP-001, ratified by accepted DF-TE-2026-A008)."
+    },
+    {
+      "id": "CON-REFERENCE-DATA",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14"
+      ],
+      "dependsOn": [
+        "IFC-DIRECTORY-PORT"
+      ],
+      "justification": "Persons have an active/inactive status (ENT-001), projects Active or Archived (ENT-002), labels active/inactive (ENT-003). The entry commands read this reference data and never change it."
+    },
+    {
+      "id": "CON-CREATE-RULES",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L48",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L52",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L53-L54",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22"
+      ],
+      "dependsOn": [
+        "IFC-DIRECTORY-PORT",
+        "CON-ENTRY-VALUES"
+      ],
+      "justification": "Create requires an existing, active person (CRE-001); the entry must not extend past midnight (CRE-004); a non-blank description (CRE-005); an existing, Active project (CRE-006); no overlap with another Recorded entry of the same person on the same date (CRE-008; accepted DF-TE-2026-A004 keeps overlap a hard rejection); newly assigned labels must be active (LABEL-001); a non-blank business purpose (PURP-001, DF-TE-2026-A008); a positive whole number of minutes from any start minute (TIME-004, DF-TE-2026-A005)."
+    },
+    {
+      "id": "CON-CORRECT-RULES",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L65-L67",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L71-L74",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L84",
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127"
+      ],
+      "dependsOn": [
+        "CON-CREATE-RULES",
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "justification": "A correction states the revision the caller expects; a mismatch is a conflict, never silently applied (COR-001). Corrected fields are re-validated by the creation rules (COR-002). An unchanged project need not still be Active; a different project must be Active (COR-003, HIST-003). Only labels newly added must be active, a label the entry already carried stays valid after deactivation (LABEL-001, the newer source, governs the trailing label clauses of COR-003 and HIST-003). An optional reason may be recorded (COR-005) and correction history remains recoverable (COR-006)."
+    },
+    {
+      "id": "CON-SPLIT-RULES",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L91-L92",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L30-L33",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41"
+      ],
+      "dependsOn": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "justification": "Split requires the same expected-revision check as correction (SPL-001); the split point falls strictly inside the source interval, not at either endpoint (SPL-003); the two children's durations sum to the source's and together exactly cover its span with no gap or overlap (SPL-004); an entry is splittable once it is at least two minutes long (SPL-005, accepted DF-TE-2026-A005); the source becomes Superseded and records its children, each child records its source (LIFE-005)."
+    },
+    {
+      "id": "CON-VOID-RULES",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L100",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L104"
+      ],
+      "dependsOn": [
+        "DEC-ENTRY-LIFECYCLE"
+      ],
+      "justification": "Void requires the same expected-revision check (VOID-001), marks the entry Voided rather than deleting it and increments its revision (VOID-002); a voided entry no longer counts toward totals but remains retrievable as history (VOID-003); an optional reason may be recorded (VOID-004)."
+    },
+    {
+      "id": "CON-COMMAND-RESULT",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138",
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148",
+        "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L65-L67",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L100"
+      ],
+      "dependsOn": [],
+      "justification": "A semantic command succeeds completely or fails without partial authoritative mutation (CMD-001) and reports Success(projection, version), Rejected(diagnostics) or Conflict(currentVersion, diagnostics) (CMD-002); a revision mismatch on correct, split or void is the conflict case (COR-001, SPL-001, VOID-001). Each business failure has a specific, stable reason (DIAG-001, DIAG-002); the six-minute-grid clause of DIAG-001 reads, per accepted DF-TE-2026-A005, as a start or split point out of range for the day (DIAG-002 TIME_INVALID_BOUNDARY)."
+    },
+    {
+      "id": "CON-PROJECTION",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103",
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41"
+      ],
+      "dependsOn": [],
+      "justification": "The week view shows each entry with its values, status, revision and split provenance (ENT-004, LIFE-005) and its recoverable history (COR-006, VOID-003); the recorded total counts only entries currently Recorded (TOT-001)."
+    },
+    {
+      "id": "CON-WEEK-DOCUMENT",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L120-L121",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127",
+        "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48"
+      ],
+      "dependsOn": [],
+      "justification": "A stored or loaded week declares a supported schema and semantic version (HIST-001); entry identities within a document are unique, duplicates make it invalid (HIST-002); an unchanged historical reference to a since-archived project stays valid (HIST-003), as does a label an entry already carried (LABEL-001, reload clause); stored data is schema/domain validated before it becomes authoritative, and invalid data produces a diagnostic and is never silently coerced (PERS-007)."
+    },
+    {
+      "id": "CON-LOAD",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155",
+        "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121",
+        "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86"
+      ],
+      "dependsOn": [
+        "IFC-STORAGE-PORT",
+        "CON-WEEK-DOCUMENT"
+      ],
+      "justification": "Loading distinguishes found, not found, a known failure and invalid stored data, never one generic error (PERS-001, PERS-007); after a restart the stored week is what is loaded and load failures are surfaced, never silently dropped (PERS-009, accepted DF-TE-2026-A002)."
+    },
+    {
+      "id": "CON-SAVE",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163",
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73",
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79",
+        "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86"
+      ],
+      "dependsOn": [
+        "IFC-STORAGE-PORT",
+        "CON-WEEK-DOCUMENT"
+      ],
+      "justification": "Save states the version last read and reports confirmed success (with a new version), confirmed failure, conflict or an unknown outcome, and an unknown outcome is never treated as success or failure (PERS-002). A save error whose effect on storage cannot be proven is an unknown outcome; only an error proven to have had no effect is a confirmed failure, including quota exceeded (accepted DF-TE-2026-A007). Each write carries a semantic operation id preserved across retries of the same logical save (PERS-004); a retry with the same id after an unknown outcome returns the original outcome and does not write twice, while a different id with a stale version gets a conflict (accepted DF-TE-2026-A006). Conflicts are not merged automatically (PERS-005). Save failures are surfaced (PERS-009)."
+    },
+    {
+      "id": "CON-RECONCILE",
+      "kind": "contract",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166",
+        "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129"
+      ],
+      "dependsOn": [
+        "CON-SAVE"
+      ],
+      "justification": "An unknown-outcome write can later be reconciled to find out whether it applied, did not apply, is still unknown, or now conflicts (PERS-003); after an unknown outcome, stored state is inspected before a new semantic operation is issued (PERS-008)."
+    },
+    {
+      "id": "INV-NO-OVERLAP",
+      "kind": "invariant",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70"
+      ],
+      "dependsOn": [],
+      "justification": "No two Recorded entries of the same person on the same date overlap, after a create or a correction (CRE-008, COR-002; accepted DF-TE-2026-A004)."
+    },
+    {
+      "id": "INV-SPLIT-CONSERVES-TIME",
+      "kind": "invariant",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96"
+      ],
+      "dependsOn": [],
+      "justification": "A split must not create or destroy time: the children's durations sum to the source's and exactly cover its span (SPL-004)."
+    },
+    {
+      "id": "INV-UNIQUE-ENTRY-IDS",
+      "kind": "invariant",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19"
+      ],
+      "dependsOn": [],
+      "justification": "Every entry's identity within a week document is unique (HIST-002); a created entry gets an identity of its own (ENT-004)."
+    },
+    {
+      "id": "INV-REVISION-INCREMENTS",
+      "kind": "invariant",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101"
+      ],
+      "dependsOn": [],
+      "justification": "A new entry starts at revision 1 (LIFE-002); correcting or voiding increments the revision by one and keeps the identity (LIFE-004, VOID-002); splitting increments the source's revision and starts each child at revision 1 (LIFE-005)."
+    },
+    {
+      "id": "INV-COMMAND-ATOMIC",
+      "kind": "invariant",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138"
+      ],
+      "dependsOn": [],
+      "justification": "A command that fails leaves no partial authoritative mutation (CMD-001)."
+    },
+    {
+      "id": "INV-RECORDED-TOTAL",
+      "kind": "invariant",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103"
+      ],
+      "dependsOn": [],
+      "justification": "The recorded total counts only Recorded entries; Voided and Superseded entries are excluded (TOT-001, VOID-003)."
+    },
+    {
+      "id": "INV-UNKNOWN-NOT-COLLAPSED",
+      "kind": "invariant",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166"
+      ],
+      "dependsOn": [],
+      "justification": "An unknown save outcome is never silently treated as success or failure (PERS-002); it is resolved only by reconciliation (PERS-003; accepted DF-TE-2026-A007)."
+    },
+    {
+      "id": "INV-INSPECT-BEFORE-NEW-OPERATION",
+      "kind": "invariant",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129"
+      ],
+      "dependsOn": [],
+      "justification": "After an unknown outcome, no new semantic operation is issued before stored state has been inspected (PERS-008)."
+    },
+    {
+      "id": "INV-ONE-WRITE-PER-OPERATION",
+      "kind": "invariant",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73"
+      ],
+      "dependsOn": [],
+      "justification": "Retries of the same logical save keep its operation identity (PERS-004) and do not write a second time (accepted DF-TE-2026-A006)."
+    },
+    {
+      "id": "IFC-COMMAND-SESSION",
+      "kind": "interface",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166"
+      ],
+      "dependsOn": [],
+      "justification": "The session takes the create, correct, split and void commands plus load, save (with an operation id), reconcile (with an operation id) and observe, and reports the result models of CMD-002, PERS-001, PERS-002 and PERS-003 (exposed through the fixed adapter contract, contract/Adapter.fs)."
+    },
+    {
+      "id": "IFC-STORAGE-PORT",
+      "kind": "interface",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163",
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73",
+        "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86"
+      ],
+      "dependsOn": [],
+      "justification": "The week is read and written only through an injected storage port: a whole-week read (PERS-001), a write carrying the operation id and the expected version (PERS-002, PERS-004), and write errors that say whether the store proves no effect (accepted DF-TE-2026-A007); durable state lives only behind the storage effect (PERS-009, accepted DF-TE-2026-A002)."
+    },
+    {
+      "id": "IFC-DIRECTORY-PORT",
+      "kind": "interface",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L48",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L53-L54",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48"
+      ],
+      "dependsOn": [],
+      "justification": "Current person, project and label status (ENT-001..003) is read through an injected directory port whenever a rule needs it (CRE-001, CRE-006, LABEL-001); it can change between commands (a project archived, a person or label deactivated)."
+    },
+    {
+      "id": "COH-TIME-ENTRY-WEEK",
+      "kind": "cohort",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138",
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L65-L67",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L71-L74",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L84",
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L48",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L52",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L53-L54",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148",
+        "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L120-L121",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166",
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73",
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79",
+        "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121",
+        "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129",
+        "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L91-L92",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L30-L33",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L100",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L104"
+      ],
+      "dependsOn": [],
+      "justification": "One delivery cohort for one person-week session: the commands, the projection and the persistence protocol share one week document (SUP-P05-WEEKDOC is the persistence boundary) and interact (a command's atomicity, CMD-001, and one logical save of several commands, PERS-002). The only stated state model is the entry lifecycle (LIFE-001..005)."
+    },
+    {
+      "id": "VER-ENTRY-LIFECYCLE",
+      "kind": "verificationObligation",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101"
+      ],
+      "dependsOn": [],
+      "justification": "Independent acceptance observes status and revision after every command and that only Recorded entries accept correct, split and void (LIFE-001..005, VOID-002)."
+    },
+    {
+      "id": "VER-CREATE-VALIDATION",
+      "kind": "verificationObligation",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L48",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L52",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L53-L54",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19"
+      ],
+      "dependsOn": [],
+      "justification": "Independent acceptance checks each creation rule with valid and single-fault inputs against the requirement text (CRE-*, TIME-004, PURP-001, LABEL-001) and the stored values of a created entry (ENT-001..004)."
+    },
+    {
+      "id": "VER-CORRECTION",
+      "kind": "verificationObligation",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L65-L67",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L71-L74",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L84",
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48"
+      ],
+      "dependsOn": [],
+      "justification": "Independent acceptance checks expected-revision conflicts, re-validation, the project and label exemptions, reasons and recoverable history of corrections (COR-*, HIST-003, LABEL-001)."
+    },
+    {
+      "id": "VER-SPLIT",
+      "kind": "verificationObligation",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L91-L92",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L30-L33"
+      ],
+      "dependsOn": [],
+      "justification": "Independent acceptance checks split revision checks, split-point bounds, time conservation and the two-minute threshold (SPL-001, 003, 004, 005)."
+    },
+    {
+      "id": "VER-VOID-AND-TOTALS",
+      "kind": "verificationObligation",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L100",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L102-L103",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L104",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109"
+      ],
+      "dependsOn": [],
+      "justification": "Independent acceptance checks void revision checks, retention as history, reasons and the recorded total (VOID-*, TOT-001)."
+    },
+    {
+      "id": "VER-COMMAND-RESULTS",
+      "kind": "verificationObligation",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138",
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148",
+        "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356"
+      ],
+      "dependsOn": [],
+      "justification": "Independent acceptance checks result shapes, atomicity of refused commands and the stable diagnostic distinctions (CMD-001, CMD-002, DIAG-001, DIAG-002)."
+    },
+    {
+      "id": "VER-STORED-DOCUMENT",
+      "kind": "verificationObligation",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L120-L121",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L124-L127",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155",
+        "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48"
+      ],
+      "dependsOn": [],
+      "justification": "Independent acceptance seeds valid and invalid stored weeks and checks the four load outcomes and what becomes authoritative (HIST-001..003, PERS-001, PERS-007, LABEL-001)."
+    },
+    {
+      "id": "VER-SAVE-RECONCILE",
+      "kind": "verificationObligation",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166",
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73",
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79",
+        "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129",
+        "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86"
+      ],
+      "dependsOn": [],
+      "justification": "Independent acceptance injects storage faults, external writes and restarts and checks save and reconcile outcomes, retries by operation id, inspection before a new operation and the stored week (PERS-002..005, PERS-008, PERS-009; DF-TE-2026-A006, A007)."
+    },
+    {
+      "id": "VER-RANDOMIZED-SEQUENCES",
+      "kind": "verificationObligation",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L60-L61",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L122-L123",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L108-L109",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96",
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L136-L138",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166",
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73",
+        "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L123-L129"
+      ],
+      "dependsOn": [],
+      "justification": "Independent acceptance runs randomized command and storage-fault sequences and checks the stated invariants: no overlap, unique identities, revision increments, split provenance and conservation, totals, atomicity and honest persistence outcomes."
+    },
+    {
+      "id": "CONFLICT-O1-INACTIVE-PERSON-CORRECTION",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L68-L70",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10"
+      ],
+      "dependsOn": [],
+      "justification": "O-1 (open). COR-002 re-validates 'active person' when a correction is made, while prompts/01 says inactive persons remain historically resolvable (SUP-P01-PERSON). Whether an entry whose person was since deactivated may be corrected with the person unchanged is not decided."
+    },
+    {
+      "id": "CONFLICT-O2-LOAD-WITH-UNSAVED-CHANGES",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86",
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L75-L79",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155"
+      ],
+      "dependsOn": [],
+      "justification": "O-2 (open). The requirements say how a load reports its outcome (PERS-001) and that conflicts are not merged automatically (PERS-005), but not whether a load while unsaved local changes exist refuses, keeps or discards those changes (PERS-009 only describes loading after initialization)."
+    },
+    {
+      "id": "CONFLICT-O3-DATE-OUTSIDE-WEEK",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L152-L155"
+      ],
+      "dependsOn": [],
+      "justification": "O-3 (open). An entry has a specific date (ENT-004) and one person-week is the persistence boundary (SUP-P05-WEEKDOC, PERS-001); whether an entry's date must fall inside its week document is not stated."
+    },
+    {
+      "id": "CONFLICT-O4-DIAGNOSTIC-ACCUMULATION",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L138-L148",
+        "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356",
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L140-L148"
+      ],
+      "dependsOn": [],
+      "justification": "O-4 (open). DIAG-001/002 require a specific reason per failure and CMD-002 returns Rejected(diagnostics); whether a command reports every applicable diagnostic or may stop at the first is not stated."
+    },
+    {
+      "id": "CONFLICT-O5-MIDNIGHT-END",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51"
+      ],
+      "dependsOn": [],
+      "justification": "O-5 (open). CRE-004 forbids extending past midnight; whether an entry that ends exactly at midnight is valid is not stated."
+    },
+    {
+      "id": "CONFLICT-O6-PURPOSE-EQUALS-DESCRIPTION",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L50-L54"
+      ],
+      "dependsOn": [],
+      "justification": "O-6 (open). PURP-001 requires a business purpose 'separate from' the description and DF-TE-2026-A008 says 'distinct from'; whether a purpose whose text equals the description is allowed is not decided."
+    },
+    {
+      "id": "CONFLICT-O7-SPLIT-INACTIVE-REFERENCES",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L88",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L93-L96"
+      ],
+      "dependsOn": [],
+      "justification": "O-7 (open). LABEL-001 names create, correct, merge, restore and reload, not split, and the split contract has the children carry the source's values (SUP-P02-SPLIT); whether a split may proceed for an entry carrying a since-deactivated label or a since-archived project is not decided."
+    },
+    {
+      "id": "CONFLICT-O8-OPERATION-ID-REUSE",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73"
+      ],
+      "dependsOn": [],
+      "justification": "O-8 (open). PERS-004 and accepted DF-TE-2026-A006 cover retries of the same logical save; what a save does when an operation id that already landed is reused for a week changed since then is not decided."
+    },
+    {
+      "id": "CONFLICT-O9-HISTORY-DURABILITY",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/prompts/02-transition-command-contract.md#L56"
+      ],
+      "dependsOn": [],
+      "justification": "O-9 (open). COR-006 requires correction history to remain recoverable; where that history lives durably (in the week document or elsewhere), and so whether it survives save and reload, is not decided."
+    },
+    {
+      "id": "CONFLICT-O10-SAVE-OVER-INVALID-STORE",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/prompts/05-github-persistence-specification.md#L117-L121",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163"
+      ],
+      "dependsOn": [],
+      "justification": "O-10 (open). PERS-007 forbids silently coercing invalid stored data and PERS-002 requires optimistic concurrency; whether a save may replace stored data that failed validation is not stated."
+    },
+    {
+      "id": "CONFLICT-O11-RECONCILE-AFTER-EXTERNAL-WRITE",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L164-L166",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L156-L163"
+      ],
+      "dependsOn": [],
+      "justification": "O-11 (open, pending confirmation). PERS-003 lists applied, not applied, still unknown and conflict as reconcile outcomes but does not say which applies when the unknown write did not land and the stored version has since been advanced by another writer (PERS-002 defines a conflict as someone else's newer version)."
+    },
+    {
+      "id": "CONFLICT-O12-LABEL-RULE-RATIFICATION",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48"
+      ],
+      "dependsOn": [],
+      "justification": "O-12 (open). LABEL-001 narrows the label rule to newly assigned labels; prompts/01 says inactive labels 'should not normally' be newly assigned (SUP-P01-LABEL); no decision record ratifies LABEL-001."
+    },
+    {
+      "id": "CONFLICT-O13-IDEMPOTENCY-NOT-PORTED",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/prompts/04-service-layer-contract.md#L69-L73"
+      ],
+      "dependsOn": [],
+      "justification": "O-13 (open). Accepted DF-TE-2026-A006 makes saves idempotent by operation id for this benchmark, while the architecture note lists idempotency keys as not ported (SUP-ARCH-NOT-PORTED); the product note is not updated."
+    },
+    {
+      "id": "CONFLICT-O14-TIMER-DECISIONS",
+      "kind": "conflict",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L18-L22",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L51"
+      ],
+      "dependsOn": [],
+      "justification": "O-14 (open). Timer-produced entries (TE-REQ-TMR-004, outside this slice) go through the same entry validation; the timer decisions on short stops, single-timer scope, a refused entry at stop, rounding to whole minutes (TIME-004), paused intervals, time zone and crossing midnight (CRE-004) remain open and are not decided here."
+    },
+    {
+      "id": "DEFER-PERS-009-SHIPPED-PATH",
+      "kind": "deferral",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/research/decisions/DF-TE-2026-A002--persistence-phasing.md#L65-L86"
+      ],
+      "dependsOn": [],
+      "justification": "PERS-009 describes the shipped localStorage/WASM path (Storage.get/Storage.set requests, Dispatch.fs orchestration, a persistenceError view key). Only its abstract parts are constructed (stored state authoritative after restart, failures surfaced); the localStorage, kernel-effect and WASM specifics are deferred: storage is the injected port (accepted DF-TE-2026-A002; TE-REQ-WASM-001 and TE-REQ-PERS-006 are outside the slice)."
+    },
+    {
+      "id": "DEFER-DIAG-002-OUT-OF-SLICE-CODES",
+      "kind": "deferral",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/effort-experiment/c-sharp-state/REQUIREMENTS.md#L340-L356"
+      ],
+      "dependsOn": [],
+      "justification": "The restore, merge, evidence and timer codes of DIAG-002 are deferred with those features (TE-REQ-REST-*, MRG-*, EVD-*, TMR-* are outside the slice); its business-purpose clause and the clauses shared with DIAG-001 are constructed."
+    },
+    {
+      "id": "DEFER-LABEL-001-MERGE-RESTORE",
+      "kind": "deferral",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L35-L48"
+      ],
+      "dependsOn": [],
+      "justification": "The merge and restore clauses of LABEL-001 are deferred with merge and restore (TE-REQ-MRG-*, REST-* are outside the slice); its create, correct and reload clauses are constructed."
+    },
+    {
+      "id": "DEFER-REFERENCE-DATA-ATTRIBUTES",
+      "kind": "deferral",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L9-L10",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L11-L12",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L13-L14",
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L15-L19"
+      ],
+      "dependsOn": [],
+      "justification": "Display name and GitHub identity (ENT-001), project code, name, description and revision (ENT-002), label name and description (ENT-003), and the when/by-whom creation provenance of ENT-004 are not constructed: reference data is read only as identity and status, and person, project and label commands are outside the slice (TE-REQ-PROJ-001..003)."
+    }
+  ]
+}

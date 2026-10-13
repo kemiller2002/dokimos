@@ -37,7 +37,8 @@ Input formats are in
 [`schemas/dokimos-construction-inputs.schema.json`](../schemas/dokimos-construction-inputs.schema.json).
 The report is
 [`schemas/dokimos-construction-verification.schema.json`](../schemas/dokimos-construction-verification.schema.json)
-(`dokimos.construction-verification` 1.1.0; 1.1.0 only adds the optional `MechanicalFirst` block).
+(`dokimos.construction-verification` 1.2.0; 1.1.0 only adds the optional `MechanicalFirst` block, and
+1.2.0 only adds the CONSTRUCT-010 decision checks and `MechanicalFirst[].Decisions`).
 
 The plan and blueprint digests are recomputed by Dokimos's own
 implementation of the canonical forms that Ordo publishes in
@@ -161,7 +162,7 @@ Tracking: CONSTRUCT-008 (`WI-0007`). In the mechanical-first flow, Ordo
 generates a default plan with typed obligations, Praxis prepares and applies
 it (`praxis.construction-prepared/1`), and an agent writes only the permitted
 handwritten files plus one disposition per obligation. `--prepared` turns on
-eight additional checks. Without `--prepared` the command behaves exactly as
+eight additional checks (and the six CONSTRUCT-010 decision checks below). Without `--prepared` the command behaves exactly as
 before (the B-arm invocation is unchanged; its report carries an empty
 `MechanicalFirst` array).
 
@@ -247,6 +248,124 @@ generated file is caught by the manifest and layout SHA-256 checks, not by
 the boundary diff. Host refusal records are read from
 `dokimos.host-observations/1`; Dokimos checks their consistency, not their
 authenticity.
+
+## Decision completeness (CONSTRUCT-010 phase 4)
+
+Tracking: CONSTRUCT-010 phase 4 (`WI-0008`), the Dokimos side of ordo#78
+(`ordo.construction-vocabulary/3`, decision records
+`ordo.construction-decisions/2`, obligation kinds `undecidedTransition` and
+`undecidedExtensionDecision`). Dokimos references no Ordo or Praxis code: it
+reads ordo#78's documented wire formats and re-derives every result.
+
+### Classification, re-derived
+
+Dokimos reads every semantic choice of the verified plan (states, every
+(state, command) pair, invariants, ports, effect failures, capabilities,
+extension behaviors and their decision points, open questions) in any of
+vocabularies 1, 2 and 3, and classifies it itself, by the rules ordo#78
+documents in `docs/architecture/decision-classification.md`:
+
+| Class | Meaning | May be generated |
+|---|---|---|
+| `required` | fixed by the requirement text its trace cites | yes |
+| `approved` | its trace cites a decision the plan binds | yes |
+| `implied` | a documented rule: a cited pair rule, or a terminal state's role | yes |
+| `unresolved` | stated as open (undecided pair, effect failure, decision point, question) | no |
+| `unsupported` | decided by omission, because the vocabulary cannot avoid it | no |
+
+Tests check that this re-derivation equals the `ordo.choice-classification/1`
+Ordo publishes for the timer cohort (both pair-rule variants), and that the
+canonical plan digest, now covering vocabularies 2 and 3, reproduces Ordo's
+pinned digests. Ordo's classification is never an input.
+
+### Additional options
+
+| Option | Meaning |
+|---|---|
+| `--ledger F` | The requirements ledger, `ordo.requirements-ledger/1` |
+| `--approvals F` | The operator's decision approvals: `approver` (required), `decisions` (ids, or `{id, closes[]}`), and optionally `cohort`, `blueprintDigest`, `decisionRecordsDigest`, which must match the supplied inputs. The expanded-slice harness's `operator-approval.json` is accepted as is |
+
+Both require `--prepared`. `--decisions` accepts `ordo.construction-decisions/2`
+for a vocabulary-3 plan and `/1` otherwise (ordo#78's pairing rule).
+Dispositions may now also be `resolved`, with `decisionId` naming the decision
+that closes the obligation.
+
+### Checks and their findings
+
+A citation **resolves** when every cited requirement key is in the original
+intake, and every cited decision is a `decision` or `engineeringRationale`
+node of the approved blueprint that the operator approved (`--approvals`).
+Without `--approvals`, approved citations are `unknown`, never passed.
+
+| Check | Passes when | Finding codes |
+|---|---|---|
+| `decision-completeness` | Every non-pair choice has a class; every generated choice's citation resolves; no unresolved or unsupported choice is claimed implemented (an `IMPLEMENT:` obligation for an extension with an open decision point, a generated effect disposition the plan leaves open, an `extensionBehavior` obligation `implemented` for an extension with no decision inventory); approvals bind the same cohort, blueprint and records | `fabricated-citation`, `unresolvable-citation`, `unapproved-decision-cited`, `unresolved-choice-claimed-implemented`, `unsupported-choice-claimed-implemented`, `approvals-invalid` |
+| `requirement-disposition` | Every source-manifest key has exactly one ledger row and no row names an unknown key; an `implemented` row has passing acceptance that Dokimos itself observed (frozen oracle cases covering the key) and no open obligation; `rejected`/`superseded` rows cite an operator-approved closing decision. Unknown without `--ledger`, or when no oracle run was observed | `requirement-dropped`, `duplicate-ledger-row`, `invented-ledger-row`, `implemented-without-independent-acceptance`, `implemented-with-open-obligation`, `unapproved-resolution`, `ledger-invalid` |
+| `closed-world` | Every (state, command) pair is an allowed transition, a refusal citing a requirement or an approved decision (explicit, by the pair rule, or by a terminal state), or undecided with both a `RESOLVE-PAIR` manifest obligation and an `undecidedTransition` obligation. The generated transition code (Git objects; the manifest's structural rows otherwise) must agree | `refusal-by-omission`, `undecided-pair-refused`, `pair-disposition-mismatch`, `undecided-choice-without-obligation`, `fabricated-citation` |
+| `unsupported-operations` | No plan operation is outside its vocabulary; decision-record content the vocabulary cannot carry has an `unsupportedVocabulary` obligation; no such obligation is claimed implemented. Every unsupported choice is listed as an open item | `unsupported-operation-dropped`, `unsupported-choice-claimed-implemented` |
+| `unresolved-obligations` | An agent's `resolved` (or decision-citing) disposition cites an operator-approved decision that the plan did not already apply (a bound decision cannot close what the generator left open) and whose `closes` list, if any, names the obligation; every open effect failure and decision point has its obligation. Unknown when a resolution is claimed without `--approvals` | `unapproved-resolution`, `undecided-choice-without-obligation` |
+| `failure-semantics` | For every transition effect (plan and decision records), an unknown outcome maps to `reconcile` or `escalate` (`onUnknown`); a decided `onFailure` with no `onUnknown` also governs an unknown outcome and is refused (`remain`: assumed failure; `proceed`: assumed success); `retry` is a blind retry; `compensate` needs an approved decision; the generated orchestration applies the plan's disposition | `unknown-outcome-assumed`, `unapproved-compensation`, `effect-disposition-mismatch` |
+
+Architecture boundaries stay with `architecture-compliance` above.
+
+### Intentionally incomplete versus verified complete
+
+`MechanicalFirst[0].Decisions` lists every choice with its class and citation,
+a `Summary` by class, and `OpenItems`: each unresolved or unsupported choice,
+each open obligation not tied to a choice, and each unsupported operation,
+with the obligation ids that keep it visible. `Completeness` is `complete`,
+`incomplete` (open items, nothing violated), `unknown` or `violated`.
+
+Any open item makes an otherwise clean report `incomplete` (exit 3) with the
+reason `Intentionally incomplete: N open decision item(s) ...`. `verified`
+with `--prepared` therefore means the construction is verified **and**
+complete: no choice was left open or decided by omission.
+
+On ordo#78's timer cohort (decisions v2, unlisted pairs refused by
+REQUIREMENTS.md L367-368) Dokimos classifies 6 required, 8 approved, 7 implied
+and 3 unresolved choices, exactly as Ordo does, raises no finding, and reports
+four open items: the Stop effect failure, the rounding tie, the uncovered
+session requirement and the out-of-cohort conflict. With unlisted pairs
+undecided it reports eleven, the seven pairs each with its two obligations.
+
+**Consequence for vocabulary 1 and 2.** These vocabularies cannot state a pair
+rule, so generated code refuses unlisted pairs by omission. The pilot-01 B1
+candidate, which passes every CONSTRUCT-008 check and the frozen oracle, is now
+`rejected` for seven `refusal-by-omission` findings and for claiming its stop
+completion implemented although its extension has no decision inventory (the
+OPT-14 rounding tie). That is the defect ordo#78 closes, not a regression.
+Verdicts recorded for CONSTRUCT-008 and the expanded study stay bound to the
+Dokimos version that produced them (0.3.0); they are not re-scored with this
+version.
+
+**Failure semantics before `onUnknown`.** Ordo's vocabulary-2 goldens with a
+decided `remain` or `proceed` disposition fail `failure-semantics` today: the
+generated orchestration handles an unknown outcome in the same arm as a
+failure, which assumes failure (or success). Ordo's vocabulary 2-4 contract
+says exactly that (`onFailure` governs Failed and Unknown alike), so this is a
+stricter policy than Ordo's, by design. The finding names the fix: state the
+unknown outcome separately, which Ordo's vocabulary 5 does with
+`declareEffectPolicy {onFailed, onUnknown: reconcile | escalate | unresolved}`
+(ordo#83, not yet merged; Dokimos does not read vocabulary 5 yet and refuses
+it as unsupported input).
+
+**Approvals are checked for consistency, not authenticity.** `--approvals`
+must bind the same cohort, blueprint and decision records as the other inputs,
+and every approved citation must name one of its decisions. Their authenticity
+comes from the Praxis signed grant, which binds the decision-records digest
+into the operator's grant; Dokimos does not authenticate approvals.
+
+**Limits.** An obligation with a `planSubject` is matched to its choice exactly
+(`pair:S/C`, `extension:effect/C/point:P`). ordo#78 emits none for
+`undecidedTransition` and `undecidedExtensionDecision`, so those are matched by
+Ordo's question wording (`command C does in state S`, the point name) until it
+does; a test fails as soon as the pinned Ordo fixtures carry `planSubject`, so
+the wording fallback is removed then (Ordo will add a typed `planSubject` with
+its next default-plan generator version). Generated effect
+dispositions are read from the orchestration's `onFailure` arms only.
+Dokimos also reads an `onUnknown` member on a port and the value `compensate`;
+Ordo emits neither in vocabularies 1-3 (vocabulary 5 moves both into
+`declareEffectPolicy`), so for Ordo plans these paths are dormant.
 
 ### Example (pilot-01 B1 Git objects with synthetic prepared inputs)
 

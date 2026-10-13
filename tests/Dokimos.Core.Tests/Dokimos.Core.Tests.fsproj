@@ -48,6 +48,8 @@
     <Compile Include="ConstructionVerificationTests.fs" />
     <Compile Include="ConstructionEvidenceTests.fs" />
     <Compile Include="ConstructionMechanicalTests.fs" />
+    <Compile Include="ConstructionDecisionFixtures.fs" />
+    <Compile Include="ConstructionDecisionTests.fs" />
     <Compile Include="BehaviorOracleTests.fs" />
   </ItemGroup>
 </Project>

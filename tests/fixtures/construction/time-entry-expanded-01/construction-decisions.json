@@ -1,0 +1,64 @@
+{
+  "blueprintDigest": "sha256:5456d28901886a4ab49863c2b37131ebd3ccba12f97f50a429ff7b257afd198f",
+  "cohortId": "COH-TIME-ENTRY-WEEK",
+  "records": [
+    {
+      "content": {
+        "kind": "stateModel",
+        "states": [
+          {
+            "name": "Recorded",
+            "role": "initial"
+          },
+          {
+            "name": "Superseded",
+            "role": "terminal"
+          },
+          {
+            "name": "Voided",
+            "role": "terminal"
+          }
+        ],
+        "transitions": [
+          {
+            "command": "Correct",
+            "from": "Recorded",
+            "requirementKeys": [
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37"
+            ],
+            "to": "Recorded"
+          },
+          {
+            "command": "Split",
+            "from": "Recorded",
+            "requirementKeys": [
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L38-L41"
+            ],
+            "to": "Superseded"
+          },
+          {
+            "command": "Void",
+            "from": "Recorded",
+            "requirementKeys": [
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L101",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L33",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L34",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L35",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/csharp-business-requirements.md#L36-L37"
+            ],
+            "to": "Voided"
+          }
+        ],
+        "workflow": "Time Entry"
+      },
+      "nodeId": "DEC-ENTRY-LIFECYCLE"
+    }
+  ],
+  "schemaVersion": "ordo.construction-decisions/1"
+}

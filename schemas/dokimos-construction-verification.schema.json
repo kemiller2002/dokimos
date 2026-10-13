@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://echelonfoundry.com/dokimos/schemas/construction-verification",
-  "title": "Dokimos construction verification (dokimos.construction-verification 1.1.0)",
-  "description": "Output of `dokimos construction verify`. Verdict and ExitCode: verified 0 (no open findings and every frozen oracle case passed in a run Dokimos itself observed), rejected 4 (at least one open finding), incomplete 3 (no open finding, but independent behavioral acceptance is unknown). Unknown evidence is never reported as passed or failed. Invalid invocation exits 2 and unreadable inputs exit 3, both with a dokimos.diagnostic on stderr. Schema 1.1.0 adds the optional MechanicalFirst block (CONSTRUCT-008, docs/construction-verification.md): present only when --prepared was supplied; a mechanical-first check whose status is unknown makes an otherwise verified report incomplete. Every 1.0.0 field is unchanged, so 1.0.0 reports remain valid.",
+  "title": "Dokimos construction verification (dokimos.construction-verification 1.2.0)",
+  "description": "Output of `dokimos construction verify`. Verdict and ExitCode: verified 0 (no open findings and every frozen oracle case passed in a run Dokimos itself observed), rejected 4 (at least one open finding), incomplete 3 (no open finding, but independent behavioral acceptance is unknown). Unknown evidence is never reported as passed or failed. Invalid invocation exits 2 and unreadable inputs exit 3, both with a dokimos.diagnostic on stderr. Schema 1.1.0 adds the optional MechanicalFirst block (CONSTRUCT-008, docs/construction-verification.md): present only when --prepared was supplied; a mechanical-first check whose status is unknown makes an otherwise verified report incomplete. Schema 1.2.0 adds six CONSTRUCT-010 decision checks to MechanicalFirst[].Checks and the optional MechanicalFirst[].Decisions block (every choice of the plan, its class, and the typed open items that keep a candidate intentionally incomplete); an open item makes an otherwise verified report incomplete. Every earlier field is unchanged, so 1.0.0 and 1.1.0 reports remain valid.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -33,7 +33,8 @@
     "SchemaVersion": {
       "enum": [
         "1.0.0",
-        "1.1.0"
+        "1.1.0",
+        "1.2.0"
       ]
     },
     "DokimosVersion": {
@@ -794,7 +795,28 @@
                   "generated-layout-mismatch",
                   "rejected-operation-unrecorded",
                   "rejected-operation-applied",
-                  "unresolved-obligation-claimed-implemented"
+                  "unresolved-obligation-claimed-implemented",
+                  "fabricated-citation",
+                  "unresolvable-citation",
+                  "unapproved-decision-cited",
+                  "unresolved-choice-claimed-implemented",
+                  "unsupported-choice-claimed-implemented",
+                  "refusal-by-omission",
+                  "undecided-pair-refused",
+                  "pair-disposition-mismatch",
+                  "undecided-choice-without-obligation",
+                  "unsupported-operation-dropped",
+                  "unapproved-resolution",
+                  "ledger-invalid",
+                  "requirement-dropped",
+                  "duplicate-ledger-row",
+                  "invented-ledger-row",
+                  "implemented-without-independent-acceptance",
+                  "implemented-with-open-obligation",
+                  "unknown-outcome-assumed",
+                  "unapproved-compensation",
+                  "effect-disposition-mismatch",
+                  "approvals-invalid"
                 ]
               },
               {
@@ -958,7 +980,13 @@
                     "file-mutations",
                     "extension-boundary",
                     "architecture-compliance",
-                    "rejected-operations"
+                    "rejected-operations",
+                    "decision-completeness",
+                    "requirement-disposition",
+                    "closed-world",
+                    "unsupported-operations",
+                    "unresolved-obligations",
+                    "failure-semantics"
                   ]
                 },
                 "Status": {
@@ -977,6 +1005,170 @@
                     "type": "string"
                   }
                 }
+              }
+            }
+          },
+          "Decisions": {
+            "description": "CONSTRUCT-010 decision completeness (schema 1.2.0). Every semantic choice of the verified plan, classified by Dokimos itself as required, approved, implied, unresolved or unsupported; only the first three may be generated. OpenItems are the typed choices and obligations that keep the candidate intentionally incomplete.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "VocabularyVersion",
+              "Completeness",
+              "Summary",
+              "Choices",
+              "OpenItems",
+              "UnsupportedOperations",
+              "LedgerDigest",
+              "ApprovalsDigest"
+            ],
+            "properties": {
+              "VocabularyVersion": {
+                "type": "string"
+              },
+              "Completeness": {
+                "enum": [
+                  "complete",
+                  "incomplete",
+                  "unknown",
+                  "violated"
+                ]
+              },
+              "Summary": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "Class",
+                    "Count"
+                  ],
+                  "properties": {
+                    "Class": {
+                      "enum": [
+                        "required",
+                        "approved",
+                        "implied",
+                        "unresolved",
+                        "unsupported"
+                      ]
+                    },
+                    "Count": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  }
+                }
+              },
+              "Choices": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "Subject",
+                    "Kind",
+                    "Class",
+                    "RequirementKeys",
+                    "DecisionIds",
+                    "Rule",
+                    "Detail"
+                  ],
+                  "properties": {
+                    "Subject": {
+                      "type": "string"
+                    },
+                    "Kind": {
+                      "enum": [
+                        "state",
+                        "pair",
+                        "invariant",
+                        "port",
+                        "effectFailure",
+                        "capability",
+                        "extensionBehavior",
+                        "extensionDecision",
+                        "openQuestion"
+                      ]
+                    },
+                    "Class": {
+                      "enum": [
+                        "required",
+                        "approved",
+                        "implied",
+                        "unresolved",
+                        "unsupported"
+                      ]
+                    },
+                    "RequirementKeys": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "DecisionIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "Rule": {
+                      "type": "string"
+                    },
+                    "Detail": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "OpenItems": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "Subject",
+                    "Kind",
+                    "Class",
+                    "Detail",
+                    "ObligationIds"
+                  ],
+                  "properties": {
+                    "Subject": {
+                      "type": "string"
+                    },
+                    "Kind": {
+                      "type": "string"
+                    },
+                    "Class": {
+                      "enum": [
+                        "unresolved",
+                        "unsupported"
+                      ]
+                    },
+                    "Detail": {
+                      "type": "string"
+                    },
+                    "ObligationIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "UnsupportedOperations": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "LedgerDigest": {
+                "type": "string"
+              },
+              "ApprovalsDigest": {
+                "type": "string"
               }
             }
           }
