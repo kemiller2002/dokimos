@@ -1,0 +1,99 @@
+{
+  "blueprintDigest": "sha256:28dd3964f9c49f3492f3c34174ab04d57f4ddcba298276b2a287b4a6f3fdc4cb",
+  "cohortId": "COH-TIMER",
+  "records": [
+    {
+      "content": {
+        "kind": "portContract",
+        "ports": [
+          {
+            "command": "Stop",
+            "onFailure": null,
+            "port": "transitionEffect",
+            "requirementKeys": [
+              "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"
+            ]
+          },
+          {
+            "port": "currentTime",
+            "requirementKeys": [
+              "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107"
+            ]
+          }
+        ]
+      },
+      "nodeId": "IFC-TIMER-PORTS"
+    },
+    {
+      "content": {
+        "kind": "stateModel",
+        "states": [
+          {
+            "name": "NoTimer",
+            "role": "initial"
+          },
+          {
+            "name": "Paused",
+            "role": "ordinary"
+          },
+          {
+            "name": "Running",
+            "role": "ordinary"
+          }
+        ],
+        "transitions": [
+          {
+            "command": "Pause",
+            "from": "Running",
+            "requirementKeys": [
+              "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+              "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"
+            ],
+            "to": "Paused"
+          },
+          {
+            "command": "Resume",
+            "from": "Paused",
+            "requirementKeys": [
+              "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+              "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"
+            ],
+            "to": "Running"
+          },
+          {
+            "command": "Start",
+            "from": "NoTimer",
+            "requirementKeys": [
+              "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+              "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+              "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104"
+            ],
+            "to": "Running"
+          },
+          {
+            "command": "Stop",
+            "from": "Paused",
+            "requirementKeys": [
+              "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+              "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"
+            ],
+            "to": "NoTimer"
+          },
+          {
+            "command": "Stop",
+            "from": "Running",
+            "requirementKeys": [
+              "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+              "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368"
+            ],
+            "to": "NoTimer"
+          }
+        ],
+        "workflow": "Timer"
+      },
+      "nodeId": "DEC-TIMER-STATES"
+    }
+  ],
+  "schemaVersion": "ordo.construction-decisions/1"
+}

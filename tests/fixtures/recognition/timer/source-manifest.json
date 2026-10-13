@@ -1,0 +1,61 @@
+{
+  "digest": "sha256:03e29eddb6e528baea0707ec6660f18b0495ac8a6424f3c794a53cc2f5925a01",
+  "requirements": [
+    {
+      "key": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+      "originalId": "L116-L129",
+      "document": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md",
+      "location": "L116-L129",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:9f6b6100a59f0db96e2a7e0e939ecef25e52ad148567b151468e3e3992d9e200"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144",
+      "originalId": "L131-L144",
+      "document": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md",
+      "location": "L131-L144",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:6e1ac69a563e156189d9498023a7514b91be09e83042ec387a63746eab2ef17c"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148",
+      "originalId": "L145-L148",
+      "document": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md",
+      "location": "L145-L148",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:63244f8a375fb18191c6234901381daae5c8488247f154ca595cb9370e490929"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104",
+      "originalId": "L104",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+      "location": "L104",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:d46b048e14df7088be6dcb0807e933f87b0443c55dfcbffbbcb8b265717039e4"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107",
+      "originalId": "L105-L107",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+      "location": "L105-L107",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:bd10153509354a418f173e88f564d693ff945503d2fb6530fe4582c581392945"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L113-L114",
+      "originalId": "L113-L114",
+      "document": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md",
+      "location": "L113-L114",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:7016f024e9e2da8c9e4df44430e54f4e9ad42e24e6de2791543ec7d8faec9dd0"
+    },
+    {
+      "key": "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+      "originalId": "L367-L368",
+      "document": "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md",
+      "location": "L367-L368",
+      "revision": "git:73a63f1ac319b97965d4a9e1607a975ebbe2bd81",
+      "contentDigest": "sha256:498a6522b033471eee5cc4386b705c23195e385460e592e0d129ae98b0fc6928"
+    }
+  ]
+}
