@@ -634,10 +634,10 @@
         "construction"
       ],
       "priority": "high",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-10-13T07:20:50.224Z",
-      "updatedAt": "2026-10-13T07:20:55.000Z",
+      "updatedAt": "2026-10-13T07:40:37.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
