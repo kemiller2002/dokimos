@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://echelonfoundry.com/dokimos/schemas/construction-verification",
-  "title": "Dokimos construction verification (dokimos.construction-verification 1.0.0)",
-  "description": "Output of `dokimos construction verify`. Verdict and ExitCode: verified 0 (no open findings and every frozen oracle case passed in a run Dokimos itself observed), rejected 4 (at least one open finding), incomplete 3 (no open finding, but independent behavioral acceptance is unknown). Unknown evidence is never reported as passed or failed. Invalid invocation exits 2 and unreadable inputs exit 3, both with a dokimos.diagnostic on stderr.",
+  "title": "Dokimos construction verification (dokimos.construction-verification 1.1.0)",
+  "description": "Output of `dokimos construction verify`. Verdict and ExitCode: verified 0 (no open findings and every frozen oracle case passed in a run Dokimos itself observed), rejected 4 (at least one open finding), incomplete 3 (no open finding, but independent behavioral acceptance is unknown). Unknown evidence is never reported as passed or failed. Invalid invocation exits 2 and unreadable inputs exit 3, both with a dokimos.diagnostic on stderr. Schema 1.1.0 adds the optional MechanicalFirst block (CONSTRUCT-008, docs/construction-verification.md): present only when --prepared was supplied; a mechanical-first check whose status is unknown makes an otherwise verified report incomplete. Every 1.0.0 field is unchanged, so 1.0.0 reports remain valid.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -31,7 +31,10 @@
       "const": "dokimos.construction-verification"
     },
     "SchemaVersion": {
-      "const": "1.0.0"
+      "enum": [
+        "1.0.0",
+        "1.1.0"
+      ]
     },
     "DokimosVersion": {
       "type": "string",
@@ -779,7 +782,18 @@
                   "non-regular-generated-entry",
                   "provenance-trailer-mismatch",
                   "source-content-mismatch",
-                  "unsupported-input"
+                  "unsupported-input",
+                  "prepared-artifact-invalid",
+                  "provenance-digest-mismatch",
+                  "nondeterministic-generation",
+                  "obligation-dropped",
+                  "obligation-disposition-invalid",
+                  "unauthorized-file-mutation",
+                  "generated-file-edited",
+                  "extension-boundary-violation",
+                  "generated-layout-mismatch",
+                  "rejected-operation-unrecorded",
+                  "rejected-operation-applied"
                 ]
               },
               {
@@ -816,6 +830,156 @@
       "type": "array",
       "items": {
         "type": "string"
+      }
+    },
+    "MechanicalFirst": {
+      "description": "CONSTRUCT-008 mechanical-first checks. Empty unless a prepared artifact (praxis.construction-prepared/1) was supplied.",
+      "type": "array",
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "PreparedDigest",
+          "CacheKey",
+          "Provenance",
+          "GeneratedCommit",
+          "ReplicaCommit",
+          "GeneratedPaths",
+          "PermittedExtensionFiles",
+          "HandwrittenPaths",
+          "Obligations",
+          "Checks"
+        ],
+        "properties": {
+          "PreparedDigest": {
+            "type": "string"
+          },
+          "CacheKey": {
+            "type": "string"
+          },
+          "Provenance": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "GeneratorId",
+              "GeneratorVersion",
+              "VocabularyVersion",
+              "DecisionRecordsDigest"
+            ],
+            "properties": {
+              "GeneratorId": {
+                "type": "string"
+              },
+              "GeneratorVersion": {
+                "type": "string"
+              },
+              "VocabularyVersion": {
+                "type": "string"
+              },
+              "DecisionRecordsDigest": {
+                "type": "string"
+              }
+            }
+          },
+          "GeneratedCommit": {
+            "type": "string"
+          },
+          "ReplicaCommit": {
+            "type": "string"
+          },
+          "GeneratedPaths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "PermittedExtensionFiles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "HandwrittenPaths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Obligations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "Id",
+                "Kind",
+                "RequirementKeys",
+                "Disposition"
+              ],
+              "properties": {
+                "Id": {
+                  "type": "string"
+                },
+                "Kind": {
+                  "type": "string"
+                },
+                "RequirementKeys": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "Disposition": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "Checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "Name",
+                "Status",
+                "Detail",
+                "Findings"
+              ],
+              "properties": {
+                "Name": {
+                  "enum": [
+                    "plan-provenance",
+                    "requirement-coverage",
+                    "deterministic-generation",
+                    "obligation-tracking",
+                    "file-mutations",
+                    "extension-boundary",
+                    "architecture-compliance",
+                    "rejected-operations"
+                  ]
+                },
+                "Status": {
+                  "enum": [
+                    "passed",
+                    "failed",
+                    "unknown"
+                  ]
+                },
+                "Detail": {
+                  "type": "string"
+                },
+                "Findings": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

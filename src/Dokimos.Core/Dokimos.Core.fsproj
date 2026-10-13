@@ -50,6 +50,8 @@
     <Compile Include="ConstructionChecks.fs" />
     <Compile Include="ConstructionEvidenceChecks.fs" />
     <Compile Include="ConstructionRequirements.fs" />
+    <Compile Include="ConstructionMechanicalWire.fs" />
+    <Compile Include="ConstructionMechanical.fs" />
     <Compile Include="ConstructionVerification.fs" />
     <Compile Include="ConstructionWire.fs" />
     <Compile Include="BehaviorOracle.fs" />

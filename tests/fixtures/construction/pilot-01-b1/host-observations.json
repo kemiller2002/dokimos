@@ -1,0 +1,11 @@
+{
+  "schema": "dokimos.host-observations/1",
+  "host": {
+    "id": "synthetic-host",
+    "recorder": "host",
+    "enforcement": "unknown",
+    "mechanism": "",
+    "platformProofs": []
+  },
+  "observations": []
+}

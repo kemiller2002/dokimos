@@ -48,6 +48,8 @@ type ConstructionVerificationReport =
       Counts: RequirementCounts
       Findings: ReportedFinding list
       ExceptionsApplied: int
+      /// CONSTRUCT-008 mechanical-first checks, when a prepared artifact was supplied.
+      Mechanical: MechanicalReport option
       Limitations: string list }
 
 [<RequireQualifiedAccess>]
@@ -86,7 +88,9 @@ module ConstructionVerification =
                 else "unknown"
             status, $"Dokimos ran {o.Cases.Length} frozen oracle cases against the candidate", verdicts, Some run, "passed"
 
-    let verify (inputs: ConstructionInputs) : Result<ConstructionVerificationReport, string list> =
+    /// Verifies one construction commit; with `mechanical`, also the
+    /// CONSTRUCT-008 mechanical-first checks.
+    let verifyWith (mechanical: MechanicalInputs option) (inputs: ConstructionInputs) : Result<ConstructionVerificationReport, string list> =
         parseAll inputs
         |> Result.map (fun (source, blueprint, plan, manifest) ->
             let s = ConstructionJson.text
@@ -170,7 +174,7 @@ module ConstructionVerification =
                       match v with
                       | CaseFailed reason -> f ConstructionCodes.OracleBehaviorMismatch c.Id c.RequirementKeys reason
                       | _ -> () ]
-            let raw =
+            let existing =
                 ecirFindings
                 @ ConstructionChecks.binding inputs.ExpectedPlanDigest inputs.ExpectedGenerator sourceDigest blueprintDigest cohortNodes plan manifest
                 @ planScope
@@ -183,6 +187,19 @@ module ConstructionVerification =
                 @ dependencyFindings @ hostFindings @ oracleBlocking @ oracleSources @ sourceDocFindings @ behaviorFindings
                 @ ConstructionEvidenceChecks.claimedTests oracleValue verdictMap executed claimed
                 |> List.distinct
+            let mechanicalFindings, mechanicalReport =
+                match mechanical with
+                | None -> [], None
+                | Some m ->
+                    let context =
+                        { SourceManifest = source; SourceManifestText = inputs.SourceManifestJson
+                          Blueprint = blueprint; BlueprintText = inputs.BlueprintJson
+                          Plan = plan; ExpectedPlanDigest = inputs.ExpectedPlanDigest
+                          ManifestPath = inputs.ManifestPath; Manifest = manifest; Ownership = ownership
+                          Candidate = inputs.Candidate; Base = inputs.Base; Host = inputs.Host; Existing = existing }
+                    let found, report = ConstructionMechanical.assess m context
+                    found, Some report
+            let raw = existing @ mechanicalFindings |> List.distinct
             let reported =
                 raw
                 |> List.map (fun x ->
@@ -204,9 +221,13 @@ module ConstructionVerification =
                 if generatorChecksConsistent then
                     verdicts |> List.filter (fun (c, v) -> c.Kind <> "port-surface" && (match v with CaseFailed _ -> true | _ -> false)) |> List.length
                 else 0
+            let unknownChecks =
+                mechanicalReport |> Option.map _.Checks |> Option.defaultValue [] |> List.filter (fun c -> c.Status = "unknown")
             let verdict, code, reasons =
                 if not openFindings.IsEmpty then "rejected", 4, [ $"{openFindings.Length} open finding(s)" ]
                 elif behaviorStatus <> "passed" then "incomplete", 3, [ "Independent behavioral acceptance is " + behaviorStatus + ": " + behaviorReason ]
+                elif not unknownChecks.IsEmpty then
+                    "incomplete", 3, [ for c in unknownChecks -> $"Mechanical-first check {c.Name} is unknown: {c.Detail}" ]
                 else
                     let partial = requirements |> List.filter (fun r -> r.IndependentlyVerified = "partial") |> List.length
                     let pending = requirements |> List.filter (fun r -> r.Implemented = "unknown") |> List.length
@@ -239,8 +260,11 @@ module ConstructionVerification =
               Counts = ConstructionRequirements.counts requirements sourceRows.Length
               Findings = reported
               ExceptionsApplied = reported |> List.filter (fun x -> x.Disposition = "excepted") |> List.length
+              Mechanical = mechanicalReport
               Limitations =
                 [ "Generated-code structure checks read the published ordo.construction/1 file shape; another generator version needs its own reader."
                   "The oracle harness drives Tier 2 decide and the ports interface by reflection under dotnet fsi; guard/capability rule records and handwritten Tier 4 hosts are not driven."
                   "Handwritten extension contracts (IMPLEMENT obligations) are not assessed; requirements that depend on them report implemented=unknown."
                   "Host observations and authorization are taken from the supplied files; Dokimos checks their consistency, not their cryptographic authenticity." ] })
+
+    let verify (inputs: ConstructionInputs) = verifyWith None inputs

@@ -20,5 +20,6 @@
     <Compile Include="RatchetCliTests.fs" />
     <Compile Include="ConstructionVerifyCliTests.fs" />
     <Compile Include="BehaviorVerifyCliTests.fs" />
+    <Compile Include="MechanicalFirstCliTests.fs" />
   </ItemGroup>
 </Project>
