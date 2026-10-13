@@ -96,16 +96,26 @@ module DecisionSupport =
     let touchesEffect command (o: PreparedObligation) =
         o.ExtensionSurface |> List.exists (fun s -> effectOfSurface s = Some command)
 
+    /// Wording fallback for obligations without a structured `planSubject`
+    /// (ordo#78 emits none for undecided pairs and decision points).
     let private mentions (needle: string) (o: PreparedObligation) =
-        (nameKey o.PlanSubject).Contains(needle, StringComparison.Ordinal) || (nameKey o.Question).Contains(needle, StringComparison.Ordinal)
+        (nameKey o.Question).Contains(needle, StringComparison.Ordinal)
+
+    /// An obligation matches a choice exactly by `planSubject` when it has
+    /// one, and by Ordo's question wording only when it has none.
+    let matchesSubject (subject: string) (wording: string) (o: PreparedObligation) =
+        if o.PlanSubject <> "" then o.PlanSubject = subject else mentions wording o
 
     let pairObligations (ctx: DecisionContext) state command =
         ctx.Obligations
-        |> List.filter (fun o -> o.Kind = "undecidedTransition" && mentions $"Command{command}DoesInState{state}" o)
+        |> List.filter (fun o ->
+            o.Kind = "undecidedTransition" && matchesSubject $"pair:{state}/{command}" $"Command{command}DoesInState{state}" o)
 
     let private pointObligations (ctx: DecisionContext) command point =
         ctx.Obligations
-        |> List.filter (fun o -> o.Kind = "undecidedExtensionDecision" && touchesEffect command o && mentions point o)
+        |> List.filter (fun o ->
+            o.Kind = "undecidedExtensionDecision" && touchesEffect command o
+            && matchesSubject $"extension:effect/{command}/point:{point}" point o)
 
     let private effectObligations (ctx: DecisionContext) command =
         ctx.Obligations |> List.filter (fun o -> o.Kind = "undecidedEffectFailure" && touchesEffect command o)

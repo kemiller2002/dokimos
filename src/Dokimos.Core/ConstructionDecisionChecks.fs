@@ -287,13 +287,15 @@ module DecisionChecks =
                 match onUnknown, onFailure with
                 | Some u, _ ->
                     outcomeAssumption u
-                    |> Option.map (fun a -> f MechanicalCodes.UnknownOutcomeAssumed subject keys $"onUnknown '{u}' maps an unknown outcome to {a}")
+                    |> Option.map (fun a ->
+                        f MechanicalCodes.UnknownOutcomeAssumed subject keys
+                            $"onUnknown '{u}' maps an unknown outcome to {a}; an unknown outcome must reconcile or escalate")
                     |> Option.toList
                 | None, Some d when d <> "unresolved" ->
                     outcomeAssumption d
                     |> Option.map (fun a ->
                         f MechanicalCodes.UnknownOutcomeAssumed subject keys
-                            $"onFailure '{d}' also governs an unknown outcome (no onUnknown), so an unknown outcome is mapped to {a}; it must reconcile or escalate")
+                            $"onFailure '{d}' also governs an unknown outcome (no onUnknown), so an unknown outcome is mapped to {a}; it must reconcile or escalate. Fix: declare onUnknown reconcile|escalate (Ordo increment 2, onUnknown on transitionEffect ports)")
                     |> Option.toList
                 | _ -> []
             let compensation =

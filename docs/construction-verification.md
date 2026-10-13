@@ -334,13 +334,31 @@ candidate, which passes every CONSTRUCT-008 check and the frozen oracle, is now
 `rejected` for seven `refusal-by-omission` findings and for claiming its stop
 completion implemented although its extension has no decision inventory (the
 OPT-14 rounding tie). That is the defect ordo#78 closes, not a regression.
+Verdicts recorded for CONSTRUCT-008 and the expanded study stay bound to the
+Dokimos version that produced them (0.3.0); they are not re-scored with this
+version.
 
-**Limits.** Pair obligations are matched to pairs by Ordo's question wording
-(`command C does in state S`) or `planSubject`, because ordo#78's
-`undecidedTransition` obligations carry no structured pair. `onUnknown` and
-`compensate` are not yet in ordo#78's wire format; Dokimos reads them when
-present. Generated effect dispositions are read from the orchestration's
-`onFailure` arms only.
+**Failure semantics before `onUnknown`.** Ordo's vocabulary-2 goldens with a
+decided `remain` or `proceed` disposition fail `failure-semantics` today: the
+generated orchestration handles an unknown outcome in the same arm as a
+failure, which assumes failure (or success). The finding names the fix,
+`onUnknown: reconcile | escalate` on transition-effect ports (Ordo
+increment 2). That is the correct, reported state until it lands.
+
+**Approvals are checked for consistency, not authenticity.** `--approvals`
+must bind the same cohort, blueprint and decision records as the other inputs,
+and every approved citation must name one of its decisions. Their authenticity
+comes from the Praxis signed grant, which binds the decision-records digest
+into the operator's grant; Dokimos does not authenticate approvals.
+
+**Limits.** An obligation with a `planSubject` is matched to its choice exactly
+(`pair:S/C`, `extension:effect/C/point:P`). ordo#78 emits none for
+`undecidedTransition` and `undecidedExtensionDecision`, so those are matched by
+Ordo's question wording (`command C does in state S`, the point name) until it
+does; a test fails as soon as the pinned Ordo fixtures carry `planSubject`, so
+the wording fallback is removed then. `onUnknown` and `compensate` are not yet
+in ordo#78's wire format; Dokimos reads them when present. Generated effect
+dispositions are read from the orchestration's `onFailure` arms only.
 
 ### Example (pilot-01 B1 Git objects with synthetic prepared inputs)
 

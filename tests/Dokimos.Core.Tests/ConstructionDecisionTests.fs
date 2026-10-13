@@ -311,3 +311,30 @@ let ``the ledger and approvals readers validate strictly`` () =
     match DecisionInputs.readApprovals (bytes (expanded "operator-approval.json")) with
     | Ok a -> Assert.Equal<string list>([ "DEC-ENTRY-LIFECYCLE" ], a.Decisions |> List.map _.Id)
     | Error e -> failwithf "%A" e
+
+[<Fact>]
+let ``a structured planSubject matches its choice exactly and wording no longer counts`` () =
+    let ctx = openTimer ()
+    let pair = ctx.Obligations |> List.find (fun o -> o.Kind = "undecidedTransition" && o.Question.Contains "command Pause does in state NoTimer")
+    let structured = { pair with PlanSubject = "pair:NoTimer/Pause" }
+    let misnamed = { pair with PlanSubject = "pair:Running/Start" }
+    Assert.Equal<string list>([ pair.Id ], DecisionSupport.pairObligations { ctx with Obligations = [ structured ] } "NoTimer" "Pause" |> List.map _.Id)
+    // A planSubject naming another pair is not rescued by matching wording.
+    Assert.Empty(DecisionSupport.pairObligations { ctx with Obligations = [ misnamed ] } "NoTimer" "Pause")
+
+[<Fact>]
+let ``the wording fallback is still needed: remove it when Ordo emits planSubject for pairs and decision points`` () =
+    // Sentinel. ordo#78 emits no planSubject on undecidedTransition or
+    // undecidedExtensionDecision obligations, so Dokimos matches them by
+    // question wording. When refreshed Ordo fixtures carry planSubject, this
+    // fails: drop DecisionSupport's wording fallback and this test with it.
+    let carrying =
+        (openTimer ()).Obligations @ (timer ()).Obligations
+        |> List.filter (fun o -> (o.Kind = "undecidedTransition" || o.Kind = "undecidedExtensionDecision") && o.PlanSubject <> "")
+    Assert.Empty(carrying)
+
+[<Fact>]
+let ``the failure-semantics finding names the onUnknown fix`` () =
+    let _, findings = DecisionChecks.failureSemantics (timerContext (v3 "ordo-golden/plan.v2-remain.json"))
+    Assert.Contains("Ordo increment 2", findings.Head.Detail)
+    Assert.Contains("onUnknown reconcile|escalate", findings.Head.Detail)
