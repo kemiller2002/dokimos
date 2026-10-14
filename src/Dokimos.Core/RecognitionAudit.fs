@@ -58,6 +58,7 @@ module RecognitionAudit =
         let PacketMissing = "packet-missing"
         let PacketUnlisted = "packet-unlisted"
         let PacketDigestMismatch = "packet-digest-mismatch"
+        let ResolutionMissing = "packet-resolution-missing"
         let PacketKeysMismatch = "packet-keys-mismatch"
         let DelegationUncovered = "delegation-uncovered"
         let DelegationDuplicated = "delegation-duplicated"
@@ -103,9 +104,12 @@ module RecognitionAudit =
           Disposition: Map<string, string>
           Transitions: Set<string>
           StateModelNodes: string list
-          Ports: Map<string, (string * string * JsonElement option) list> } // key -> (nodeId, port, onFailure)
+          Ports: Map<string, (string * string * JsonElement option) list> // key -> (nodeId, port, onFailure)
+          /// conflict id -> deciding node ids, from `conflictResolution` records
+          /// on approved decision nodes naming a conflict that shares a key.
+          Settled: Map<string, string list> }
 
-    let private facts (blueprint: JsonElement) (decisions: JsonElement option) =
+    let private facts (blueprint: JsonElement) (decisions: JsonElement option) (approved: Set<string>) =
         let nodes = array "nodes" blueprint
         let owners =
             nodes
@@ -137,11 +141,32 @@ module RecognitionAudit =
             |> List.groupBy fst
             |> List.map (fun (k, xs) -> k, xs |> List.map snd)
             |> Map.ofList
+        let nodeIndex = nodes |> List.map (fun n -> text "id" n, n) |> Map.ofList
+        let settled =
+            records
+            |> List.filter (fun r -> content r |> Option.map (text "kind") = Some "conflictResolution")
+            |> List.collect (fun r ->
+                let decider = text "nodeId" r
+                let keys = content r |> Option.map (strings "requirementKeys") |> Option.defaultValue [] |> Set.ofList
+                match Map.tryFind decider nodeIndex with
+                | Some node when text "kind" node = "decision" && Set.contains decider approved ->
+                    content r |> Option.map (strings "conflicts") |> Option.defaultValue []
+                    |> List.filter (fun id ->
+                        match Map.tryFind id nodeIndex with
+                        | Some c when text "kind" c = "conflict" ->
+                            not (Set.isEmpty (Set.intersect keys (strings "requirementKeys" c |> Set.ofList)))
+                        | _ -> false)
+                    |> List.map (fun id -> id, decider)
+                | _ -> [])
+            |> List.groupBy fst
+            |> List.map (fun (id, xs) -> id, xs |> List.map snd |> List.distinct |> List.sort)
+            |> Map.ofList
         { Owners = owners
           Disposition = disposition
           Transitions = transitions
           StateModelNodes = stateModels |> List.map (text "nodeId")
-          Ports = ports }
+          Ports = ports
+          Settled = settled }
 
     let private undecided (onFailure: JsonElement option) =
         match onFailure with
@@ -159,7 +184,7 @@ module RecognitionAudit =
         [ if not (Set.contains key f.Transitions) then "no approved state-model transition cites it"
           if not (List.isEmpty ports) then "a port cites it, so part of its behavior is handwritten"
           for id, kind in owners do
-              if kind = "conflict" then sprintf "conflict %s owns it" id
+              if kind = "conflict" && not (Map.containsKey id f.Settled) then sprintf "conflict %s owns it" id
               if kind = "decision" && not (Set.contains id approved) then sprintf "decision %s is not approved" id
           match Map.tryFind key f.Disposition with
           | Some "modeled" -> ()
@@ -192,7 +217,7 @@ module RecognitionAudit =
             let cohortId = text "cohortId" report
             let cohort = array "nodes" blueprint |> List.tryFind (fun n -> text "id" n = cohortId && text "kind" n = "cohort")
             let assigned = cohort |> Option.map (strings "requirementKeys") |> Option.defaultValue [] |> List.distinct
-            let f = facts blueprint decisions
+            let f = facts blueprint decisions approved
             let requirements = array "requirements" report
             let excluded = array "excluded" report
             let outcomes = requirements |> List.map (fun r -> text "key" r, outcomeKind r) |> Map.ofList
@@ -238,7 +263,8 @@ module RecognitionAudit =
                       if (kind = "constructible" || kind = "delegate")
                          && owners |> List.exists (fun (id, nodeKind) -> nodeKind = "decision" && not (Set.contains id approved)) then
                           finding Codes.SilentDefault k "an owning decision is not approved, but the outcome does not wait on it"
-                      if (kind = "constructible" || kind = "delegate") && owners |> List.exists (snd >> (=) "conflict") then
+                      if (kind = "constructible" || kind = "delegate")
+                         && owners |> List.exists (fun (id, nodeKind) -> nodeKind = "conflict" && not (Map.containsKey id f.Settled)) then
                           finding Codes.ConflictIgnored k "an open conflict owns the requirement"
 
                   // Packet integrity.
@@ -284,8 +310,16 @@ module RecognitionAudit =
                                   finding Codes.DecisionContextMissing id (sprintf "approved decision %s owns %s but is not in the packet" id' k)
                               if kind = "verificationObligation" && not (Set.contains id' verificationGiven) then
                                   finding Codes.VerificationMissing id (sprintf "verification obligation %s for %s is not in the packet" id' k)
-                              if kind = "conflict" && not (List.contains k escalation) then
-                                  finding Codes.EscalationMissing id (sprintf "conflict %s owns %s but escalation is not required" id' k) ]
+                              match Map.tryFind id' f.Settled with
+                              | Some deciders when kind = "conflict" ->
+                                  let listed =
+                                      array "approvedDecisions" p
+                                      |> List.exists (fun d -> List.contains (text "nodeId" d) deciders && List.contains id' (strings "resolves" d))
+                                  if not listed then
+                                      finding Codes.ResolutionMissing id (sprintf "conflict %s owning %s is settled by %s, but the packet does not say so" id' k (String.concat ", " deciders))
+                              | None when kind = "conflict" && not (List.contains k escalation) ->
+                                  finding Codes.EscalationMissing id (sprintf "conflict %s owns %s but escalation is not required" id' k)
+                              | _ -> () ]
 
             let count kind = outcomes |> Map.filter (fun _ v -> v = kind) |> Map.count
             let binding =
