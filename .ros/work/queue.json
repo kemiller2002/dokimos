@@ -690,6 +690,29 @@
       },
       "source": "manual",
       "sourceReference": null
+    },
+    {
+      "id": "GH-34",
+      "title": "Assess and adopt universal UI layout/action conformance (UI-LAYOUT-INTERACTION@1.0.0) for the Dokimos site, results UI and printable report (#34)",
+      "description": null,
+      "tags": [
+        "ui-conformance"
+      ],
+      "priority": "high",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-10-14T08:42:49.000Z",
+      "updatedAt": "2026-10-14T08:42:51.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "github",
+      "sourceReference": "https://github.com/kemiller2002/dokimos/issues/34"
     }
   ]
 }

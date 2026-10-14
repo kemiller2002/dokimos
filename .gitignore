@@ -16,6 +16,9 @@ venv/
 # Node
 node_modules/
 
+# Playwright output (ui:conformance)
+test-results/
+
 # Generated transient work
 .ros/locks/
 work/staging/*

@@ -13,6 +13,7 @@ Deployment and external settings: [`DEPLOYMENT.md`](DEPLOYMENT.md).
 | `npm run serve` | Build, then preview at `http://localhost:4000/` with GitHub Pages URL semantics. |
 | `npm test` | Unit and output tests: data schemas, derivations, links, metadata, headings, contrast, determinism. |
 | `npm run audit` | Browser audit of `dist/`: axe-core WCAG 2.1 A/AA + best practice, five viewports, 200% zoom, no-JavaScript rendering, forced colours, keyboard skip link, 404 handling. Needs Chromium (`npx playwright install chromium`). |
+| `npm run ui:conformance` | Build, then check the site, the results UI and the printable report against `visual-engineering/UI-LAYOUT-INTERACTION@1.0.0`: every enabled action exercised through its role and accessible name, declared alignment groups, 320/390/768/1280px, 200% text, A4 print and a Chromium PDF. Writes schema-valid evidence (`UI_CONFORMANCE_EVIDENCE`); the helpers are `@echelon-foundry/forma-conformance` vendored verbatim under `site/test/ui-conformance/forma-conformance/`. Set `CHROMIUM_PATH` to use a local Chromium. |
 | `npm run echelon:visual:verify` | Visual Engineering installation verification (`init` first on a fresh clone). |
 | `npm run praxis:validate` | Praxis repository validation. |
 
