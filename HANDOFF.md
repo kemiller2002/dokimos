@@ -35,7 +35,8 @@ Release validation additionally runs Dokimos's own gate, package installation, n
 
 ## Next action
 
-1. Merge echelon-registry#21 and conditor#23 (merge commits keep the proof's pinned Registry commit reachable).
-2. Owner decision: add Dokimos to an `echelon-engineering` successor profile version, or keep it optional.
-3. Add a macOS clean-host proof when infrastructure exists.
-4. Provenance adoption remains issue #12.
+Issue #10 is closed (echelon-registry#21 and conditor#23 merged).
+
+1. Merge echelon-registry#23: Dokimos joins `echelon-engineering` 0.2.0 (owner decision 2026-10-02).
+2. Add a macOS clean-host proof when infrastructure exists.
+3. Provenance adoption remains issue #12.
