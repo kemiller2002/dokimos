@@ -243,17 +243,21 @@ tr.is-current th::after { content: " (current)"; font-weight: 400; }
 .steps p { max-width: var(--dk-measure); }
 
 /* Responsive recomposition ---------------------------------------------- */
+/* Breakpoints in em follow the reader's text size, so enlarged text
+   recomposes the layout instead of overflowing it (UI-LAYOUT-INTERACTION
+   ULI-L05/L09). 68.75em, 56.25em and 42.5em are 1100, 900 and 680 px at the
+   default 16 px text size, so default rendering is unchanged. */
 
-@media (max-width: 1100px) {
+@media (max-width: 68.75em) {
   .pipeline { grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 0 1.5rem; }
   .pipeline li:not(:last-child)::after { content: none; }
   .lifecycle { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
-@media (max-width: 900px) {
+@media (max-width: 56.25em) {
   .ratchet, .prose-columns, .triad { grid-template-columns: minmax(0, 1fr); }
   .boundary-list > div { grid-template-columns: minmax(0, 1fr); gap: .25rem; }
 }
-@media (max-width: 680px) {
+@media (max-width: 42.5em) {
   .lifecycle { grid-template-columns: minmax(0, 1fr); }
   .lifecycle-step { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: .25rem 1rem; }
   .lifecycle-step .lifecycle-evidence { grid-column: 2; }

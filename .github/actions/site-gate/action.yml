@@ -48,6 +48,26 @@ runs:
         npx playwright install --with-deps chromium
         npm run audit
 
+    - name: UI layout and action conformance (visual-engineering/UI-LAYOUT-INTERACTION@1.0.0)
+      shell: bash
+      # Every enabled action on the site, the results UI and the printable
+      # report, declared alignment groups, 320-1280px, 200% text and A4 print.
+      # Blocking: any FAIL or schema-invalid evidence fails the gate; UNKNOWN
+      # is recorded in the evidence, never counted as a pass.
+      env:
+        UI_CONFORMANCE_EVIDENCE: ${{ runner.temp }}/ui-conformance/evidence.json
+        UI_CONFORMANCE_ARTIFACTS: ${{ runner.temp }}/ui-conformance/artifacts
+      run: npm run ui:conformance
+
+    - name: Keep the UI conformance evidence
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: ui-conformance-${{ github.sha }}
+        path: ${{ runner.temp }}/ui-conformance
+        if-no-files-found: warn
+        retention-days: 14
+
     - name: Results UI render and browser audit (DOK-OPS-019)
       shell: bash
       run: |
