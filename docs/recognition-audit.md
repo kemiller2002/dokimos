@@ -54,7 +54,16 @@ verify`.
 | `packet-generated-root-unprotected` | Generated code exists, but the packet forbids no path. |
 | `packet-decision-context-missing` | An approved decision owning a packet requirement is not in the packet (OPT-15). |
 | `packet-verification-missing` | A verification obligation owning a packet requirement is not in the packet. |
-| `packet-escalation-missing` | A conflict owns a packet requirement, but escalation is not required. |
+| `packet-escalation-missing` | An open conflict owns a packet requirement, but escalation is not required. |
+| `packet-resolution-missing` | A settled conflict owns a packet requirement, but the packet does not list the deciding node with `resolves` naming that conflict. |
+
+A conflict counts as **settled**, and is not open, when all three hold:
+- a `conflictResolution` decision record is on an approved Decision node;
+- it names that Conflict node;
+- the two share a requirement key.
+
+Dokimos re-derives this from the supplied decision records, independently of
+Ordo (ordo#88).
 
 `DecisionsBinding` reports whether the decision file's bytes match the digest
 the report binds:

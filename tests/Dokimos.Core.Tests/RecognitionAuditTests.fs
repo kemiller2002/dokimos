@@ -108,3 +108,44 @@ let ``a packet that drops its approved decision, its oracle or overlaps generate
 let ``a packet that hands over undecided work is a scope violation`` () =
     let widened = editPacket sessionKey (fun p -> (at "requirementKeys" p).AsArray().Add(JsonValue.Create stopKey))
     Assert.Contains(RecognitionAudit.Codes.PacketScopeViolation, auditWith (file "report.json") widened approved |> codes)
+
+// ---------------------------------------------------------------------------
+// Conflicts settled by an approved decision (`conflictResolution`).
+// ---------------------------------------------------------------------------
+
+let private settledDir = Path.Combine(repositoryRoot, "tests", "fixtures", "recognition", "timer-settled")
+let private settledFile name = File.ReadAllText(Path.Combine(settledDir, name))
+let private settledPackets () =
+    Directory.GetFiles(Path.Combine(settledDir, "packets"), "*.json")
+    |> Array.sort
+    |> Array.map (fun p -> Path.GetFileName p |> string, File.ReadAllBytes p)
+    |> Array.toList
+
+let private auditSettled report packets approvals =
+    RecognitionAudit.audit (settledFile "source-manifest.json") (settledFile "blueprint.json")
+        (Some(File.ReadAllBytes(Path.Combine(settledDir, "construction-decisions.json")))) approvals report packets
+    |> function Ok r -> r | Error e -> failwithf "%A" e
+
+let private settledApprovals = [ "DEC-TIMER-STATES"; "DEC-SESSION-SCOPE" ]
+
+[<Fact>]
+let ``a conflict settled by an approved decision is not an ignored conflict`` () =
+    let r = auditSettled (settledFile "report.json") (settledPackets ()) settledApprovals
+    Assert.Empty r.Findings
+    Assert.Equal(2, r.Delegated)
+
+[<Fact>]
+let ``a settlement by an unapproved decision leaves the conflict open`` () =
+    let found = auditSettled (settledFile "report.json") (settledPackets ()) [ "DEC-TIMER-STATES" ] |> codes
+    Assert.Contains(RecognitionAudit.Codes.ConflictIgnored, found)
+
+[<Fact>]
+let ``a packet that hides which decision settles its conflict is caught`` () =
+    let stripped =
+        settledPackets ()
+        |> List.map (fun (name, bytes) ->
+            let node = parse (Encoding.UTF8.GetString bytes)
+            for d in items (at "approvedDecisions" node) do d["resolves"] <- JsonArray()
+            name, Encoding.UTF8.GetBytes(node.ToJsonString()))
+    let found = auditSettled (settledFile "report.json") stripped settledApprovals |> codes
+    Assert.Contains(RecognitionAudit.Codes.ResolutionMissing, found)

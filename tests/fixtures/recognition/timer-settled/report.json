@@ -1,0 +1,269 @@
+{
+  "blueprintDigest": "sha256:891e0e471abf008a5ca363b7aff62915abbd699042da0d7c0a97c0ec30cdd955",
+  "cohortId": "COH-TIMER",
+  "completeConstruction": false,
+  "decisionRecordsDigest": "sha256:e848961a3e32d206eeafe9c2bd1f75692714e16239082a8e0ed0cd6bfbed63db",
+  "decisions": [
+    {
+      "gap": {
+        "command": "Stop",
+        "kind": "effectFailureUndecided",
+        "recordNodeId": "IFC-TIMER-PORTS"
+      },
+      "id": "DEC-REQ-COH-TIMER-dc47c3ab2c8b",
+      "question": "Record IFC-TIMER-PORTS leaves the failure disposition of the Stop effect undecided. When the effect fails or its outcome is unknown, does the workflow remain in the transition's source state or proceed to its target?",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144"
+      ]
+    }
+  ],
+  "excluded": [],
+  "generationWorthwhile": true,
+  "measurements": {
+    "assignedRequirements": 6,
+    "blocked": 0,
+    "claimEvaluations": 18,
+    "constructible": 3,
+    "decisionRequired": 1,
+    "delegated": 2,
+    "delegationBytes": 3343,
+    "delegationPackets": 2,
+    "evaluated": 6,
+    "excluded": 0,
+    "partiallyGenerated": 0,
+    "patternsSelected": 3
+  },
+  "packets": [
+    {
+      "digest": "sha256:65cda34accb8e76338507efd31814430bb3fe59bcc680e38da149d8d6e0d432a",
+      "id": "DLG-COH-TIMER-d007e4855306",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107"
+      ]
+    },
+    {
+      "digest": "sha256:798e28828f34343044f056361fc7b1a0a94016e00874c87e4e95efb80ade7cfd",
+      "id": "DLG-COH-TIMER-ffc2989b354c",
+      "requirementKeys": [
+        "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148"
+      ]
+    }
+  ],
+  "pin": {
+    "patterns": [
+      {
+        "contractDigest": "sha256:d91bd8b9a769acaa2203c57e4c3f810003b2e940de62c0c9923f844c75acfbdc",
+        "id": "ordo.current-time-port",
+        "version": 1
+      },
+      {
+        "contractDigest": "sha256:14bdc88a6532a6f06b22b19e7d5b537c741806624f19ec1d69de5952bb96e743",
+        "id": "ordo.state-machine",
+        "version": 1
+      },
+      {
+        "contractDigest": "sha256:6196e8195a900a46d10cdea1809f6284141e96619a0d06c9e9fd28a2af65cac1",
+        "id": "ordo.transition-effect-port",
+        "version": 1
+      }
+    ],
+    "registryVersion": "ordo.patterns/1"
+  },
+  "requirements": [
+    {
+      "claims": [
+        {
+          "defects": [],
+          "evidence": [
+            "DEC-TIMER-STATES"
+          ],
+          "gaps": [],
+          "kind": {
+            "kind": "constructs"
+          },
+          "pattern": {
+            "id": "ordo.state-machine",
+            "version": 1
+          }
+        }
+      ],
+      "decisionClass": "approved",
+      "key": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L116-L129",
+      "originalId": "L116-L129",
+      "outcome": {
+        "delegatedPrerequisites": [],
+        "kind": "constructible",
+        "patterns": [
+          {
+            "id": "ordo.state-machine",
+            "version": 1
+          }
+        ]
+      }
+    },
+    {
+      "claims": [
+        {
+          "defects": [],
+          "evidence": [
+            "IFC-TIMER-PORTS"
+          ],
+          "gaps": [],
+          "kind": {
+            "kind": "interfaceOnly",
+            "surfaces": [
+              "ITimerPorts.CurrentTime"
+            ]
+          },
+          "pattern": {
+            "id": "ordo.current-time-port",
+            "version": 1
+          }
+        },
+        {
+          "defects": [],
+          "evidence": [
+            "IFC-TIMER-PORTS"
+          ],
+          "gaps": [
+            {
+              "command": "Stop",
+              "kind": "effectFailureUndecided",
+              "recordNodeId": "IFC-TIMER-PORTS"
+            }
+          ],
+          "kind": {
+            "kind": "interfaceOnly",
+            "surfaces": [
+              "ITimerPorts.Perform/Stop"
+            ]
+          },
+          "pattern": {
+            "id": "ordo.transition-effect-port",
+            "version": 1
+          }
+        }
+      ],
+      "decisionClass": "unresolved",
+      "key": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L131-L144",
+      "originalId": "L131-L144",
+      "outcome": {
+        "gaps": [
+          {
+            "command": "Stop",
+            "kind": "effectFailureUndecided",
+            "recordNodeId": "IFC-TIMER-PORTS"
+          }
+        ],
+        "generatedBy": [],
+        "kind": "decisionRequired"
+      }
+    },
+    {
+      "claims": [],
+      "decisionClass": "unsupported",
+      "key": "kemiller2002/time-entry-state-machine/docs/architecture/business-activity-ledger-state-model.md#L145-L148",
+      "originalId": "L145-L148",
+      "outcome": {
+        "generatedBy": [],
+        "interfaces": [],
+        "kind": "delegate"
+      }
+    },
+    {
+      "claims": [
+        {
+          "defects": [],
+          "evidence": [
+            "DEC-TIMER-STATES"
+          ],
+          "gaps": [],
+          "kind": {
+            "kind": "constructs"
+          },
+          "pattern": {
+            "id": "ordo.state-machine",
+            "version": 1
+          }
+        }
+      ],
+      "decisionClass": "approved",
+      "key": "kemiller2002/time-entry-state-machine/effort-experiment/f-sharp-state/REQUIREMENTS.md#L367-L368",
+      "originalId": "L367-L368",
+      "outcome": {
+        "delegatedPrerequisites": [],
+        "kind": "constructible",
+        "patterns": [
+          {
+            "id": "ordo.state-machine",
+            "version": 1
+          }
+        ]
+      }
+    },
+    {
+      "claims": [
+        {
+          "defects": [],
+          "evidence": [
+            "DEC-TIMER-STATES"
+          ],
+          "gaps": [],
+          "kind": {
+            "kind": "constructs"
+          },
+          "pattern": {
+            "id": "ordo.state-machine",
+            "version": 1
+          }
+        }
+      ],
+      "decisionClass": "approved",
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L104",
+      "originalId": "L104",
+      "outcome": {
+        "delegatedPrerequisites": [],
+        "kind": "constructible",
+        "patterns": [
+          {
+            "id": "ordo.state-machine",
+            "version": 1
+          }
+        ]
+      }
+    },
+    {
+      "claims": [
+        {
+          "defects": [],
+          "evidence": [
+            "IFC-TIMER-PORTS"
+          ],
+          "gaps": [],
+          "kind": {
+            "kind": "interfaceOnly",
+            "surfaces": [
+              "ITimerPorts.CurrentTime"
+            ]
+          },
+          "pattern": {
+            "id": "ordo.current-time-port",
+            "version": 1
+          }
+        }
+      ],
+      "decisionClass": "unsupported",
+      "key": "kemiller2002/time-entry-state-machine/requirements-reconstruction/fsharp-business-requirements-beyond-csharp.md#L105-L107",
+      "originalId": "L105-L107",
+      "outcome": {
+        "generatedBy": [],
+        "interfaces": [
+          "ITimerPorts.CurrentTime"
+        ],
+        "kind": "delegate"
+      }
+    }
+  ],
+  "schemaVersion": "ordo.pattern-recognition/1",
+  "sourceManifestDigest": "sha256:03e29eddb6e528baea0707ec6660f18b0495ac8a6424f3c794a53cc2f5925a01"
+}
