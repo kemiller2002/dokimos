@@ -33,7 +33,7 @@
 | DOK-WEB-002 | Adopt the Echelon Foundry stylesheet and background on the Dokimos site | active | website | high |
 | GH-25 | Add Forma icon usage audit from pinned registry | captured |  | high |
 | GH-30 | GH-30 | complete |  |  |
-| GH-34 | Assess and adopt universal UI layout/action conformance (UI-LAYOUT-INTERACTION@1.0.0) for the Dokimos site, results UI and printable report (#34) | ready | ui-conformance | high |
+| GH-34 | Assess and adopt universal UI layout/action conformance (UI-LAYOUT-INTERACTION@1.0.0) for the Dokimos site, results UI and printable report (#34) | complete | ui-conformance | high |
 | ROS-INSTALL-3-1-4 | ROS-INSTALL-3-1-4 | complete |  |  |
 | WI-0001 | Move dokimos to Praxis 3.7.1 (ROS -> Praxis rename) and Ordo 1.4.0 | complete | praxis, ordo, toolchain | medium |
 | WI-0002 | Move dokimos to Ordo 1.4.1 | complete | ordo, toolchain | medium |

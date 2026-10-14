@@ -699,10 +699,10 @@
         "ui-conformance"
       ],
       "priority": "high",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-10-14T08:42:49.000Z",
-      "updatedAt": "2026-10-14T08:42:51.000Z",
+      "updatedAt": "2026-10-14T09:06:09.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
