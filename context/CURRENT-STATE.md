@@ -52,7 +52,7 @@ Open, external or owner decisions:
 - A macOS clean-host proof is not yet run.
 - Provenance contract adoption is separate work (issue #12).
 - nuget.org publication needs Trusted Publishing (`DOKIMOS_NUGET_PUBLISH`, `DOKIMOS_NUGET_USER`, environment `nuget`).
-- Licensed MIT (`LICENSE`, package `PackageLicenseExpression`). Later versions can be relicensed by the copyright holder; released versions stay MIT.
+- Source available under PolyForm Noncommercial 1.0.0 for permitted noncommercial uses. Commercial use requires a separate license from Echelon Foundry. Previously distributed versions remain subject to the licenses under which they were released.
 
 ## Resume point
 

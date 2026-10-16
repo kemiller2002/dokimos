@@ -60,6 +60,6 @@ was separate from the adoption and landed first.
 
 ## Still external
 
-- nuget.org publication is an owner decision. The repository is licensed MIT (`LICENSE`).
+- nuget.org publication is an owner decision. The repository is licensed under PolyForm Noncommercial 1.0.0 (`LICENSE`).
 - Stable-profile membership (`echelon-engineering` successor version) is an owner decision; Dokimos is currently selected only by the `dokimos-proof` Registry profile.
 - A macOS clean-host proof is not yet run (no macOS proof infrastructure in Conditor CI).

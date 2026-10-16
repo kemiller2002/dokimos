@@ -28,3 +28,9 @@ See `requirements/REQUIREMENTS.md` and `docs/architecture/ARCHITECTURE.md`.
 ## Website
 
 The public site at `https://dokimos.echelonfoundry.com` lives in `site/` and is generated from this repository's own evidence. `npm ci && npm run build` writes it to `dist/`; `npm run serve` previews it. See `docs/website/SITE.md` and `docs/website/DEPLOYMENT.md`.
+
+## License
+
+Source available under PolyForm Noncommercial 1.0.0 for permitted noncommercial uses. Commercial use requires a separate license from Echelon Foundry. Previously distributed versions remain subject to the licenses under which they were released.
+
+Commercial licensing information is forthcoming.
