@@ -31,8 +31,10 @@
 | DOK-OPS-027 | Echelon Registry: add dokimos to registry/systems.json | complete | operational, external | medium |
 | DOK-WEB-001 | Public Dokimos website on GitHub Pages | active | website | high |
 | DOK-WEB-002 | Adopt the Echelon Foundry stylesheet and background on the Dokimos site | active | website | high |
+| DOKIMOS-REL-001 | Implement independent completion-evidence verification | captured | requirements, implementation | high |
 | GH-25 | Add Forma icon usage audit from pinned registry | captured |  | high |
 | GH-30 | GH-30 | complete |  |  |
+| INGEST-REQS-20261018 | Ingest outstanding Praxis requirement sources | active | requirements, ingestion | high |
 | ROS-INSTALL-3-1-4 | ROS-INSTALL-3-1-4 | complete |  |  |
 | WI-0001 | Move dokimos to Praxis 3.7.1 (ROS -> Praxis rename) and Ordo 1.4.0 | complete | praxis, ordo, toolchain | medium |
 | WI-0002 | Move dokimos to Ordo 1.4.1 | complete | ordo, toolchain | medium |

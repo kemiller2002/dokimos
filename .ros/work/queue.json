@@ -690,6 +690,54 @@
       },
       "source": "manual",
       "sourceReference": null
+    },
+    {
+      "id": "INGEST-REQS-20261018",
+      "title": "Ingest outstanding Praxis requirement sources",
+      "description": "Claim and derive canonical requirements from Dokimos color and reliability sources; preserve provenance and keep implementation work separate.",
+      "tags": [
+        "requirements",
+        "ingestion"
+      ],
+      "priority": "high",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-10-18T12:48:41.464Z",
+      "updatedAt": "2026-10-18T12:48:41.813Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "openai/codex",
+        "provider": "openai",
+        "model": "unknown",
+        "runtime": "codex"
+      },
+      "source": "user",
+      "sourceReference": "2026-10-18 ingestion request"
+    },
+    {
+      "id": "DOKIMOS-REL-001",
+      "title": "Implement independent completion-evidence verification",
+      "description": "Implement RQ-DOKIMOS-REL-001 after the REL-ORDO-001 contract is available.",
+      "tags": [
+        "requirements",
+        "implementation"
+      ],
+      "priority": "high",
+      "status": "captured",
+      "attachments": [],
+      "createdAt": "2026-10-18T12:53:20.121Z",
+      "updatedAt": "2026-10-18T12:53:20.121Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "openai/codex",
+        "provider": "openai",
+        "model": "unknown",
+        "runtime": "codex"
+      },
+      "source": "Praxis inbox",
+      "sourceReference": "INPUT-f1620e8ac38269ea"
     }
   ]
 }

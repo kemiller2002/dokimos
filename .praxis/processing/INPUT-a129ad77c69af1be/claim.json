@@ -1,0 +1,42 @@
+{
+  "schema": "praxis.inbox-claim/1",
+  "claimId": "INPUT-a129ad77c69af1be",
+  "state": "claimed",
+  "source": {
+    "path": ".praxis/inbox/documents/2026-10-14-DOKIMOS-COLOR-001.md",
+    "fileName": "2026-10-14-DOKIMOS-COLOR-001.md",
+    "sha256": "a3b66a2dd4fd34fd989a4edf6e521965e5e7addd071744a0cd10157dbd9ae358",
+    "size": 4187
+  },
+  "claimedAt": "2026-10-18T12:49:02.484Z",
+  "claimant": {
+    "kind": "agent",
+    "id": "openai/codex",
+    "provider": "openai",
+    "model": "unknown",
+    "runtime": "codex"
+  },
+  "executionId": "EXE-20261018T124842385Z-b72bbb9b",
+  "derivations": [
+    {
+      "kind": "requirement",
+      "targetKind": "path",
+      "target": "requirements/COLOR-CONTRACT-VERIFICATION.md",
+      "summary": "Independent Forma color-contract verification requirements",
+      "locator": "requirements/COLOR-CONTRACT-VERIFICATION.md",
+      "recordedAt": "2026-10-18T12:53:10.189Z",
+      "actor": {
+        "kind": "agent",
+        "id": "openai/codex",
+        "provider": "openai",
+        "model": "unknown",
+        "runtime": "codex"
+      },
+      "executionId": "EXE-20261018T124842385Z-b72bbb9b"
+    }
+  ],
+  "noDerivationReason": null,
+  "closedAt": null,
+  "releaseReason": null,
+  "rejectionReason": null
+}
