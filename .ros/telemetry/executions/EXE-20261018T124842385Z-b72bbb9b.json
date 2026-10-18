@@ -1421,6 +1421,23 @@
         "mechanism": "json"
       },
       "eventId": "TEVT-8925e369da2fe601e3194d75"
+    },
+    {
+      "type": "step.completed",
+      "occurredAt": "2026-10-18T12:55:58.916Z",
+      "stepId": "STEP-20261018T124851198Z-ea9bbba6",
+      "actor": {
+        "kind": "agent",
+        "id": "openai/codex",
+        "provider": "openai",
+        "model": "unknown",
+        "runtime": "codex"
+      },
+      "source": {
+        "type": "ros-cli",
+        "name": "step",
+        "mechanism": "step-lifecycle"
+      }
     }
   ],
   "repository": {
@@ -1469,12 +1486,12 @@
       "name": "Ingest outstanding requirement sources",
       "description": null,
       "classification": [],
-      "status": "active",
+      "status": "completed",
       "plannedAt": "2026-10-18T12:48:51.198Z",
       "startedAt": "2026-10-18T12:48:51.198Z",
-      "completedAt": null,
-      "endedAt": null,
-      "updatedAt": "2026-10-18T12:48:51.198Z",
+      "completedAt": "2026-10-18T12:55:58.916Z",
+      "endedAt": "2026-10-18T12:55:58.916Z",
+      "updatedAt": "2026-10-18T12:55:58.916Z",
       "actor": {
         "kind": "agent",
         "id": "openai/codex",
@@ -1696,6 +1713,19 @@
           "from": null,
           "to": "active",
           "occurredAt": "2026-10-18T12:48:51.198Z",
+          "reason": null,
+          "actor": {
+            "kind": "agent",
+            "id": "openai/codex",
+            "provider": "openai",
+            "model": "unknown",
+            "runtime": "codex"
+          }
+        },
+        {
+          "from": "active",
+          "to": "completed",
+          "occurredAt": "2026-10-18T12:55:58.916Z",
           "reason": null,
           "actor": {
             "kind": "agent",

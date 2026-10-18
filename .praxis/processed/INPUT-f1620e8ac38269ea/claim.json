@@ -1,14 +1,14 @@
 {
   "schema": "praxis.inbox-claim/1",
-  "claimId": "INPUT-a129ad77c69af1be",
-  "state": "claimed",
+  "claimId": "INPUT-f1620e8ac38269ea",
+  "state": "completed",
   "source": {
-    "path": ".praxis/inbox/documents/2026-10-14-DOKIMOS-COLOR-001.md",
-    "fileName": "2026-10-14-DOKIMOS-COLOR-001.md",
-    "sha256": "a3b66a2dd4fd34fd989a4edf6e521965e5e7addd071744a0cd10157dbd9ae358",
-    "size": 4187
+    "path": ".praxis/inbox/documents/2026-10-16-ENGINEERING-RELIABILITY-001.md",
+    "fileName": "2026-10-16-ENGINEERING-RELIABILITY-001.md",
+    "sha256": "16ce7ef40e9ee0fdf7975c0df8653701c75ab6c808b85095938b0cb5c8698763",
+    "size": 1199
   },
-  "claimedAt": "2026-10-18T12:49:02.484Z",
+  "claimedAt": "2026-10-18T12:49:02.630Z",
   "claimant": {
     "kind": "agent",
     "id": "openai/codex",
@@ -21,10 +21,10 @@
     {
       "kind": "requirement",
       "targetKind": "path",
-      "target": "requirements/COLOR-CONTRACT-VERIFICATION.md",
-      "summary": "Independent Forma color-contract verification requirements",
-      "locator": "requirements/COLOR-CONTRACT-VERIFICATION.md",
-      "recordedAt": "2026-10-18T12:53:10.189Z",
+      "target": "requirements/ENGINEERING-RELIABILITY.md",
+      "summary": "Independent completion-evidence verification requirements",
+      "locator": "requirements/ENGINEERING-RELIABILITY.md",
+      "recordedAt": "2026-10-18T12:53:10.349Z",
       "actor": {
         "kind": "agent",
         "id": "openai/codex",
@@ -36,7 +36,7 @@
     }
   ],
   "noDerivationReason": null,
-  "closedAt": null,
+  "closedAt": "2026-10-18T12:55:51.641Z",
   "releaseReason": null,
   "rejectionReason": null
 }
