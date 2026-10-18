@@ -37,6 +37,7 @@
     <Compile Include="CapabilitiesTests.fs" />
     <Compile Include="EvaluationTests.fs" />
     <Compile Include="ContractsTests.fs" />
+    <Compile Include="CompletionVerificationTests.fs" />
     <Compile Include="RepositoryIdentityTests.fs" />
     <Compile Include="QualitySignalsTests.fs" />
     <Compile Include="QualityRatchetTests.fs" />

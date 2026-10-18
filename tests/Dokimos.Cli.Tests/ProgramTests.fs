@@ -55,6 +55,7 @@ module ProgramTests =
         Assert.Contains("\"SourceCommit\":", output.Stdout.Value)
         Assert.Contains("\"DokimosVersion\": \"" + Dokimos.Core.DokimosInfo.version + "\"", output.Stdout.Value)
         Assert.Contains("\"2.0.0\"", output.Stdout.Value)
+        Assert.Contains("dokimos.completion-verification/1", output.Stdout.Value)
 
     [<Fact>]
     let ``capabilities declare unsupported metrics as unavailable`` () =
