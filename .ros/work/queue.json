@@ -738,6 +738,30 @@
       },
       "source": "Praxis inbox",
       "sourceReference": "INPUT-f1620e8ac38269ea"
+    },
+    {
+      "id": "PRAXIS-EXECUTIONS-COMPAT-20261018",
+      "title": "Exclude Praxis-managed execution state from attribution",
+      "description": "Add .ros/executions/** to the existing managed-state ignore list so the pinned validator does not classify Praxis execution envelopes as product changes.",
+      "tags": [
+        "governance",
+        "compatibility"
+      ],
+      "priority": "high",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-10-18T13:01:40.650Z",
+      "updatedAt": "2026-10-18T13:01:41.072Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "openai/codex",
+        "provider": "openai",
+        "model": "unknown",
+        "runtime": "codex"
+      },
+      "source": "CI validation",
+      "sourceReference": "percepta/actions/runs/39129621742"
     }
   ]
 }
