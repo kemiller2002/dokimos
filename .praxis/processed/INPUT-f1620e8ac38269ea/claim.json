@@ -1,0 +1,42 @@
+{
+  "schema": "praxis.inbox-claim/1",
+  "claimId": "INPUT-f1620e8ac38269ea",
+  "state": "completed",
+  "source": {
+    "path": ".praxis/inbox/documents/2026-10-16-ENGINEERING-RELIABILITY-001.md",
+    "fileName": "2026-10-16-ENGINEERING-RELIABILITY-001.md",
+    "sha256": "16ce7ef40e9ee0fdf7975c0df8653701c75ab6c808b85095938b0cb5c8698763",
+    "size": 1199
+  },
+  "claimedAt": "2026-10-18T12:49:02.630Z",
+  "claimant": {
+    "kind": "agent",
+    "id": "openai/codex",
+    "provider": "openai",
+    "model": "unknown",
+    "runtime": "codex"
+  },
+  "executionId": "EXE-20261018T124842385Z-b72bbb9b",
+  "derivations": [
+    {
+      "kind": "requirement",
+      "targetKind": "path",
+      "target": "requirements/ENGINEERING-RELIABILITY.md",
+      "summary": "Independent completion-evidence verification requirements",
+      "locator": "requirements/ENGINEERING-RELIABILITY.md",
+      "recordedAt": "2026-10-18T12:53:10.349Z",
+      "actor": {
+        "kind": "agent",
+        "id": "openai/codex",
+        "provider": "openai",
+        "model": "unknown",
+        "runtime": "codex"
+      },
+      "executionId": "EXE-20261018T124842385Z-b72bbb9b"
+    }
+  ],
+  "noDerivationReason": null,
+  "closedAt": "2026-10-18T12:55:51.641Z",
+  "releaseReason": null,
+  "rejectionReason": null
+}
