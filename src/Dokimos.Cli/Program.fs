@@ -40,26 +40,6 @@ module Program =
             if Directory.Exists path then Directory.EnumerateFiles(path, "*.trx", SearchOption.AllDirectories) |> Seq.sort |> Seq.toList
             else [ path ])
 
-    let version () =
-        let releaseVersion, sourceCommit = Installation.releaseOf DokimosInfo.version
-        Output.data (
-            Contracts.serialize
-                {| Contract = "dokimos.version"
-                   SchemaVersion = "1.1.0"
-                   SystemId = "dokimos"
-                   Repository = "kemiller2002/dokimos"
-                   Executable = "dokimos"
-                   CompatibilityAliases = ([]: string list)
-                   DokimosVersion = DokimosInfo.version
-                   ReleaseVersion = releaseVersion
-                   SourceCommit = sourceCommit
-                   Contracts =
-                    {| Snapshot = Contracts.supportedSnapshotSchemas
-                       Comparison = [ Contracts.ComparisonSchemaVersion ]
-                       Evaluation = [ Contracts.EvaluationSchemaVersion ]
-                       Policy = Contracts.supportedPolicySchemas |} |}
-        )
-
     let capabilities () =
         let determinism =
             function
@@ -471,6 +451,7 @@ module Program =
               "  ecir recognition-audit --manifest FILE --blueprint FILE --report FILE [--decisions FILE] [--approvals FILE] [--packets DIR]   independent audit of an Ordo pattern-recognition report and its delegation packets"
               "  construction verify ...                   independent construction verification (see `dokimos construction verify`)"
               "  behavior verify ...                       build a candidate commit and drive its frozen oracle adapter (executes candidate code; see `dokimos behavior verify`)"
+              "  completion verify --packet F --authority F   independently verify revision-bound completion evidence"
               "  evaluate --baseline b --current c --policy p [--exceptions quality/exceptions.json]"
               "  results --baseline b --current c --policy p [--store dir]   application-facing results contract"
               "  store init|put|get|accept-baseline|baseline --store dir ..."
@@ -487,13 +468,14 @@ module Program =
     let dispatch (args: string list) =
         match args with
         | [ "version" ]
-        | [ "--version" ] -> version ()
+        | [ "--version" ] -> VersionCommand.report ()
         | [ "capabilities" ] -> capabilities ()
         | "compare" :: rest -> compare rest
         | "ecir" :: "audit" :: rest -> EcirCommand.ecirAudit rest
         | "ecir" :: "recognition-audit" :: rest -> EcirCommand.recognitionAudit rest
         | "construction" :: "verify" :: rest -> ConstructionCommand.verify rest
         | "behavior" :: "verify" :: rest -> BehaviorCommand.verify rest
+        | "completion" :: "verify" :: rest -> CompletionCommand.verify rest
         | "evaluate" :: rest -> evaluate rest
         | "snapshot" :: rest -> snapshot rest
         | "measure" :: rest -> measure rest

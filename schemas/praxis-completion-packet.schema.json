@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/praxis/schemas/completion-packet",
+  "title": "Praxis completion packet",
+  "description": "A completion claim presented to Dokimos. The packet is not authority and cannot verify itself.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["SchemaVersion", "WorkItemId", "ClaimToken", "FencingGeneration", "Commit", "VerificationRevision", "OrdoContractVersion", "OrdoContractDigest", "RequirementIds", "DecisionIds", "ConflictResolutionIds", "Validations", "Evidence"],
+  "properties": {
+    "SchemaVersion": { "const": "praxis.completion-packet/1" },
+    "WorkItemId": { "type": "string", "minLength": 1 },
+    "ClaimToken": { "type": "string", "minLength": 1 },
+    "FencingGeneration": { "type": "integer", "minimum": 0 },
+    "Commit": { "$ref": "#/$defs/revision" },
+    "VerificationRevision": { "$ref": "#/$defs/revision" },
+    "OrdoContractVersion": { "type": "string", "minLength": 1 },
+    "OrdoContractDigest": { "$ref": "#/$defs/digest" },
+    "RequirementIds": { "$ref": "#/$defs/identifiers" },
+    "DecisionIds": { "$ref": "#/$defs/identifiers" },
+    "ConflictResolutionIds": { "$ref": "#/$defs/identifiers" },
+    "Validations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["Name", "Status", "EvidenceIds"],
+        "properties": {
+          "Name": { "type": "string", "minLength": 1 },
+          "Status": { "enum": ["passed", "failed", "unavailable"] },
+          "EvidenceIds": { "$ref": "#/$defs/identifiers" }
+        }
+      }
+    },
+    "Evidence": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/evidence" }
+    }
+  },
+  "$defs": {
+    "revision": { "type": "string", "pattern": "^(?:[0-9A-Fa-f]{40}|[0-9A-Fa-f]{64})$" },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9A-Fa-f]{64}$" },
+    "identifiers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["Id", "Digest", "Revision"],
+      "properties": {
+        "Id": { "type": "string", "minLength": 1 },
+        "Digest": { "$ref": "#/$defs/digest" },
+        "Revision": { "$ref": "#/$defs/revision" }
+      }
+    }
+  }
+}

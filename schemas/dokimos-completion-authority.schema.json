@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/completion-authority",
+  "title": "Dokimos completion verification authority",
+  "description": "Host-supplied authoritative expectations and independent evidence observations for one completion attempt.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["SchemaVersion", "WorkItemId", "ClaimToken", "FencingGeneration", "ExpectedCommit", "ExpectedVerificationRevision", "SupportedOrdoContractVersions", "ExpectedOrdoContractDigest", "RequiredRequirementIds", "RequiredDecisionIds", "RequiredConflictResolutionIds", "RequiredValidationNames", "Evidence", "ConsumedPacketDigests"],
+  "properties": {
+    "SchemaVersion": { "const": "dokimos.completion-authority/1" },
+    "WorkItemId": { "type": "string", "minLength": 1 },
+    "ClaimToken": { "type": "string", "minLength": 1 },
+    "FencingGeneration": { "type": "integer", "minimum": 0 },
+    "ExpectedCommit": { "$ref": "#/$defs/revision" },
+    "ExpectedVerificationRevision": { "$ref": "#/$defs/revision" },
+    "SupportedOrdoContractVersions": { "$ref": "#/$defs/identifiers" },
+    "ExpectedOrdoContractDigest": { "$ref": "#/$defs/digest" },
+    "RequiredRequirementIds": { "$ref": "#/$defs/identifiers" },
+    "RequiredDecisionIds": { "$ref": "#/$defs/identifiers" },
+    "RequiredConflictResolutionIds": { "$ref": "#/$defs/identifiers" },
+    "RequiredValidationNames": { "$ref": "#/$defs/identifiers" },
+    "Evidence": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["Id", "Digest", "Revision", "Status", "Reusable"],
+        "properties": {
+          "Id": { "type": "string", "minLength": 1 },
+          "Digest": { "$ref": "#/$defs/digest" },
+          "Revision": { "$ref": "#/$defs/revision" },
+          "Status": { "enum": ["passed", "failed", "unavailable"] },
+          "Reusable": { "type": "boolean" }
+        }
+      }
+    },
+    "ConsumedPacketDigests": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/digest" }
+    }
+  },
+  "$defs": {
+    "revision": { "type": "string", "pattern": "^(?:[0-9A-Fa-f]{40}|[0-9A-Fa-f]{64})$" },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9A-Fa-f]{64}$" },
+    "identifiers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

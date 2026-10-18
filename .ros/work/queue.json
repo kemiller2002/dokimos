@@ -724,10 +724,10 @@
         "implementation"
       ],
       "priority": "high",
-      "status": "captured",
+      "status": "ready",
       "attachments": [],
       "createdAt": "2026-10-18T12:53:20.121Z",
-      "updatedAt": "2026-10-18T12:53:20.121Z",
+      "updatedAt": "2026-10-18T18:38:50.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",

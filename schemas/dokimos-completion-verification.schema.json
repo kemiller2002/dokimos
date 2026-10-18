@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/completion-verification",
+  "title": "Dokimos completion verification receipt",
+  "description": "Compact deterministic result of independent completion verification. Verified exits 0; rejected exits 4.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["Contract", "SchemaVersion", "DokimosVersion", "Verdict", "ExitCode", "WorkItemId", "Commit", "VerificationRevision", "PacketDigest", "RequirementCount", "EvidenceDigests", "ReusedEvidenceIds", "Diagnostics"],
+  "properties": {
+    "Contract": { "const": "dokimos.completion-verification" },
+    "SchemaVersion": { "const": "dokimos.completion-verification/1" },
+    "DokimosVersion": { "type": "string", "minLength": 1 },
+    "Verdict": { "enum": ["verified", "rejected"] },
+    "ExitCode": { "enum": [0, 4] },
+    "WorkItemId": { "type": "string", "minLength": 1 },
+    "Commit": { "$ref": "#/$defs/revision" },
+    "VerificationRevision": { "$ref": "#/$defs/revision" },
+    "PacketDigest": { "$ref": "#/$defs/digest" },
+    "RequirementCount": { "type": "integer", "minimum": 0 },
+    "EvidenceDigests": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/digest" }
+    },
+    "ReusedEvidenceIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "Diagnostics": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["Code", "Subject", "Detail"],
+        "properties": {
+          "Code": { "type": "string", "pattern": "^DOK\\.COMPLETION\\.[A-Z0-9_]+$" },
+          "Subject": { "type": "string" },
+          "Detail": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "Verdict": { "const": "verified" } }, "required": ["Verdict"] },
+      "then": { "properties": { "ExitCode": { "const": 0 }, "Diagnostics": { "maxItems": 0 } } }
+    },
+    {
+      "if": { "properties": { "Verdict": { "const": "rejected" } }, "required": ["Verdict"] },
+      "then": { "properties": { "ExitCode": { "const": 4 }, "Diagnostics": { "minItems": 1 } } }
+    }
+  ],
+  "$defs": {
+    "revision": { "type": "string", "pattern": "^(?:[0-9A-Fa-f]{40}|[0-9A-Fa-f]{64})$" },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9A-Fa-f]{64}$" }
+  }
+}
