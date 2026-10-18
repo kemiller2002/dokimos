@@ -748,10 +748,10 @@
         "compatibility"
       ],
       "priority": "high",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-10-18T13:01:40.650Z",
-      "updatedAt": "2026-10-18T13:01:41.072Z",
+      "updatedAt": "2026-10-18T13:03:46.706Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
