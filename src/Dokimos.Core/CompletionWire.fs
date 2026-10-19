@@ -1,12 +1,15 @@
 namespace Dokimos.Core
 
+open System
+open System.Globalization
 open System.Text.Json
+open System.Text.RegularExpressions
 open Dokimos.Core.CompletionVerification
 
 /// Strict JSON intake and stable receipt projection for independent completion
 /// verification. Unknown and duplicate members are refused before semantics.
 module CompletionWire =
-    let private exact required (element: JsonElement) =
+    let private exactWith required optional (element: JsonElement) =
         if element.ValueKind <> JsonValueKind.Object then
             Error $"expected object, found {element.ValueKind}"
         else
@@ -14,13 +17,35 @@ module CompletionWire =
             match names |> List.groupBy id |> List.tryFind (fun (_, copies) -> copies.Length > 1) with
             | Some(name, _) -> Error $"duplicate JSON member '{name}'"
             | None ->
-                let allowed = Set.ofList required
+                let allowed = Set.ofList (required @ optional)
                 match names |> List.tryFind (fun name -> not (Set.contains name allowed)) with
                 | Some name -> Error $"unknown JSON member '{name}'"
                 | None ->
                     match required |> List.tryFind (fun name -> not (List.contains name names)) with
                     | Some name -> Error $"missing required field '{name}'"
                     | None -> Ok()
+
+    let private exact required element = exactWith required [] element
+
+    /// RFC 3339 instant with an explicit offset. Offset-less or date-only text
+    /// would depend on the verifying host's time zone and is refused.
+    let private instantPattern =
+        Regex(@"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,7})?(Z|[+-]\d{2}:\d{2})$", RegexOptions.CultureInvariant)
+
+    let private instant: Json.Decoder<DateTimeOffset> =
+        Json.string
+        >> Result.bind (fun text ->
+            match DateTimeOffset.TryParse(text, CultureInfo.InvariantCulture, DateTimeStyles.None) with
+            | true, value when instantPattern.IsMatch text -> Ok value
+            | _ -> Error $"expected an RFC 3339 timestamp with offset, found '{text}'")
+
+    /// Optional additive member: absent means not asserted; present must be
+    /// well-formed (JSON null is refused rather than read as absent).
+    let private optional name (decoder: Json.Decoder<'a>) : Json.Decoder<'a option> =
+        fun element ->
+            match element.TryGetProperty(name: string) with
+            | true, value -> decoder value |> Result.map Some |> Result.mapError (fun e -> $"{name}: {e}")
+            | _ -> Ok None
 
     let private boolean: Json.Decoder<bool> =
         fun element ->
@@ -85,23 +110,28 @@ module CompletionWire =
     let private observation: Json.Decoder<EvidenceObservation> =
         fun element ->
             Json.result {
-                do! exact [ "Id"; "Digest"; "Revision"; "Status"; "Reusable" ] element
+                do! exactWith [ "Id"; "Digest"; "Revision"; "Status"; "Reusable" ] [ "ObservedAt"; "Validation" ] element
                 let! id = Json.field "Id" Json.nonEmptyString element
                 let! digest = Json.field "Digest" Json.nonEmptyString element
                 let! revision = Json.field "Revision" Json.nonEmptyString element
                 let! status = Json.field "Status" evidenceStatus element
                 let! reusable = Json.field "Reusable" boolean element
-                return { Id = id; Digest = digest; Revision = revision; Status = status; Reusable = reusable }
+                let! observedAt = optional "ObservedAt" instant element
+                let! validation = optional "Validation" Json.nonEmptyString element
+                return
+                    { Id = id; Digest = digest; Revision = revision; Status = status; Reusable = reusable
+                      ObservedAt = observedAt; Validation = validation }
             }
 
     let private authority: Json.Decoder<VerificationAuthority> =
         fun element ->
             Json.result {
-                do! exact
+                do! exactWith
                         [ "SchemaVersion"; "WorkItemId"; "ClaimToken"; "FencingGeneration"; "ExpectedCommit"
                           "ExpectedVerificationRevision"; "SupportedOrdoContractVersions"; "ExpectedOrdoContractDigest"
                           "RequiredRequirementIds"; "RequiredDecisionIds"; "RequiredConflictResolutionIds"
-                          "RequiredValidationNames"; "Evidence"; "ConsumedPacketDigests" ] element
+                          "RequiredValidationNames"; "Evidence"; "ConsumedPacketDigests" ]
+                        [ "ClaimAcquiredAt"; "LeaseExpiresAt"; "EvaluatedAt" ] element
                 let! schema = Json.field "SchemaVersion" Json.nonEmptyString element
                 let! workItem = Json.field "WorkItemId" Json.nonEmptyString element
                 let! claim = Json.field "ClaimToken" Json.nonEmptyString element
@@ -116,13 +146,17 @@ module CompletionWire =
                 let! validations = Json.field "RequiredValidationNames" (Json.list Json.nonEmptyString) element
                 let! evidence = Json.field "Evidence" (Json.list observation) element
                 let! consumed = Json.field "ConsumedPacketDigests" (Json.list Json.nonEmptyString) element
+                let! acquired = optional "ClaimAcquiredAt" instant element
+                let! expires = optional "LeaseExpiresAt" instant element
+                let! evaluated = optional "EvaluatedAt" instant element
                 return
                     { SchemaVersion = schema; WorkItemId = workItem; ClaimToken = claim; FencingGeneration = generation
                       ExpectedCommit = commit; ExpectedVerificationRevision = revision
                       SupportedOrdoContractVersions = Set.ofList versions; ExpectedOrdoContractDigest = ordoDigest
                       RequiredRequirementIds = Set.ofList requirements; RequiredDecisionIds = Set.ofList decisions
                       RequiredConflictResolutionIds = Set.ofList resolutions; RequiredValidationNames = Set.ofList validations
-                      Evidence = evidence; ConsumedPacketDigests = Set.ofList consumed }
+                      Evidence = evidence; ConsumedPacketDigests = Set.ofList consumed
+                      ClaimAcquiredAt = acquired; LeaseExpiresAt = expires; EvaluatedAt = evaluated }
             }
 
     let private read decoder text =

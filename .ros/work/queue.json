@@ -762,6 +762,30 @@
       },
       "source": "CI validation",
       "sourceReference": "percepta/actions/runs/39129621742"
+    },
+    {
+      "id": "DOKIMOS-REL-002",
+      "title": "Close REL-DOKIMOS-001 verification gaps: replay spelling, freshness, validation binding",
+      "description": "Follow-up audit of DOKIMOS-REL-001 for the Echelon reliability integration: fail closed on consumed-digest case, optional freshness window, validation-bound evidence, negative tests.",
+      "tags": [
+        "requirements",
+        "implementation"
+      ],
+      "priority": "high",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-19T13:03:49.000Z",
+      "updatedAt": "2026-10-19T13:04:18.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "Praxis inbox",
+      "sourceReference": "INPUT-f1620e8ac38269ea"
     }
   ]
 }

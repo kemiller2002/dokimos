@@ -13,8 +13,8 @@
     "Verdict": { "enum": ["verified", "rejected"] },
     "ExitCode": { "enum": [0, 4] },
     "WorkItemId": { "type": "string", "minLength": 1 },
-    "Commit": { "$ref": "#/$defs/revision" },
-    "VerificationRevision": { "$ref": "#/$defs/revision" },
+    "Commit": { "type": "string", "minLength": 1, "description": "The packet's claimed commit; a full Git object ID whenever Verdict is verified." },
+    "VerificationRevision": { "type": "string", "minLength": 1, "description": "The packet's claimed verification revision; immutable whenever Verdict is verified." },
     "PacketDigest": { "$ref": "#/$defs/digest" },
     "RequirementCount": { "type": "integer", "minimum": 0 },
     "EvidenceDigests": {
@@ -45,7 +45,14 @@
   "allOf": [
     {
       "if": { "properties": { "Verdict": { "const": "verified" } }, "required": ["Verdict"] },
-      "then": { "properties": { "ExitCode": { "const": 0 }, "Diagnostics": { "maxItems": 0 } } }
+      "then": {
+        "properties": {
+          "ExitCode": { "const": 0 },
+          "Diagnostics": { "maxItems": 0 },
+          "Commit": { "$ref": "#/$defs/revision" },
+          "VerificationRevision": { "$ref": "#/$defs/revision" }
+        }
+      }
     },
     {
       "if": { "properties": { "Verdict": { "const": "rejected" } }, "required": ["Verdict"] },
