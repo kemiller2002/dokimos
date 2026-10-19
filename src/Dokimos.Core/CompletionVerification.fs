@@ -57,7 +57,13 @@ module CompletionVerification =
           Digest: string
           Revision: string
           Status: ObservedEvidenceStatus
-          Reusable: bool }
+          Reusable: bool
+          /// Optional (additive): when the host observed this evidence. Required
+          /// only when the authority declares a claim/lease freshness window.
+          ObservedAt: DateTimeOffset option
+          /// Optional (additive): the validation this observation proves. When
+          /// present, only that validation may cite it.
+          Validation: string option }
 
     type VerificationAuthority =
         { SchemaVersion: string
@@ -73,7 +79,13 @@ module CompletionVerification =
           RequiredConflictResolutionIds: Set<string>
           RequiredValidationNames: Set<string>
           Evidence: EvidenceObservation list
-          ConsumedPacketDigests: Set<string> }
+          ConsumedPacketDigests: Set<string>
+          /// Optional (additive) freshness window, enforced only when present.
+          ClaimAcquiredAt: DateTimeOffset option
+          LeaseExpiresAt: DateTimeOffset option
+          /// Host-supplied evaluation instant; Dokimos never reads the clock so
+          /// receipts remain deterministic for equivalent inputs.
+          EvaluatedAt: DateTimeOffset option }
 
     type Diagnostic =
         { Code: string
@@ -212,7 +224,68 @@ module CompletionVerification =
         let claims = firstBy (fun (claim: EvidenceClaim) -> claim.Id) packet.Evidence
         let observations = firstBy (fun (observation: EvidenceObservation) -> observation.Id) authority.Evidence
 
+        let instant (value: DateTimeOffset) = value.ToUniversalTime().ToString("O", Globalization.CultureInfo.InvariantCulture)
+        match authority.ClaimAcquiredAt, authority.LeaseExpiresAt with
+        | Some acquired, Some expires when expires <= acquired ->
+            add "DOK.COMPLETION.INVALID_FRESHNESS_WINDOW" "leaseExpiresAt"
+                $"lease expiry {instant expires} does not follow claim acquisition {instant acquired}"
+        | _ -> ()
+        match authority.EvaluatedAt with
+        | None ->
+            if authority.LeaseExpiresAt.IsSome then
+                add "DOK.COMPLETION.FRESHNESS_UNDETERMINED" "evaluatedAt" "a lease expiry requires a host-supplied evaluation instant"
+        | Some evaluated ->
+            match authority.ClaimAcquiredAt with
+            | Some acquired when evaluated < acquired ->
+                add "DOK.COMPLETION.INVALID_FRESHNESS_WINDOW" "evaluatedAt"
+                    $"evaluation {instant evaluated} precedes claim acquisition {instant acquired}"
+            | _ -> ()
+            match authority.LeaseExpiresAt with
+            | Some expires when evaluated >= expires ->
+                add "DOK.COMPLETION.STALE_LEASE" "leaseExpiresAt"
+                    $"lease expired at {instant expires}; evaluated at {instant evaluated}"
+            | _ -> ()
+
+        let freshnessWindowed = authority.ClaimAcquiredAt.IsSome || authority.LeaseExpiresAt.IsSome
+        let checkFreshness id (observation: EvidenceObservation) =
+            match observation.ObservedAt with
+            | None ->
+                if freshnessWindowed then
+                    add "DOK.COMPLETION.FRESHNESS_UNDETERMINED" id "the authority declares a freshness window but the observation has no ObservedAt"
+            | Some observed ->
+                match authority.ClaimAcquiredAt with
+                | Some acquired when observed < acquired && not observation.Reusable ->
+                    add "DOK.COMPLETION.EVIDENCE_STALE" id
+                        $"non-reusable evidence observed at {instant observed} precedes claim acquisition {instant acquired}"
+                | _ -> ()
+                match authority.LeaseExpiresAt with
+                | Some expires when observed >= expires ->
+                    add "DOK.COMPLETION.EVIDENCE_STALE" id $"evidence observed at {instant observed} after lease expiry {instant expires}"
+                | _ -> ()
+                match authority.EvaluatedAt with
+                | Some evaluated when observed > evaluated ->
+                    add "DOK.COMPLETION.INVALID_FRESHNESS_WINDOW" id
+                        $"evidence observed at {instant observed} after evaluation {instant evaluated}"
+                | _ -> ()
+
         for validation in packet.Validations do
+            for id in validation.EvidenceIds do
+                match Map.tryFind id observations with
+                | Some { Validation = Some bound } when bound <> validation.Name ->
+                    add "DOK.COMPLETION.EVIDENCE_VALIDATION_MISMATCH" (validation.Name + ":" + id)
+                        $"the host observed this evidence for validation '{bound}'"
+                | _ -> ()
+            let boundByHost =
+                authority.Evidence |> List.exists (fun observation -> observation.Validation = Some validation.Name)
+            let citesBound =
+                validation.EvidenceIds
+                |> List.exists (fun id ->
+                    match Map.tryFind id observations with
+                    | Some observation -> observation.Validation = Some validation.Name
+                    | None -> false)
+            if boundByHost && not citesBound then
+                add "DOK.COMPLETION.VALIDATION_UNBOUND" validation.Name
+                    "the host bound evidence to this validation but the packet cites none of it"
             match validation.Status with
             | Passed -> ()
             | Failed -> add "DOK.COMPLETION.VALIDATION_FAILED" validation.Name "claimant reports the validation failed"
@@ -240,9 +313,16 @@ module CompletionVerification =
                 | EvidencePassed -> ()
                 | EvidenceFailed -> add "DOK.COMPLETION.EVIDENCE_FAILED" id "independent evidence failed"
                 | EvidenceUnavailable -> add "DOK.COMPLETION.EVIDENCE_UNAVAILABLE" id "independent evidence is unavailable"
+                checkFreshness id observation
 
+        // Replay protection must not fail open on digest spelling: malformed
+        // consumed digests are refused and comparison ignores hex case.
+        for consumed in authority.ConsumedPacketDigests do
+            if not (isSha256 consumed) then
+                add "DOK.COMPLETION.INVALID_CONSUMED_PACKET_DIGEST" consumed "consumed packet digests must be sha256:<64 hex>"
+        let consumedDigests = authority.ConsumedPacketDigests |> Set.map (fun value -> value.ToLowerInvariant())
         let digest = packetDigest packet
-        if Set.contains digest authority.ConsumedPacketDigests then
+        if Set.contains digest consumedDigests then
             add "DOK.COMPLETION.REPLAYED_PACKET" digest "this exact completion packet was already consumed"
 
         let diagnostics = findings |> Seq.distinct |> Seq.sortBy (fun item -> item.Code, item.Subject, item.Detail) |> Seq.toList
@@ -251,7 +331,8 @@ module CompletionVerification =
             |> Map.toList
             |> List.choose (fun (id, claim) ->
                 match Map.tryFind id observations with
-                | Some observation when observation.Status = EvidencePassed && observation.Digest = claim.Digest && observation.Revision = claim.Revision -> Some claim.Digest
+                | Some observation when observation.Status = EvidencePassed && isSha256 claim.Digest
+                                             && observation.Digest = claim.Digest && observation.Revision = claim.Revision -> Some claim.Digest
                 | _ -> None)
             |> List.distinct
             |> List.sort
@@ -260,7 +341,7 @@ module CompletionVerification =
             |> Map.toList
             |> List.choose (fun (id, claim) ->
                 match Map.tryFind id observations with
-                | Some observation when observation.Reusable && observation.Status = EvidencePassed
+                | Some observation when observation.Reusable && observation.Status = EvidencePassed && isSha256 claim.Digest
                                              && observation.Digest = claim.Digest && observation.Revision = claim.Revision -> Some id
                 | _ -> None)
             |> List.sort

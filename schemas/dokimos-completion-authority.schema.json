@@ -31,7 +31,16 @@
           "Digest": { "$ref": "#/$defs/digest" },
           "Revision": { "$ref": "#/$defs/revision" },
           "Status": { "enum": ["passed", "failed", "unavailable"] },
-          "Reusable": { "type": "boolean" }
+          "Reusable": { "type": "boolean" },
+          "ObservedAt": {
+            "$ref": "#/$defs/instant",
+            "description": "Optional. When the host observed this evidence. Required for freshness when ClaimAcquiredAt or LeaseExpiresAt is present."
+          },
+          "Validation": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional. The validation this observation proves; when present only that validation may cite it, and that validation must cite at least one evidence item bound to it."
+          }
         }
       }
     },
@@ -39,11 +48,27 @@
       "type": "array",
       "uniqueItems": true,
       "items": { "$ref": "#/$defs/digest" }
+    },
+    "ClaimAcquiredAt": {
+      "$ref": "#/$defs/instant",
+      "description": "Optional. When the current claim/lease was acquired. Non-reusable evidence observed earlier is stale."
+    },
+    "LeaseExpiresAt": {
+      "$ref": "#/$defs/instant",
+      "description": "Optional. When the current lease expires. Requires EvaluatedAt; evaluation or evidence at or after expiry is stale."
+    },
+    "EvaluatedAt": {
+      "$ref": "#/$defs/instant",
+      "description": "Optional. Host-supplied evaluation instant. Dokimos never reads the clock, so receipts stay deterministic."
     }
   },
   "$defs": {
     "revision": { "type": "string", "pattern": "^(?:[0-9A-Fa-f]{40}|[0-9A-Fa-f]{64})$" },
     "digest": { "type": "string", "pattern": "^sha256:[0-9A-Fa-f]{64}$" },
+    "instant": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,7})?(Z|[+-][0-9]{2}:[0-9]{2})$"
+    },
     "identifiers": {
       "type": "array",
       "uniqueItems": true,
