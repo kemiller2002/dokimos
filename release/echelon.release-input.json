@@ -22,6 +22,10 @@
       "contractVersion": 1
     },
     {
+      "id": "completion.verify",
+      "contractVersion": 1
+    },
+    {
       "id": "echelon.repository-lifecycle",
       "contractVersion": 1
     }
