@@ -786,6 +786,29 @@
       },
       "source": "Praxis inbox",
       "sourceReference": "INPUT-f1620e8ac38269ea"
+    },
+    {
+      "id": "RELEASE-0-6-0",
+      "title": "Prepare Dokimos 0.6.0 (independent completion verification)",
+      "description": null,
+      "tags": [
+        "release"
+      ],
+      "priority": "high",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-19T17:19:36.000Z",
+      "updatedAt": "2026-10-19T17:19:44.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
     }
   ]
 }

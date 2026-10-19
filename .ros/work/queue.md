@@ -37,6 +37,7 @@
 | GH-30 | GH-30 | complete |  |  |
 | INGEST-REQS-20261018 | Ingest outstanding Praxis requirement sources | complete | requirements, ingestion | high |
 | PRAXIS-EXECUTIONS-COMPAT-20261018 | Exclude Praxis-managed execution state from attribution | complete | governance, compatibility | high |
+| RELEASE-0-6-0 | Prepare Dokimos 0.6.0 (independent completion verification) | complete | release | high |
 | ROS-INSTALL-3-1-4 | ROS-INSTALL-3-1-4 | complete |  |  |
 | WI-0001 | Move dokimos to Praxis 3.7.1 (ROS -> Praxis rename) and Ordo 1.4.0 | complete | praxis, ordo, toolchain | medium |
 | WI-0002 | Move dokimos to Ordo 1.4.1 | complete | ordo, toolchain | medium |
