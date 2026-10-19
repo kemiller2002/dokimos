@@ -32,6 +32,7 @@
 | DOK-WEB-001 | Public Dokimos website on GitHub Pages | active | website | high |
 | DOK-WEB-002 | Adopt the Echelon Foundry stylesheet and background on the Dokimos site | active | website | high |
 | DOKIMOS-REL-001 | Implement independent completion-evidence verification | complete | requirements, implementation | high |
+| DOKIMOS-REL-002 | Close REL-DOKIMOS-001 verification gaps: replay spelling, freshness, validation binding | complete | requirements, implementation | high |
 | GH-25 | Add Forma icon usage audit from pinned registry | captured |  | high |
 | GH-30 | GH-30 | complete |  |  |
 | INGEST-REQS-20261018 | Ingest outstanding Praxis requirement sources | complete | requirements, ingestion | high |
