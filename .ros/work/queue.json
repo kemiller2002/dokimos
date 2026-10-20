@@ -809,6 +809,30 @@
       },
       "source": "manual",
       "sourceReference": null
+    },
+    {
+      "id": "DOKIMOS-REL-003",
+      "title": "Attested completion evidence (REL-001 F1)",
+      "description": "REL-001 C3b showed Praxis-supplied observations can be forged by the agent. Implement attested mode (run02 contracts I4/I6): TrustedVerifierKeys and ValidationPolicyDigest on dokimos.completion-authority/1, optional Attestation (DSSE v1, ECDSA P-256/SHA-256) on evidence observations, binding rules and DOK.COMPLETION.ATTESTATION_* / EVIDENCE_UNATTESTED codes; release 0.7.0.",
+      "tags": [
+        "requirements",
+        "implementation"
+      ],
+      "priority": "high",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-20T07:56:33.000Z",
+      "updatedAt": "2026-10-20T08:15:01.000Z",
+      "createdBy": "anthropic/claude-code",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
     }
   ]
 }

@@ -4,7 +4,7 @@
   "repository": "dokimos",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-10-19T17:19:44.000Z",
+  "updatedAt": "2026-10-20T08:15:01.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1230,6 +1230,60 @@
       ],
       "completedAt": "2026-10-19T17:19:44.000Z",
       "conclusion": "Version 0.6.0 declared; completion.verify contract 1 added to release input"
+    },
+    {
+      "id": "DOKIMOS-REL-003",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/CompletionAttestation.fs"
+        },
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/CompletionAttestationBinding.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/CompletionAttestationTests.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Cli.Tests/CompletionAttestedCliTests.fs"
+        },
+        {
+          "type": "documentation",
+          "path": "docs/completion-verification.md"
+        }
+      ],
+      "updatedAt": "2026-10-20T08:15:01.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20261020T075639052Z-311c2987"
+      ],
+      "latestCheckpoint": {
+        "id": "397d94c5ce0a590346448df6",
+        "recordedAt": "2026-10-20T08:14:55.000Z",
+        "executionId": "EXE-20261020T075639052Z-311c2987",
+        "repository": "dokimos",
+        "branch": "claude/echelon-reliability-integration-g8x7vn",
+        "commit": "589f586399edde0a209dfff2dfd6793c45b2a99f",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "claude/echelon-reliability-integration-g8x7vn",
+        "remoteCommit": "589f586399edde0a209dfff2dfd6793c45b2a99f",
+        "summary": "Attested completion mode implemented (I4/I6), version 0.7.0, tests Domain 4 Core 322 Cli 143 pass; pushed 589f586",
+        "nextAction": "Complete DOKIMOS-REL-003, validate, commit Praxis state; Praxis agent runs end-to-end tests against /tmp/claude-0/dokimos-070/Dokimos.Cli.dll",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "completedAt": "2026-10-20T08:15:01.000Z",
+      "conclusion": "Attested mode per run-02 I4/I6 implemented; Dokimos 0.7.0 prepared (not tagged). Tests Domain 4/4, Core 322/322, Cli 143/143."
     }
   ]
 }
