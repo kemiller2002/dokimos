@@ -41,11 +41,13 @@ module CompletionVerificationTests =
           RequiredValidationNames = set [ "tests" ]
           Evidence =
             [ { Id = "EV-1"; Digest = digest 'd'; Revision = verificationRevision
-                Status = EvidencePassed; Reusable = true; ObservedAt = None; Validation = None } ]
+                Status = EvidencePassed; Reusable = true; ObservedAt = None; Validation = None; Attestation = None } ]
           ConsumedPacketDigests = Set.empty
           ClaimAcquiredAt = None
           LeaseExpiresAt = None
-          EvaluatedAt = None }
+          EvaluatedAt = None
+          TrustedVerifierKeys = []
+          ValidationPolicyDigest = None }
 
     let private codes receipt = receipt.Diagnostics |> List.map _.Code |> Set.ofList
     let private has code receipt = Assert.Contains(code, codes receipt)

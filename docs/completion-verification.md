@@ -65,6 +65,69 @@ The canonical packet digest frames and sorts set-like values, so JSON member
 or array order cannot change identity. Repeated values remain in the digest
 and are refused rather than silently normalized.
 
+## Attested mode (additive to authority/1, Dokimos 0.7.0)
+
+REL-001 case C3b showed that observations supplied through the claimant's own
+host process can be forged by the agent. In attested mode Dokimos itself
+checks a signature from a host verifier whose private key the agent never
+holds (run-02 contracts I4 and I6).
+
+| Member | Where | Meaning |
+| --- | --- | --- |
+| `TrustedVerifierKeys` | authority | `[ { "KeyId": "sha256:…", "Algorithm": "ecdsa-p256-sha256", "PublicKey": "<base64 SPKI DER>" } ]`. Non-empty selects attested mode. |
+| `ValidationPolicyDigest` | authority | `sha256:` digest of the host-owned `echelon.validation-policy/1` file. |
+| `Attestation` | evidence observation | The DSSE v1 envelope (`payloadType`, base64 `payload`, `signatures: [ { keyid, sig } ]`) of an `echelon.verification-receipt/1`. |
+
+Without `TrustedVerifierKeys` (absent or `[]`) verification is exactly as in
+0.6.0: `ValidationPolicyDigest` and any `Attestation` are accepted but not
+consulted, and receipts are unchanged.
+
+Intake (exit `3`, no receipt) refuses a trusted key whose `Algorithm` is not
+`ecdsa-p256-sha256`, whose `PublicKey` is not a base64 ECDSA P-256
+SubjectPublicKeyInfo (no trailing data), whose `KeyId` is not
+`"sha256:" + hex(SHA-256(SPKI DER))`, or whose `KeyId` repeats; a malformed
+`ValidationPolicyDigest`; and an `Attestation` that is not a JSON object.
+
+In attested mode every observation cited by a required validation must carry
+an `Attestation`, judged in this order:
+
+1. The envelope has exactly `payloadType`, `payload` and a non-empty
+   `signatures` list of `{ keyid, sig }`, with standard base64, and
+   `payloadType` is `application/vnd.echelon.verification-receipt.v1+json`
+   (else `ATTESTATION_MALFORMED`).
+2. At least one signature names a trusted `KeyId` (else
+   `ATTESTATION_UNTRUSTED_KEY`).
+3. One such signature verifies: ECDSA P-256 / SHA-256, IEEE P1363 `r||s`
+   (64 bytes), over the DSSE v1 PAE
+   `"DSSEv1" SP len(type) SP type SP len(payload) SP payload` of the exact
+   decoded payload bytes (else `ATTESTATION_INVALID_SIGNATURE`). The payload is
+   never parsed before its signature verifies, and never re-serialized.
+4. The payload is a JSON object with every I4 member, correctly typed, no
+   duplicates and `schemaVersion` `echelon.verification-receipt/1` (else
+   `ATTESTATION_MALFORMED`). Additional signed members are tolerated and bind
+   nothing.
+5. Binding (each mismatch is its own `ATTESTATION_BINDING_MISMATCH`, detail
+   prefixed with the member): the observation `Digest` equals the receipt
+   identity `"sha256:" + hex(SHA-256(payload bytes))`; `workItemId` =
+   `WorkItemId`; `fencingGeneration` = `FencingGeneration`; `commit` =
+   `ExpectedVerificationRevision` and `ExpectedCommit`; `ordoContractDigest` =
+   `ExpectedOrdoContractDigest`; `validationPolicyDigest` =
+   `ValidationPolicyDigest` (an authority without one cannot bind);
+   `validation` = the observation's `Validation` (an observation without one
+   cannot bind); `evidenceId` = the observation's `Id`. Hex-valued members
+   compare ignoring case; identifiers compare exactly.
+6. `status` is `passed` (else `ATTESTATION_NOT_PASSED`).
+7. `observedAt` lies in `[ClaimAcquiredAt, LeaseExpiresAt)` when those are
+   present and is not after `EvaluatedAt` when present (else
+   `ATTESTATION_STALE`). Reusability does not exempt a receipt.
+
+An observation without an attestation is `EVIDENCE_UNATTESTED`. The 0.6.0
+checks (including `ObservedAt` freshness) still apply to every observation;
+hosts should set `ObservedAt` to the receipt's `observedAt`. One failing
+observation refuses the whole completion even when others are valid.
+Diagnostics use the evidence ID as subject and remain sorted and
+deterministic: Dokimos never reads the clock.
+
 ## Reusing evidence
 
 Evidence can be reused without rerunning its producing test only when the host
@@ -90,6 +153,11 @@ families are:
 - `INVALID_*`: malformed fence, commit, revision, digest, or consumed digest.
 - `EVIDENCE_*`, `INVALID_EVIDENCE_DIGEST`: independent evidence is absent,
   stale, forged, failed, unavailable, or malformed.
+- `EVIDENCE_UNATTESTED`, `ATTESTATION_UNTRUSTED_KEY`,
+  `ATTESTATION_INVALID_SIGNATURE`, `ATTESTATION_MALFORMED`,
+  `ATTESTATION_BINDING_MISMATCH`, `ATTESTATION_NOT_PASSED`,
+  `ATTESTATION_STALE`: attested mode refusals (Praxis mirrors them as
+  `PRX.COMPLETION.RECEIPT_*`).
 
 Diagnostics are sorted by code, subject, and detail so equivalent inputs yield
 stable machine-readable receipts suitable for Praxis enforcement and audits.

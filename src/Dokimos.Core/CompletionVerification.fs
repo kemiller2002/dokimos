@@ -63,7 +63,11 @@ module CompletionVerification =
           ObservedAt: DateTimeOffset option
           /// Optional (additive): the validation this observation proves. When
           /// present, only that validation may cite it.
-          Validation: string option }
+          Validation: string option
+          /// Optional (additive, attested mode): the I4 DSSE envelope object,
+          /// held as its exact JSON text. Ignored unless the authority
+          /// declares TrustedVerifierKeys.
+          Attestation: string option }
 
     type VerificationAuthority =
         { SchemaVersion: string
@@ -85,7 +89,13 @@ module CompletionVerification =
           LeaseExpiresAt: DateTimeOffset option
           /// Host-supplied evaluation instant; Dokimos never reads the clock so
           /// receipts remain deterministic for equivalent inputs.
-          EvaluatedAt: DateTimeOffset option }
+          EvaluatedAt: DateTimeOffset option
+          /// Optional (additive): verifier keys whose signed receipts the host
+          /// trusts. Non-empty selects attested mode.
+          TrustedVerifierKeys: CompletionAttestation.TrustedVerifierKey list
+          /// Optional (additive): digest of the host-owned validation policy
+          /// every attested receipt must bind.
+          ValidationPolicyDigest: string option }
 
     type Diagnostic =
         { Code: string
@@ -314,6 +324,32 @@ module CompletionVerification =
                 | EvidenceFailed -> add "DOK.COMPLETION.EVIDENCE_FAILED" id "independent evidence failed"
                 | EvidenceUnavailable -> add "DOK.COMPLETION.EVIDENCE_UNAVAILABLE" id "independent evidence is unavailable"
                 checkFreshness id observation
+
+        // Attested mode (I6): every observation satisfying a required
+        // validation must carry a receipt signed by a trusted verifier that
+        // binds this exact authority. Absent keys leave 0.6.0 behaviour intact.
+        if not authority.TrustedVerifierKeys.IsEmpty then
+            let expectations: CompletionAttestationBinding.Expectations =
+                { WorkItemId = authority.WorkItemId
+                  FencingGeneration = authority.FencingGeneration
+                  ExpectedCommit = authority.ExpectedCommit
+                  ExpectedVerificationRevision = authority.ExpectedVerificationRevision
+                  ExpectedOrdoContractDigest = authority.ExpectedOrdoContractDigest
+                  ValidationPolicyDigest = authority.ValidationPolicyDigest
+                  ClaimAcquiredAt = authority.ClaimAcquiredAt
+                  LeaseExpiresAt = authority.LeaseExpiresAt
+                  EvaluatedAt = authority.EvaluatedAt
+                  TrustedVerifierKeys = authority.TrustedVerifierKeys }
+            let judge id (observation: EvidenceObservation) =
+                CompletionAttestationBinding.judge
+                    expectations
+                    { Id = id; Digest = observation.Digest; Validation = observation.Validation; Attestation = observation.Attestation }
+                |> List.iter (fun (code, detail) -> add code id detail)
+            packet.Validations
+            |> List.filter (fun validation -> Set.contains validation.Name authority.RequiredValidationNames)
+            |> List.collect _.EvidenceIds
+            |> List.distinct
+            |> List.iter (fun id -> Map.tryFind id observations |> Option.iter (judge id))
 
         // Replay protection must not fail open on digest spelling: malformed
         // consumed digests are refused and comparison ignores hex case.

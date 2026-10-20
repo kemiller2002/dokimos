@@ -26,6 +26,8 @@
     <Compile Include="CanonicalComparison.fs" />
     <Compile Include="Evaluation.fs" />
     <Compile Include="Json.fs" />
+    <Compile Include="CompletionAttestation.fs" />
+    <Compile Include="CompletionAttestationBinding.fs" />
     <Compile Include="CompletionVerification.fs" />
     <Compile Include="CompletionWire.fs" />
     <Compile Include="RepositoryIdentity.fs" />

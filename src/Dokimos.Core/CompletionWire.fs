@@ -54,6 +54,39 @@ module CompletionWire =
             | JsonValueKind.False -> Ok false
             | other -> Error $"expected boolean, found {other}"
 
+    /// The attestation is kept as the exact JSON object text so the DSSE
+    /// envelope is judged (and refused with a receipt) semantically, never
+    /// re-serialized.
+    let private rawObject: Json.Decoder<string> =
+        fun element ->
+            if element.ValueKind = JsonValueKind.Object then Ok(element.GetRawText())
+            else Error $"expected object, found {element.ValueKind}"
+
+    let private sha256Digest: Json.Decoder<string> =
+        Json.string
+        >> Result.bind (fun text ->
+            if CompletionAttestation.isSha256Digest text then Ok text
+            else Error $"expected sha256:<64 hex>, found '{text}'")
+
+    let private trustedKey: Json.Decoder<CompletionAttestation.TrustedVerifierKey> =
+        fun element ->
+            Json.result {
+                do! exact [ "KeyId"; "Algorithm"; "PublicKey" ] element
+                let! keyId = Json.field "KeyId" Json.nonEmptyString element
+                let! algorithm = Json.field "Algorithm" Json.nonEmptyString element
+                let! publicKey = Json.field "PublicKey" Json.nonEmptyString element
+                let key: CompletionAttestation.TrustedVerifierKey = { KeyId = keyId; Algorithm = algorithm; PublicKey = publicKey }
+                do! CompletionAttestation.validateTrustedKey key
+                return key
+            }
+
+    let private trustedKeys: Json.Decoder<CompletionAttestation.TrustedVerifierKey list> =
+        Json.list trustedKey
+        >> Result.bind (fun keys ->
+            match keys |> List.countBy (fun key -> key.KeyId.ToLowerInvariant()) |> List.tryFind (fun (_, count) -> count > 1) with
+            | Some(keyId, _) -> Error $"duplicate trusted KeyId '{keyId}'"
+            | None -> Ok keys)
+
     let private validationStatus =
         Json.oneOf [ "passed", Passed; "failed", Failed; "unavailable", Unavailable ]
 
@@ -110,7 +143,7 @@ module CompletionWire =
     let private observation: Json.Decoder<EvidenceObservation> =
         fun element ->
             Json.result {
-                do! exactWith [ "Id"; "Digest"; "Revision"; "Status"; "Reusable" ] [ "ObservedAt"; "Validation" ] element
+                do! exactWith [ "Id"; "Digest"; "Revision"; "Status"; "Reusable" ] [ "ObservedAt"; "Validation"; "Attestation" ] element
                 let! id = Json.field "Id" Json.nonEmptyString element
                 let! digest = Json.field "Digest" Json.nonEmptyString element
                 let! revision = Json.field "Revision" Json.nonEmptyString element
@@ -118,9 +151,10 @@ module CompletionWire =
                 let! reusable = Json.field "Reusable" boolean element
                 let! observedAt = optional "ObservedAt" instant element
                 let! validation = optional "Validation" Json.nonEmptyString element
+                let! attestation = optional "Attestation" rawObject element
                 return
                     { Id = id; Digest = digest; Revision = revision; Status = status; Reusable = reusable
-                      ObservedAt = observedAt; Validation = validation }
+                      ObservedAt = observedAt; Validation = validation; Attestation = attestation }
             }
 
     let private authority: Json.Decoder<VerificationAuthority> =
@@ -131,7 +165,7 @@ module CompletionWire =
                           "ExpectedVerificationRevision"; "SupportedOrdoContractVersions"; "ExpectedOrdoContractDigest"
                           "RequiredRequirementIds"; "RequiredDecisionIds"; "RequiredConflictResolutionIds"
                           "RequiredValidationNames"; "Evidence"; "ConsumedPacketDigests" ]
-                        [ "ClaimAcquiredAt"; "LeaseExpiresAt"; "EvaluatedAt" ] element
+                        [ "ClaimAcquiredAt"; "LeaseExpiresAt"; "EvaluatedAt"; "TrustedVerifierKeys"; "ValidationPolicyDigest" ] element
                 let! schema = Json.field "SchemaVersion" Json.nonEmptyString element
                 let! workItem = Json.field "WorkItemId" Json.nonEmptyString element
                 let! claim = Json.field "ClaimToken" Json.nonEmptyString element
@@ -149,6 +183,8 @@ module CompletionWire =
                 let! acquired = optional "ClaimAcquiredAt" instant element
                 let! expires = optional "LeaseExpiresAt" instant element
                 let! evaluated = optional "EvaluatedAt" instant element
+                let! keys = optional "TrustedVerifierKeys" trustedKeys element
+                let! policyDigest = optional "ValidationPolicyDigest" sha256Digest element
                 return
                     { SchemaVersion = schema; WorkItemId = workItem; ClaimToken = claim; FencingGeneration = generation
                       ExpectedCommit = commit; ExpectedVerificationRevision = revision
@@ -156,7 +192,8 @@ module CompletionWire =
                       RequiredRequirementIds = Set.ofList requirements; RequiredDecisionIds = Set.ofList decisions
                       RequiredConflictResolutionIds = Set.ofList resolutions; RequiredValidationNames = Set.ofList validations
                       Evidence = evidence; ConsumedPacketDigests = Set.ofList consumed
-                      ClaimAcquiredAt = acquired; LeaseExpiresAt = expires; EvaluatedAt = evaluated }
+                      ClaimAcquiredAt = acquired; LeaseExpiresAt = expires; EvaluatedAt = evaluated
+                      TrustedVerifierKeys = Option.defaultValue [] keys; ValidationPolicyDigest = policyDigest }
             }
 
     let private read decoder text =
