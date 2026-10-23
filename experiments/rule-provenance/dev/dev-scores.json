@@ -1,0 +1,1383 @@
+{
+  "schema": "dokimos.rule-provenance.dev-scores/1",
+  "note": "DEVELOPMENT SET (VAC-002-P3, 27 scenarios). Not a confirmatory result: the ast analyzer was developed against this corpus, so its numbers are biased upward. Scoring rules: EXP-3 PREREGISTRATION.md section 6.",
+  "corpusRevision": "ea36618648f8a329021ed4c27dd5a6053d6bbb12",
+  "sdk": "10.0.402",
+  "analyzers": {
+    "lexical": {
+      "aggregate": {
+        "scenarios": 27,
+        "ownerQuestions": 63,
+        "tp": 6,
+        "fq": 57,
+        "plantedRules": 13,
+        "detected": 5,
+        "recall": 0.3846,
+        "falseQuestionRate": 0.9048,
+        "mechanismCorrect": 5,
+        "missed": [
+          "C01",
+          "C02",
+          "C05",
+          "C06",
+          "D08",
+          "D18",
+          "D20",
+          "D21"
+        ]
+      },
+      "byMechanism": {
+        "superseded-value": {
+          "scenarios": 5,
+          "ownerQuestions": 13,
+          "tp": 3,
+          "fq": 10,
+          "plantedRules": 5,
+          "detected": 2,
+          "recall": 0.4,
+          "falseQuestionRate": 0.7692,
+          "mechanismCorrect": 2,
+          "missed": [
+            "C01",
+            "C02",
+            "D20"
+          ]
+        },
+        "exemption": {
+          "scenarios": 5,
+          "ownerQuestions": 9,
+          "tp": 0,
+          "fq": 9,
+          "plantedRules": 5,
+          "detected": 0,
+          "recall": 0.0,
+          "falseQuestionRate": 1.0,
+          "mechanismCorrect": 0,
+          "missed": [
+            "C05",
+            "C06",
+            "D08",
+            "D18",
+            "D21"
+          ]
+        },
+        "silent-default": {
+          "scenarios": 3,
+          "ownerQuestions": 9,
+          "tp": 3,
+          "fq": 6,
+          "plantedRules": 3,
+          "detected": 3,
+          "recall": 1.0,
+          "falseQuestionRate": 0.6667,
+          "mechanismCorrect": 3,
+          "missed": []
+        }
+      },
+      "plantedScenariosOnly": {
+        "scenarios": 13,
+        "ownerQuestions": 31,
+        "tp": 6,
+        "fq": 25,
+        "plantedRules": 13,
+        "detected": 5,
+        "recall": 0.3846,
+        "falseQuestionRate": 0.8065,
+        "mechanismCorrect": 5,
+        "missed": [
+          "C01",
+          "C02",
+          "C05",
+          "C06",
+          "D08",
+          "D18",
+          "D20",
+          "D21"
+        ]
+      },
+      "exploratoryAllSrcOwnerQuestions": 406,
+      "falseQuestions": [
+        [
+          "Billing.Rules.isOverdue",
+          "SUPPORTED"
+        ],
+        [
+          "Billing.Rules.lateFeeRate",
+          "SUPPORTED"
+        ],
+        [
+          "Billing.Rules.owesLateFee",
+          "SUPPORTED"
+        ],
+        [
+          "Lending.Transition.Fines.assess",
+          "SUPPORTED"
+        ],
+        [
+          "Lending.Transition.Loans.borrow",
+          "SUPPORTED"
+        ],
+        [
+          "Lending.Transition.Loans.overdue",
+          "SUPPORTED"
+        ],
+        [
+          "Lending.Transition.Policy.fineCap",
+          "SUPPORTED"
+        ],
+        [
+          "Lending.Transition.Policy.finePerDay",
+          "SUPPORTED"
+        ],
+        [
+          "Lending.Transition.Policy.maxLoans",
+          "SUPPORTED"
+        ],
+        [
+          "Lending.Transition.Prelude",
+          "TECHNICAL"
+        ]
+      ],
+      "scenarios": [
+        {
+          "scenario": "C01",
+          "mechanism": "superseded-value",
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": false,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 15,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "C02",
+          "mechanism": "superseded-value",
+          "findings": 3,
+          "tp": 0,
+          "fq": 3,
+          "detected": false,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 13,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 23). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 26). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "C03",
+          "mechanism": "silent-default",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 16,
+          "findingsDetail": [
+            {
+              "symbol": "Clinic.Rules.visitFee",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Clinic.Rules.visitFee matches no observation and cites no authority: 'match' branch (line 20); case pattern \"k1\" (line 21); decimal literal 60.00 (line 21); wildcard default returning 0m for unlisted cases (line 22). Value 60.00 equals DEC-C09.visit-fees.k1 (accepted). A wildcard default silently decides every unlisted case; no record authorizes that default. Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "C04",
+          "mechanism": "silent-default",
+          "findings": 4,
+          "tp": 1,
+          "fq": 3,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 14,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.shippingCharge",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Billing.Rules.shippingCharge matches no observation and cites no authority: 'match' branch (line 22); case pattern \"ON\" (line 23); decimal literal 15.00 (line 23); case pattern \"BC\" (line 24); decimal literal 25.00 (line 24); case pattern \"QC\" (line 25); decimal literal 18.00 (line 25); wildcard default returning 0m for unlisted cases (line 26). Value 25.00 equals DEC-B13.shipping.BC (accepted). Value 15.00 equals DEC-B13.shipping.ON (accepted). Value 18.00 equals DEC-B13.shipping.QC (accepted). A wildcard default silently decides every unlisted case; no record authorizes that default. Question for Logistics: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 31). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 34). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "C05",
+          "mechanism": "exemption",
+          "findings": 3,
+          "tp": 0,
+          "fq": 3,
+          "detected": false,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 13,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 23). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 29). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "C06",
+          "mechanism": "exemption",
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": false,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 15,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D01",
+          "mechanism": null,
+          "findings": 7,
+          "tp": 0,
+          "fq": 7,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 23,
+          "findingsDetail": [
+            {
+              "symbol": "Lending.Transition.Fines.assess",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Fines.assess matches no observation and cites no authority: 'if' branch (line 16); comparison '> 0m' (line 16). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Loans.borrow",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Loans.borrow matches no observation and cites no authority: 'match' branch (line 31); 'when' branch (line 32). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Loans.overdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Loans.overdue matches no observation and cites no authority: comparison '> 0' (line 89). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Policy.maxLoans",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Policy.maxLoans matches no observation and cites no authority: 'match' branch (line 11). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Policy.finePerDay",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Policy.finePerDay matches no observation and cites no authority: decimal literal 0.25 (line 17). Value 0.25 equals DEC-003.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Policy.fineCap",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Policy.fineCap matches no observation and cites no authority: decimal literal 10.00 (line 19). Value 10 equals DEC-002.p3 (accepted). Value 10.00 equals DEC-003.p2 (accepted). Question for Head of Lending: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Prelude",
+              "class": "unverified-inherited-rule",
+              "label": "TECHNICAL",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Prelude matches no observation and cites no authority: 'if' branch (line 14); 'match' branch (line 18). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D02",
+          "mechanism": null,
+          "findings": 7,
+          "tp": 0,
+          "fq": 7,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 23,
+          "findingsDetail": [
+            {
+              "symbol": "Lending.Transition.Fines.assess",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Fines.assess matches no observation and cites no authority: 'if' branch (line 16); comparison '> 0m' (line 16). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Loans.borrow",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Loans.borrow matches no observation and cites no authority: 'match' branch (line 31); 'when' branch (line 32). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Loans.overdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Loans.overdue matches no observation and cites no authority: comparison '> 0' (line 89). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Policy.maxLoans",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Policy.maxLoans matches no observation and cites no authority: 'match' branch (line 11). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Policy.finePerDay",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Policy.finePerDay matches no observation and cites no authority: decimal literal 0.25 (line 17). Value 0.25 equals DEC-003.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Policy.fineCap",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Policy.fineCap matches no observation and cites no authority: decimal literal 10.00 (line 19). Value 10 equals DEC-002.p3 (accepted). Value 10.00 equals DEC-003.p2 (accepted). Question for Head of Lending: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Prelude",
+              "class": "unverified-inherited-rule",
+              "label": "TECHNICAL",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Prelude matches no observation and cites no authority: 'if' branch (line 14); 'match' branch (line 18). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D03",
+          "mechanism": "superseded-value",
+          "findings": 7,
+          "tp": 2,
+          "fq": 5,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 23,
+          "findingsDetail": [
+            {
+              "symbol": "Lending.Transition.Fines.assess",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Fines.assess matches no observation and cites no authority: 'if' branch (line 16); comparison '> 0m' (line 16). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Loans.borrow",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Loans.borrow matches no observation and cites no authority: 'match' branch (line 31); 'when' branch (line 32). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Loans.overdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Loans.overdue matches no observation and cites no authority: comparison '> 0' (line 89). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Policy.maxLoans",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Policy.maxLoans matches no observation and cites no authority: 'match' branch (line 11). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Policy.finePerDay",
+              "class": "superseded-authority",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Lending.Transition.Policy.finePerDay matches no observation and cites no authority: decimal literal 0.25 (line 17). Value 0.25 equals DEC-003.p1 (superseded by DEC-010). The code still carries a superseded decision's value. Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Policy.fineCap",
+              "class": "superseded-authority",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Lending.Transition.Policy.fineCap matches no observation and cites no authority: decimal literal 10.00 (line 19). Value 10 equals DEC-002.p3 (accepted). Value 10.00 equals DEC-003.p2 (superseded by DEC-010). The code still carries a superseded decision's value. Question for Head of Lending: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Prelude",
+              "class": "unverified-inherited-rule",
+              "label": "TECHNICAL",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Lending.Transition.Prelude matches no observation and cites no authority: 'if' branch (line 14); 'match' branch (line 18). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D04",
+          "mechanism": null,
+          "findings": 3,
+          "tp": 0,
+          "fq": 3,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 13,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 23). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 26). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D05",
+          "mechanism": null,
+          "findings": 3,
+          "tp": 0,
+          "fq": 3,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 13,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 23). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 26). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D06",
+          "mechanism": null,
+          "findings": 3,
+          "tp": 0,
+          "fq": 3,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 13,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 23). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 26). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D07",
+          "mechanism": null,
+          "findings": 3,
+          "tp": 0,
+          "fq": 3,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 13,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 23). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 26). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D08",
+          "mechanism": "exemption",
+          "findings": 3,
+          "tp": 0,
+          "fq": 3,
+          "detected": false,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 13,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 23). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 26). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D09",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 15,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D10",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 15,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D11",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 15,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D12",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 15,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D13",
+          "mechanism": null,
+          "findings": 3,
+          "tp": 0,
+          "fq": 3,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 13,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 23). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 26). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D14",
+          "mechanism": null,
+          "findings": 3,
+          "tp": 0,
+          "fq": 3,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 13,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 23). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 26). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D15",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 15,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D16",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 15,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D17",
+          "mechanism": "superseded-value",
+          "findings": 3,
+          "tp": 1,
+          "fq": 2,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 13,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "superseded-authority",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (superseded by DEC-B08). The code still carries a superseded decision's value. Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 23). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 26). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D18",
+          "mechanism": "exemption",
+          "findings": 3,
+          "tp": 0,
+          "fq": 3,
+          "detected": false,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 13,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 23). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 29). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D19",
+          "mechanism": "silent-default",
+          "findings": 4,
+          "tp": 1,
+          "fq": 3,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 14,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and cites no authority: decimal literal 0.02 (line 16). Value 0.02 equals DEC-B03.p1 (accepted). Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.taxRate",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Billing.Rules.taxRate matches no observation and cites no authority: 'match' branch (line 22); case pattern \"ON\" (line 23); decimal literal 0.13 (line 23); case pattern \"BC\" (line 24); decimal literal 0.12 (line 24); case pattern \"AB\" (line 25); decimal literal 0.05 (line 25); wildcard default returning 0m for unlisted cases (line 26). Value 0.05 equals DEC-B04.tax-rates.AB (accepted). Value 0.12 equals DEC-B04.tax-rates.BC (accepted). Value 0.13 equals DEC-B04.tax-rates.ON (accepted). A wildcard default silently decides every unlisted case; no record authorizes that default. Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.isOverdue",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.isOverdue matches no observation and cites no authority: comparison '> 0m' (line 31). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Billing.Rules.owesLateFee",
+              "class": "unverified-inherited-rule",
+              "label": "SUPPORTED",
+              "outcome": "FQ",
+              "message": "Rule-bearing legacy code in Billing.Rules.owesLateFee matches no observation and cites no authority: comparison '= 0m' (line 34). Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D20",
+          "mechanism": "superseded-value",
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": false,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 15,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D21",
+          "mechanism": "exemption",
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": false,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 15,
+          "findingsDetail": []
+        }
+      ]
+    },
+    "ast": {
+      "aggregate": {
+        "scenarios": 27,
+        "ownerQuestions": 15,
+        "tp": 15,
+        "fq": 0,
+        "plantedRules": 13,
+        "detected": 13,
+        "recall": 1.0,
+        "falseQuestionRate": 0.0,
+        "mechanismCorrect": 13,
+        "missed": []
+      },
+      "byMechanism": {
+        "superseded-value": {
+          "scenarios": 5,
+          "ownerQuestions": 6,
+          "tp": 6,
+          "fq": 0,
+          "plantedRules": 5,
+          "detected": 5,
+          "recall": 1.0,
+          "falseQuestionRate": 0.0,
+          "mechanismCorrect": 5,
+          "missed": []
+        },
+        "exemption": {
+          "scenarios": 5,
+          "ownerQuestions": 6,
+          "tp": 6,
+          "fq": 0,
+          "plantedRules": 5,
+          "detected": 5,
+          "recall": 1.0,
+          "falseQuestionRate": 0.0,
+          "mechanismCorrect": 5,
+          "missed": []
+        },
+        "silent-default": {
+          "scenarios": 3,
+          "ownerQuestions": 3,
+          "tp": 3,
+          "fq": 0,
+          "plantedRules": 3,
+          "detected": 3,
+          "recall": 1.0,
+          "falseQuestionRate": 0.0,
+          "mechanismCorrect": 3,
+          "missed": []
+        }
+      },
+      "plantedScenariosOnly": {
+        "scenarios": 13,
+        "ownerQuestions": 15,
+        "tp": 15,
+        "fq": 0,
+        "plantedRules": 13,
+        "detected": 13,
+        "recall": 1.0,
+        "falseQuestionRate": 0.0,
+        "mechanismCorrect": 13,
+        "missed": []
+      },
+      "exploratoryAllSrcOwnerQuestions": 133,
+      "falseQuestions": [],
+      "scenarios": [
+        {
+          "scenario": "C01",
+          "mechanism": "superseded-value",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 4,
+          "findingsDetail": [
+            {
+              "symbol": "Clinic.Rules.reminderLeadHours",
+              "class": "superseded-authority",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Clinic.Rules.reminderLeadHours matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). Superseded authority: numeric literal 24 (line 19): value 24 = DEC-C06.p1 (superseded by DEC-C08, same form), which the declaration's comment cites. The code still carries a superseded decision's value. Question for Patient Services: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "C02",
+          "mechanism": "superseded-value",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 6,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.paymentTermDays",
+              "class": "superseded-authority",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Billing.Rules.paymentTermDays matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). Superseded authority: numeric literal 30 (line 11): value 30 = DEC-B01.p1 (superseded by DEC-B12, same form), which the declaration's comment cites. The code still carries a superseded decision's value. Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "C03",
+          "mechanism": "silent-default",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 4,
+          "findingsDetail": [
+            {
+              "symbol": "Clinic.Rules.visitFee",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Clinic.Rules.visitFee matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). No accepted authority: wildcard default returning 0m for unlisted cases (line 22): value 0 equals no declared parameter of an accepted or superseded record. Supported (matching rule): case keyed on \"k1\" (line 21): (b) parameter, \"k1\" is named by accepted DEC-C09; numeric literal 60.00 (line 21): (b) parameter, value 60.00 = DEC-C09.visit-fees.k1 (accepted, same form). A wildcard default silently decides every unlisted case; no record authorizes that default. Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "C04",
+          "mechanism": "silent-default",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 6,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.shippingCharge",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Billing.Rules.shippingCharge matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). No accepted authority: wildcard default returning 0m for unlisted cases (line 26): value 0 equals no declared parameter of an accepted or superseded record. Supported (matching rule): case keyed on \"ON\" (line 23): (b) parameter, \"ON\" is named by accepted DEC-B04; numeric literal 15.00 (line 23): (b) parameter, value 15.00 = DEC-B13.shipping.ON (accepted, same form); case keyed on \"BC\" (line 24): (b) parameter, \"BC\" is named by accepted DEC-B04; numeric literal 25.00 (line 24): (b) parameter, value 25.00 = DEC-B13.shipping.BC (accepted, same form); case keyed on \"QC\" (line 25): (b) parameter, \"QC\" is named by accepted DEC-B13; numeric literal 18.00 (line 25): (b) parameter, value 18.00 = DEC-B13.shipping.QC (accepted, same form). A wildcard default silently decides every unlisted case; no record authorizes that default. Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "C05",
+          "mechanism": "exemption",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 6,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.chased",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Billing.Rules.chased matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). No accepted authority: category test '<> Nonprofit' (line 26): no accepted record names Nonprofit. A category test treats one category differently (a possible exemption); a record that names the category must authorize it. Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "C06",
+          "mechanism": "exemption",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 5,
+          "findingsDetail": [
+            {
+              "symbol": "Clinic.Rules.slotFree",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Clinic.Rules.slotFree matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). No accepted authority: exemption shape '||' on \"k2\" (line 16): no cited record and no accepted exception record names \"k2\"; category test '= \"k2\"' (line 16): no accepted record names \"k2\". A category exemption sits inside the symbol that carries accepted DEC-C02: an exemption from DEC-C02 needs its own decision record, whatever the code comments call it. Question for Clinical Operations: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D01",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 6,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D02",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 6,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D03",
+          "mechanism": "superseded-value",
+          "findings": 2,
+          "tp": 2,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 8,
+          "findingsDetail": [
+            {
+              "symbol": "Lending.Transition.Policy.finePerDay",
+              "class": "superseded-authority",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Lending.Transition.Policy.finePerDay matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). Superseded authority: numeric literal 0.25 (line 17): value 0.25 = DEC-003.p1 (superseded by DEC-010, same form), which the declaration's comment cites. The code still carries a superseded decision's value. Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Lending.Transition.Policy.fineCap",
+              "class": "superseded-authority",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Lending.Transition.Policy.fineCap matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). Superseded authority: numeric literal 10.00 (line 19): value 10.00 = DEC-003.p2 (superseded by DEC-010, same form) and no accepted parameter has the same form. The code still carries a superseded decision's value. Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D04",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 5,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D05",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 5,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D06",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 5,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D07",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 5,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D08",
+          "mechanism": "exemption",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 6,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeExempt",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeExempt matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). No accepted authority: category test '= Premium' (line 29): the declaration's comment cites DEC-B05 (proposed), which authorizes nothing; no accepted record names Premium; Premium is named only by DEC-B05 (proposed). A category test treats one category differently (a possible exemption); a record that names the category must authorize it. Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D09",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 3,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D10",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 3,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D11",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 3,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D12",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 3,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D13",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 5,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D14",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 5,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D15",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 3,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D16",
+          "mechanism": null,
+          "findings": 0,
+          "tp": 0,
+          "fq": 0,
+          "detected": null,
+          "mechanismCorrect": null,
+          "exploratoryAllSrcOwnerQuestions": 3,
+          "findingsDetail": []
+        },
+        {
+          "scenario": "D17",
+          "mechanism": "superseded-value",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 6,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.lateFeeRate",
+              "class": "superseded-authority",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Billing.Rules.lateFeeRate matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). Superseded authority: numeric literal 0.02 (line 16): value 0.02 = DEC-B03.p1 (superseded by DEC-B08, same form), which the declaration's comment cites. The code still carries a superseded decision's value. Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D18",
+          "mechanism": "exemption",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 6,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.chased",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Billing.Rules.chased matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). No accepted authority: category test '<> Premium' (line 26): no accepted record names Premium. A category test treats one category differently (a possible exemption); a record that names the category must authorize it. Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D19",
+          "mechanism": "silent-default",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 6,
+          "findingsDetail": [
+            {
+              "symbol": "Billing.Rules.taxRate",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Billing.Rules.taxRate matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). No accepted authority: wildcard default returning 0m for unlisted cases (line 26): value 0 equals no declared parameter of an accepted or superseded record. Supported (matching rule): case keyed on \"ON\" (line 23): (b) parameter, \"ON\" is named by accepted DEC-B04; numeric literal 0.13 (line 23): (b) parameter, value 0.13 = DEC-B04.tax-rates.ON (accepted, same form); case keyed on \"BC\" (line 24): (b) parameter, \"BC\" is named by accepted DEC-B04; numeric literal 0.12 (line 24): (b) parameter, value 0.12 = DEC-B04.tax-rates.BC (accepted, same form); case keyed on \"AB\" (line 25): (b) parameter, \"AB\" is named by accepted DEC-B04; numeric literal 0.05 (line 25): (b) parameter, value 0.05 = DEC-B04.tax-rates.AB (accepted, same form). A wildcard default silently decides every unlisted case; no record authorizes that default. Question for Finance: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D20",
+          "mechanism": "superseded-value",
+          "findings": 1,
+          "tp": 1,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 4,
+          "findingsDetail": [
+            {
+              "symbol": "Clinic.Rules.bookingHorizonDays",
+              "class": "superseded-authority",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Clinic.Rules.bookingHorizonDays matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). Superseded authority: numeric literal 90 (line 8): value 90 = DEC-C01.p1 (superseded by DEC-C05, same form), which the declaration's comment cites. The code still carries a superseded decision's value. Question for Clinical Operations: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        },
+        {
+          "scenario": "D21",
+          "mechanism": "exemption",
+          "findings": 2,
+          "tp": 2,
+          "fq": 0,
+          "detected": true,
+          "mechanismCorrect": true,
+          "exploratoryAllSrcOwnerQuestions": 6,
+          "findingsDetail": [
+            {
+              "symbol": "Clinic.Rules.dispensedWithoutCheck",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Clinic.Rules.dispensedWithoutCheck matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). No accepted authority: category test '= \"paracetamol\"' (line 19): no accepted record names \"paracetamol\". A category test treats one category differently (a possible exemption); a record that names the category must authorize it. Question for praxis-intake: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            },
+            {
+              "symbol": "Clinic.Rules.mayDispense",
+              "class": "unverified-inherited-rule",
+              "label": "PLANTED",
+              "outcome": "TP",
+              "message": "Rule-bearing legacy code in Clinic.Rules.mayDispense matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). No accepted authority: exemption shape '||' on \"paracetamol\" (line 23): no cited record and no accepted exception record names \"paracetamol\". A category exemption sits inside the symbol that carries accepted DEC-C03: an exemption from DEC-C03 needs its own decision record, whatever the code comments call it. Question for Pharmacy: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
