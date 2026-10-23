@@ -78,7 +78,7 @@ module Inputs =
         | Error es -> Error es
 
     let private requirement path (e: JsonElement) =
-        (fun id s owner -> { Id = id; Status = s; Owner = owner; SupersededBy = optStr "supersededBy" e } : Requirement)
+        (fun id s owner -> { Id = id; Status = s; Owner = owner; SupersededBy = optStr "supersededBy" e; Statement = optStr "statement" e |> Option.defaultValue "" } : Requirement)
         <!> str path "id" e
         <*> status path e
         <*> str path "owner" e
@@ -104,7 +104,8 @@ module Inputs =
               Kind = kind
               Owner = owner
               SupersededBy = optStr "supersededBy" e
-              Parameters = parameters e }
+              Parameters = parameters e
+              Statement = optStr "statement" e |> Option.defaultValue "" }
             : Decision)
         <!> str path "id" e
         <*> status path e

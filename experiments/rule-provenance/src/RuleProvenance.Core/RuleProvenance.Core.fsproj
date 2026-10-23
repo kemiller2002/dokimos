@@ -5,11 +5,20 @@
     <Compile Include="Inputs.fs" />
     <Compile Include="Lexer.fs" />
     <Compile Include="Scanner.fs" />
+    <Compile Include="AstScanner.fs" />
+    <Compile Include="AuthorityMatch.fs" />
     <Compile Include="Provenance.fs" />
     <Compile Include="Oracle.fs" />
     <Compile Include="OracleValidation.fs" />
     <Compile Include="Report.fs" />
     <Compile Include="Reuse.fs" />
     <Compile Include="Audit.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Untyped F# parse trees for the `ast` analyzer (v2). Pinned exactly: 43.12.400 is the
+         FCS release whose FSharp.Core dependency is exactly [10.1.400], the version the
+         repository pins in Directory.Build.props, so no FSharp.Core unification is needed.
+         EXPERIMENTAL: this project is not in Dokimos.sln, the default CLI or CI. -->
+    <PackageReference Include="FSharp.Compiler.Service" Version="43.12.400" />
   </ItemGroup>
 </Project>

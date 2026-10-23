@@ -4,6 +4,8 @@
 #
 #   ./run.sh                 build, test, and run on the shared invoice fixture (writes out/)
 #   ./run.sh build|test|fixture
+#   ./run.sh dev             DEVELOPMENT-SET scoring on the VAC-002-P3 corpus (needs the
+#                            cohort-based-engineering checkout; biased, not confirmatory)
 #   ./run.sh integrate --ordo-src DIR --trace FILE --dll FILE \
 #                      [--handoff FILE] [--legacy PATH]... [--out FILE] [extra audit options]
 #
@@ -72,6 +74,7 @@ case "${1:-all}" in
   test) build; run_tests ;;
   fixture) [ -f "$CLI" ] || build; fixture ;;
   integrate) shift; integrate "$@" ;;
-  -h|--help) sed -n '2,12p' "$0" ;;
+  dev) shift; [ -f "$CLI" ] || build; python3 -I dev/score_dev.py --summary dev/dev-scores.json "$@" ;;
+  -h|--help) sed -n '2,14p' "$0" ;;
   *) echo "unknown mode: $1" >&2; exit 2 ;;
 esac

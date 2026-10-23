@@ -40,6 +40,10 @@ module Audit =
           $"unmatchedOwner={c.UnmatchedOwner}"
           $"excludes={String.Join(',', c.Excludes)}"
           $"repository={c.Repository}"
+          $"analyzer={Analyzer.wire c.Analyzer}/{Analyzer.version c.Analyzer}"
+          + (match c.Analyzer with
+             | Ast -> $"; fcs={AstScanner.FcsVersion}"
+             | Lexical -> "")
           $"revision={c.Revision}"
           "probe=" + (inputs.Probe |> Option.map (fun p -> p.Label) |> Option.defaultValue "none")
           $"bound.depth={inputs.Bound.Depth}"
@@ -115,25 +119,36 @@ module Audit =
         | _, Error e -> Error e
         | Ok h, Ok trace ->
             let v = validity inputs
-            let constructed = inputs.Sources |> List.filter (fun f -> f.Role = Constructed) |> Scanner.scanAll
-            let legacy = inputs.Sources |> List.filter (fun f -> f.Role = Legacy) |> Scanner.scanAll
-            let invariantResults, invariantFindings, validation = invariants cfg h inputs
-            let raw =
-                Provenance.constructed cfg h v.HandoffDigest trace constructed
-                @ Provenance.legacy cfg h legacy
-                @ invariantFindings
-            let findings = Report.finalize cfg raw
-            let report =
-                { Subject =
-                    { Repository = cfg.Repository
-                      Revision = cfg.Revision
-                      Paths =
-                        (inputs.Sources |> List.map (fun f -> f.RelativePath))
-                        @ (inputs.Trace |> Option.map fst |> Option.toList)
-                        |> List.distinct
-                        |> List.sort }
-                  Validity = v
-                  Invariants = invariantResults
-                  Findings = findings
-                  Summary = Report.summarize findings }
-            Ok(report, validation)
+            let ofRole role = inputs.Sources |> List.filter (fun f -> f.Role = role)
+            let scanned =
+                match cfg.Analyzer with
+                | Lexical -> Ok(Scanner.scanAll (ofRole Constructed), Scanner.scanAll (ofRole Legacy), Provenance.legacy)
+                | Ast ->
+                    match AstScanner.scanAll (ofRole Constructed), AstScanner.scanAll (ofRole Legacy) with
+                    | Ok c, Ok l -> Ok(c, l, Provenance.legacyAst)
+                    | Error e1, Error e2 -> Error(e1 @ e2)
+                    | Error e, _
+                    | _, Error e -> Error e
+            match scanned with
+            | Error es -> Error es
+            | Ok(constructed, legacy, legacyAnalysis) ->
+                let invariantResults, invariantFindings, validation = invariants cfg h inputs
+                let raw =
+                    Provenance.constructed cfg h v.HandoffDigest trace constructed
+                    @ legacyAnalysis cfg h legacy
+                    @ invariantFindings
+                let findings = Report.finalize cfg raw
+                let report =
+                    { Subject =
+                        { Repository = cfg.Repository
+                          Revision = cfg.Revision
+                          Paths =
+                            (inputs.Sources |> List.map (fun f -> f.RelativePath))
+                            @ (inputs.Trace |> Option.map fst |> Option.toList)
+                            |> List.distinct
+                            |> List.sort }
+                      Validity = v
+                      Invariants = invariantResults
+                      Findings = findings
+                      Summary = Report.summarize findings }
+                Ok(report, validation)

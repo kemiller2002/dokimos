@@ -15,7 +15,9 @@ type Requirement =
     { Id: string
       Status: RecordStatus
       Owner: string
-      SupersededBy: string option }
+      SupersededBy: string option
+      /// The record's statement (optional in the handoff; empty when absent).
+      Statement: string }
 
 type Decision =
     { Id: string
@@ -24,7 +26,9 @@ type Decision =
       Owner: string
       SupersededBy: string option
       /// Decision parameters as raw strings (e.g. "limit" -> "10000.00").
-      Parameters: (string * string) list }
+      Parameters: (string * string) list
+      /// The record's statement (optional in the handoff; empty when absent).
+      Statement: string }
 
 type PolicyQuestion =
     { Id: string
@@ -180,6 +184,16 @@ type AuditReport =
 
 // ---------------------------------------------------------------- configuration
 
+/// Which provenance analysis runs. Both are kept so that results stay comparable;
+/// the analyzer name and version are part of validity.configDigest, so a result
+/// produced by one is never reused for the other.
+type Analyzer =
+    /// v1: the line-oriented lexical scan (Lexer + Scanner).
+    | Lexical
+    /// v2: untyped F# parse trees from FSharp.Compiler.Service (AstScanner) with
+    /// authority matching against declared handoff parameters (AuthorityMatch).
+    | Ast
+
 /// The effective configuration. Its canonical form is digested into
 /// validity.configDigest, so any change invalidates reuse of a prior result.
 type AuditConfig =
@@ -192,7 +206,27 @@ type AuditConfig =
       /// Relative-path globs excluded from rule-bearing detection (not from digests).
       Excludes: string list
       Repository: string
-      Revision: string }
+      Revision: string
+      /// The provenance analyzer (experiment default: Ast).
+      Analyzer: Analyzer }
+
+module Analyzer =
+    let wire =
+        function
+        | Lexical -> "lexical"
+        | Ast -> "ast"
+
+    /// Bumped whenever an analyzer's classification or matching rules change.
+    let version =
+        function
+        | Lexical -> "1"
+        | Ast -> "2.0"
+
+    let parse =
+        function
+        | "lexical" -> Some Lexical
+        | "ast" -> Some Ast
+        | _ -> None
 
 module AuditConfig =
     let defaults =
@@ -201,14 +235,15 @@ module AuditConfig =
           UnmatchedOwner = "praxis-intake"
           Excludes = []
           Repository = "unspecified"
-          Revision = "unspecified" }
+          Revision = "unspecified"
+          Analyzer = Ast }
 
 module Tool =
     [<Literal>]
     let Name = "dokimos-rule-provenance-experiment"
 
     [<Literal>]
-    let Version = "0.1.0-experimental"
+    let Version = "0.2.0-experimental"
 
 /// Dokimos exit-code conventions (src/Dokimos.Core/Evaluation.fs ExitCodes).
 module ExitCode =
