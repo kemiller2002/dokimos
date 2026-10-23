@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/schemas/echelon-construction-trace-0.1.schema.json",
+  "title": "Echelon construction trace 0.1 (PROPOSED, experimental)",
+  "description": "Ordo-owned manifest that maps every constructed rule-bearing symbol (type, case, validated constructor, transition, refusal, constant, port) to the authority it was built from. Proposal: CONTRACTS.md C2.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "schemaVersion", "handoff", "generator", "constructs", "excluded"],
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Z][A-Z0-9]*(-[A-Z0-9]+)+$" },
+    "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  },
+  "properties": {
+    "schema": { "const": "echelon.construction-trace" },
+    "schemaVersion": { "const": "0.1" },
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["handoffId", "sha256"],
+      "properties": { "handoffId": { "$ref": "#/$defs/id" }, "sha256": { "$ref": "#/$defs/sha256" } }
+    },
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": { "name": { "type": "string" }, "version": { "type": "string" } }
+    },
+    "constructs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["symbol", "kind", "file", "disposition", "authority"],
+        "properties": {
+          "symbol": { "type": "string", "description": "Fully qualified F# symbol" },
+          "kind": { "enum": ["state", "command", "transition", "refusal", "validated-constructor", "value-type", "constant", "port", "capability"] },
+          "file": { "type": "string" },
+          "disposition": {
+            "enum": ["authorized", "deferred-pending-question", "technical"],
+            "description": "authorized: built from accepted requirements/decisions; deferred-pending-question: the construct only refuses and records an unresolved policy question; technical: a mechanical invariant with no business-policy content"
+          },
+          "authority": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["kind", "id"],
+              "properties": {
+                "kind": { "enum": ["requirement", "decision", "question", "invariant"] },
+                "id": { "$ref": "#/$defs/id" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "excluded": {
+      "type": "array",
+      "description": "Observations deliberately not constructed because they have no authority. Excluding is not deleting: the legacy code is left for its owner.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["observationId", "reason"],
+        "properties": {
+          "observationId": { "$ref": "#/$defs/id" },
+          "reason": { "type": "string" },
+          "routedTo": { "type": "string" }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": { "path": { "type": "string" }, "sha256": { "$ref": "#/$defs/sha256" } }
+      }
+    }
+  }
+}

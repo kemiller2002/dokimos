@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Stand-in for the Ordo-built Invoice.Slice.dll (Dokimos experiment fixture).
+       It implements the agreed Probe contract so the reflection adapter and the
+       integrate path can be exercised before the Ordo side exists. It is NOT the
+       oracle's reference model and not Ordo output. -->
+  <PropertyGroup>
+    <AssemblyName>Invoice.Slice</AssemblyName>
+    <RootNamespace>Invoice.Slice</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="src/Authority.fs" />
+    <Compile Include="src/Domain.fs" />
+    <Compile Include="src/Probe.fs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/schemas/echelon-provenance-audit-0.1.schema.json",
+  "title": "Echelon provenance and invariant audit 0.1 (PROPOSED, experimental)",
+  "description": "Dokimos-owned result. Separates mechanically proven violations from uncertain authority, and carries the validity conditions under which the result may be reused (A2). Proposal: CONTRACTS.md C3.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "schemaVersion", "subject", "validity", "invariants", "findings", "summary"],
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Z][A-Z0-9]*(-[A-Z0-9]+)+$" },
+    "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  },
+  "properties": {
+    "schema": { "const": "echelon.provenance-audit" },
+    "schemaVersion": { "const": "0.1" },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "revision", "paths"],
+      "properties": {
+        "repository": { "type": "string" },
+        "revision": { "type": "string" },
+        "paths": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "validity": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Every assumption the result depends on. A consumer may reuse the result only while each digest still matches; any mismatch invalidates it (RELEASE-GATES.md §4).",
+      "required": ["sourceDigest", "handoffDigest", "traceDigest", "toolName", "toolVersion", "configDigest", "sdkVersion"],
+      "properties": {
+        "sourceDigest": { "$ref": "#/$defs/sha256" },
+        "handoffDigest": { "$ref": "#/$defs/sha256" },
+        "traceDigest": { "$ref": "#/$defs/sha256" },
+        "toolName": { "type": "string" },
+        "toolVersion": { "type": "string" },
+        "configDigest": { "$ref": "#/$defs/sha256" },
+        "sdkVersion": { "type": "string" },
+        "dependencyDigest": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "verdict", "method"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "verdict": { "enum": ["holds-within-bound", "violated", "not-checked"] },
+          "method": { "type": "string", "description": "e.g. bounded exhaustive exploration with the bound stated" },
+          "bound": { "type": "string" },
+          "counterexample": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "class", "certainty", "blocking", "location", "message", "owner"],
+        "properties": {
+          "id": { "type": "string" },
+          "class": {
+            "enum": ["invariant-violation", "missing-provenance", "superseded-authority", "unverified-inherited-rule", "self-authorized", "unresolved-question-encoded-as-rule", "trace-mismatch"]
+          },
+          "certainty": {
+            "enum": ["proven", "uncertain-authority"],
+            "description": "proven: a mechanical fact (a counterexample, a citation of a superseded or missing record). uncertain-authority: no record supports the rule; whether it is wanted is the owner's call"
+          },
+          "blocking": { "type": "boolean", "description": "Only a proven finding against a formally specified, validated check may block. uncertain-authority findings never block" },
+          "location": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path"],
+            "properties": { "path": { "type": "string" }, "line": { "type": "integer" }, "symbol": { "type": "string" } }
+          },
+          "authorityRefs": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+          "message": { "type": "string" },
+          "owner": { "type": "string", "description": "Who must answer: the decision owner for authority questions, the constructing component for proven defects" }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verdict", "proven", "ownerQuestions"],
+      "properties": {
+        "verdict": { "enum": ["pass", "fail", "pass-with-owner-questions"] },
+        "proven": { "type": "integer", "minimum": 0 },
+        "ownerQuestions": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>rule-provenance</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ProbeLoader.fs" />
+    <Compile Include="Io.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../RuleProvenance.Core/RuleProvenance.Core.fsproj" />
+  </ItemGroup>
+</Project>

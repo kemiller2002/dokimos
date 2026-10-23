@@ -1,0 +1,113 @@
+{
+  "schema": "echelon.authority-handoff",
+  "schemaVersion": "0.1",
+  "handoffId": "HND-INVOICE-SLICE-001",
+  "produced": {
+    "by": { "kind": "agent", "id": "anthropic/claude-code", "role": "program-coordinator" },
+    "at": "2026-10-23T00:00:00Z",
+    "repository": "kemiller2002/cohort-based-engineering",
+    "revision": "fixture-v1"
+  },
+  "authorityContract": {
+    "id": "VAC-002-P3-AUTHORITY-CONTRACT",
+    "sha256": "2af405073b299f562a8321feac875d2b9a9ae6d94171475a59a60a416784862d"
+  },
+  "requirements": [
+    {
+      "id": "REQ-INV-001",
+      "statement": "An invoice is created as a draft, issued, and paid. A draft or an issued invoice with no payment may be voided. Paid and voided invoices accept no further commands.",
+      "status": "accepted",
+      "owner": "finance-controller",
+      "source": { "path": "sources/invoicing-requirements.md", "locator": "## REQ-INV-001", "revision": "fixture-v1", "sha256": "sha256:6634f7ea37d47d59b7e7ce4b7b4385d64988cb270bdcac7c500c505aaa423970" },
+      "supersedes": []
+    },
+    {
+      "id": "REQ-INV-002",
+      "statement": "A payment is a positive amount in the invoice's currency, may be partial, and never exceeds the outstanding balance. An invoice whose outstanding balance reaches zero is paid.",
+      "status": "accepted",
+      "owner": "finance-controller",
+      "source": { "path": "sources/invoicing-requirements.md", "locator": "## REQ-INV-002", "revision": "fixture-v1", "sha256": "sha256:6634f7ea37d47d59b7e7ce4b7b4385d64988cb270bdcac7c500c505aaa423970" },
+      "supersedes": []
+    },
+    {
+      "id": "REQ-INV-003",
+      "statement": "A payment is persisted only after it has been validated and applied, and only by the payments service.",
+      "status": "accepted",
+      "owner": "security-owner",
+      "source": { "path": "sources/invoicing-requirements.md", "locator": "## REQ-INV-003", "revision": "fixture-v1", "sha256": "sha256:6634f7ea37d47d59b7e7ce4b7b4385d64988cb270bdcac7c500c505aaa423970" },
+      "supersedes": []
+    }
+  ],
+  "decisions": [
+    {
+      "id": "DEC-FIN-000",
+      "statement": "A single payment above 25,000.00 is refused.",
+      "status": "superseded",
+      "kind": "policy-limit",
+      "owner": "finance-controller",
+      "requirementIds": ["REQ-INV-002"],
+      "source": { "path": "sources/finance-decisions.md", "locator": "## DEC-FIN-000", "revision": "fixture-v1", "sha256": "sha256:5b8b3c2455790673d8d850e43ab89a1dc57a71c51939b94910163040169954eb" },
+      "supersedes": [],
+      "supersededBy": "DEC-FIN-001",
+      "parameters": { "limit": "25000.00" }
+    },
+    {
+      "id": "DEC-FIN-001",
+      "statement": "A single payment above 10,000.00 in the invoice's currency is refused with PAYMENT_LIMIT_EXCEEDED. No customer category is exempt.",
+      "status": "accepted",
+      "kind": "policy-limit",
+      "owner": "finance-controller",
+      "authorizedBy": { "kind": "human", "id": "finance-controller", "role": "decision-owner" },
+      "authorizedAt": "2026-10-01T00:00:00Z",
+      "requirementIds": ["REQ-INV-002"],
+      "source": { "path": "sources/finance-decisions.md", "locator": "## DEC-FIN-001", "revision": "fixture-v1", "sha256": "sha256:5b8b3c2455790673d8d850e43ab89a1dc57a71c51939b94910163040169954eb" },
+      "supersedes": ["DEC-FIN-000"],
+      "parameters": { "limit": "10000.00", "refusalCode": "PAYMENT_LIMIT_EXCEEDED" }
+    },
+    {
+      "id": "DEC-FIN-002",
+      "statement": "Only the payments-service role may write payments. Writes accept only validated, applied payments.",
+      "status": "accepted",
+      "kind": "boundary",
+      "owner": "security-owner",
+      "authorizedBy": { "kind": "human", "id": "security-owner", "role": "decision-owner" },
+      "authorizedAt": "2026-10-01T00:00:00Z",
+      "requirementIds": ["REQ-INV-003"],
+      "source": { "path": "sources/finance-decisions.md", "locator": "## DEC-FIN-002", "revision": "fixture-v1", "sha256": "sha256:5b8b3c2455790673d8d850e43ab89a1dc57a71c51939b94910163040169954eb" },
+      "supersedes": [],
+      "parameters": { "role": "payments-service" }
+    }
+  ],
+  "policyQuestions": [
+    {
+      "id": "Q-FIN-001",
+      "question": "May an invoice that has received a partial payment be voided, and if so what happens to the payment received?",
+      "owner": "finance-controller",
+      "status": "unresolved",
+      "affects": ["REQ-INV-001"],
+      "permittedOutcome": "refuse-and-record"
+    }
+  ],
+  "observations": [
+    {
+      "id": "OBS-LEGACY-001",
+      "description": "Existing code exempts customers whose id starts with STR- (strategic) from the single-payment limit. No requirement or decision supports the exemption; DEC-FIN-001 says no category is exempt.",
+      "kind": "exemption",
+      "location": { "path": "legacy/LegacyPaymentRules.fs", "symbol": "Legacy.PaymentRules.exceedsLimit", "revision": "fixture-v1" },
+      "authority": "unverified"
+    },
+    {
+      "id": "OBS-LEGACY-002",
+      "description": "Existing code still carries the 25,000.00 limit of DEC-FIN-000, which DEC-FIN-001 superseded.",
+      "kind": "superseded-rule",
+      "location": { "path": "legacy/LegacyPaymentRules.fs", "symbol": "Legacy.PaymentRules.singlePaymentLimit", "revision": "fixture-v1" },
+      "authority": "unverified"
+    }
+  ],
+  "invariants": [
+    { "id": "INV-INV-001", "statement": "The outstanding balance is never negative.", "derivedFrom": ["REQ-INV-002"] },
+    { "id": "INV-INV-002", "statement": "An invoice is in the Paid state if and only if its outstanding balance is zero and at least one payment was applied.", "derivedFrom": ["REQ-INV-001", "REQ-INV-002"] },
+    { "id": "INV-INV-003", "statement": "No applied payment is non-positive, exceeds the balance outstanding before it, or exceeds 10,000.00.", "derivedFrom": ["REQ-INV-002", "DEC-FIN-001"] },
+    { "id": "INV-INV-004", "statement": "Paid and Voided are terminal: every command in them is refused.", "derivedFrom": ["REQ-INV-001"] }
+  ]
+}

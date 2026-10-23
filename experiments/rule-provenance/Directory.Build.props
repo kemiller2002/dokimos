@@ -1,0 +1,12 @@
+<Project>
+  <!-- Inherit the repository conventions (warnings as errors, pinned FSharp.Core,
+       invariant globalization). The experiment overrides only the target framework:
+       this environment ships the .NET 10 runtime alone, and the integration
+       adapter must load the Ordo probe assembly (net8.0) into a runnable host.
+       EXPERIMENTAL: not part of Dokimos.sln, the default CLI or CI. -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+</Project>
