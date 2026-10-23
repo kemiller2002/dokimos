@@ -67,13 +67,26 @@ module Provenance =
 
     let private normalizeId (s: string) = String(s.ToUpperInvariant() |> Seq.filter Char.IsLetterOrDigit |> Array.ofSeq)
 
-    /// The declaration's body names the question in a string or identifier, directly or
-    /// through one same-file declaration it references (e.g. `Error pendingVoidRefusal`).
-    let private bodyNamesQuestion (fileDecls: Decl list) (d: Decl) (questionId: string) =
+    /// How many reference hops the question-naming search follows.
+    [<Literal>]
+    let QuestionSearchHops = 4
+
+    /// The declaration names the question in a string or identifier (e.g. a refusal
+    /// code or `Authority.qFin001`), directly or through declarations it references,
+    /// up to QuestionSearchHops hops across the audited constructed files. Lexical:
+    /// a reference is a matching identifier, not a resolved symbol.
+    let private namesQuestion (allDecls: Decl list) (d: Decl) (questionId: string) =
         let target = normalizeId questionId
         let names (x: Decl) = x.BodyTexts |> List.exists (fun t -> (normalizeId t).Contains(target, StringComparison.Ordinal))
-        names d
-        || fileDecls |> List.exists (fun x -> x.Qualified <> d.Qualified && d.References.Contains x.Name && x.Kind = LetDecl && names x)
+        let rec go (frontier: Decl list) (visited: Set<string>) hops =
+            if frontier |> List.exists names then true
+            elif hops = 0 then false
+            else
+                let refs = frontier |> List.map (fun x -> x.References) |> Set.unionMany
+                let next = allDecls |> List.filter (fun x -> x.Kind <> ModuleDecl && refs.Contains x.Name && not (visited.Contains x.Qualified))
+                if next.IsEmpty then false
+                else go next (next |> List.fold (fun v x -> v.Add x.Qualified) visited) (hops - 1)
+        go [ d ] (Set.singleton d.Qualified) QuestionSearchHops
 
     /// Decision parameters that are decimal values: (decision, parameter name, value).
     let decisionValues (h: Handoff) =
@@ -131,8 +144,17 @@ module Provenance =
             | _ -> acc
         go d []
 
+    /// A trace symbol may name a row of a declaration (`Module.table:Key`); it
+    /// resolves to the declaration before the colon.
+    let private baseSymbol (symbol: string) =
+        match symbol.IndexOf ':' with
+        | -1 -> symbol
+        | i -> symbol.Substring(0, i)
+
+    let private isRow (symbol: string) = symbol.Contains ':'
+
     let private findTraceDecl (all: Located list) (tc: TraceConstruct) =
-        let candidates = all |> List.filter (fun l -> alignedSuffix '.' tc.Symbol l.Decl.Qualified)
+        let candidates = all |> List.filter (fun l -> alignedSuffix '.' (baseSymbol tc.Symbol) l.Decl.Qualified)
         let preferred = candidates |> List.filter (fun l -> alignedSuffix '/' tc.File l.File.File.RelativePath)
         (if preferred.IsEmpty then candidates else preferred)
         |> List.sortBy (fun l -> l.File.File.RelativePath, l.Decl.Line)
@@ -142,7 +164,10 @@ module Provenance =
         a.File.File.RelativePath = b.File.File.RelativePath && a.Decl.Qualified = b.Decl.Qualified && a.Decl.Line = b.Decl.Line
 
     /// Validate one cited ID. `disposition` is the trace's disposition for the symbol, if traced.
-    let private checkCitation (cfg: AuditConfig) (h: Handoff) (loc: Location) (fileDecls: Decl list) (d: Decl) (disposition: Disposition option) (source: string) (id: string) =
+    let private isQuestion (h: Handoff) (id: string) = h.PolicyQuestions |> List.exists (fun q -> q.Id = id)
+
+    /// `cited` is every ID the same marker or trace entry cites.
+    let private checkCitation (cfg: AuditConfig) (h: Handoff) (loc: Location) (allDecls: Decl list) (d: Decl) (disposition: Disposition option) (source: string) (cited: string list) (id: string) =
         let proven cls refs msg = Some(finding cls Proven loc refs msg cfg.ConstructingOwner)
         match resolve h id with
         | AcceptedRecord _ -> None
@@ -159,16 +184,22 @@ module Provenance =
         | UnknownRef ->
             proven MissingProvenance [ id ] $"{source} cites {id}, which is not a record in handoff {h.HandoffId}."
         | QuestionRef q ->
-            let names = bodyNamesQuestion fileDecls d q.Id
-            match disposition, names with
-            | Some Authorized, _ ->
-                proven UnresolvedQuestionEncodedAsRule [ id ] $"{source} cites unresolved question {id} but the trace marks the construct 'authorized'. Permitted outcome is {q.PermittedOutcome}; the question is not a rule."
-            | _, false ->
-                proven UnresolvedQuestionEncodedAsRule [ id ] $"{source} cites unresolved question {id} but its body never names {id} in a refusal or recorded code: the question is decided (allowed or forbidden) instead of {q.PermittedOutcome}."
-            | _, true -> None
+            match disposition with
+            | Some Authorized when cited |> List.forall (isQuestion h) ->
+                // A mechanical contradiction: nothing but an unresolved question, marked authorized.
+                proven UnresolvedQuestionEncodedAsRule [ id ] $"{source}: its only authority is unresolved question {id}, yet the trace marks the construct 'authorized'. Permitted outcome is {q.PermittedOutcome}; an unresolved question cannot authorize a rule."
+            | _ when not (namesQuestion allDecls d q.Id) ->
+                // Absence of lexical evidence is not proof: an owner question, never blocking.
+                Some(
+                    finding UnresolvedQuestionEncodedAsRule UncertainAuthority loc [ id ]
+                        $"{source} cites unresolved question {id}, but no refusal or recorded code naming {id} appears in its body or in the declarations it reaches (lexical search, {QuestionSearchHops} hops). If it decides {id} (allowed or forbidden) instead of {q.PermittedOutcome}, the question has become a rule. Question for {q.Owner} and the constructing component."
+                        q.Owner
+                )
+            | _ -> None
 
     let constructed (cfg: AuditConfig) (h: Handoff) (handoffDigest: string) (trace: (string * Trace) option) (files: ScannedFile list) : RawFinding list =
         let all = files |> List.collect (fun f -> f.Decls |> List.map (fun d -> { File = f; Decl = d }))
+        let allDecls = all |> List.map (fun l -> l.Decl)
         let traceConstructs = trace |> Option.map (snd >> fun t -> t.Constructs) |> Option.defaultValue []
         let traced = traceConstructs |> List.map (fun tc -> tc, findTraceDecl all tc)
         let traceFor (l: Located) =
@@ -185,7 +216,7 @@ module Provenance =
                     if m.Ids.IsEmpty then
                         [ finding MissingProvenance Proven (locOf l) [] $"Authority marker on {l.Decl.Qualified} cites no record." cfg.ConstructingOwner ]
                     else
-                        m.Ids |> List.choose (checkCitation cfg h (locOf l) l.File.Decls l.Decl disposition $"Authority marker on {l.Decl.Qualified}")))
+                        m.Ids |> List.choose (checkCitation cfg h (locOf l) allDecls l.Decl disposition $"Authority marker on {l.Decl.Qualified}" m.Ids)))
 
         let orphanFindings =
             files
@@ -196,8 +227,10 @@ module Provenance =
                         "Authority marker is not attached to a recognisable declaration, so it covers nothing." cfg.ConstructingOwner))
 
         // 2. Every rule-bearing construct is covered by a marker or a traced authority.
+        //    A module-level marker does not cover the module's contents.
         let covered (f: ScannedFile) (d: Decl) =
             chain f d
+            |> List.filter (fun x -> x.Kind <> ModuleDecl)
             |> List.exists (fun x ->
                 (x.Markers |> List.exists (fun m -> not m.Ids.IsEmpty))
                 || (match traceFor { File = f; Decl = x } with
@@ -250,11 +283,18 @@ module Provenance =
                         | Some l ->
                             let loc = locOf l
                             let own = l.Decl.Markers |> List.collect (fun m -> m.Ids) |> Set.ofList
-                            let inherited = chain l.File l.Decl |> List.collect (fun x -> x.Markers |> List.collect (fun m -> m.Ids)) |> Set.ofList
+                            let inherited = chain l.File l.Decl |> List.filter (fun x -> x.Kind <> ModuleDecl || x = l.Decl) |> List.collect (fun x -> x.Markers |> List.collect (fun m -> m.Ids)) |> Set.ofList
                             let traceIds = Set.ofList ids
                             let show (ids: Set<string>) = String.Join(", ", ids)
                             let markerCheck =
-                                if not own.IsEmpty && own <> traceIds then
+                                // Generated files carry provenance in the trace, not in markers.
+                                if l.File.Generated && own.IsEmpty then []
+                                elif isRow tc.Symbol then
+                                    if l.File.Generated || tc.Disposition = Technical || Set.isSubset traceIds inherited then []
+                                    else
+                                        [ finding TraceMismatch Proven loc (Set.toList traceIds)
+                                              $"Trace row {tc.Symbol} cites [{show traceIds}], which the markers in scope of {l.Decl.Qualified} do not carry ([{show inherited}])." cfg.ConstructingOwner ]
+                                elif not own.IsEmpty && own <> traceIds then
                                     [ finding TraceMismatch Proven loc (Set.toList (Set.union own traceIds))
                                           $"Source marker on {l.Decl.Qualified} cites [{show own}]; the trace cites [{show traceIds}]." cfg.ConstructingOwner ]
                                 elif own.IsEmpty && tc.Disposition <> Technical && not (Set.isSubset traceIds inherited) then
@@ -262,7 +302,7 @@ module Provenance =
                                           $"Trace attributes [{show traceIds}] to {l.Decl.Qualified}, which no source marker supports (markers in scope: [{show inherited}])." cfg.ConstructingOwner ]
                                 else []
                             let citationChecks =
-                                ids |> List.choose (checkCitation cfg h loc l.File.Decls l.Decl (Some tc.Disposition) $"Trace entry for {tc.Symbol}")
+                                ids |> List.choose (checkCitation cfg h loc allDecls l.Decl (Some tc.Disposition) $"Trace entry for {tc.Symbol}" ids)
                             markerCheck @ citationChecks @ dispositionChecks loc)
                 let untraced =
                     all
@@ -283,8 +323,9 @@ module Provenance =
                             else None))
                 handoffChecks @ constructChecks @ untraced @ staleOutputs
 
+        // A marker and its trace entry often yield the same finding; report it once.
         markerFindings @ orphanFindings @ coverageFindings @ traceFindings
-        |> List.distinctBy (fun f -> f.Class, f.Location, f.AuthorityRefs, f.Message)
+        |> List.distinctBy (fun f -> f.Class, f.Certainty, f.Location, List.sort f.AuthorityRefs)
 
     // ------------------------------------------------------------------ legacy code
 

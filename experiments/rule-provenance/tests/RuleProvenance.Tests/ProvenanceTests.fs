@@ -92,6 +92,10 @@ let ``an unmarked 25000 constant is proven missing-provenance and names the supe
 let ``encoding Q-FIN-001 as allowed is unresolved-question-encoded-as-rule`` () =
     let _, f = single "question-as-rule"
     Assert.Equal("unresolved-question-encoded-as-rule", str f "class")
+    // Lexical absence of a refusal is evidence, not proof: an owner question that never blocks.
+    Assert.Equal("uncertain-authority", str f "certainty")
+    Assert.False(f.GetProperty("blocking").GetBoolean())
+    Assert.Equal("finance-controller", str f "owner")
     Assert.Equal<string list>([ "Q-FIN-001" ], refs f)
     Assert.Equal("Sample.Invoice.Rules.voidInvoice", str (f.GetProperty "location") "symbol")
 
@@ -161,3 +165,14 @@ let ``the same exemption in constructed mode is a proven missing-provenance find
     Assert.Single fs |> ignore
     Assert.Equal("missing-provenance", str fs.Head "class")
     Assert.Equal("proven", str fs.Head "certainty")
+
+[<Fact>]
+let ``a question refusal reached through referenced declarations counts as recorded (transitive, lexical)`` () =
+    let dir = tempDir ()
+    let source =
+        "module T\n\n[<Authority(\"Q-FIN-001\")>]\nlet pendingCode = \"POLICY_UNRESOLVED_Q_FIN_001\"\n\n"
+        + "let private deferred state =\n    match state with\n    | \"PartiallyPaid\" -> Some pendingCode\n    | _ -> None\n\n"
+        + "[<Authority(\"REQ-INV-001\", \"Q-FIN-001\")>]\nlet voidInvoice state =\n    match deferred state with\n    | Some code -> Error code\n    | None -> Ok \"Voided\"\n"
+    File.WriteAllText(Path.Combine(dir, "T.fs"), source)
+    let r = audit [ "--root"; dir; "--source"; Path.Combine(dir, "T.fs"); "--exclude"; "**" ]
+    Assert.Empty(findings (json r))
