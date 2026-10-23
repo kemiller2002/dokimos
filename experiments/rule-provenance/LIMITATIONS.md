@@ -1,6 +1,64 @@
 # Limitations (EXPERIMENTAL)
 
-## Lexical analysis, not compilation
+## v2 (`ast`, the default): untyped parse trees
+
+**What the untyped tree gives.** Exact expression structure, so a condition spread over several lines, a comparison
+in any boolean expression, union-case patterns and comparisons, integer constants and match keys are all seen.
+Declaration extents come from the parser, not from indentation. Comments and doc comments are kept per declaration.
+
+**What a typed check would add, and v2 does not have:**
+
+* **Union cases are recognised by shape.** A capitalised identifier that is not an F# built-in or a BCL sentinel is
+  treated as a category value. A capitalised value or a module constant (`Limits.Default`) is misread as a category;
+  a union case reached through a lowercase alias is missed.
+* **Name-based resolution.** A category predicate is found by its declared name across the audited files only. A call
+  through a pipeline (`x |> isGold`), a partial application, a predicate in an unaudited file, or two predicates with
+  the same name in different modules are not resolved correctly.
+* **No types for literals.** Integral versus fractional form is read from the literal's syntax, not from its type.
+* **No data flow.** A constant's *uses* are not followed. In the development set, `dueDate`, `lateFee`, `reminderAt`
+  and `Fines.fineFor` use a superseded constant but are not reported themselves; only the constant is.
+* Typed checking was not attempted because it needs each file's full compilation closure (project order, sibling
+  projects, packages), which an audit over individual (often legacy) files does not have.
+
+**Classification risks:**
+
+* **Plain branches are no longer rule-bearing.** An `if`/`match` on a computed condition with no literal, union case or
+  category test is not reported (v1 reported every branch). Policy expressed purely as control flow over computed
+  values (`if a.Age > limit` where `limit` is a parameter) is missed unless the compared constant is itself declared
+  with a literal in the audited files.
+* **0 and 1** count only in value positions. A threshold of 1 used as a comparison operand (`count >= 1`) is missed.
+* The `Math.Round`/`Decimal.Round` digits argument is never counted, so rounding precision is not audited.
+* Policy expressed through data (lookup tables, maps, configuration files, JSON) or through types alone is not seen.
+
+**Authority-matching risks (false support, i.e. missed questions):**
+
+* **Coincidental values.** Any accepted decision parameter with the same value supports a literal, even an unrelated
+  one (a list ordinal such as "3." in a decision body becomes a parameter under the EXP-3 handoff rules). Same-form
+  preference and citation precedence reduce this but do not remove it.
+* **Category naming is textual.** A category is supported when an accepted record's statement contains it as a whole
+  word (case names case-insensitively) or a parameter key segment equals it. A common word used as a case name (`Paid`,
+  `Active`) is easily "named". Keys are matched independently of the values in the same clause: in the development set
+  a region key was supported by the tax decision's key while its value matched the shipping decision.
+* **A cited accepted record without parameters** supports any numeric value in the declaration (rule (c) as
+  specified), unless another cited record declares a mismatching parameter.
+* **Exemptions** need a cited accepted record or an accepted `exception`-kind record naming the category. A cited
+  record that mentions the category for an unrelated reason would still support it.
+* Comment citations are trusted as far as they match: a stale comment that cites an accepted record and happens to
+  match the value is not questioned.
+
+**Constructed mode** keeps v1's marker-or-trace contract; matching does not excuse constructed code.
+
+## Development-set measurement only
+
+v2 was developed on the VAC-002-P3 corpus that EXP-3 phase 1 had already scored, using its misses and false
+questions. Its development-set result (recall 13/13, false questions 0/15; README) is **biased upward** and is not a
+confirmatory result: the rules were chosen while looking at these 13 planted rules and 3 code shapes per domain. The
+corpus is also small and repetitive (one billing base file recurs in 13 scenarios). A **held-out confirmation** on a
+corpus v2 was not tuned on, with a preregistered protocol, is required before any claim about its precision or recall
+and before any default gate. Until then proven provenance findings stay non-blocking and the tool stays out of the
+default CLI and CI.
+
+## v1 (`lexical`): lexical analysis, not compilation
 
 The provenance scan tokenizes F# and infers structure from indentation. It does not type-check, resolve names or
 expand computation expressions.
@@ -33,8 +91,8 @@ expand computation expressions.
 * Comments are dropped. An exemption framed as fact in a comment (the C06 pattern) is found from the code, the
   prefix branch inside a symbol carrying an accepted decision's value, not from the comment's wording.
 
-FSharp.Compiler.Service, untyped or typed, would remove the indentation heuristics and the name-based resolution.
-It would not decide what counts as business policy.
+v2 replaces these heuristics with an untyped parse tree; the v1 list above applies only with `--analyzer lexical`.
+EXP-3 phase 1 measured v1 at recall 5/13 and a false-question rate of 57/63 on VAC-002-P3.
 
 ## Bounded exploration is not proof
 
@@ -55,16 +113,17 @@ The checker validation shows that the oracle distinguishes the reference from 7 
 in the tests). It does not show the oracle catches every defect. Each mutant was designed with one invariant in
 mind, so the kill rate is a sanity check, not a mutation score.
 
-## Unmeasured precision and recall
+## No confirmatory precision and recall
 
-No labelled corpus exists. Precision, recall and the false-rejection rate are **not measured**. For that reason:
+The only labelled corpus (VAC-002-P3, via EXP-3) is now a development set for v2. No confirmatory precision, recall
+or false-rejection rate exists for v2. For that reason:
 
 * proven provenance findings are non-blocking by default (`--block-on-proven-provenance` is off);
 * the tool is not wired into the Dokimos CLI or CI;
 * the Ordo dry run in the README is anecdotal.
 
-A measurement plan would label findings from several constructed and legacy samples and count true and false
-positives per class before considering any default gate.
+A confirmatory measurement needs a held-out labelled corpus (new scenarios or domains, labels and handoff rules fixed
+before running v2) and a preregistered protocol, before any default gate is considered.
 
 ## No paid review run
 
@@ -73,6 +132,10 @@ shaped for it (symbol, authority references, owner per finding), but no agent or
 measured.
 
 ## Contract and environment notes
+
+* `RuleProvenance.Core` now depends on FSharp.Compiler.Service 43.12.400 (a large package coupled to the F# compiler
+  release). Parsing uses one lazily created `FSharpChecker` per process; the parse result is a deterministic function
+  of file name and text, but the core is no longer free of that shared parser instance.
 
 * `invariant`-kind authority (for example INV-INV-003) is accepted when every record it derives from is
   accepted. The brief listed only requirements, decisions and questions; the Ordo trace uses invariants, so this
