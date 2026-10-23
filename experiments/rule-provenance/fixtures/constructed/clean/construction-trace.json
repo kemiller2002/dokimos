@@ -1,0 +1,16 @@
+{
+  "schema": "echelon.construction-trace",
+  "schemaVersion": "0.1",
+  "handoff": { "handoffId": "HND-INVOICE-SLICE-001", "sha256": "sha256:ec5d0e6a4343b1774d40760c04af200a9b71147940305d1ddbabbc5c6db68bcd" },
+  "generator": { "name": "dokimos-experiment-fixture (hand-written)", "version": "0.1" },
+  "constructs": [
+    { "symbol": "Sample.Invoice.Rules.InvoiceState", "kind": "state", "file": "InvoiceRules.fs", "disposition": "authorized", "authority": [ { "kind": "requirement", "id": "REQ-INV-001" } ] },
+    { "symbol": "Sample.Invoice.Rules.singlePaymentLimit", "kind": "constant", "file": "InvoiceRules.fs", "disposition": "authorized", "authority": [ { "kind": "decision", "id": "DEC-FIN-001" } ] },
+    { "symbol": "Sample.Invoice.Rules.validatePayment", "kind": "validated-constructor", "file": "InvoiceRules.fs", "disposition": "authorized", "authority": [ { "kind": "requirement", "id": "REQ-INV-002" }, { "kind": "decision", "id": "DEC-FIN-001" } ] },
+    { "symbol": "Sample.Invoice.Rules.voidInvoice", "kind": "transition", "file": "InvoiceRules.fs", "disposition": "deferred-pending-question", "authority": [ { "kind": "requirement", "id": "REQ-INV-001" }, { "kind": "question", "id": "Q-FIN-001" } ] }
+  ],
+  "excluded": [
+    { "observationId": "OBS-LEGACY-001", "reason": "Unauthorized exemption; not constructed.", "routedTo": "finance-controller" },
+    { "observationId": "OBS-LEGACY-002", "reason": "Superseded limit; not constructed.", "routedTo": "finance-controller" }
+  ]
+}

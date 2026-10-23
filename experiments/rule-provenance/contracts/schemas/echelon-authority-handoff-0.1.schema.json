@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/schemas/echelon-authority-handoff-0.1.schema.json",
+  "title": "Echelon authority handoff 0.1 (PROPOSED, experimental)",
+  "description": "Praxis-owned handoff from requirements intake to construction (Ordo) and verification (Dokimos). Keeps accepted requirements, authorized decisions, unresolved policy questions, observed implementation behaviour and technical invariants in separate, typed collections so none can be read as another. Proposal: CONTRACTS.md C1. Additive companion to ros.handoff-authority v1; it does not replace it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "schemaVersion", "handoffId", "produced", "authorityContract", "requirements", "decisions", "policyQuestions", "observations", "invariants"],
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Z][A-Z0-9]*(-[A-Z0-9]+)+$" },
+    "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "revision"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "locator": { "type": "string" },
+        "revision": { "type": "string", "minLength": 1, "description": "Git commit or other immutable revision of the source document" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": { "enum": ["human", "agent", "automation"] },
+        "id": { "type": "string", "minLength": 1 },
+        "role": { "type": "string" }
+      }
+    }
+  },
+  "properties": {
+    "schema": { "const": "echelon.authority-handoff" },
+    "schemaVersion": { "const": "0.1" },
+    "handoffId": { "$ref": "#/$defs/id" },
+    "produced": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["by", "at", "repository", "revision"],
+      "properties": {
+        "by": { "$ref": "#/$defs/actor" },
+        "at": { "type": "string", "format": "date-time", "description": "Fixed for deterministic output; never the wall clock of a rebuild" },
+        "repository": { "type": "string" },
+        "revision": { "type": "string" }
+      }
+    },
+    "authorityContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "sha256"],
+      "description": "The frozen four-sentence contract (cohort-based-engineering research/experiments/VAC-002/P3/AUTHORITY-CONTRACT.md) whose version the brief carried.",
+      "properties": {
+        "id": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "status", "owner", "source", "supersedes"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "statement": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["accepted", "superseded"] },
+          "owner": { "type": "string" },
+          "source": { "$ref": "#/$defs/sourceRef" },
+          "supersedes": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+          "supersededBy": { "$ref": "#/$defs/id" }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "description": "Only decisions whose authority Praxis holds a record for. An agent's own proposal is never listed as accepted.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "status", "kind", "owner", "requirementIds", "source", "supersedes"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "statement": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["accepted", "superseded", "proposed", "rejected"] },
+          "kind": { "enum": ["business-rule", "policy-limit", "exception", "boundary", "default-rule", "interpretation", "presentation"] },
+          "owner": { "type": "string" },
+          "authorizedBy": { "$ref": "#/$defs/actor", "description": "Required when status is accepted; must be a human with authority for the decision kind" },
+          "authorizedAt": { "type": "string", "format": "date-time" },
+          "requirementIds": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+          "source": { "$ref": "#/$defs/sourceRef" },
+          "supersedes": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+          "supersededBy": { "$ref": "#/$defs/id" },
+          "parameters": { "type": "object", "description": "Typed values the decision fixes, e.g. a limit amount and currency" }
+        },
+        "if": { "properties": { "status": { "const": "accepted" } } },
+        "then": { "required": ["authorizedBy", "authorizedAt"] }
+      }
+    },
+    "policyQuestions": {
+      "type": "array",
+      "description": "Unresolved business policy. Never a rule. The only permitted construction outcome is the one named in permittedOutcome.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "question", "owner", "status", "affects", "permittedOutcome"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "question": { "type": "string", "minLength": 1 },
+          "owner": { "type": "string" },
+          "status": { "const": "unresolved" },
+          "affects": { "type": "array", "items": { "$ref": "#/$defs/id" } },
+          "permittedOutcome": { "enum": ["refuse-and-record", "defer-scope"] },
+          "raisedBy": { "$ref": "#/$defs/actor" }
+        }
+      }
+    },
+    "observations": {
+      "type": "array",
+      "description": "Behaviour observed in existing code, tests or data. Observations carry no authority; authority is always 'unverified' until a decision or requirement supports them.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "description", "kind", "location", "authority"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "description": { "type": "string", "minLength": 1 },
+          "kind": { "enum": ["inherited-rule", "exemption", "default", "superseded-rule", "behaviour"] },
+          "location": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "revision"],
+            "properties": {
+              "path": { "type": "string" },
+              "symbol": { "type": "string" },
+              "revision": { "type": "string" }
+            }
+          },
+          "authority": { "const": "unverified" },
+          "questionId": { "$ref": "#/$defs/id" }
+        }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "description": "Technical invariants the requirements and accepted decisions establish. Listing one here does not mean it is verified; verification is Dokimos evidence.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "derivedFrom"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "statement": { "type": "string", "minLength": 1 },
+          "derivedFrom": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" } }
+        }
+      }
+    }
+  }
+}

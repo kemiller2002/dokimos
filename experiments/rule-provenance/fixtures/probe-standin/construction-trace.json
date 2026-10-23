@@ -1,0 +1,26 @@
+{
+  "schema": "echelon.construction-trace",
+  "schemaVersion": "0.1",
+  "handoff": { "handoffId": "HND-INVOICE-SLICE-001", "sha256": "sha256:ec5d0e6a4343b1774d40760c04af200a9b71147940305d1ddbabbc5c6db68bcd" },
+  "generator": { "name": "dokimos-experiment-standin (hand-written)", "version": "0.1" },
+  "constructs": [
+    { "symbol": "Invoice.Slice.Domain.InvoiceState", "kind": "state", "file": "src/Domain.fs", "disposition": "authorized", "authority": [ { "kind": "requirement", "id": "REQ-INV-001" } ] },
+    { "symbol": "Invoice.Slice.Domain.singlePaymentLimit", "kind": "constant", "file": "src/Domain.fs", "disposition": "authorized", "authority": [ { "kind": "decision", "id": "DEC-FIN-001" } ] },
+    { "symbol": "Invoice.Slice.Domain.limitRefusal", "kind": "refusal", "file": "src/Domain.fs", "disposition": "authorized", "authority": [ { "kind": "decision", "id": "DEC-FIN-001" } ] },
+    { "symbol": "Invoice.Slice.Domain.pendingVoidRefusal", "kind": "refusal", "file": "src/Domain.fs", "disposition": "deferred-pending-question", "authority": [ { "kind": "question", "id": "Q-FIN-001" } ] },
+    { "symbol": "Invoice.Slice.Domain.create", "kind": "validated-constructor", "file": "src/Domain.fs", "disposition": "authorized", "authority": [ { "kind": "requirement", "id": "REQ-INV-001" } ] },
+    { "symbol": "Invoice.Slice.Domain.issue", "kind": "transition", "file": "src/Domain.fs", "disposition": "authorized", "authority": [ { "kind": "requirement", "id": "REQ-INV-001" } ] },
+    { "symbol": "Invoice.Slice.Domain.pay", "kind": "transition", "file": "src/Domain.fs", "disposition": "authorized", "authority": [ { "kind": "requirement", "id": "REQ-INV-002" }, { "kind": "decision", "id": "DEC-FIN-001" } ] },
+    { "symbol": "Invoice.Slice.Domain.voidInvoice", "kind": "transition", "file": "src/Domain.fs", "disposition": "deferred-pending-question", "authority": [ { "kind": "requirement", "id": "REQ-INV-001" }, { "kind": "question", "id": "Q-FIN-001" } ] },
+    { "symbol": "Invoice.Slice.Probe.step", "kind": "port", "file": "src/Probe.fs", "disposition": "technical", "authority": [] },
+    { "symbol": "Invoice.Slice.Probe.stateName", "kind": "port", "file": "src/Probe.fs", "disposition": "technical", "authority": [] }
+  ],
+  "excluded": [
+    { "observationId": "OBS-LEGACY-001", "reason": "No requirement or decision supports the STR- exemption; DEC-FIN-001 says no category is exempt.", "routedTo": "finance-controller" },
+    { "observationId": "OBS-LEGACY-002", "reason": "DEC-FIN-001 superseded the 25,000.00 limit.", "routedTo": "finance-controller" }
+  ],
+  "outputs": [
+    { "path": "src/Domain.fs", "sha256": "sha256:99093fe7f8fc1be8c8503e9cc9caa3abd59c11090244bf8d485ad1965f8ba19f" },
+    { "path": "src/Probe.fs", "sha256": "sha256:e9fa713b949ff45f21bbf2703110f6543a4a93628686daf68573912f2663aff7" }
+  ]
+}

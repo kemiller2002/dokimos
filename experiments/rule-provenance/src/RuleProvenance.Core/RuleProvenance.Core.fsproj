@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Compile Include="Domain.fs" />
+    <Compile Include="Digest.fs" />
+    <Compile Include="Inputs.fs" />
+    <Compile Include="Lexer.fs" />
+    <Compile Include="Scanner.fs" />
+    <Compile Include="Provenance.fs" />
+    <Compile Include="Oracle.fs" />
+    <Compile Include="OracleValidation.fs" />
+    <Compile Include="Report.fs" />
+    <Compile Include="Reuse.fs" />
+    <Compile Include="Audit.fs" />
+  </ItemGroup>
+</Project>
