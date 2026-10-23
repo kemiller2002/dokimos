@@ -23,5 +23,6 @@
     <Compile Include="OracleTests.fs" />
     <Compile Include="ReportTests.fs" />
     <Compile Include="ReuseTests.fs" />
+    <Compile Include="AstAnalyzerTests.fs" />
   </ItemGroup>
 </Project>

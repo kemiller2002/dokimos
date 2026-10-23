@@ -18,7 +18,7 @@ module Cli =
         set
             [ "--handoff"; "--trace"; "--source"; "--legacy"; "--root"; "--dll"; "--probe-model"; "--depth"
               "--exclude"; "--repository"; "--revision"; "--sdk-version"; "--out"; "--validation-out"; "--prior"
-              "--ordo-src"; "--constructing-owner"; "--unmatched-owner" ]
+              "--ordo-src"; "--constructing-owner"; "--unmatched-owner"; "--analyzer" ]
 
     let usage =
         String.concat
@@ -28,7 +28,9 @@ module Cli =
               "  audit      --handoff F [--trace F] [--source P]... [--legacy P]... [--root DIR]"
               "             [--dll F | --probe-model reference|mutant:<name>] [--depth N]"
               "             [--block-on-proven-provenance] [--exclude GLOB]... [--repository R] [--revision R]"
-              "             [--sdk-version V] [--out F] [--validation-out F]"
+              "             [--sdk-version V] [--out F] [--validation-out F] [--analyzer ast|lexical]"
+              "             --analyzer: ast (default, v2: F# parse trees + authority matching) or"
+              "             lexical (v1). The analyzer is part of validity.configDigest."
               "  integrate  --ordo-src DIR --trace F --dll F --handoff F [--legacy P]... [audit options]"
               "  reuse      --prior AUDIT.json <the same inputs as the audit>"
               "  validate-checker --handoff F [--depth N] [--out F]"
@@ -72,10 +74,18 @@ module Cli =
                 match Int32.TryParse(d, NumberStyles.None, CultureInfo.InvariantCulture) with
                 | true, n when n >= 1 && n <= 8 -> Ok n
                 | _ -> Error(invalid "--depth must be an integer from 1 to 8")
-        match one a "--handoff", depth with
-        | None, _ -> Error(invalid "--handoff is required")
-        | _, Error e -> Error e
-        | Some handoffPath, Ok depth ->
+        let analyzer =
+            match one a "--analyzer" with
+            | None -> Ok AuditConfig.defaults.Analyzer
+            | Some v ->
+                match Analyzer.parse v with
+                | Some x -> Ok x
+                | None -> Error(invalid $"--analyzer must be 'ast' or 'lexical', not '{v}'")
+        match one a "--handoff", depth, analyzer with
+        | None, _, _ -> Error(invalid "--handoff is required")
+        | _, Error e, _
+        | _, _, Error e -> Error e
+        | Some handoffPath, Ok depth, Ok analyzer ->
             let sources =
                 [ for p in all a "--source" @ all a "--ordo-src" -> Io.collect root Constructed p ]
                 @ [ for p in all a "--legacy" -> Io.collect root Legacy p ]
@@ -125,7 +135,8 @@ module Cli =
                                 Repository = one a "--repository" |> Option.defaultValue AuditConfig.defaults.Repository
                                 Revision = one a "--revision" |> Option.defaultValue AuditConfig.defaults.Revision
                                 ConstructingOwner = one a "--constructing-owner" |> Option.defaultValue AuditConfig.defaults.ConstructingOwner
-                                UnmatchedOwner = one a "--unmatched-owner" |> Option.defaultValue AuditConfig.defaults.UnmatchedOwner }
+                                UnmatchedOwner = one a "--unmatched-owner" |> Option.defaultValue AuditConfig.defaults.UnmatchedOwner
+                                Analyzer = analyzer }
                         { Handoff = handoff
                           Inputs =
                             { Config = cfg

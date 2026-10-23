@@ -101,6 +101,7 @@ module Provenance =
         |> List.choose (fun c ->
             match c.Kind with
             | DecimalLiteral v -> Some v
+            | NumericLiteral(v, _) -> Some v
             | ComparisonAgainstConstant(_, operand) -> Scanner.literalValue operand
             | _ -> None)
         |> List.distinct
@@ -345,15 +346,123 @@ module Provenance =
 
     let private rootOf (f: ScannedFile) (d: Decl) = chain f d |> List.last
 
-    let legacy (cfg: AuditConfig) (h: Handoff) (files: ScannedFile list) : RawFinding list =
+    /// Unmatched-group finding of the lexical analyzer (v1): every rule-bearing root
+    /// that no observation claims is an owner question.
+    let private lexicalUnmatched (cfg: AuditConfig) (h: Handoff) (path: string) (root: Decl option) (owned: (Construct * Decl option) list) =
+        let cs = owned |> List.map fst
+        let matches = valueMatches h cs
+        let refs = matches |> List.collect (fun (d, _) -> d.Id :: Option.toList d.SupersededBy) |> List.distinct |> List.sort
+        let owner = ownerOf cfg h refs
+        let superseded = matches |> List.exists (fun (d, _) -> d.Status = Superseded)
+        let accepted = matches |> List.filter (fun (d, _) -> d.Status = Accepted) |> List.map (fun (d, _) -> d.Id) |> List.distinct
+        let hasDefault = cs |> List.exists (fun c -> match c.Kind with SilentDefault _ -> true | _ -> false)
+        let hasCategory = cs |> List.exists (fun c -> match c.Kind with CategoryCheck _ -> true | _ -> false)
+        let hints =
+            [ if hasDefault then
+                  yield "A wildcard default silently decides every unlisted case; no record authorizes that default."
+              if hasCategory && not accepted.IsEmpty then
+                  let ids = String.Join(", ", accepted)
+                  yield $"A category/prefix branch sits inside the symbol that carries accepted {ids}: an exemption from {ids} needs its own decision record, whatever the code comments call it."
+              if superseded then yield "The code still carries a superseded decision's value." ]
+        let noteText = (matches |> List.map (fun (_, n) -> n + ".")) @ hints |> List.map (fun n -> " " + n) |> String.concat ""
+        let symbol = root |> Option.map (fun r -> r.Qualified)
+        let line = root |> Option.map (fun r -> r.Line) |> Option.defaultValue (cs |> List.map (fun c -> c.Line) |> List.min)
+        let where = symbol |> Option.defaultValue "module-level code"
+        Some(
+            finding (if superseded then SupersededAuthority else UnverifiedInheritedRule) UncertainAuthority
+                { Path = path; Line = Some line; Symbol = symbol } refs
+                $"Rule-bearing legacy code in {where} matches no observation and cites no authority: {describeAll cs}.{noteText} Question for {owner}: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+                owner
+        )
+
+    /// Authority of one construct in legacy code under the ast analyzer (v2): (a) a
+    /// marker in scope, otherwise (b)/(c) via AuthorityMatch.
+    let private astAuthority (h: Handoff) (f: ScannedFile) (owner: Decl option) (c: Construct) : ConstructAuthority =
+        let scope = owner |> Option.map (chain f) |> Option.defaultValue [] |> List.filter (fun x -> x.Kind <> ModuleDecl)
+        let markerIds = scope |> List.collect (fun x -> x.Markers |> List.collect (fun m -> m.Ids)) |> List.distinct
+        let comments = scope |> List.collect (fun x -> x.Comments)
+        if markerIds.IsEmpty then AuthorityMatch.assess h (AuthorityMatch.citedIds comments) c.Kind
+        else
+            let resolved = markerIds |> List.map (fun id -> id, resolve h id)
+            let ids = String.Join(", ", markerIds)
+            let supersededRefs = resolved |> List.collect (fun (id, r) -> match r with SupersededRecord(_, by) -> id :: Option.toList by | _ -> [])
+            if resolved |> List.forall (fun (_, r) -> match r with AcceptedRecord _ | InvariantRef(_, true) -> true | _ -> false) then
+                Supported(MarkerRule, $"Authority marker cites accepted {ids}", markerIds)
+            elif not supersededRefs.IsEmpty then SupersededOnly($"Authority marker cites {ids}, not all accepted", supersededRefs |> List.distinct)
+            else Unsupported($"Authority marker cites {ids}, which do not all resolve to accepted records", markerIds)
+
+    /// Unmatched-group finding of the ast analyzer (v2): a root is an owner question
+    /// only when some construct in it has no accepted authority. Supported constructs
+    /// are listed with the matching rule that supported them, for auditability.
+    let private astUnmatched (h: Handoff) (cfg: AuditConfig) (f: ScannedFile) (path: string) (root: Decl option) (owned: (Construct * Decl option) list) =
+        let assessed = owned |> List.map (fun (c, d) -> c, astAuthority h f d c)
+        let supported = assessed |> List.choose (fun (c, a) -> match a with Supported(rule, detail, refs) -> Some(c, rule, detail, refs) | _ -> None)
+        let superseded = assessed |> List.choose (fun (c, a) -> match a with SupersededOnly(detail, refs) -> Some(c, detail, refs) | _ -> None)
+        let unsupported = assessed |> List.choose (fun (c, a) -> match a with Unsupported(detail, refs) -> Some(c, detail, refs) | _ -> None)
+        if superseded.IsEmpty && unsupported.IsEmpty then None
+        else
+            let refs =
+                (supported |> List.collect (fun (_, _, _, r) -> r)) @ (superseded |> List.collect (fun (_, _, r) -> r)) @ (unsupported |> List.collect (fun (_, _, r) -> r))
+                |> List.filter (fun id -> resolve h id <> UnknownRef)
+                |> List.distinct
+                |> List.sort
+            let owner = ownerOf cfg h refs
+            // Accepted records the symbol carries: those supporting its other constructs
+            // and those its comments cite.
+            let citedInSymbol =
+                owned
+                |> List.collect (fun (_, d) -> d |> Option.map (chain f) |> Option.defaultValue [])
+                |> List.collect (fun d -> d.Comments)
+                |> AuthorityMatch.citedIds
+            let acceptedSupport =
+                (supported |> List.collect (fun (_, _, _, r) -> r)) @ citedInSymbol
+                |> List.filter (fun id -> match resolve h id with AcceptedRecord _ -> true | _ -> false)
+                |> List.distinct
+                |> List.sort
+            let kinds = (superseded |> List.map (fun (c, _, _) -> c.Kind)) @ (unsupported |> List.map (fun (c, _, _) -> c.Kind))
+            let isDefault = function SilentDefault _ -> true | _ -> false
+            let isExemption = function CategoryExemption _ | CategoryCheck _ -> true | _ -> false
+            let isCategory = function CategoryComparison _ | CategoryKey _ | CasePattern _ -> true | _ -> false
+            let hints =
+                [ if kinds |> List.exists isDefault then
+                      yield "A wildcard default silently decides every unlisted case; no record authorizes that default."
+                  if kinds |> List.exists isExemption then
+                      if acceptedSupport.IsEmpty then
+                          yield "A category exemption lets one category bypass the rule; an exemption needs its own decision record, whatever the code comments call it."
+                      else
+                          let ids = String.Join(", ", acceptedSupport)
+                          yield $"A category exemption sits inside the symbol that carries accepted {ids}: an exemption from {ids} needs its own decision record, whatever the code comments call it."
+                  elif kinds |> List.exists isCategory then
+                      yield "A category test treats one category differently (a possible exemption); a record that names the category must authorize it."
+                  if not superseded.IsEmpty then yield "The code still carries a superseded decision's value." ]
+            let item (c: Construct) (detail: string) = $"{Construct.describe c}: {detail}"
+            let section title (xs: string list) = if xs.IsEmpty then [] else [ title + " " + String.Join("; ", xs) + "." ]
+            let body =
+                section "Superseded authority:" (superseded |> List.map (fun (c, d, _) -> item c d))
+                @ section "No accepted authority:" (unsupported |> List.map (fun (c, d, _) -> item c d))
+                @ section "Supported (matching rule):" (supported |> List.map (fun (c, rule, d, _) -> item c $"{AuthorityMatch.ruleText rule}, {d}"))
+                @ hints
+            let symbol = root |> Option.map (fun r -> r.Qualified)
+            let line = root |> Option.map (fun r -> r.Line) |> Option.defaultValue (owned |> List.map (fun (c, _) -> c.Line) |> List.min)
+            let where = symbol |> Option.defaultValue "module-level code"
+            Some(
+                finding (if superseded.IsEmpty then UnverifiedInheritedRule else SupersededAuthority) UncertainAuthority
+                    { Path = path; Line = Some line; Symbol = symbol } refs
+                    $"Rule-bearing legacy code in {where} matches no observation and has rule-bearing constructs without accepted authority (ast analyzer). {String.Join(' ', body)} Question for {owner}: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
+                    owner
+            )
+
+    type private Unmatched = ScannedFile -> string -> Decl option -> (Construct * Decl option) list -> RawFinding option
+
+    let private legacyWith (unmatchedFinding: Unmatched) (cfg: AuditConfig) (h: Handoff) (files: ScannedFile list) : RawFinding list =
         files
         |> List.collect (fun f ->
             let path = f.File.RelativePath
             // Constructs grouped by their outermost declaration (or module level).
-            let groups =
+            let ownedGroups =
                 f.Constructs
                 |> List.groupBy (fun (_, d) -> d |> Option.map (rootOf f))
-                |> List.map (fun (root, cs) -> root, cs |> List.map fst)
+            let groups = ownedGroups |> List.map (fun (root, cs) -> root, cs |> List.map fst)
             let ruleRoots = groups |> List.choose fst
             let observations =
                 h.Observations
@@ -411,29 +520,15 @@ module Provenance =
                             owner)
 
             let unmatchedFindings =
-                groups
+                ownedGroups
                 |> List.filter (fun (r, _) -> match r with Some r -> (claimOf r).IsNone | None -> true)
-                |> List.map (fun (root, cs) ->
-                    let matches = valueMatches h cs
-                    let refs = matches |> List.collect (fun (d, _) -> d.Id :: Option.toList d.SupersededBy) |> List.distinct |> List.sort
-                    let owner = ownerOf cfg h refs
-                    let superseded = matches |> List.exists (fun (d, _) -> d.Status = Superseded)
-                    let accepted = matches |> List.filter (fun (d, _) -> d.Status = Accepted) |> List.map (fun (d, _) -> d.Id) |> List.distinct
-                    let hasDefault = cs |> List.exists (fun c -> match c.Kind with SilentDefault _ -> true | _ -> false)
-                    let hasCategory = cs |> List.exists (fun c -> match c.Kind with CategoryCheck _ -> true | _ -> false)
-                    let hints =
-                        [ if hasDefault then
-                              yield "A wildcard default silently decides every unlisted case; no record authorizes that default."
-                          if hasCategory && not accepted.IsEmpty then
-                              let ids = String.Join(", ", accepted)
-                              yield $"A category/prefix branch sits inside the symbol that carries accepted {ids}: an exemption from {ids} needs its own decision record, whatever the code comments call it."
-                          if superseded then yield "The code still carries a superseded decision's value." ]
-                    let noteText = (matches |> List.map (fun (_, n) -> n + ".")) @ hints |> List.map (fun n -> " " + n) |> String.concat ""
-                    let symbol = root |> Option.map (fun r -> r.Qualified)
-                    let line = root |> Option.map (fun r -> r.Line) |> Option.defaultValue (cs |> List.map (fun c -> c.Line) |> List.min)
-                    let where = symbol |> Option.defaultValue "module-level code"
-                    finding (if superseded then SupersededAuthority else UnverifiedInheritedRule) UncertainAuthority
-                        { Path = path; Line = Some line; Symbol = symbol } refs
-                        $"Rule-bearing legacy code in {where} matches no observation and cites no authority: {describeAll cs}.{noteText} Question for {owner}: which accepted record, if any, authorizes it? New work must not reuse it until answered; the legacy code is left unchanged."
-                        owner)
+                |> List.choose (fun (root, owned) -> unmatchedFinding f path root owned)
             observationFindings @ unmatchedFindings)
+
+    let legacy (cfg: AuditConfig) (h: Handoff) (files: ScannedFile list) : RawFinding list =
+        legacyWith (fun _ path root owned -> lexicalUnmatched cfg h path root owned) cfg h files
+
+    /// Legacy analysis for the ast analyzer (v2): observations as in v1; unmatched
+    /// roots go through authority matching.
+    let legacyAst (cfg: AuditConfig) (h: Handoff) (files: ScannedFile list) : RawFinding list =
+        legacyWith (fun f path root owned -> astUnmatched h cfg f path root owned) cfg h files
