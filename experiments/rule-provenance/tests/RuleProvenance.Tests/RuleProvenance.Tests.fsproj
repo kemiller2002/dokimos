@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/RuleProvenance.Core/RuleProvenance.Core.fsproj" />
+    <ProjectReference Include="../../src/RuleProvenance.Cli/RuleProvenance.Cli.fsproj" />
+    <!-- Builds the probe stand-in so the reflection adapter is tested against a real assembly. -->
+    <ProjectReference Include="../../fixtures/probe-standin/Invoice.Slice.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Support.fs" />
+    <Compile Include="FixtureTests.fs" />
+    <Compile Include="ScannerTests.fs" />
+    <Compile Include="ProvenanceTests.fs" />
+    <Compile Include="TraceTests.fs" />
+    <Compile Include="OracleTests.fs" />
+    <Compile Include="ReportTests.fs" />
+    <Compile Include="ReuseTests.fs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,60 @@
+module RuleProvenance.Tests.ScannerTests
+
+open Xunit
+open RuleProvenance
+
+let private scan (text: string) =
+    Scanner.scanAll [ { RelativePath = "x.fs"; Role = Constructed; Text = text } ] |> List.head
+
+let private kinds (f: ScannedFile) = f.Constructs |> List.map (fun (c, _) -> c.Kind)
+
+[<Fact>]
+let ``comments are not code but string contents are kept`` () =
+    let f = scan "module M\n// let a = 25000.00m\n(* if x > 5m then *)\nlet b = \"STR-\".StartsWith \"S\"\n"
+    Assert.DoesNotContain(DecimalLiteral 25000.00m, kinds f)
+    Assert.DoesNotContain(Branch "if", kinds f)
+    Assert.Contains(CategoryCheck "S", kinds f)
+
+[<Fact>]
+let ``markers attach to the next declaration, across doc comments`` () =
+    let f = scan "module M\n\n[<Authority(\"DEC-FIN-001\", \"REQ-INV-002\")>]\n/// the limit\nlet limit = 10000.00m\n"
+    let d = f.Decls |> List.find (fun d -> d.Name = "limit")
+    Assert.Equal<string list>([ "DEC-FIN-001"; "REQ-INV-002" ], d.Markers |> List.collect (fun m -> m.Ids))
+    Assert.Equal("M.limit", d.Qualified)
+    Assert.True d.IsConstant
+
+[<Fact>]
+let ``generic angle brackets and arrows are not comparisons`` () =
+    let f = scan "module M\nlet f (x: Result<int, string>) : Result<int, string> = x |> Result.map (fun v -> v)\n"
+    Assert.Empty(kinds f |> List.filter (function ComparisonAgainstConstant _ -> true | _ -> false))
+
+[<Fact>]
+let ``comparison against a named constant, prefix check and silent default are recognised`` () =
+    let f = scan "module M\nlet limit = 5m\nlet g a c =\n    if c.StartsWith \"STR-\" then false else a > limit\nlet h c =\n    match c with\n    | \"USD\" -> 1m\n    | _ -> 0.00m\n"
+    let ks = kinds f
+    Assert.Contains(ComparisonAgainstConstant(">", "limit"), ks)
+    Assert.Contains(CategoryCheck "STR-", ks)
+    Assert.Contains(CasePattern "USD", ks)
+    Assert.Contains(SilentDefault "0.00m", ks)
+    Assert.Contains(DecimalLiteral 5m, ks)
+
+[<Fact>]
+let ``zero and one are not money literals; ranges are not decimals`` () =
+    let f = scan "module M\nlet a = 0m\nlet b = 1.00m\nlet c = [1..10]\n"
+    Assert.Empty(kinds f |> List.filter (function DecimalLiteral _ -> true | _ -> false))
+
+[<Fact>]
+let ``union cases and nested modules are qualified`` () =
+    let f = scan "namespace N\nmodule Inner =\n    [<Authority(\"REQ-INV-001\")>]\n    type S =\n        | A\n        | [<Authority(\"REQ-INV-002\")>] B\n"
+    let names = f.Decls |> List.map (fun d -> d.Qualified)
+    Assert.Contains("N.Inner.S", names)
+    Assert.Contains("N.Inner.S.A", names)
+    let b = f.Decls |> List.find (fun d -> d.Name = "B")
+    Assert.Equal<string list>([ "REQ-INV-002" ], b.Markers |> List.collect (fun m -> m.Ids))
+
+[<Fact>]
+let ``constructs belong to the innermost declaration`` () =
+    let f = scan "module M\nlet outer x =\n    let inner y = y > 3m\n    inner x\nlet other = 2m\n"
+    let owner k = f.Constructs |> List.find (fun (c, _) -> c.Kind = k) |> snd |> Option.map (fun d -> d.Qualified)
+    Assert.Equal(Some "M.outer.inner", owner (DecimalLiteral 3m))
+    Assert.Equal(Some "M.other", owner (DecimalLiteral 2m))
