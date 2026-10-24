@@ -34,7 +34,8 @@ concurrency:
 
 jobs:
   authorize:
-    runs-on: ubuntu-latest
+    # Release-gating: pinned image (Echelon program OD-5). Revisit when ubuntu-latest moves or 26.04 nears EOL.
+    runs-on: ubuntu-26.04
     outputs:
       version: ${{ steps.check.outputs.version }}
     steps:
@@ -65,7 +66,8 @@ jobs:
 
   build:
     needs: authorize
-    runs-on: ubuntu-latest
+    # Release-gating: pinned image (Echelon program OD-5). Revisit when ubuntu-latest moves or 26.04 nears EOL.
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
     steps:
@@ -151,7 +153,8 @@ jobs:
 
   publish-github:
     needs: [authorize, build]
-    runs-on: ubuntu-latest
+    # Release-gating: pinned image (Echelon program OD-5). Revisit when ubuntu-latest moves or 26.04 nears EOL.
+    runs-on: ubuntu-26.04
     permissions:
       contents: write
       id-token: write
@@ -182,7 +185,8 @@ jobs:
   publish-nuget:
     needs: [authorize, build, publish-github]
     if: vars.DOKIMOS_NUGET_PUBLISH == 'true'
-    runs-on: ubuntu-latest
+    # Release-gating: pinned image (Echelon program OD-5). Revisit when ubuntu-latest moves or 26.04 nears EOL.
+    runs-on: ubuntu-26.04
     environment: nuget
     permissions:
       id-token: write
