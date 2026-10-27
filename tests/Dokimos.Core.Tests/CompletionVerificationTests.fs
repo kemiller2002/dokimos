@@ -41,7 +41,7 @@ module CompletionVerificationTests =
           RequiredValidationNames = set [ "tests" ]
           Evidence =
             [ { Id = "EV-1"; Digest = digest 'd'; Revision = verificationRevision
-                Status = EvidencePassed; Reusable = true; ObservedAt = None; Validation = None; Attestation = None } ]
+                Status = EvidencePassed; Reusable = true; ObservedAt = None; Validation = None; Attestation = None; Provenance = None } ]
           ConsumedPacketDigests = Set.empty
           ClaimAcquiredAt = None
           LeaseExpiresAt = None

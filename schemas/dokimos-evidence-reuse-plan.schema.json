@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/evidence-reuse-plan",
+  "title": "Dokimos evidence reuse plan",
+  "description": "Output of `dokimos evidence plan`: per test, run or reuse, with every reason. Reuse is not acceptance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["Contract", "SchemaVersion", "DokimosVersion", "Revision", "Acceptance", "Summary", "ChangedPaths", "UnmappedChangedPaths", "Tests"],
+  "properties": {
+    "Contract": { "const": "dokimos.evidence-reuse-plan" },
+    "SchemaVersion": { "const": "dokimos.evidence-reuse-plan/1" },
+    "DokimosVersion": { "type": "string", "minLength": 1 },
+    "Revision": { "$ref": "#/$defs/revision" },
+    "Acceptance": { "type": "string", "minLength": 1 },
+    "Summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["Tests", "Run", "Reuse"],
+      "properties": {
+        "Tests": { "type": "integer", "minimum": 0 },
+        "Run": { "type": "integer", "minimum": 0 },
+        "Reuse": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "ChangedPaths": { "type": ["array", "null"], "items": { "type": "string" } },
+    "UnmappedChangedPaths": { "type": "array", "items": { "type": "string" } },
+    "Tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["TestId", "Freshness", "Decision", "PathAffected", "CurrentIdentity", "Inputs", "Reused", "Reasons"],
+        "properties": {
+          "TestId": { "type": "string", "minLength": 1 },
+          "Freshness": { "enum": ["content-addressed", "per-commit", "live"] },
+          "Decision": { "enum": ["run", "reuse"] },
+          "PathAffected": { "type": ["boolean", "null"] },
+          "CurrentIdentity": { "oneOf": [ { "$ref": "#/$defs/digest" }, { "type": "null" } ] },
+          "Inputs": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["Sources", "Dependencies", "TestContract", "Configuration", "ToolVersion"],
+                "properties": {
+                  "Sources": { "type": "object", "additionalProperties": { "$ref": "#/$defs/digest" } },
+                  "Dependencies": { "type": "object", "additionalProperties": { "type": "string" } },
+                  "TestContract": { "$ref": "#/$defs/digest" },
+                  "Configuration": { "type": "object", "additionalProperties": { "type": "string" } },
+                  "ToolVersion": { "type": "string" }
+                }
+              }
+            ]
+          },
+          "Reused": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["EvidenceId", "EvidenceIdentity", "ProducedAtRevision", "Freshness"],
+                "properties": {
+                  "EvidenceId": { "type": "string", "minLength": 1 },
+                  "EvidenceIdentity": { "$ref": "#/$defs/digest" },
+                  "ProducedAtRevision": { "$ref": "#/$defs/revision" },
+                  "Freshness": { "enum": ["content-addressed", "per-commit"] }
+                }
+              }
+            ]
+          },
+          "Reasons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["Code", "Subject", "Detail"],
+              "properties": {
+                "Code": { "type": "string", "pattern": "^REUSE\\.[A-Z_]+$" },
+                "Subject": { "type": "string" },
+                "Detail": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "revision": { "type": "string", "pattern": "^(?:[0-9A-Fa-f]{40}|[0-9A-Fa-f]{64})$" },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9A-Fa-f]{64}$" }
+  }
+}

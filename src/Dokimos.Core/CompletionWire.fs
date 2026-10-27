@@ -140,10 +140,22 @@ module CompletionWire =
                       ConflictResolutionIds = resolutions; Validations = validations; Evidence = evidence }
             }
 
+    let private provenance: Json.Decoder<EvidenceReuse.ObservationProvenance> =
+        fun element ->
+            Json.result {
+                do! exact [ "EvidenceIdentity"; "Freshness"; "ProducedAtRevision" ] element
+                let! identity = Json.field "EvidenceIdentity" sha256Digest element
+                let! freshness = Json.field "Freshness" (Json.oneOf EvidenceReuse.freshnessCases) element
+                let! revision = Json.field "ProducedAtRevision" Json.nonEmptyString element
+                do! if EvidenceReuse.isImmutableRevision revision then Ok()
+                    else Error $"ProducedAtRevision: expected a 40- or 64-hex revision, found '{revision}'"
+                return ({ EvidenceIdentity = identity; Freshness = freshness; ProducedAtRevision = revision }: EvidenceReuse.ObservationProvenance)
+            }
+
     let private observation: Json.Decoder<EvidenceObservation> =
         fun element ->
             Json.result {
-                do! exactWith [ "Id"; "Digest"; "Revision"; "Status"; "Reusable" ] [ "ObservedAt"; "Validation"; "Attestation" ] element
+                do! exactWith [ "Id"; "Digest"; "Revision"; "Status"; "Reusable" ] [ "ObservedAt"; "Validation"; "Attestation"; "Provenance" ] element
                 let! id = Json.field "Id" Json.nonEmptyString element
                 let! digest = Json.field "Digest" Json.nonEmptyString element
                 let! revision = Json.field "Revision" Json.nonEmptyString element
@@ -152,9 +164,10 @@ module CompletionWire =
                 let! observedAt = optional "ObservedAt" instant element
                 let! validation = optional "Validation" Json.nonEmptyString element
                 let! attestation = optional "Attestation" rawObject element
+                let! provenance = optional "Provenance" provenance element
                 return
                     { Id = id; Digest = digest; Revision = revision; Status = status; Reusable = reusable
-                      ObservedAt = observedAt; Validation = validation; Attestation = attestation }
+                      ObservedAt = observedAt; Validation = validation; Attestation = attestation; Provenance = provenance }
             }
 
     let private authority: Json.Decoder<VerificationAuthority> =

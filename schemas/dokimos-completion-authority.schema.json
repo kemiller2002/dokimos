@@ -41,6 +41,17 @@
             "minLength": 1,
             "description": "Optional. The validation this observation proves; when present only that validation may cite it, and that validation must cite at least one evidence item bound to it."
           },
+          "Provenance": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["EvidenceIdentity", "Freshness", "ProducedAtRevision"],
+            "description": "Optional (added after Dokimos 0.7.0). Where and under which content-addressed identity (dokimos.evidence-identity/1) the evidence was produced. ProducedAtRevision different from Revision means the evidence is carried forward: it must be Reusable and content-addressed. Live evidence is never reusable; per-commit evidence never crosses a commit.",
+            "properties": {
+              "EvidenceIdentity": { "$ref": "#/$defs/digest" },
+              "Freshness": { "enum": ["content-addressed", "per-commit", "live"] },
+              "ProducedAtRevision": { "$ref": "#/$defs/revision" }
+            }
+          },
           "Attestation": {
             "$ref": "#/$defs/dsseEnvelope",
             "description": "Optional (attested mode). The DSSE v1 envelope of an echelon.verification-receipt/1 signed by a trusted verifier. Required for evidence satisfying a required validation when TrustedVerifierKeys is non-empty; ignored otherwise. Its shape is judged semantically (DOK.COMPLETION.ATTESTATION_MALFORMED), so this schema only requires an object."

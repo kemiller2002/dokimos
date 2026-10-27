@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/evidence-reuse-request",
+  "title": "Dokimos evidence reuse request",
+  "description": "Input to `dokimos evidence plan`: the tests to judge with their declared test-to-input mappings and freshness policies, and recorded provenance of earlier runs. Unknown and duplicate members are refused.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["SchemaVersion", "Revision", "Tests", "PriorEvidence"],
+  "properties": {
+    "SchemaVersion": { "const": "dokimos.evidence-reuse-request/1" },
+    "Revision": { "$ref": "#/$defs/revision", "description": "The commit being verified. --root must be a checkout at exactly this commit with no tracked modifications." },
+    "ChangedPaths": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Optional. Paths changed since the evidence being considered (for example `git diff --name-only BASE REVISION`). Can only add tests to the run set."
+    },
+    "GlobalInputs": { "$ref": "#/$defs/patterns", "description": "Optional. Paths that are inputs of every mapped test (lock files, build props, CI workflow)." },
+    "IgnoredPaths": { "$ref": "#/$defs/patterns", "description": "Optional. Paths declared to affect no test. A changed path matched by no test, no global input and no ignored pattern runs every test." },
+    "Tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["TestId", "Freshness"],
+        "properties": {
+          "TestId": { "type": "string", "minLength": 1 },
+          "Freshness": { "$ref": "#/$defs/freshness" },
+          "Inputs": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["Sources", "TestContract", "ToolVersion"],
+            "description": "Optional. Absent means the mapping is unknown and the test always runs.",
+            "properties": {
+              "Sources": { "$ref": "#/$defs/patterns" },
+              "TestContract": { "type": "string", "minLength": 1, "description": "Repository path of the test's contract (its specification or definition file)." },
+              "Dependencies": { "type": "object", "additionalProperties": { "type": "string", "minLength": 1 }, "description": "Dependency name to version or identity digest." },
+              "Configuration": { "type": "object", "additionalProperties": { "type": "string" } },
+              "ToolVersion": { "type": "string", "minLength": 1, "description": "Verification tool name and version, for example `dotnet-sdk 10.0.402; playwright 1.48.2`." }
+            }
+          }
+        }
+      }
+    },
+    "PriorEvidence": { "type": "array", "items": { "$ref": "#/$defs/provenance" } }
+  },
+  "$defs": {
+    "revision": { "type": "string", "pattern": "^(?:[0-9A-Fa-f]{40}|[0-9A-Fa-f]{64})$" },
+    "digest": { "type": "string", "pattern": "^sha256:[0-9A-Fa-f]{64}$" },
+    "freshness": { "enum": ["content-addressed", "per-commit", "live"] },
+    "patterns": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["SchemaVersion", "EvidenceId", "TestId", "Outcome"],
+      "description": "dokimos.evidence-provenance/1. Members after Outcome are optional at intake so a record lacking them is refused for reuse (REUSE.PROVENANCE_MISSING) rather than dropped.",
+      "properties": {
+        "SchemaVersion": { "const": "dokimos.evidence-provenance/1" },
+        "EvidenceId": { "type": "string", "minLength": 1 },
+        "TestId": { "type": "string", "minLength": 1 },
+        "Outcome": { "enum": ["passed", "failed", "unavailable"] },
+        "ProducedAtRevision": { "type": "string", "minLength": 1 },
+        "Freshness": { "$ref": "#/$defs/freshness" },
+        "EvidenceIdentity": { "$ref": "#/$defs/digest" },
+        "Inputs": { "$ref": "#/$defs/inputs" }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Sources": { "type": "object", "additionalProperties": { "$ref": "#/$defs/digest" } },
+        "TestContract": { "$ref": "#/$defs/digest" },
+        "Dependencies": { "type": "object", "additionalProperties": { "type": "string", "minLength": 1 } },
+        "Configuration": { "type": "object", "additionalProperties": { "type": "string" } },
+        "ToolVersion": { "type": "string" }
+      }
+    }
+  }
+}

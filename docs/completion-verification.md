@@ -137,6 +137,16 @@ receipt lists those IDs in `ReusedEvidenceIds`. A passing result from another
 revision, a claimant-only assertion, a failed/unavailable observation, or a
 digest mismatch is never reusable.
 
+Evidence produced at an earlier revision can be carried forward when its
+content-addressed identity is unchanged ([evidence-reuse.md](evidence-reuse.md)).
+The observation then carries an optional `Provenance` object
+(`EvidenceIdentity`, `Freshness`, `ProducedAtRevision`). With `Provenance`
+present: evidence produced at another revision without `Reusable: true` is
+`REUSE_UNDECLARED`; carried `per-commit` evidence is `REUSE_STALE_COMMIT`;
+`live` evidence that is reusable or carried is `REUSE_LIVE_EVIDENCE` and is
+never listed in `ReusedEvidenceIds`. Absent `Provenance`, behaviour is as in
+0.7.0. The receipt format is unchanged.
+
 ## Diagnostics
 
 Receipts contain stable `DOK.COMPLETION.*` diagnostic codes. The principal
@@ -153,6 +163,8 @@ families are:
 - `INVALID_*`: malformed fence, commit, revision, digest, or consumed digest.
 - `EVIDENCE_*`, `INVALID_EVIDENCE_DIGEST`: independent evidence is absent,
   stale, forged, failed, unavailable, or malformed.
+- `REUSE_UNDECLARED`, `REUSE_STALE_COMMIT`, `REUSE_LIVE_EVIDENCE`: evidence
+  carried across revisions against its freshness policy.
 - `EVIDENCE_UNATTESTED`, `ATTESTATION_UNTRUSTED_KEY`,
   `ATTESTATION_INVALID_SIGNATURE`, `ATTESTATION_MALFORMED`,
   `ATTESTATION_BINDING_MISMATCH`, `ATTESTATION_NOT_PASSED`,

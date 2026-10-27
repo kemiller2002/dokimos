@@ -41,6 +41,7 @@
     <Compile Include="CompletionAttestationFixtures.fs" />
     <Compile Include="CompletionAttestationTests.fs" />
     <Compile Include="CompletionAttestationIntakeTests.fs" />
+    <Compile Include="EvidenceReuseTests.fs" />
     <Compile Include="RepositoryIdentityTests.fs" />
     <Compile Include="QualitySignalsTests.fs" />
     <Compile Include="QualityRatchetTests.fs" />

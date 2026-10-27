@@ -4,7 +4,7 @@
   "repository": "dokimos",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-10-20T08:15:01.000Z",
+  "updatedAt": "2026-10-27T15:47:59.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1284,6 +1284,48 @@
       },
       "completedAt": "2026-10-20T08:15:01.000Z",
       "conclusion": "Attested mode per run-02 I4/I6 implemented; Dokimos 0.7.0 prepared (not tagged). Tests Domain 4/4, Core 322/322, Cli 143/143."
+    },
+    {
+      "id": "WI-0010",
+      "type": "task",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/EvidenceReuse.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/EvidenceReuseTests.fs"
+        }
+      ],
+      "updatedAt": "2026-10-27T15:47:59.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20261027T152631937Z-9b051d48"
+      ],
+      "latestCheckpoint": {
+        "id": "5d10b23d69c646cbc51e2187",
+        "recordedAt": "2026-10-27T15:47:58.000Z",
+        "executionId": "EXE-20261027T152631937Z-9b051d48",
+        "repository": "dokimos",
+        "branch": "claude/rehearsal-5-prep-qlbywr",
+        "commit": "abe0784a71ee4b5239c4515f9c47cf62dd7f7eef",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "claude/rehearsal-5-prep-qlbywr",
+        "remoteCommit": "abe0784a71ee4b5239c4515f9c47cf62dd7f7eef",
+        "summary": "Evidence reuse implemented: EvidenceReuse core, dokimos evidence plan, completion Provenance, schemas, docs, tests (517 green), R4 replay measurement",
+        "nextAction": "Indy-init: map verification-plan freshness vocabulary to content-addressed|per-commit|live and wire evidence plan into CI",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "completedAt": "2026-10-27T15:47:59.000Z",
+      "conclusion": "Content-addressed evidence reuse extends the completion evidence contract; all suites green"
     }
   ]
 }

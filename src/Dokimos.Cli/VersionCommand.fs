@@ -21,5 +21,6 @@ module VersionCommand =
                        Comparison = [ Contracts.ComparisonSchemaVersion ]
                        Evaluation = [ Contracts.EvaluationSchemaVersion ]
                        Policy = Contracts.supportedPolicySchemas
-                       CompletionVerification = [ CompletionVerification.ReceiptSchemaVersion ] |} |}
+                       CompletionVerification = [ CompletionVerification.ReceiptSchemaVersion ]
+                       EvidenceReuse = [ EvidenceReuse.PlanSchemaVersion ] |} |}
         )

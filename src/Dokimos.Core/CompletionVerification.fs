@@ -67,7 +67,9 @@ module CompletionVerification =
           /// Optional (additive, attested mode): the I4 DSSE envelope object,
           /// held as its exact JSON text. Ignored unless the authority
           /// declares TrustedVerifierKeys.
-          Attestation: string option }
+          Attestation: string option
+          /// Optional (additive): where, and under which identity, it was produced.
+          Provenance: EvidenceReuse.ObservationProvenance option }
 
     type VerificationAuthority =
         { SchemaVersion: string
@@ -324,6 +326,9 @@ module CompletionVerification =
                 | EvidenceFailed -> add "DOK.COMPLETION.EVIDENCE_FAILED" id "independent evidence failed"
                 | EvidenceUnavailable -> add "DOK.COMPLETION.EVIDENCE_UNAVAILABLE" id "independent evidence is unavailable"
                 checkFreshness id observation
+                // Carried evidence stays visible in ReusedEvidenceIds; it is never acceptance by itself.
+                EvidenceReuse.completionRefusals observation.Reusable observation.Revision observation.Provenance
+                |> List.iter (fun (code, detail) -> add code id detail)
 
         // Attested mode (I6): every observation satisfying a required
         // validation must carry a receipt signed by a trusted verifier that
@@ -378,7 +383,8 @@ module CompletionVerification =
             |> List.choose (fun (id, claim) ->
                 match Map.tryFind id observations with
                 | Some observation when observation.Reusable && observation.Status = EvidencePassed && isSha256 claim.Digest
-                                             && observation.Digest = claim.Digest && observation.Revision = claim.Revision -> Some id
+                                             && observation.Digest = claim.Digest && observation.Revision = claim.Revision
+                                             && observation.Provenance |> Option.forall (fun p -> p.Freshness <> EvidenceReuse.Live) -> Some id
                 | _ -> None)
             |> List.sort
         { SchemaVersion = ReceiptSchemaVersion
