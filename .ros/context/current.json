@@ -4,7 +4,7 @@
   "repository": "dokimos",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-10-27T18:03:15Z",
+  "updatedAt": "2026-10-27T18:07:21Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1330,13 +1330,43 @@
     {
       "id": "WI-0011",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-10-27T18:03:15Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "Directory.Build.props"
+        },
+        {
+          "type": "tests",
+          "path": "/tmp/claude-0/-home-user/cf565065-a168-5486-8bfa-956f257becfe/scratchpad/dokimos-0.8.0-tests.txt"
+        }
+      ],
+      "updatedAt": "2026-10-27T18:07:21Z",
       "telemetryExecutionIds": [
         "EXE-20261027T180316417Z-4c63d656"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "11aa3e7695b064c8ca2ae79b",
+        "recordedAt": "2026-10-27T18:07:19Z",
+        "executionId": "EXE-20261027T180316417Z-4c63d656",
+        "repository": "dokimos",
+        "branch": "claude/rehearsal-5-prep-qlbywr-release",
+        "commit": "ca181f51110c03fb2d265d2e7057d4da83018880",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "claude/rehearsal-5-prep-qlbywr-release",
+        "remoteCommit": "ca181f51110c03fb2d265d2e7057d4da83018880",
+        "summary": "Version bumped to 0.8.0; build 0 warnings; tests 517 passed",
+        "nextAction": "Complete the work item, open the release PR, dispatch release.yml with version 0.8.0 after merge",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "completedAt": "2026-10-27T18:07:21Z"
     }
   ]
 }

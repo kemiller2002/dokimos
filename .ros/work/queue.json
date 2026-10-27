@@ -861,10 +861,10 @@
       "description": null,
       "tags": [],
       "priority": "medium",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-10-27T18:02:47.570Z",
-      "updatedAt": "2026-10-27T18:03:15Z",
+      "updatedAt": "2026-10-27T18:07:21Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
