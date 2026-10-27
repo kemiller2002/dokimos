@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 10,
+  "nextSeq": 11,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -824,6 +824,27 @@
       "createdAt": "2026-10-20T07:56:33.000Z",
       "updatedAt": "2026-10-20T08:15:01.000Z",
       "createdBy": "anthropic/claude-code",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0010",
+      "title": "Rehearsal 5 workstream C: provenance-safe content-addressed evidence reuse and affected-test selection",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-10-27T15:26:16.148Z",
+      "updatedAt": "2026-10-27T15:47:59.000Z",
+      "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
         "id": "anthropic/claude-code",
