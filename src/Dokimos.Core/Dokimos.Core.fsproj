@@ -26,10 +26,12 @@
     <Compile Include="CanonicalComparison.fs" />
     <Compile Include="Evaluation.fs" />
     <Compile Include="Json.fs" />
+    <Compile Include="EvidenceReuse.fs" />
     <Compile Include="CompletionAttestation.fs" />
     <Compile Include="CompletionAttestationBinding.fs" />
     <Compile Include="CompletionVerification.fs" />
     <Compile Include="CompletionWire.fs" />
+    <Compile Include="EvidenceReuseWire.fs" />
     <Compile Include="RepositoryIdentity.fs" />
     <Compile Include="PolicyDecoders.fs" />
     <Compile Include="Contracts.fs" />

@@ -113,7 +113,8 @@ module CompletionAttestationFixtures =
           Reusable = false
           ObservedAt = at "2026-10-19T10:30:00Z"
           Validation = Some validation
-          Attestation = Some envelope }
+          Attestation = Some envelope
+          Provenance = None }
 
     let packetFor (observations: EvidenceObservation list) =
         { SchemaVersion = PacketSchemaVersion

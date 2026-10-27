@@ -24,5 +24,6 @@
     <Compile Include="DecisionCompletenessCliTests.fs" />
     <Compile Include="CompletionVerifyCliTests.fs" />
     <Compile Include="CompletionAttestedCliTests.fs" />
+    <Compile Include="EvidencePlanCliTests.fs" />
   </ItemGroup>
 </Project>
