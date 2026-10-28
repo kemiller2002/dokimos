@@ -875,6 +875,27 @@
       },
       "source": "manual",
       "sourceReference": null
+    },
+    {
+      "id": "WI-0012",
+      "title": "EII Workstream G: independent publication of passing and failing evidence in the evidence store; capability declaration; replay measurement",
+      "description": "Requirement source: .praxis/inbox/documents/2026-10-28-EII-G-evidence-publishing.md",
+      "tags": [],
+      "priority": "high",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-10-28T00:55:28.000Z",
+      "updatedAt": "2026-10-28T00:55:32.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "praxis-inbox",
+      "sourceReference": ".praxis/inbox/documents/2026-10-28-EII-G-evidence-publishing.md"
     }
   ]
 }
