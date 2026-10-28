@@ -882,10 +882,10 @@
       "description": "Requirement source: .praxis/inbox/documents/2026-10-28-EII-G-evidence-publishing.md",
       "tags": [],
       "priority": "high",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-10-28T00:55:28.000Z",
-      "updatedAt": "2026-10-28T00:55:32.000Z",
+      "updatedAt": "2026-10-28T03:55:12.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
