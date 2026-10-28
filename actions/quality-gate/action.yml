@@ -60,6 +60,13 @@ inputs:
     description: Fail the step with the evaluation exit code (true) or only report (false).
     required: false
     default: 'true'
+  revision:
+    description: >-
+      Commit the evidence identifies. Empty keeps GITHUB_SHA, which on pull_request runs is GitHub's test merge
+      commit. To bind evidence to the candidate a pull request would merge (Praxis unattended merges), pass
+      the expression github.event.pull_request.head.sha. Must be a full 40-character commit SHA.
+    required: false
+    default: ''
   output-directory:
     description: Where evidence files for this run are written and uploaded from.
     required: false
@@ -104,6 +111,7 @@ runs:
         DOKIMOS_ACCEPT_BASELINE: ${{ inputs.accept-baseline }}
         DOKIMOS_BASELINE_REASON: ${{ inputs.baseline-reason }}
         DOKIMOS_OUT: ${{ inputs.output-directory }}
+        DOKIMOS_REVISION: ${{ inputs.revision }}
         DOKIMOS_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
       run: bash "${{ github.action_path }}/gate.sh"
     - name: Upload Dokimos evidence
