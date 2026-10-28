@@ -1,0 +1,840 @@
+[
+  {
+    "Sha": "65c1c112f7fa2bad365feafa39e329d08871953b",
+    "Skipped": "identical to clean sequence",
+    "Step": 1
+  },
+  {
+    "Battery": [],
+    "ChangedPaths": null,
+    "CheckoutSeconds": 0.0995195,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:d527135d19a2045394c07ee6764790098ac3fb445b657e0c771461472a99aec0",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:12198aa56e20aeffe2bd9014207fbf6ba8ffc9abc7086f9dd578df0d8fe73ab3",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:a8eb45b2c81a5b213e21b0d1045a9ecb25a9c18a9d842aa6e646841ac1c2dcd4",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [
+      "D3"
+    ],
+    "Original": "2aba16f22ca094a9f798be3279641ffea49187f9",
+    "PlanSeconds": 0.3543615,
+    "RecordSeconds": 0,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:a8eb45b2c81a5b213e21b0d1045a9ecb25a9c18a9d842aa6e646841ac1c2dcd4",
+        "Passed": true,
+        "Seconds": 6.8073032,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 1,
+        "Failed": 1,
+        "Identity": "sha256:12198aa56e20aeffe2bd9014207fbf6ba8ffc9abc7086f9dd578df0d8fe73ab3",
+        "Passed": false,
+        "Seconds": 27.753944,
+        "Test": "core-tests",
+        "Total": 237
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:d527135d19a2045394c07ee6764790098ac3fb445b657e0c771461472a99aec0",
+        "Passed": true,
+        "Seconds": 66.8539034,
+        "Test": "cli-tests",
+        "Total": 100
+      }
+    ],
+    "Sha": "464ae4014604cd5753a06c6ecf248d0c54e04357",
+    "Step": 2,
+    "StrategySeconds": 101.51467009999999,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [],
+    "ChangedPaths": [
+      "Directory.Build.props",
+      "LICENSE",
+      "NOTICE",
+      "README.md",
+      "context/CURRENT-STATE.md",
+      "docs/operations/OPERATIONAL-EVIDENCE.md",
+      "package-lock.json",
+      "package.json"
+    ],
+    "CheckoutSeconds": 0.0081717,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:7128b1c2c241cdd4b410367538092a95392f11868f452097a6e18fe03cf208c3",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:4f85ee0e5c2eb6c5f57979af0c502e64805c8c74adb8f5c447b75bb65183906b",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:eed7d2addf916a233a55b3d934783f39426ce346acdb57d59a3371b2d304a0b5",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [
+      "D3"
+    ],
+    "Original": "50552cf42ad55e80e7a9347aab979e54bdce13ac",
+    "PlanSeconds": 0.3822894,
+    "RecordSeconds": 0,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:eed7d2addf916a233a55b3d934783f39426ce346acdb57d59a3371b2d304a0b5",
+        "Passed": true,
+        "Seconds": 5.8308285,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 1,
+        "Failed": 1,
+        "Identity": "sha256:4f85ee0e5c2eb6c5f57979af0c502e64805c8c74adb8f5c447b75bb65183906b",
+        "Passed": false,
+        "Seconds": 24.7304451,
+        "Test": "core-tests",
+        "Total": 237
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:7128b1c2c241cdd4b410367538092a95392f11868f452097a6e18fe03cf208c3",
+        "Passed": true,
+        "Seconds": 63.8274033,
+        "Test": "cli-tests",
+        "Total": 100
+      }
+    ],
+    "Sha": "cdfcbf96604f1d5abe9a0ca0dc971f49d2d9fa62",
+    "Step": 3,
+    "StrategySeconds": 94.39684860000001,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-16-ENGINEERING-RELIABILITY-001.md"
+    ],
+    "CheckoutSeconds": 0.0063111,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:7128b1c2c241cdd4b410367538092a95392f11868f452097a6e18fe03cf208c3",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:4f85ee0e5c2eb6c5f57979af0c502e64805c8c74adb8f5c447b75bb65183906b",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:eed7d2addf916a233a55b3d934783f39426ce346acdb57d59a3371b2d304a0b5",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [
+      "D3"
+    ],
+    "Original": "c38e07e7c90d887a9589fb6158b208b059b6e477",
+    "PlanSeconds": 0.3645428,
+    "RecordSeconds": 0,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:eed7d2addf916a233a55b3d934783f39426ce346acdb57d59a3371b2d304a0b5",
+        "Passed": true,
+        "Seconds": 5.8217136,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 1,
+        "Failed": 1,
+        "Identity": "sha256:4f85ee0e5c2eb6c5f57979af0c502e64805c8c74adb8f5c447b75bb65183906b",
+        "Passed": false,
+        "Seconds": 21.8764161,
+        "Test": "core-tests",
+        "Total": 237
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:7128b1c2c241cdd4b410367538092a95392f11868f452097a6e18fe03cf208c3",
+        "Passed": true,
+        "Seconds": 61.6095393,
+        "Test": "cli-tests",
+        "Total": 100
+      }
+    ],
+    "Sha": "f01499b070fa6dd7fb865481492b32987a39d8fc",
+    "Step": 4,
+    "StrategySeconds": 89.31398010000001,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Sha": "016eb69b6470831d696306512bea85cbc823b533",
+    "Skipped": "identical to clean sequence",
+    "Step": 5
+  },
+  {
+    "Sha": "23157a04d5d67f7d79ffc44829389bb853396859",
+    "Skipped": "identical to clean sequence",
+    "Step": 6
+  },
+  {
+    "Sha": "b33be89034913015056717438e44477e96c674ce",
+    "Skipped": "identical to clean sequence",
+    "Step": 7
+  },
+  {
+    "Sha": "828208f46b7d1073534bd02873d6298b62ad1de2",
+    "Skipped": "identical to clean sequence",
+    "Step": 8
+  },
+  {
+    "Sha": "04b5f856367b47a087285109c1fc5923ec351389",
+    "Skipped": "identical to clean sequence",
+    "Step": 9
+  },
+  {
+    "Sha": "c99c21b3cb78105416a5379d599f5b0f9bbec638",
+    "Skipped": "identical to clean sequence",
+    "Step": 10
+  },
+  {
+    "Battery": [],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-21-ARCH-001-02-compiler-derived-architecture-rules.md",
+      ".praxis/inbox/documents/2026-10-21-VAC-DOK-001-chained-regression-verification.md",
+      ".praxis/processed/INPUT-a129ad77c69af1be/claim.json",
+      ".praxis/processed/INPUT-a129ad77c69af1be/source/2026-10-14-DOKIMOS-COLOR-001.md",
+      ".praxis/processed/INPUT-f1620e8ac38269ea/claim.json",
+      ".praxis/processed/INPUT-f1620e8ac38269ea/source/2026-10-16-ENGINEERING-RELIABILITY-001.md",
+      ".ros/context/current.json",
+      ".ros/events/events.jsonl",
+      ".ros/executions/EXE-20261018T124842385Z-b72bbb9b/envelope.json",
+      ".ros/executions/EXE-20261018T124842385Z-b72bbb9b/events.jsonl",
+      ".ros/executions/EXE-20261018T130141708Z-ce235c1f/envelope.json",
+      ".ros/executions/EXE-20261018T130141708Z-ce235c1f/events.jsonl",
+      ".ros/telemetry/executions/EXE-20261018T124842385Z-b72bbb9b.json",
+      ".ros/telemetry/executions/EXE-20261018T130141708Z-ce235c1f.json",
+      ".ros/telemetry/executions/EXE-20261018T183903101Z-7714101e.json",
+      ".ros/telemetry/executions/EXE-20261019T130409788Z-e3f12f36.json",
+      ".ros/telemetry/executions/EXE-20261019T171941386Z-d445feff.json",
+      ".ros/telemetry/executions/EXE-20261020T075639052Z-311c2987.json",
+      ".ros/work/queue.json",
+      ".ros/work/queue.md",
+      "Directory.Build.props",
+      "config/metric-catalog.json",
+      "docs/completion-verification.md",
+      "docs/verification/requirements-ingestion-2026-10-18.md",
+      "release/echelon.release-input.json",
+      "requirements/COLOR-CONTRACT-VERIFICATION.md",
+      "requirements/ENGINEERING-RELIABILITY.md",
+      "ros.json",
+      "schemas/dokimos-completion-authority.schema.json",
+      "schemas/dokimos-completion-verification.schema.json",
+      "schemas/praxis-completion-packet.schema.json",
+      "src/Dokimos.Cli/CompletionCommand.fs",
+      "src/Dokimos.Cli/Dokimos.Cli.fsproj",
+      "src/Dokimos.Cli/Program.fs",
+      "src/Dokimos.Cli/VersionCommand.fs",
+      "src/Dokimos.Core/CompletionAttestation.fs",
+      "src/Dokimos.Core/CompletionAttestationBinding.fs",
+      "src/Dokimos.Core/CompletionVerification.fs",
+      "src/Dokimos.Core/CompletionWire.fs",
+      "src/Dokimos.Core/Dokimos.Core.fsproj",
+      "src/Dokimos.Core/EvidenceStore.fs",
+      "tests/Dokimos.Cli.Tests/CompletionAttestedCliTests.fs",
+      "tests/Dokimos.Cli.Tests/CompletionVerifyCliTests.fs",
+      "tests/Dokimos.Cli.Tests/Dokimos.Cli.Tests.fsproj",
+      "tests/Dokimos.Cli.Tests/ProgramTests.fs",
+      "tests/Dokimos.Core.Tests/CompletionAttestationFixtures.fs",
+      "tests/Dokimos.Core.Tests/CompletionAttestationIntakeTests.fs",
+      "tests/Dokimos.Core.Tests/CompletionAttestationTests.fs",
+      "tests/Dokimos.Core.Tests/CompletionVerificationTests.fs",
+      "tests/Dokimos.Core.Tests/Dokimos.Core.Tests.fsproj"
+    ],
+    "CheckoutSeconds": 0.0156755,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:c311bf0944ca1db2596de0d83d5510cdafb4420f3b35f4bc58724901e685cf66",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:4bcea236a48aa5bef12b3aeef61cae87d4df4c4b806e93b77b3fc59ec2b51a10",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [
+      "D1"
+    ],
+    "Original": "41e721fd6b5b6d8829f92e6587e6162199cc3764",
+    "PlanSeconds": 0.3671155,
+    "RecordSeconds": 0,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "Passed": true,
+        "Seconds": 6.2386902,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 1,
+        "Failed": 1,
+        "Identity": "sha256:4bcea236a48aa5bef12b3aeef61cae87d4df4c4b806e93b77b3fc59ec2b51a10",
+        "Passed": false,
+        "Seconds": 22.980145,
+        "Test": "core-tests",
+        "Total": 322
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:c311bf0944ca1db2596de0d83d5510cdafb4420f3b35f4bc58724901e685cf66",
+        "Passed": true,
+        "Seconds": 63.2630342,
+        "Test": "cli-tests",
+        "Total": 143
+      }
+    ],
+    "Sha": "1cceaf4c057549583c9f22e5a33225a8adbde545",
+    "Step": 11,
+    "StrategySeconds": 92.4975449,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-22-VAC-002-P2-04-authority-review-routing.md"
+    ],
+    "CheckoutSeconds": 0.0208682,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:c311bf0944ca1db2596de0d83d5510cdafb4420f3b35f4bc58724901e685cf66",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:4bcea236a48aa5bef12b3aeef61cae87d4df4c4b806e93b77b3fc59ec2b51a10",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [
+      "D1"
+    ],
+    "Original": "717103fb902baef0ecaa7e58ab16c9ca72b43bd0",
+    "PlanSeconds": 0.3199714,
+    "RecordSeconds": 0,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "Passed": true,
+        "Seconds": 5.6112255,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 1,
+        "Failed": 1,
+        "Identity": "sha256:4bcea236a48aa5bef12b3aeef61cae87d4df4c4b806e93b77b3fc59ec2b51a10",
+        "Passed": false,
+        "Seconds": 22.8745275,
+        "Test": "core-tests",
+        "Total": 322
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:c311bf0944ca1db2596de0d83d5510cdafb4420f3b35f4bc58724901e685cf66",
+        "Passed": true,
+        "Seconds": 64.3147461,
+        "Test": "cli-tests",
+        "Total": 143
+      }
+    ],
+    "Sha": "d02a89ec5ef281b33eb6f116cbbb0610a84d83e0",
+    "Step": 12,
+    "StrategySeconds": 92.82136729999999,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-23-VAC-002-P3-03-rule-provenance-research.md"
+    ],
+    "CheckoutSeconds": 0.005183,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:c311bf0944ca1db2596de0d83d5510cdafb4420f3b35f4bc58724901e685cf66",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:4bcea236a48aa5bef12b3aeef61cae87d4df4c4b806e93b77b3fc59ec2b51a10",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [
+      "D1"
+    ],
+    "Original": "9e38a3b550d3b6dcf7358ee96469c65ea8a9182b",
+    "PlanSeconds": 0.3373764,
+    "RecordSeconds": 0,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "Passed": true,
+        "Seconds": 5.4070692,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 1,
+        "Failed": 1,
+        "Identity": "sha256:4bcea236a48aa5bef12b3aeef61cae87d4df4c4b806e93b77b3fc59ec2b51a10",
+        "Passed": false,
+        "Seconds": 22.3060688,
+        "Test": "core-tests",
+        "Total": 322
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:c311bf0944ca1db2596de0d83d5510cdafb4420f3b35f4bc58724901e685cf66",
+        "Passed": true,
+        "Seconds": 62.8285597,
+        "Test": "cli-tests",
+        "Total": 143
+      }
+    ],
+    "Sha": "af5ad8cbf7b3f5defa8428dc48af5824a34c2286",
+    "Step": 13,
+    "StrategySeconds": 90.5468807,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Sha": "6c8554e89f3684c84fbd305fe9c78b4f0aa24a19",
+    "Skipped": "identical to clean sequence",
+    "Step": 14
+  },
+  {
+    "Sha": "5988bf0a1774b65711c2adfb990ba11db4d840c4",
+    "Skipped": "identical to clean sequence",
+    "Step": 15
+  },
+  {
+    "Battery": [],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-23-EP-01-runner-image-drift.md",
+      ".praxis/inbox/documents/2026-10-23-EP-A2a-evidence-validity-conditions.md",
+      ".praxis/inbox/documents/2026-10-23-VC-004-mechanical-provenance-verification.md",
+      "experiments/rule-provenance/.gitignore",
+      "experiments/rule-provenance/Directory.Build.props",
+      "experiments/rule-provenance/LIMITATIONS.md",
+      "experiments/rule-provenance/README.md",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/README.md",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/handoff.json",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/legacy/LegacyPaymentRules.fs",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/sources/finance-decisions.md",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/sources/invoicing-requirements.md",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/sources/open-questions.md",
+      "experiments/rule-provenance/contracts/schemas/echelon-authority-handoff-0.1.schema.json",
+      "experiments/rule-provenance/contracts/schemas/echelon-construction-trace-0.1.schema.json",
+      "experiments/rule-provenance/contracts/schemas/echelon-provenance-audit-0.1.schema.json",
+      "experiments/rule-provenance/dev/dev-scores.json",
+      "experiments/rule-provenance/dev/score_dev.py",
+      "experiments/rule-provenance/fixtures/constructed/cites-observation/InvoiceRules.fs",
+      "experiments/rule-provenance/fixtures/constructed/clean/InvoiceRules.fs",
+      "experiments/rule-provenance/fixtures/constructed/clean/construction-trace.json",
+      "experiments/rule-provenance/fixtures/constructed/question-as-rule/InvoiceRules.fs",
+      "experiments/rule-provenance/fixtures/constructed/superseded/InvoiceRules.fs",
+      "experiments/rule-provenance/fixtures/constructed/unmarked-constant/InvoiceRules.fs",
+      "experiments/rule-provenance/fixtures/legacy-reuse/CurrencyLimits.fs",
+      "experiments/rule-provenance/fixtures/legacy-reuse/PaymentValidation.fs",
+      "experiments/rule-provenance/fixtures/probe-standin/Invoice.Slice.fsproj",
+      "experiments/rule-provenance/fixtures/probe-standin/construction-trace.json",
+      "experiments/rule-provenance/fixtures/probe-standin/src/Authority.fs",
+      "experiments/rule-provenance/fixtures/probe-standin/src/Domain.fs",
+      "experiments/rule-provenance/fixtures/probe-standin/src/Probe.fs",
+      "experiments/rule-provenance/run.sh",
+      "experiments/rule-provenance/src/RuleProvenance.Cli/Io.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Cli/ProbeLoader.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Cli/Program.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Cli/RuleProvenance.Cli.fsproj",
+      "experiments/rule-provenance/src/RuleProvenance.Core/AstScanner.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Audit.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/AuthorityMatch.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Digest.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Domain.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Inputs.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Lexer.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Oracle.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/OracleValidation.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Provenance.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Report.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Reuse.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/RuleProvenance.Core.fsproj",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Scanner.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/AstAnalyzerTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/FixtureTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/OracleTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/ProvenanceTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/ReportTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/ReuseTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/RuleProvenance.Tests.fsproj",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/ScannerTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/Support.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/TraceTests.fs",
+      "experiments/rule-provenance/tools/validate_json.py",
+      "package-lock.json",
+      "package.json",
+      "src/Dokimos.Cli/Arguments.fs",
+      "src/Dokimos.Core/EvidenceStore.fs"
+    ],
+    "CheckoutSeconds": 0.0103474,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:5ec8c0a2408e0a3a44827498756e3c055c851a21219e5be41452c3448f6d2850",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [
+      "D2"
+    ],
+    "Original": "fc9b31fe7c1dc76020a78868fee316d897d681ca",
+    "PlanSeconds": 0.3918273,
+    "RecordSeconds": 0,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "Passed": true,
+        "Seconds": 5.4294342,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "Passed": true,
+        "Seconds": 24.4040114,
+        "Test": "core-tests",
+        "Total": 322
+      },
+      {
+        "Exit": 1,
+        "Failed": 1,
+        "Identity": "sha256:5ec8c0a2408e0a3a44827498756e3c055c851a21219e5be41452c3448f6d2850",
+        "Passed": false,
+        "Seconds": 62.1070349,
+        "Test": "cli-tests",
+        "Total": 143
+      }
+    ],
+    "Sha": "fcf5134f5c73f06d9a355d62bb65e2d607495cda",
+    "Step": 16,
+    "StrategySeconds": 91.95082790000001,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [],
+    "ChangedPaths": [
+      ".github/workflows/release.yml"
+    ],
+    "CheckoutSeconds": 0.0178397,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:5ec8c0a2408e0a3a44827498756e3c055c851a21219e5be41452c3448f6d2850",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [
+      "D2"
+    ],
+    "Original": "003204d501de693af6d84861fe250add78c2c6dc",
+    "PlanSeconds": 0.4255985,
+    "RecordSeconds": 0,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "Passed": true,
+        "Seconds": 5.5207564,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "Passed": true,
+        "Seconds": 24.4849053,
+        "Test": "core-tests",
+        "Total": 322
+      },
+      {
+        "Exit": 1,
+        "Failed": 1,
+        "Identity": "sha256:5ec8c0a2408e0a3a44827498756e3c055c851a21219e5be41452c3448f6d2850",
+        "Passed": false,
+        "Seconds": 62.3700796,
+        "Test": "cli-tests",
+        "Total": 143
+      }
+    ],
+    "Sha": "e9a8ceca2db105de31a6509a22b2d2e64a9bcbd7",
+    "Step": 17,
+    "StrategySeconds": 92.393581,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-24-DOK-SDK-001-managed-workflow-global-json.md"
+    ],
+    "CheckoutSeconds": 0.0081782,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:5ec8c0a2408e0a3a44827498756e3c055c851a21219e5be41452c3448f6d2850",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [
+      "D2"
+    ],
+    "Original": "bf6a62bb6246177c30cc64af35921a300b7ddf9a",
+    "PlanSeconds": 0.3313833,
+    "RecordSeconds": 0,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "Passed": true,
+        "Seconds": 5.3845842,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "Passed": true,
+        "Seconds": 23.5218797,
+        "Test": "core-tests",
+        "Total": 322
+      },
+      {
+        "Exit": 1,
+        "Failed": 1,
+        "Identity": "sha256:5ec8c0a2408e0a3a44827498756e3c055c851a21219e5be41452c3448f6d2850",
+        "Passed": false,
+        "Seconds": 67.6091127,
+        "Test": "cli-tests",
+        "Total": 143
+      }
+    ],
+    "Sha": "2e5498d5d425bb8e557d7724763514791c56c2c3",
+    "Step": 18,
+    "StrategySeconds": 96.5237548,
+    "UnmappedChangedPaths": 0
+  }
+]

@@ -133,6 +133,8 @@ let prepare () =
             for id, _, _ in active do gitOut source [ "apply"; patchFor id ] |> ignore
             gitOut source [ "-c"; "user.name=replay"; "-c"; "user.email=replay@example.invalid"; "commit"; "-q"; "-am"
                             "seeded defect " + String.Join(",", active |> List.map (fun (id, _, _) -> id)) ] |> ignore
+            // Tag the variant so clones of the source receive it.
+            gitOut source [ "tag"; "-f"; $"replay-defect-step-{s.Step}" ] |> ignore
             { s with Sha = gitOut source [ "rev-parse"; "HEAD" ]; Defects = active |> List.map (fun (id, _, _) -> id) |> Array.ofList }
     let withDefects = clean |> List.map variant
     gitOut source [ "checkout"; "-q"; "--force"; "--detach"; "origin/main" ] |> ignore

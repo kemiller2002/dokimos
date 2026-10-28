@@ -130,3 +130,9 @@ module EvidenceCommand =
                     match FileSystemStore.openStore root |> Result.bind (fun store -> store.PutProvenance record |> Result.map (fun o -> store, o)) with
                     | Ok(store, outcome) -> stored store outcome record.EvidenceId
                     | Error e -> storeError e))
+
+    let dispatch args =
+        match args with
+        | "plan" :: rest -> plan rest
+        | "record" :: rest -> record rest
+        | _ -> Output.invalid "invalid-arguments" (usage + "\n" + recordUsage)
