@@ -12,7 +12,7 @@ open Dokimos.Cli.CliInputs
 /// checkout must be at that commit with no tracked modifications, so the
 /// identity is of committed bytes, never of local edits.
 module EvidenceCommand =
-    let usage = "usage: dokimos evidence plan --request FILE [--root DIR] [--store DIR]"
+    let usage = "usage: dokimos evidence plan --request FILE [--root DIR] [--store DIR] [--checkpoint incremental|release]"
 
     let recordUsage =
         "usage: dokimos evidence record --store DIR (--record FILE | --plan FILE --test ID --outcome passed|failed|unavailable --evidence-id ID)"
@@ -62,10 +62,18 @@ module EvidenceCommand =
                     | Ok request -> k request
 
     let plan args =
-        withArgs [ "request"; "root"; "store" ] args (fun parsed ->
-            match Arguments.required "request" parsed with
-            | Error _ -> Output.invalid "invalid-arguments" usage
-            | Ok requestPath ->
+        withArgs [ "request"; "root"; "store"; "checkpoint" ] args (fun parsed ->
+            let checkpoint =
+                match Arguments.tryOne "checkpoint" parsed with
+                | None -> Ok None
+                | Some name ->
+                    match EvidenceCheckpoint.checkpointCases |> List.tryFind (fst >> (=) name) with
+                    | Some(_, c) -> Ok(Some c)
+                    | None -> Error()
+            match Arguments.required "request" parsed, checkpoint with
+            | Error _, _
+            | _, Error _ -> Output.invalid "invalid-arguments" usage
+            | Ok requestPath, Ok checkpoint ->
                 let root = Arguments.tryOne "root" parsed |> Option.defaultValue "."
                 if not (File.Exists requestPath) then
                     Output.unavailable "evidence-request-unavailable" $"request not found: {requestPath}"
@@ -73,6 +81,13 @@ module EvidenceCommand =
                     match EvidenceReuseWire.readRequest (File.ReadAllText requestPath) with
                     | Error problem -> Output.unavailable "evidence-request-invalid" problem
                     | Ok request ->
+                      // The release checkpoint can be raised from the command
+                      // line (for a release workflow) but never lowered: a
+                      // request that declares `release` stays a full run.
+                      let request =
+                          match checkpoint with
+                          | Some EvidenceCheckpoint.Release -> { request with Checkpoint = EvidenceCheckpoint.Release }
+                          | _ -> request
                       withStore parsed request (fun request ->
                         match checkoutFiles root request.Revision with
                         | Error problem -> Output.unavailable "evidence-checkout-invalid" problem

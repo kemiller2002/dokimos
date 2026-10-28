@@ -11,6 +11,7 @@
     "SchemaVersion": { "const": "dokimos.evidence-reuse-plan/1" },
     "DokimosVersion": { "type": "string", "minLength": 1 },
     "Revision": { "$ref": "#/$defs/revision" },
+    "Checkpoint": { "enum": ["incremental", "release"], "description": "Added after Dokimos 0.8.0 (absent in earlier plans). At release every test is run: REUSE.FINAL_VERIFICATION_REQUIRED." },
     "Acceptance": { "type": "string", "minLength": 1 },
     "Summary": {
       "type": "object",
