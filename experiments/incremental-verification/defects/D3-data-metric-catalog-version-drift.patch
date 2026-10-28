@@ -1,0 +1,13 @@
+diff --git a/config/metric-catalog.json b/config/metric-catalog.json
+index 423532e..fe4ab0b 100644
+--- a/config/metric-catalog.json
++++ b/config/metric-catalog.json
+@@ -13,7 +13,7 @@
+     },
+     {
+       "id": "build.compiler-warnings",
+-      "version": 1,
++      "version": 2,
+       "unit": "count",
+       "preference": "lower-is-better",
+       "scope": [

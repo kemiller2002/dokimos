@@ -1,0 +1,11 @@
+diff --git a/src/Dokimos.Cli/Arguments.fs b/src/Dokimos.Cli/Arguments.fs
+index cf08380..91aee33 100644
+--- a/src/Dokimos.Cli/Arguments.fs
++++ b/src/Dokimos.Cli/Arguments.fs
+@@ -52,5 +52,5 @@ module Arguments =
+ 
+     let allowOnly (known: string list) args =
+         match args.Options |> Map.keys |> Seq.filter (fun k -> not (List.contains k known)) |> Seq.tryHead with
+-        | Some unknown -> Error $"unknown option --{unknown}"
++        | Some _ -> Ok args
+         | None -> Ok args

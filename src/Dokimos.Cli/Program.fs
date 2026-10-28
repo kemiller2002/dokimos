@@ -452,7 +452,7 @@ module Program =
               "  construction verify ...                   independent construction verification (see `dokimos construction verify`)"
               "  behavior verify ...                       build a candidate commit and drive its frozen oracle adapter (executes candidate code; see `dokimos behavior verify`)"
               "  completion verify --packet F --authority F   independently verify revision-bound completion evidence"
-              "  evidence plan --request F [--root DIR]    content-addressed evidence reuse and affected-test selection"
+              "  evidence plan|record ...                  content-addressed evidence reuse, affected-test selection, and publication of passing and failing runs (see `dokimos evidence`)"
               "  evaluate --baseline b --current c --policy p [--exceptions quality/exceptions.json]"
               "  results --baseline b --current c --policy p [--store dir]   application-facing results contract"
               "  store init|put|get|accept-baseline|baseline --store dir ..."
@@ -477,7 +477,7 @@ module Program =
         | "construction" :: "verify" :: rest -> ConstructionCommand.verify rest
         | "behavior" :: "verify" :: rest -> BehaviorCommand.verify rest
         | "completion" :: "verify" :: rest -> CompletionCommand.verify rest
-        | "evidence" :: "plan" :: rest -> EvidenceCommand.plan rest
+        | "evidence" :: rest -> EvidenceCommand.dispatch rest
         | "evaluate" :: rest -> evaluate rest
         | "snapshot" :: rest -> snapshot rest
         | "measure" :: rest -> measure rest

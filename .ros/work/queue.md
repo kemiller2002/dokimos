@@ -51,3 +51,4 @@
 | WI-0009 | CONSTRUCT-010 phase 4 (Dokimos): independent decision-completeness verification in dokimos construction verify (formerly WI-0008 on this branch; id collided with dokimos#37) | complete |  | medium |
 | WI-0010 | Rehearsal 5 workstream C: provenance-safe content-addressed evidence reuse and affected-test selection | complete |  | medium |
 | WI-0011 | Release Dokimos 0.8.0 (evidence reuse, PR #56) for the Rehearsal 5 dependency set | complete |  | medium |
+| WI-0012 | EII Workstream G: independent publication of passing and failing evidence in the evidence store; capability declaration; replay measurement | complete |  | high |

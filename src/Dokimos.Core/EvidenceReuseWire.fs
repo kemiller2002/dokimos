@@ -20,6 +20,7 @@ module EvidenceReuseWire =
     type TestSpec =
         { TestId: string
           Freshness: Freshness
+          Category: Category
           Mapping: MappingSpec option }
 
     type ReuseRequest =
@@ -96,11 +97,13 @@ module EvidenceReuseWire =
     let private test: Json.Decoder<TestSpec> =
         fun element ->
             Json.result {
-                do! exactWith [ "TestId"; "Freshness" ] [ "Inputs" ] element
+                do! exactWith [ "TestId"; "Freshness" ] [ "Category"; "Inputs" ] element
                 let! id = Json.field "TestId" Json.nonEmptyString element
                 let! freshness = Json.field "Freshness" (Json.oneOf freshnessCases) element
+                // Optional (added after Dokimos 0.8.0); absent means functional.
+                let! category = optional "Category" (Json.oneOf categoryCases) element
                 let! inputs = optional "Inputs" mapping element
-                return { TestId = id; Freshness = freshness; Mapping = inputs }
+                return { TestId = id; Freshness = freshness; Category = Option.defaultValue Functional category; Mapping = inputs }
             }
 
     let private recordedInputs: Json.Decoder<IdentityInputs> =
@@ -202,12 +205,29 @@ module EvidenceReuseWire =
                     Ok resolved
         { TestId = spec.TestId
           Freshness = spec.Freshness
+          Category = spec.Category
           Patterns = spec.Mapping |> Option.map (fun m -> m.TestContract :: m.Sources)
           Inputs = inputs }
 
     let planOf (files: string list) (digestOf: string -> string) (request: ReuseRequest) =
         let tests = request.Tests |> List.map (resolve files digestOf request.GlobalInputs)
         EvidenceReuse.plan request.Revision request.ChangedPaths request.GlobalInputs request.IgnoredPaths tests request.PriorEvidence
+
+    /// Adds records read from the evidence store to the request's own. The same
+    /// EvidenceId twice is one record only if both copies are identical; two
+    /// different records under one EvidenceId are refused, never merged.
+    let withStoredPriors (stored: PriorEvidence list) (request: ReuseRequest) =
+        let byId = request.PriorEvidence |> List.map (fun p -> p.EvidenceId, p) |> Map.ofList
+        let conflicts =
+            stored
+            |> List.filter (fun s -> Map.tryFind s.EvidenceId byId |> Option.exists (fun r -> r <> s))
+            |> List.map _.EvidenceId
+            |> List.distinct
+        if not conflicts.IsEmpty then
+            Error("EvidenceId recorded differently in the request and the store: " + String.concat ", " conflicts)
+        else
+            let added = stored |> List.filter (fun s -> not (Map.containsKey s.EvidenceId byId)) |> List.distinctBy _.EvidenceId
+            Ok { request with PriorEvidence = request.PriorEvidence @ added }
 
     let private inputsWire (inputs: IdentityInputs) =
         {| Sources = inputs.Sources
@@ -263,3 +283,55 @@ module EvidenceReuseWire =
                Freshness = freshnessName decision.Freshness
                EvidenceIdentity = identity inputs
                Inputs = inputsWire inputs |})
+
+    let outcomeName (outcome: Outcome) =
+        outcomeCases |> List.find (fun (_, o) -> o = outcome) |> fst
+
+    /// The stored form of a complete record (see `EvidenceReuse.recordProblem`).
+    /// It is exactly a `dokimos.evidence-provenance/1` record, so it reads back
+    /// through `provenanceRecord` unchanged.
+    let recordWire (record: PriorEvidence) =
+        {| SchemaVersion = ProvenanceSchemaVersion
+           EvidenceId = record.EvidenceId
+           TestId = record.TestId
+           Outcome = outcomeName record.Outcome
+           ProducedAtRevision = record.ProducedAtRevision |> Option.defaultValue ""
+           Freshness = record.Freshness |> Option.map freshnessName |> Option.defaultValue ""
+           EvidenceIdentity = record.EvidenceIdentity |> Option.defaultValue ""
+           Inputs = record.Inputs |> Option.map inputsWire |}
+
+    /// Builds the record of one test's run, passing or failing, from the
+    /// `dokimos.evidence-reuse-plan/1` that scheduled it. Only a test the plan
+    /// decided to run can be recorded: a reused test produced no new evidence.
+    let recordFromPlan (planText: string) (testId: string) (evidenceId: string) (outcome: Outcome) : Result<PriorEvidence, string> =
+        let decoder: Json.Decoder<PriorEvidence> =
+            fun root ->
+                Json.result {
+                    let! contract = Json.field "Contract" Json.string root
+                    let! schema = Json.field "SchemaVersion" Json.string root
+                    do! if contract = "dokimos.evidence-reuse-plan" && schema = PlanSchemaVersion then Ok()
+                        else Error $"expected a {PlanSchemaVersion} plan, found {contract} {schema}"
+                    let! revision = Json.field "Revision" Json.nonEmptyString root
+                    let! tests = Json.field "Tests" (Json.list Ok) root
+                    let! test =
+                        match tests |> List.filter (fun t -> Json.field "TestId" Json.string t = Ok testId) with
+                        | [ t ] -> Ok t
+                        | [] -> Error $"the plan has no test '{testId}'"
+                        | _ -> Error $"the plan lists test '{testId}' more than once"
+                    let! decision = Json.field "Decision" Json.string test
+                    do! if decision = "run" then Ok() else Error $"test '{testId}' was reused, not run; a reused test produced no new evidence to record"
+                    let! freshness = Json.field "Freshness" (Json.oneOf freshnessCases) test
+                    let! inputs =
+                        match test.TryGetProperty "Inputs" with
+                        | true, value when value.ValueKind = JsonValueKind.Object -> recordedInputs value
+                        | _ -> Error $"test '{testId}' has no resolved inputs (unknown mapping); its run cannot be recorded for reuse"
+                    return
+                        { EvidenceId = evidenceId
+                          TestId = testId
+                          Outcome = outcome
+                          ProducedAtRevision = Some revision
+                          Freshness = Some freshness
+                          EvidenceIdentity = Some(identity inputs)
+                          Inputs = Some inputs }
+                }
+        Json.parse decoder planText |> Result.mapError (sprintf "%A")

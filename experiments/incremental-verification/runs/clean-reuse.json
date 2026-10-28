@@ -1,0 +1,5575 @@
+[
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": null,
+    "CheckoutSeconds": 0.1048316,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:17343b2d61cbfbd5646be259787f227e563fe2c9e267b9f97df5db591d905357",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:3f685715bd9b0d4f85a5ea081a16c40c4882e96c107de554a656bf8cfc3856a3",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:a8eb45b2c81a5b213e21b0d1045a9ecb25a9c18a9d842aa6e646841ac1c2dcd4",
+        "PathAffected": null,
+        "Reasons": [
+          "REUSE.NO_PRIOR_EVIDENCE"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [],
+    "Original": "65c1c112f7fa2bad365feafa39e329d08871953b",
+    "PlanSeconds": 0.4116935,
+    "RecordSeconds": 0.5067529,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:a8eb45b2c81a5b213e21b0d1045a9ecb25a9c18a9d842aa6e646841ac1c2dcd4",
+        "Passed": true,
+        "Seconds": 6.8586775,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:3f685715bd9b0d4f85a5ea081a16c40c4882e96c107de554a656bf8cfc3856a3",
+        "Passed": true,
+        "Seconds": 23.3370694,
+        "Test": "core-tests",
+        "Total": 237
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:17343b2d61cbfbd5646be259787f227e563fe2c9e267b9f97df5db591d905357",
+        "Passed": true,
+        "Seconds": 67.463437,
+        "Test": "cli-tests",
+        "Total": 100
+      }
+    ],
+    "Sha": "65c1c112f7fa2bad365feafa39e329d08871953b",
+    "Step": 1,
+    "StrategySeconds": 98.68246189999999,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      "LICENSE"
+    ],
+    "CheckoutSeconds": 0.0049587,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:17343b2d61cbfbd5646be259787f227e563fe2c9e267b9f97df5db591d905357",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-cli-tests-01-65c1c112f7fa"
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:3f685715bd9b0d4f85a5ea081a16c40c4882e96c107de554a656bf8cfc3856a3",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-01-65c1c112f7fa"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:a8eb45b2c81a5b213e21b0d1045a9ecb25a9c18a9d842aa6e646841ac1c2dcd4",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-01-65c1c112f7fa"
+      }
+    },
+    "Defects": [],
+    "Original": "2aba16f22ca094a9f798be3279641ffea49187f9",
+    "PlanSeconds": 0.3885794,
+    "RecordSeconds": 0,
+    "Runs": [],
+    "Sha": "2aba16f22ca094a9f798be3279641ffea49187f9",
+    "Step": 2,
+    "StrategySeconds": 0.3935381,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      "Directory.Build.props",
+      "LICENSE",
+      "NOTICE",
+      "README.md",
+      "context/CURRENT-STATE.md",
+      "docs/operations/OPERATIONAL-EVIDENCE.md",
+      "package-lock.json",
+      "package.json"
+    ],
+    "CheckoutSeconds": 0.0061774,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:98a51efc94dca54f85886277fb7af559f5890d0ccc446476a7084ca47ea7803d",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:2e99eadfb3e160e0379d8adea89c5984d8953e1a9b4cc93d319bafd8ed43840d",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:eed7d2addf916a233a55b3d934783f39426ce346acdb57d59a3371b2d304a0b5",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [],
+    "Original": "50552cf42ad55e80e7a9347aab979e54bdce13ac",
+    "PlanSeconds": 0.381167,
+    "RecordSeconds": 0.5646737,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:eed7d2addf916a233a55b3d934783f39426ce346acdb57d59a3371b2d304a0b5",
+        "Passed": true,
+        "Seconds": 6.1944333,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:2e99eadfb3e160e0379d8adea89c5984d8953e1a9b4cc93d319bafd8ed43840d",
+        "Passed": true,
+        "Seconds": 27.1476809,
+        "Test": "core-tests",
+        "Total": 237
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:98a51efc94dca54f85886277fb7af559f5890d0ccc446476a7084ca47ea7803d",
+        "Passed": true,
+        "Seconds": 69.5532643,
+        "Test": "cli-tests",
+        "Total": 100
+      }
+    ],
+    "Sha": "50552cf42ad55e80e7a9347aab979e54bdce13ac",
+    "Step": 3,
+    "StrategySeconds": 103.8473966,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-16-ENGINEERING-RELIABILITY-001.md"
+    ],
+    "CheckoutSeconds": 0.0065014,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:98a51efc94dca54f85886277fb7af559f5890d0ccc446476a7084ca47ea7803d",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-cli-tests-03-50552cf42ad5"
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:2e99eadfb3e160e0379d8adea89c5984d8953e1a9b4cc93d319bafd8ed43840d",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-03-50552cf42ad5"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:eed7d2addf916a233a55b3d934783f39426ce346acdb57d59a3371b2d304a0b5",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-03-50552cf42ad5"
+      }
+    },
+    "Defects": [],
+    "Original": "c38e07e7c90d887a9589fb6158b208b059b6e477",
+    "PlanSeconds": 0.429301,
+    "RecordSeconds": 0,
+    "Runs": [],
+    "Sha": "c38e07e7c90d887a9589fb6158b208b059b6e477",
+    "Step": 4,
+    "StrategySeconds": 0.4358024,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".praxis/processed/INPUT-a129ad77c69af1be/claim.json",
+      ".praxis/processed/INPUT-a129ad77c69af1be/source/2026-10-14-DOKIMOS-COLOR-001.md",
+      ".praxis/processed/INPUT-f1620e8ac38269ea/claim.json",
+      ".praxis/processed/INPUT-f1620e8ac38269ea/source/2026-10-16-ENGINEERING-RELIABILITY-001.md",
+      ".ros/context/current.json",
+      ".ros/events/events.jsonl",
+      ".ros/executions/EXE-20261018T124842385Z-b72bbb9b/envelope.json",
+      ".ros/executions/EXE-20261018T124842385Z-b72bbb9b/events.jsonl",
+      ".ros/executions/EXE-20261018T130141708Z-ce235c1f/envelope.json",
+      ".ros/executions/EXE-20261018T130141708Z-ce235c1f/events.jsonl",
+      ".ros/telemetry/executions/EXE-20261018T124842385Z-b72bbb9b.json",
+      ".ros/telemetry/executions/EXE-20261018T130141708Z-ce235c1f.json",
+      ".ros/work/queue.json",
+      ".ros/work/queue.md",
+      "docs/verification/requirements-ingestion-2026-10-18.md",
+      "requirements/COLOR-CONTRACT-VERIFICATION.md",
+      "requirements/ENGINEERING-RELIABILITY.md",
+      "ros.json"
+    ],
+    "CheckoutSeconds": 0.0115125,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:db63bd544bd59d7362fa03dd1131a23d7f8c37d5e9c88e32bcc750d9e2a7fe8f",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:2e99eadfb3e160e0379d8adea89c5984d8953e1a9b4cc93d319bafd8ed43840d",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-03-50552cf42ad5"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:eed7d2addf916a233a55b3d934783f39426ce346acdb57d59a3371b2d304a0b5",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-03-50552cf42ad5"
+      }
+    },
+    "Defects": [],
+    "Original": "016eb69b6470831d696306512bea85cbc823b533",
+    "PlanSeconds": 0.4362571,
+    "RecordSeconds": 0.2042232,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:db63bd544bd59d7362fa03dd1131a23d7f8c37d5e9c88e32bcc750d9e2a7fe8f",
+        "Passed": true,
+        "Seconds": 88.4005652,
+        "Test": "cli-tests",
+        "Total": 100
+      }
+    ],
+    "Sha": "016eb69b6470831d696306512bea85cbc823b533",
+    "Step": 5,
+    "StrategySeconds": 89.052558,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".ros/context/current.json",
+      ".ros/events/events.jsonl",
+      ".ros/telemetry/executions/EXE-20261018T183903101Z-7714101e.json",
+      ".ros/work/queue.json",
+      ".ros/work/queue.md",
+      "docs/completion-verification.md",
+      "schemas/dokimos-completion-authority.schema.json",
+      "schemas/dokimos-completion-verification.schema.json",
+      "schemas/praxis-completion-packet.schema.json",
+      "src/Dokimos.Cli/CompletionCommand.fs",
+      "src/Dokimos.Cli/Dokimos.Cli.fsproj",
+      "src/Dokimos.Cli/Program.fs",
+      "src/Dokimos.Cli/VersionCommand.fs",
+      "src/Dokimos.Core/CompletionVerification.fs",
+      "src/Dokimos.Core/CompletionWire.fs",
+      "src/Dokimos.Core/Dokimos.Core.fsproj",
+      "tests/Dokimos.Cli.Tests/CompletionVerifyCliTests.fs",
+      "tests/Dokimos.Cli.Tests/Dokimos.Cli.Tests.fsproj",
+      "tests/Dokimos.Cli.Tests/ProgramTests.fs",
+      "tests/Dokimos.Core.Tests/CompletionVerificationTests.fs",
+      "tests/Dokimos.Core.Tests/Dokimos.Core.Tests.fsproj"
+    ],
+    "CheckoutSeconds": 0.0103151,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:4763273b1845135efb62c89b4026269b9155825b1e3640d80ce8e252e257c4af",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:b9920de498935a0a2b76a2173ac416cbefb240d95d8be09b1e6cb7b151bb659f",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:eed7d2addf916a233a55b3d934783f39426ce346acdb57d59a3371b2d304a0b5",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-03-50552cf42ad5"
+      }
+    },
+    "Defects": [],
+    "Original": "23157a04d5d67f7d79ffc44829389bb853396859",
+    "PlanSeconds": 0.3946233,
+    "RecordSeconds": 0.3815239,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:b9920de498935a0a2b76a2173ac416cbefb240d95d8be09b1e6cb7b151bb659f",
+        "Passed": true,
+        "Seconds": 31.6430047,
+        "Test": "core-tests",
+        "Total": 245
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:4763273b1845135efb62c89b4026269b9155825b1e3640d80ce8e252e257c4af",
+        "Passed": true,
+        "Seconds": 68.0692397,
+        "Test": "cli-tests",
+        "Total": 103
+      }
+    ],
+    "Sha": "23157a04d5d67f7d79ffc44829389bb853396859",
+    "Step": 6,
+    "StrategySeconds": 100.49870670000001,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".ros/context/current.json",
+      ".ros/events/events.jsonl",
+      ".ros/telemetry/executions/EXE-20261019T130409788Z-e3f12f36.json",
+      ".ros/work/queue.json",
+      ".ros/work/queue.md",
+      "docs/completion-verification.md",
+      "schemas/dokimos-completion-authority.schema.json",
+      "schemas/dokimos-completion-verification.schema.json",
+      "src/Dokimos.Cli/CompletionCommand.fs",
+      "src/Dokimos.Core/CompletionVerification.fs",
+      "src/Dokimos.Core/CompletionWire.fs",
+      "tests/Dokimos.Cli.Tests/CompletionVerifyCliTests.fs",
+      "tests/Dokimos.Core.Tests/CompletionVerificationTests.fs"
+    ],
+    "CheckoutSeconds": 0.0138296,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:e3e47bd1bf1910c7eb0e2d2e9f8c037f43cf2e18cab801c3ae750daf57a71b19",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:2f00c5994723efea52fc184323dd999fe03f4c724eb2059dddd37c6d8767e85e",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:eed7d2addf916a233a55b3d934783f39426ce346acdb57d59a3371b2d304a0b5",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-03-50552cf42ad5"
+      }
+    },
+    "Defects": [],
+    "Original": "b33be89034913015056717438e44477e96c674ce",
+    "PlanSeconds": 0.4823939,
+    "RecordSeconds": 0.3396214,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:2f00c5994723efea52fc184323dd999fe03f4c724eb2059dddd37c6d8767e85e",
+        "Passed": true,
+        "Seconds": 29.4451324,
+        "Test": "core-tests",
+        "Total": 278
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:e3e47bd1bf1910c7eb0e2d2e9f8c037f43cf2e18cab801c3ae750daf57a71b19",
+        "Passed": true,
+        "Seconds": 65.9338788,
+        "Test": "cli-tests",
+        "Total": 136
+      }
+    ],
+    "Sha": "b33be89034913015056717438e44477e96c674ce",
+    "Step": 7,
+    "StrategySeconds": 96.2148561,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".ros/context/current.json",
+      ".ros/events/events.jsonl",
+      ".ros/telemetry/executions/EXE-20261019T171941386Z-d445feff.json",
+      ".ros/work/queue.json",
+      ".ros/work/queue.md",
+      "Directory.Build.props",
+      "release/echelon.release-input.json"
+    ],
+    "CheckoutSeconds": 0.0094285,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:f9a10558603fc377a8ff0179b70564430f2d00c475101e52c0594e098a6b4c2d",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:4c9190870ae821e4f95cc677e2ea13e33bdb10dfaa6ddb29519b70308c591249",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:8c6ab6e90ab0da22ac2226fb5177ace2447b2cca6fc7984c0474e9364a921383",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [],
+    "Original": "828208f46b7d1073534bd02873d6298b62ad1de2",
+    "PlanSeconds": 0.4219993,
+    "RecordSeconds": 0.5643765000000001,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:8c6ab6e90ab0da22ac2226fb5177ace2447b2cca6fc7984c0474e9364a921383",
+        "Passed": true,
+        "Seconds": 6.2091706,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:4c9190870ae821e4f95cc677e2ea13e33bdb10dfaa6ddb29519b70308c591249",
+        "Passed": true,
+        "Seconds": 24.67647,
+        "Test": "core-tests",
+        "Total": 278
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:f9a10558603fc377a8ff0179b70564430f2d00c475101e52c0594e098a6b4c2d",
+        "Passed": true,
+        "Seconds": 68.715568,
+        "Test": "cli-tests",
+        "Total": 136
+      }
+    ],
+    "Sha": "828208f46b7d1073534bd02873d6298b62ad1de2",
+    "Step": 8,
+    "StrategySeconds": 100.5970129,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".ros/context/current.json",
+      ".ros/events/events.jsonl",
+      ".ros/telemetry/executions/EXE-20261020T075639052Z-311c2987.json",
+      ".ros/work/queue.json",
+      ".ros/work/queue.md",
+      "Directory.Build.props",
+      "docs/completion-verification.md",
+      "release/echelon.release-input.json",
+      "schemas/dokimos-completion-authority.schema.json",
+      "src/Dokimos.Core/CompletionAttestation.fs",
+      "src/Dokimos.Core/CompletionAttestationBinding.fs",
+      "src/Dokimos.Core/CompletionVerification.fs",
+      "src/Dokimos.Core/CompletionWire.fs",
+      "src/Dokimos.Core/Dokimos.Core.fsproj",
+      "tests/Dokimos.Cli.Tests/CompletionAttestedCliTests.fs",
+      "tests/Dokimos.Cli.Tests/Dokimos.Cli.Tests.fsproj",
+      "tests/Dokimos.Core.Tests/CompletionAttestationFixtures.fs",
+      "tests/Dokimos.Core.Tests/CompletionAttestationIntakeTests.fs",
+      "tests/Dokimos.Core.Tests/CompletionAttestationTests.fs",
+      "tests/Dokimos.Core.Tests/CompletionVerificationTests.fs",
+      "tests/Dokimos.Core.Tests/Dokimos.Core.Tests.fsproj"
+    ],
+    "CheckoutSeconds": 0.0103597,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:26431c55432b6c75f1a2bded93fdf59ec2465a96ad41516633a4f2fe6d89f430",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [],
+    "Original": "04b5f856367b47a087285109c1fc5923ec351389",
+    "PlanSeconds": 0.4109825,
+    "RecordSeconds": 0.5221783,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "Passed": true,
+        "Seconds": 6.5477239,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "Passed": true,
+        "Seconds": 27.7651955,
+        "Test": "core-tests",
+        "Total": 322
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:26431c55432b6c75f1a2bded93fdf59ec2465a96ad41516633a4f2fe6d89f430",
+        "Passed": true,
+        "Seconds": 75.1432157,
+        "Test": "cli-tests",
+        "Total": 143
+      }
+    ],
+    "Sha": "04b5f856367b47a087285109c1fc5923ec351389",
+    "Step": 9,
+    "StrategySeconds": 110.39965559999999,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-21-ARCH-001-02-compiler-derived-architecture-rules.md"
+    ],
+    "CheckoutSeconds": 0.0063155,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:26431c55432b6c75f1a2bded93fdf59ec2465a96ad41516633a4f2fe6d89f430",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-cli-tests-09-04b5f856367b"
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-09-04b5f856367b"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-09-04b5f856367b"
+      }
+    },
+    "Defects": [],
+    "Original": "c99c21b3cb78105416a5379d599f5b0f9bbec638",
+    "PlanSeconds": 0.4076562,
+    "RecordSeconds": 0,
+    "Runs": [],
+    "Sha": "c99c21b3cb78105416a5379d599f5b0f9bbec638",
+    "Step": 10,
+    "StrategySeconds": 0.4139717,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-21-VAC-DOK-001-chained-regression-verification.md"
+    ],
+    "CheckoutSeconds": 0.004879,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:26431c55432b6c75f1a2bded93fdf59ec2465a96ad41516633a4f2fe6d89f430",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-cli-tests-09-04b5f856367b"
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-09-04b5f856367b"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-09-04b5f856367b"
+      }
+    },
+    "Defects": [],
+    "Original": "41e721fd6b5b6d8829f92e6587e6162199cc3764",
+    "PlanSeconds": 0.410897,
+    "RecordSeconds": 0,
+    "Runs": [],
+    "Sha": "41e721fd6b5b6d8829f92e6587e6162199cc3764",
+    "Step": 11,
+    "StrategySeconds": 0.41577600000000003,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-22-VAC-002-P2-04-authority-review-routing.md"
+    ],
+    "CheckoutSeconds": 0.0050254,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:26431c55432b6c75f1a2bded93fdf59ec2465a96ad41516633a4f2fe6d89f430",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-cli-tests-09-04b5f856367b"
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-09-04b5f856367b"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-09-04b5f856367b"
+      }
+    },
+    "Defects": [],
+    "Original": "717103fb902baef0ecaa7e58ab16c9ca72b43bd0",
+    "PlanSeconds": 0.3926731,
+    "RecordSeconds": 0,
+    "Runs": [],
+    "Sha": "717103fb902baef0ecaa7e58ab16c9ca72b43bd0",
+    "Step": 12,
+    "StrategySeconds": 0.3976985,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-23-VAC-002-P3-03-rule-provenance-research.md"
+    ],
+    "CheckoutSeconds": 0.0056948,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:26431c55432b6c75f1a2bded93fdf59ec2465a96ad41516633a4f2fe6d89f430",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-cli-tests-09-04b5f856367b"
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-09-04b5f856367b"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-09-04b5f856367b"
+      }
+    },
+    "Defects": [],
+    "Original": "9e38a3b550d3b6dcf7358ee96469c65ea8a9182b",
+    "PlanSeconds": 0.4097375,
+    "RecordSeconds": 0,
+    "Runs": [],
+    "Sha": "9e38a3b550d3b6dcf7358ee96469c65ea8a9182b",
+    "Step": 13,
+    "StrategySeconds": 0.4154323,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-23-VC-004-mechanical-provenance-verification.md"
+    ],
+    "CheckoutSeconds": 0.0060746,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:26431c55432b6c75f1a2bded93fdf59ec2465a96ad41516633a4f2fe6d89f430",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-cli-tests-09-04b5f856367b"
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-09-04b5f856367b"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-09-04b5f856367b"
+      }
+    },
+    "Defects": [],
+    "Original": "6c8554e89f3684c84fbd305fe9c78b4f0aa24a19",
+    "PlanSeconds": 0.4623802,
+    "RecordSeconds": 0,
+    "Runs": [],
+    "Sha": "6c8554e89f3684c84fbd305fe9c78b4f0aa24a19",
+    "Step": 14,
+    "StrategySeconds": 0.4684548,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-23-EP-01-runner-image-drift.md",
+      ".praxis/inbox/documents/2026-10-23-EP-A2a-evidence-validity-conditions.md",
+      "experiments/rule-provenance/.gitignore",
+      "experiments/rule-provenance/Directory.Build.props",
+      "experiments/rule-provenance/LIMITATIONS.md",
+      "experiments/rule-provenance/README.md",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/README.md",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/handoff.json",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/legacy/LegacyPaymentRules.fs",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/sources/finance-decisions.md",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/sources/invoicing-requirements.md",
+      "experiments/rule-provenance/contracts/fixtures/invoice-slice/sources/open-questions.md",
+      "experiments/rule-provenance/contracts/schemas/echelon-authority-handoff-0.1.schema.json",
+      "experiments/rule-provenance/contracts/schemas/echelon-construction-trace-0.1.schema.json",
+      "experiments/rule-provenance/contracts/schemas/echelon-provenance-audit-0.1.schema.json",
+      "experiments/rule-provenance/fixtures/constructed/cites-observation/InvoiceRules.fs",
+      "experiments/rule-provenance/fixtures/constructed/clean/InvoiceRules.fs",
+      "experiments/rule-provenance/fixtures/constructed/clean/construction-trace.json",
+      "experiments/rule-provenance/fixtures/constructed/question-as-rule/InvoiceRules.fs",
+      "experiments/rule-provenance/fixtures/constructed/superseded/InvoiceRules.fs",
+      "experiments/rule-provenance/fixtures/constructed/unmarked-constant/InvoiceRules.fs",
+      "experiments/rule-provenance/fixtures/legacy-reuse/CurrencyLimits.fs",
+      "experiments/rule-provenance/fixtures/legacy-reuse/PaymentValidation.fs",
+      "experiments/rule-provenance/fixtures/probe-standin/Invoice.Slice.fsproj",
+      "experiments/rule-provenance/fixtures/probe-standin/construction-trace.json",
+      "experiments/rule-provenance/fixtures/probe-standin/src/Authority.fs",
+      "experiments/rule-provenance/fixtures/probe-standin/src/Domain.fs",
+      "experiments/rule-provenance/fixtures/probe-standin/src/Probe.fs",
+      "experiments/rule-provenance/run.sh",
+      "experiments/rule-provenance/src/RuleProvenance.Cli/Io.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Cli/ProbeLoader.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Cli/Program.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Cli/RuleProvenance.Cli.fsproj",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Audit.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Digest.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Domain.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Inputs.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Lexer.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Oracle.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/OracleValidation.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Provenance.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Report.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Reuse.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/RuleProvenance.Core.fsproj",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Scanner.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/FixtureTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/OracleTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/ProvenanceTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/ReportTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/ReuseTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/RuleProvenance.Tests.fsproj",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/ScannerTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/Support.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/TraceTests.fs",
+      "experiments/rule-provenance/tools/validate_json.py",
+      "package-lock.json",
+      "package.json"
+    ],
+    "CheckoutSeconds": 0.0115762,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:26431c55432b6c75f1a2bded93fdf59ec2465a96ad41516633a4f2fe6d89f430",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-cli-tests-09-04b5f856367b"
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-09-04b5f856367b"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-09-04b5f856367b"
+      }
+    },
+    "Defects": [],
+    "Original": "5988bf0a1774b65711c2adfb990ba11db4d840c4",
+    "PlanSeconds": 0.4512181,
+    "RecordSeconds": 0,
+    "Runs": [],
+    "Sha": "5988bf0a1774b65711c2adfb990ba11db4d840c4",
+    "Step": 15,
+    "StrategySeconds": 0.4627943,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      "experiments/rule-provenance/LIMITATIONS.md",
+      "experiments/rule-provenance/README.md",
+      "experiments/rule-provenance/dev/dev-scores.json",
+      "experiments/rule-provenance/dev/score_dev.py",
+      "experiments/rule-provenance/run.sh",
+      "experiments/rule-provenance/src/RuleProvenance.Cli/Program.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/AstScanner.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Audit.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/AuthorityMatch.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Domain.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Inputs.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Provenance.fs",
+      "experiments/rule-provenance/src/RuleProvenance.Core/RuleProvenance.Core.fsproj",
+      "experiments/rule-provenance/src/RuleProvenance.Core/Scanner.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/AstAnalyzerTests.fs",
+      "experiments/rule-provenance/tests/RuleProvenance.Tests/RuleProvenance.Tests.fsproj"
+    ],
+    "CheckoutSeconds": 0.0101212,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:26431c55432b6c75f1a2bded93fdf59ec2465a96ad41516633a4f2fe6d89f430",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-cli-tests-09-04b5f856367b"
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-09-04b5f856367b"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-09-04b5f856367b"
+      }
+    },
+    "Defects": [],
+    "Original": "fc9b31fe7c1dc76020a78868fee316d897d681ca",
+    "PlanSeconds": 0.4277502,
+    "RecordSeconds": 0,
+    "Runs": [],
+    "Sha": "fc9b31fe7c1dc76020a78868fee316d897d681ca",
+    "Step": 16,
+    "StrategySeconds": 0.4378714,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".github/workflows/release.yml"
+    ],
+    "CheckoutSeconds": 0.0103166,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:26431c55432b6c75f1a2bded93fdf59ec2465a96ad41516633a4f2fe6d89f430",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-cli-tests-09-04b5f856367b"
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-09-04b5f856367b"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-09-04b5f856367b"
+      }
+    },
+    "Defects": [],
+    "Original": "003204d501de693af6d84861fe250add78c2c6dc",
+    "PlanSeconds": 0.4928006,
+    "RecordSeconds": 0,
+    "Runs": [],
+    "Sha": "003204d501de693af6d84861fe250add78c2c6dc",
+    "Step": 17,
+    "StrategySeconds": 0.5031171999999999,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".praxis/inbox/documents/2026-10-24-DOK-SDK-001-managed-workflow-global-json.md"
+    ],
+    "CheckoutSeconds": 0.0059222,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:26431c55432b6c75f1a2bded93fdf59ec2465a96ad41516633a4f2fe6d89f430",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-cli-tests-09-04b5f856367b"
+      },
+      "core-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:80711b554f994c99b70b5d9109bb49f5a280cf1fcab92461d16315f06b1da6f0",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-core-tests-09-04b5f856367b"
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-09-04b5f856367b"
+      }
+    },
+    "Defects": [],
+    "Original": "bf6a62bb6246177c30cc64af35921a300b7ddf9a",
+    "PlanSeconds": 0.4927316,
+    "RecordSeconds": 0,
+    "Runs": [],
+    "Sha": "bf6a62bb6246177c30cc64af35921a300b7ddf9a",
+    "Step": 18,
+    "StrategySeconds": 0.4986538,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".ros/context/current.json",
+      ".ros/events/events.jsonl",
+      ".ros/telemetry/executions/EXE-20261027T152631937Z-9b051d48.json",
+      ".ros/work/queue.json",
+      ".ros/work/queue.md",
+      "docs/completion-verification.md",
+      "docs/evidence-reuse.md",
+      "experiments/evidence-reuse-r4/measure.fsx",
+      "experiments/evidence-reuse-r4/results-suite.txt",
+      "experiments/evidence-reuse-r4/results-workflow.txt",
+      "schemas/dokimos-completion-authority.schema.json",
+      "schemas/dokimos-evidence-reuse-plan.schema.json",
+      "schemas/dokimos-evidence-reuse-request.schema.json",
+      "src/Dokimos.Cli/Dokimos.Cli.fsproj",
+      "src/Dokimos.Cli/EvidenceCommand.fs",
+      "src/Dokimos.Cli/Program.fs",
+      "src/Dokimos.Cli/VersionCommand.fs",
+      "src/Dokimos.Core/CompletionVerification.fs",
+      "src/Dokimos.Core/CompletionWire.fs",
+      "src/Dokimos.Core/Dokimos.Core.fsproj",
+      "src/Dokimos.Core/EvidenceReuse.fs",
+      "src/Dokimos.Core/EvidenceReuseWire.fs",
+      "tests/Dokimos.Cli.Tests/Dokimos.Cli.Tests.fsproj",
+      "tests/Dokimos.Cli.Tests/EvidencePlanCliTests.fs",
+      "tests/Dokimos.Core.Tests/CompletionAttestationFixtures.fs",
+      "tests/Dokimos.Core.Tests/CompletionVerificationTests.fs",
+      "tests/Dokimos.Core.Tests/Dokimos.Core.Tests.fsproj",
+      "tests/Dokimos.Core.Tests/EvidenceReuseTests.fs"
+    ],
+    "CheckoutSeconds": 0.0141825,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:bb73471bff9003bb032d78308d0800491477f34a4fd8fbaa4b5e947bfd7dac76",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:4d0e3eb8460f6bccea6e19dc9000e5398edd615da60f8ff5109ac4f95d128144",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "reuse",
+        "Identity": "sha256:c6294cc969243322d7e8ed8e815824ed101e67f8316add8c6437e6f2065985b6",
+        "PathAffected": false,
+        "Reasons": [],
+        "Reused": "EV-domain-tests-09-04b5f856367b"
+      }
+    },
+    "Defects": [],
+    "Original": "99c36531acec1a1c5bbfdb5bc13b95e8150c6e58",
+    "PlanSeconds": 0.5010824,
+    "RecordSeconds": 0.4100339,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:4d0e3eb8460f6bccea6e19dc9000e5398edd615da60f8ff5109ac4f95d128144",
+        "Passed": true,
+        "Seconds": 27.7645765,
+        "Test": "core-tests",
+        "Total": 361
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:bb73471bff9003bb032d78308d0800491477f34a4fd8fbaa4b5e947bfd7dac76",
+        "Passed": true,
+        "Seconds": 70.0698803,
+        "Test": "cli-tests",
+        "Total": 152
+      }
+    ],
+    "Sha": "99c36531acec1a1c5bbfdb5bc13b95e8150c6e58",
+    "Step": 19,
+    "StrategySeconds": 98.7597556,
+    "UnmappedChangedPaths": 0
+  },
+  {
+    "Battery": [
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "cli-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "cli-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "core-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "core-tests~incomplete-provenance"
+      },
+      {
+        "Case": "control",
+        "Reused": true,
+        "ShouldReuse": true,
+        "Test": "domain-tests~control"
+      },
+      {
+        "Case": "tampered-identity",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~tampered-identity"
+      },
+      {
+        "Case": "other-tool-version",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-tool-version"
+      },
+      {
+        "Case": "other-runtime",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~other-runtime"
+      },
+      {
+        "Case": "changed-source",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~changed-source"
+      },
+      {
+        "Case": "live",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~live"
+      },
+      {
+        "Case": "security",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~security"
+      },
+      {
+        "Case": "independent-acceptance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~independent-acceptance"
+      },
+      {
+        "Case": "per-commit-other-revision",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~per-commit-other-revision"
+      },
+      {
+        "Case": "conflicting-failure",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~conflicting-failure"
+      },
+      {
+        "Case": "failed-only",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~failed-only"
+      },
+      {
+        "Case": "incomplete-provenance",
+        "Reused": false,
+        "ShouldReuse": false,
+        "Test": "domain-tests~incomplete-provenance"
+      }
+    ],
+    "ChangedPaths": [
+      ".ros/context/current.json",
+      ".ros/events/events.jsonl",
+      ".ros/telemetry/executions/EXE-20261027T180316417Z-4c63d656.json",
+      ".ros/work/queue.json",
+      ".ros/work/queue.md",
+      "Directory.Build.props"
+    ],
+    "CheckoutSeconds": 0.0103765,
+    "Decisions": {
+      "cli-tests": {
+        "Decision": "run",
+        "Identity": "sha256:f2d19d25e870c8a4a1019acfd9087bd1221958986361e1c65d5d51ae8ab6583d",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "core-tests": {
+        "Decision": "run",
+        "Identity": "sha256:f5c2ace9600a6551750cdae479f991d499c99c02febf934610dc38a4f38c440e",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      },
+      "domain-tests": {
+        "Decision": "run",
+        "Identity": "sha256:d56d3a3318c321d7baec16a1b3b1a385efca02e5a237e70c0a3e9ea806ceb13e",
+        "PathAffected": true,
+        "Reasons": [
+          "REUSE.INPUT_CHANGED",
+          "REUSE.PATH_AFFECTED"
+        ],
+        "Reused": null
+      }
+    },
+    "Defects": [],
+    "Original": "49a92b89639b647c7ad3ea206b6f71611156f9f0",
+    "PlanSeconds": 0.4856036,
+    "RecordSeconds": 0.6196753,
+    "Runs": [
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:d56d3a3318c321d7baec16a1b3b1a385efca02e5a237e70c0a3e9ea806ceb13e",
+        "Passed": true,
+        "Seconds": 6.6317803,
+        "Test": "domain-tests",
+        "Total": 4
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:f5c2ace9600a6551750cdae479f991d499c99c02febf934610dc38a4f38c440e",
+        "Passed": true,
+        "Seconds": 26.9654207,
+        "Test": "core-tests",
+        "Total": 361
+      },
+      {
+        "Exit": 0,
+        "Failed": 0,
+        "Identity": "sha256:f2d19d25e870c8a4a1019acfd9087bd1221958986361e1c65d5d51ae8ab6583d",
+        "Passed": true,
+        "Seconds": 64.7004915,
+        "Test": "cli-tests",
+        "Total": 152
+      }
+    ],
+    "Sha": "49a92b89639b647c7ad3ea206b6f71611156f9f0",
+    "Step": 20,
+    "StrategySeconds": 99.41334789999999,
+    "UnmappedChangedPaths": 0
+  }
+]

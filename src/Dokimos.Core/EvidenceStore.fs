@@ -34,7 +34,13 @@ type EvidenceStore =
       TryGet: string -> Result<CanonicalSnapshot option, StoreError>
       List: unit -> Result<CanonicalSnapshot list, StoreError>
       Accept: BaselineAcceptance -> Result<PutOutcome, StoreError>
-      Acceptances: string -> Result<BaselineAcceptance list, StoreError> }
+      Acceptances: string -> Result<BaselineAcceptance list, StoreError>
+      /// Publishes one `dokimos.evidence-provenance/1` record. Passing and
+      /// failing runs are published the same way and independently; each is
+      /// immutable under its EvidenceId.
+      PutProvenance: EvidenceReuse.PriorEvidence -> Result<PutOutcome, StoreError>
+      /// Every published record for one test, passing or failing.
+      Provenance: string -> Result<EvidenceReuse.PriorEvidence list, StoreError> }
 
 module EvidenceStore =
     /// Schema-2.0.0 identities are derived from content; a claimed identity
@@ -60,7 +66,7 @@ module EvidenceStore =
     let describeError =
         function
         | IdentityConflict id -> "store-identity-conflict", $"A different snapshot is already stored as {id}; stored evidence is immutable."
-        | IdentityMismatch (claimed, derived) -> "store-identity-mismatch", $"Snapshot claims identity {claimed} but its content derives {derived}."
+        | IdentityMismatch (claimed, derived) -> "store-identity-mismatch", $"Evidence claims identity {claimed} but its content derives {derived}."
         | SnapshotNotFound id -> "snapshot-not-found", $"No snapshot {id} exists in the store."
         | InvalidStoredEvidence (location, reason) -> "store-invalid-evidence", $"{location}: {reason}"
         | StoreNotInitialized location -> "store-not-initialized", $"{location} is not a Dokimos evidence store; run `dokimos store init --store {location}`."
@@ -77,26 +83,37 @@ module EvidenceStore =
 /// evidence branch (`dokimos-evidence`), it is the Git-backed store: Dokimos
 /// writes immutable files, and the integration commits and pushes them.
 ///
-/// Layout (store schema 1.0.0):
+/// Layout (store schema 1.1.0; 1.1.0 only adds `provenance/`, so a 1.0.0
+/// store opens unchanged and gains the directory on its first record):
 ///   dokimos-store.json                       store marker
 ///   snapshots/<sha256(id)[0..24]>.json       one immutable file per snapshot
 ///   baselines/<name>/<acceptedAt>.json       immutable acceptance records
+///   provenance/<sha256(test-id)[0..24]>/<sha256(evidence-id)[0..24]>.json
+///                                            immutable dokimos.evidence-provenance/1
+///                                            records, passing and failing alike
 module FileSystemStore =
     [<Literal>]
     let MarkerFile = "dokimos-store.json"
 
     [<Literal>]
-    let StoreSchemaVersion = "1.0.0"
+    let StoreSchemaVersion = "1.1.0"
 
     let marker =
         Contracts.serialize
             {| Contract = "dokimos.store"
                SchemaVersion = StoreSchemaVersion
-               Layout = "snapshots/<sha256(snapshot-id)[0..24]>.json; baselines/<name>/<accepted-at>.json"
-               Immutability = "Files are created once and never replaced. A different snapshot under an existing identity is rejected." |}
+               Layout =
+                "snapshots/<sha256(snapshot-id)[0..24]>.json; baselines/<name>/<accepted-at>.json; provenance/<sha256(test-id)[0..24]>/<sha256(evidence-id)[0..24]>.json"
+               Immutability = "Files are created once and never replaced. A different snapshot or provenance record under an existing identity is rejected." |}
 
     let private snapshotFile root (id: string) =
         Path.Combine(root, "snapshots", (Contracts.sha256 id).Substring(0, 24) + ".json")
+
+    let private provenanceDirectory root (testId: string) =
+        Path.Combine(root, "provenance", (Contracts.sha256 testId).Substring(0, 24))
+
+    let private provenanceFile root (record: EvidenceReuse.PriorEvidence) =
+        Path.Combine(provenanceDirectory root record.TestId, (Contracts.sha256 record.EvidenceId).Substring(0, 24) + ".json")
 
     let private safeName (name: string) =
         if String.IsNullOrWhiteSpace name || name |> Seq.exists (fun c -> not (Char.IsLetterOrDigit c || c = '-' || c = '_')) then
@@ -151,6 +168,19 @@ module FileSystemStore =
         Json.parse decoder (File.ReadAllText path)
         |> Result.mapError (fun e -> InvalidStoredEvidence(path, string e))
 
+    /// A stored record is read back strictly: it must parse, be complete and
+    /// self-consistent, and belong to the test whose directory holds it.
+    let private readProvenanceFile (testId: string) path : Result<EvidenceReuse.PriorEvidence, StoreError> =
+        Json.parse EvidenceReuseWire.provenanceRecord (File.ReadAllText path)
+        |> Result.mapError (fun e -> InvalidStoredEvidence(path, string e))
+        |> Result.bind (fun record ->
+            if record.TestId <> testId then Error(InvalidStoredEvidence(path, $"record for test '{record.TestId}' is filed under '{testId}'"))
+            else
+                match EvidenceReuse.recordProblem record with
+                | None -> Ok record
+                | Some(EvidenceReuse.RecordIncomplete reason) -> Error(InvalidStoredEvidence(path, reason))
+                | Some(EvidenceReuse.RecordIdentityNotDerived(claimed, derived)) -> Error(IdentityMismatch(claimed, derived)))
+
     let private sequence results =
         List.foldBack (fun item state -> Result.bind (fun values -> Result.map (fun v -> v :: values) item) state) results (Ok [])
 
@@ -200,10 +230,29 @@ module FileSystemStore =
                                     if existing = acceptance then Ok AlreadyStored
                                     else Error(IdentityConflict(name + "@" + stamp)))))
 
+            let putProvenance (record: EvidenceReuse.PriorEvidence) =
+                match EvidenceReuse.recordProblem record with
+                | Some(EvidenceReuse.RecordIncomplete reason) -> Error(InvalidStoredEvidence(record.EvidenceId, reason))
+                | Some(EvidenceReuse.RecordIdentityNotDerived(claimed, derived)) -> Error(IdentityMismatch(claimed, derived))
+                | None ->
+                    let path = provenanceFile root record
+                    if createNew path (Contracts.serialize (EvidenceReuseWire.recordWire record)) then Ok Stored
+                    else
+                        readProvenanceFile record.TestId path
+                        |> Result.bind (fun existing ->
+                            if existing = record then Ok AlreadyStored else Error(IdentityConflict record.EvidenceId))
+
+            let provenance (testId: string) =
+                let dir = provenanceDirectory root testId
+                if not (Directory.Exists dir) then Ok []
+                else Directory.EnumerateFiles(dir, "*.json") |> Seq.sort |> Seq.map (readProvenanceFile testId) |> Seq.toList |> sequence
+
             Ok
                 { Describe = "filesystem:" + root
                   Put = put
                   TryGet = tryGet
                   List = list
                   Accept = accept
-                  Acceptances = acceptances }
+                  Acceptances = acceptances
+                  PutProvenance = putProvenance
+                  Provenance = provenance }

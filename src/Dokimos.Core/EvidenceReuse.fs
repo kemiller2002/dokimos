@@ -43,8 +43,24 @@ module EvidenceReuse =
         | PerCommit -> "per-commit"
         | Live -> "live"
 
+    /// What kind of evidence a test produces. Only `Functional` evidence can
+    /// be carried forward:
+    /// - Security: security-specific authority belongs to Aegis/Tutors
+    ///   (AGENTS.md, "Echelon boundaries"); Dokimos cannot certify that a
+    ///   security result is still valid, so it is produced by every run.
+    /// - IndependentAcceptance: reuse is not acceptance (docs/evidence-reuse.md);
+    ///   acceptance evidence is always produced by the candidate run itself.
+    type Category =
+        | Functional
+        | Security
+        | IndependentAcceptance
+
+    let categoryCases = [ "functional", Functional; "security", Security; "independent-acceptance", IndependentAcceptance ]
+
     /// Every input whose change must invalidate evidence. Sources are
-    /// repository paths mapped to `sha256:<hex>` of their bytes.
+    /// repository paths mapped to `sha256:<hex>` of their bytes. The runtime
+    /// environment, where it can change a result, is declared as
+    /// `Configuration` entries (for example `runtime.os`, `runtime.framework`).
     type IdentityInputs =
         { Sources: Map<string, string>
           Dependencies: Map<string, string>
@@ -84,6 +100,7 @@ module EvidenceReuse =
     type TestRequest =
         { TestId: string
           Freshness: Freshness
+          Category: Category
           Patterns: string list option
           Inputs: Result<IdentityInputs, string> }
 
@@ -261,6 +278,28 @@ module EvidenceReuse =
                   if changes.IsEmpty && not (String.Equals(derived, identity current, StringComparison.OrdinalIgnoreCase)) then
                       reason "REUSE.INPUT_CHANGED" (subject + ":identity") "identity differs" ]
 
+    /// Why a recorded run cannot be published to the evidence store.
+    type RecordProblem =
+        | RecordIncomplete of reason: string
+        | RecordIdentityNotDerived of claimed: string * derived: string
+
+    /// A published record, passing or failing, must carry complete provenance
+    /// whose identity is the digest of its own inputs. That is what lets a
+    /// stored failure contradict a passing run at the same identity
+    /// (`REUSE.CONFLICTING_PRIOR`) and keeps a failure at any other identity
+    /// from touching it.
+    let recordProblem (prior: PriorEvidence) : RecordProblem option =
+        match prior.ProducedAtRevision, prior.Freshness, prior.EvidenceIdentity, prior.Inputs with
+        | Some revision, Some _, Some claimed, Some inputs ->
+            let derived = identity inputs
+            match missingInputs inputs with
+            | _ :: _ as missing -> Some(RecordIncomplete("recorded inputs lack " + String.concat ", " missing))
+            | [] when not (String.Equals(claimed, derived, StringComparison.OrdinalIgnoreCase)) ->
+                Some(RecordIdentityNotDerived(claimed, derived))
+            | [] when not (isImmutableRevision revision) -> Some(RecordIncomplete "ProducedAtRevision is not an immutable revision")
+            | [] -> None
+        | _ -> Some(RecordIncomplete "a published record needs ProducedAtRevision, Freshness, EvidenceIdentity and Inputs")
+
     let private decideTest revision (priorsByTest: Map<string, PriorEvidence list>) (test: TestRequest) =
         let priors = Map.tryFind test.TestId priorsByTest |> Option.defaultValue [] |> List.sortBy _.EvidenceId
         match test.Inputs with
@@ -274,6 +313,10 @@ module EvidenceReuse =
             | [] ->
                 if test.Freshness = Live then
                     Run, [ reason "REUSE.LIVE_NEVER_REUSED" test.TestId "live evidence depends on an external system and is never reused" ], Some currentIdentity, Some current
+                elif test.Category = Security then
+                    Run, [ reason "REUSE.SECURITY_NEVER_REUSED" test.TestId "security evidence is produced by every run; Dokimos holds no security authority to carry it forward" ], Some currentIdentity, Some current
+                elif test.Category = IndependentAcceptance then
+                    Run, [ reason "REUSE.ACCEPTANCE_NEVER_REUSED" test.TestId "independent acceptance evidence is produced by the candidate run itself; reuse is not acceptance" ], Some currentIdentity, Some current
                 elif priors.IsEmpty then
                     Run, [ reason "REUSE.NO_PRIOR_EVIDENCE" test.TestId "no recorded evidence for this test" ], Some currentIdentity, Some current
                 else

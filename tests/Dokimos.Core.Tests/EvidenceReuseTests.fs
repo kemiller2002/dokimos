@@ -31,6 +31,7 @@ module EvidenceReuseTests =
     let private request freshness (current: IdentityInputs) : TestRequest =
         { TestId = "store-roundtrip"
           Freshness = freshness
+          Category = Functional
           Patterns = Some [ "src/**"; "tests/contracts/store.json" ]
           Inputs = Ok current }
 

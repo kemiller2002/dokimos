@@ -30,6 +30,14 @@
       "contractVersion": 1
     },
     {
+      "id": "evidence.reuse-plan",
+      "contractVersion": 1
+    },
+    {
+      "id": "evidence.provenance-record",
+      "contractVersion": 1
+    },
+    {
       "id": "echelon.repository-lifecycle",
       "contractVersion": 1
     }

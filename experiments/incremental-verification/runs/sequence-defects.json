@@ -1,0 +1,140 @@
+[
+  {
+    "Step": 1,
+    "Sha": "65c1c112f7fa2bad365feafa39e329d08871953b",
+    "Original": "65c1c112f7fa2bad365feafa39e329d08871953b",
+    "Defects": []
+  },
+  {
+    "Step": 2,
+    "Sha": "464ae4014604cd5753a06c6ecf248d0c54e04357",
+    "Original": "2aba16f22ca094a9f798be3279641ffea49187f9",
+    "Defects": [
+      "D3"
+    ]
+  },
+  {
+    "Step": 3,
+    "Sha": "cdfcbf96604f1d5abe9a0ca0dc971f49d2d9fa62",
+    "Original": "50552cf42ad55e80e7a9347aab979e54bdce13ac",
+    "Defects": [
+      "D3"
+    ]
+  },
+  {
+    "Step": 4,
+    "Sha": "f01499b070fa6dd7fb865481492b32987a39d8fc",
+    "Original": "c38e07e7c90d887a9589fb6158b208b059b6e477",
+    "Defects": [
+      "D3"
+    ]
+  },
+  {
+    "Step": 5,
+    "Sha": "016eb69b6470831d696306512bea85cbc823b533",
+    "Original": "016eb69b6470831d696306512bea85cbc823b533",
+    "Defects": []
+  },
+  {
+    "Step": 6,
+    "Sha": "23157a04d5d67f7d79ffc44829389bb853396859",
+    "Original": "23157a04d5d67f7d79ffc44829389bb853396859",
+    "Defects": []
+  },
+  {
+    "Step": 7,
+    "Sha": "b33be89034913015056717438e44477e96c674ce",
+    "Original": "b33be89034913015056717438e44477e96c674ce",
+    "Defects": []
+  },
+  {
+    "Step": 8,
+    "Sha": "828208f46b7d1073534bd02873d6298b62ad1de2",
+    "Original": "828208f46b7d1073534bd02873d6298b62ad1de2",
+    "Defects": []
+  },
+  {
+    "Step": 9,
+    "Sha": "04b5f856367b47a087285109c1fc5923ec351389",
+    "Original": "04b5f856367b47a087285109c1fc5923ec351389",
+    "Defects": []
+  },
+  {
+    "Step": 10,
+    "Sha": "c99c21b3cb78105416a5379d599f5b0f9bbec638",
+    "Original": "c99c21b3cb78105416a5379d599f5b0f9bbec638",
+    "Defects": []
+  },
+  {
+    "Step": 11,
+    "Sha": "1cceaf4c057549583c9f22e5a33225a8adbde545",
+    "Original": "41e721fd6b5b6d8829f92e6587e6162199cc3764",
+    "Defects": [
+      "D1"
+    ]
+  },
+  {
+    "Step": 12,
+    "Sha": "d02a89ec5ef281b33eb6f116cbbb0610a84d83e0",
+    "Original": "717103fb902baef0ecaa7e58ab16c9ca72b43bd0",
+    "Defects": [
+      "D1"
+    ]
+  },
+  {
+    "Step": 13,
+    "Sha": "af5ad8cbf7b3f5defa8428dc48af5824a34c2286",
+    "Original": "9e38a3b550d3b6dcf7358ee96469c65ea8a9182b",
+    "Defects": [
+      "D1"
+    ]
+  },
+  {
+    "Step": 14,
+    "Sha": "6c8554e89f3684c84fbd305fe9c78b4f0aa24a19",
+    "Original": "6c8554e89f3684c84fbd305fe9c78b4f0aa24a19",
+    "Defects": []
+  },
+  {
+    "Step": 15,
+    "Sha": "5988bf0a1774b65711c2adfb990ba11db4d840c4",
+    "Original": "5988bf0a1774b65711c2adfb990ba11db4d840c4",
+    "Defects": []
+  },
+  {
+    "Step": 16,
+    "Sha": "fcf5134f5c73f06d9a355d62bb65e2d607495cda",
+    "Original": "fc9b31fe7c1dc76020a78868fee316d897d681ca",
+    "Defects": [
+      "D2"
+    ]
+  },
+  {
+    "Step": 17,
+    "Sha": "e9a8ceca2db105de31a6509a22b2d2e64a9bcbd7",
+    "Original": "003204d501de693af6d84861fe250add78c2c6dc",
+    "Defects": [
+      "D2"
+    ]
+  },
+  {
+    "Step": 18,
+    "Sha": "2e5498d5d425bb8e557d7724763514791c56c2c3",
+    "Original": "bf6a62bb6246177c30cc64af35921a300b7ddf9a",
+    "Defects": [
+      "D2"
+    ]
+  },
+  {
+    "Step": 19,
+    "Sha": "99c36531acec1a1c5bbfdb5bc13b95e8150c6e58",
+    "Original": "99c36531acec1a1c5bbfdb5bc13b95e8150c6e58",
+    "Defects": []
+  },
+  {
+    "Step": 20,
+    "Sha": "49a92b89639b647c7ad3ea206b6f71611156f9f0",
+    "Original": "49a92b89639b647c7ad3ea206b6f71611156f9f0",
+    "Defects": []
+  }
+]
