@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 12,
+  "nextSeq": 14,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -896,6 +896,27 @@
       },
       "source": "praxis-inbox",
       "sourceReference": ".praxis/inbox/documents/2026-10-28-EII-G-evidence-publishing.md"
+    },
+    {
+      "id": "WI-0013",
+      "title": "Release Dokimos 0.9.0 (mandatory final verification, PR #59) for the Rehearsal 6 dependency set",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-10-28T12:29:08.181Z",
+      "updatedAt": "2026-10-28T12:29:18Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
     }
   ]
 }

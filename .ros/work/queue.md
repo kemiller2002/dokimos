@@ -52,3 +52,4 @@
 | WI-0010 | Rehearsal 5 workstream C: provenance-safe content-addressed evidence reuse and affected-test selection | complete |  | medium |
 | WI-0011 | Release Dokimos 0.8.0 (evidence reuse, PR #56) for the Rehearsal 5 dependency set | complete |  | medium |
 | WI-0012 | EII Workstream G: independent publication of passing and failing evidence in the evidence store; capability declaration; replay measurement | complete |  | high |
+| WI-0013 | Release Dokimos 0.9.0 (mandatory final verification, PR #59) for the Rehearsal 6 dependency set | ready |  | medium |
