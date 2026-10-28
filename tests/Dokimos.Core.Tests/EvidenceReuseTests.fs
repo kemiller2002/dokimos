@@ -31,6 +31,7 @@ module EvidenceReuseTests =
     let private request freshness (current: IdentityInputs) : TestRequest =
         { TestId = "store-roundtrip"
           Freshness = freshness
+          Category = Functional
           Patterns = Some [ "src/**"; "tests/contracts/store.json" ]
           Inputs = Ok current }
 
@@ -167,6 +168,84 @@ module EvidenceReuseTests =
     [<Fact>]
     let ``no recorded evidence means run`` () =
         planFor ContentAddressed revB None inputs [] |> single |> assertRun "REUSE.NO_PRIOR_EVIDENCE"
+
+    // ---- EII-G: independent publication and the categories that are never reused ---------------------------------
+
+    [<Fact>]
+    let ``changing the declared runtime environment refuses reuse`` () =
+        let ran = { inputs with Configuration = inputs.Configuration |> Map.add "runtime.os" "linux-x64" |> Map.add "runtime.framework" "net8.0" }
+        for key, value in [ "runtime.os", "osx-arm64"; "runtime.framework", "net10.0" ] do
+            let current = { ran with Configuration = Map.add key value ran.Configuration }
+            let d = planFor ContentAddressed revB None current [ record ran ] |> single
+            assertRun "REUSE.INPUT_CHANGED" d
+            Assert.Contains(d.Reasons, fun r -> r.Subject = "EV-store-1:configuration:" + key)
+
+    [<Fact>]
+    let ``security evidence is never reused even with identical inputs`` () =
+        let security = { request ContentAddressed inputs with Category = Security }
+        let d = plan revB None [] [] [ security ] [ record inputs ] |> single
+        assertRun "REUSE.SECURITY_NEVER_REUSED" d
+        Assert.Equal(Some(identity inputs), d.CurrentIdentity)
+
+    [<Fact>]
+    let ``independent acceptance evidence is never reused even at the same revision`` () =
+        let acceptance = { request ContentAddressed inputs with Category = IndependentAcceptance }
+        for revision in [ revA; revB ] do
+            plan revision None [] [] [ acceptance ] [ record inputs ] |> single |> assertRun "REUSE.ACCEPTANCE_NEVER_REUSED"
+
+    [<Fact>]
+    let ``a failure at the same identity blocks reuse whichever was recorded first`` () =
+        let failed outcome id = { record inputs with EvidenceId = id; Outcome = outcome }
+        for priors in [ [ failed OutcomeFailed "EV-a"; record inputs ]
+                        [ record inputs; failed OutcomeFailed "EV-z" ]
+                        [ record inputs; failed OutcomeUnavailable "EV-z" ] ] do
+            let d = planFor ContentAddressed revB None inputs priors |> single
+            assertRun "REUSE.CONFLICTING_PRIOR" d
+
+    [<Fact>]
+    let ``a failure at another identity of the same test does not hide valid evidence`` () =
+        let other = { inputs with Sources = Map.add "src/Store.fs" (h '9') inputs.Sources }
+        let failedElsewhere = { record other with EvidenceId = "EV-store-2"; Outcome = OutcomeFailed }
+        let d = planFor ContentAddressed revB None inputs [ record inputs; failedElsewhere ] |> single
+        Assert.False(isRun d, $"%A{d.Reasons}")
+        match d.Decision with
+        | Reuse prior -> Assert.Equal("EV-store-1", prior.EvidenceId)
+        | Run -> failwith "expected reuse"
+
+    [<Fact>]
+    let ``a failure of another test does not hide or invalidate this test's evidence`` () =
+        let view = { inputs with Sources = Map [ "src/View.fs", h '5' ] }
+        let viewFailed = { record view with EvidenceId = "EV-view-1"; TestId = "view-render"; Outcome = OutcomeFailed }
+        let viewRequest = { request ContentAddressed view with TestId = "view-render"; Patterns = Some [ "src/View.fs" ] }
+        let p = plan revB None [] [] [ request ContentAddressed inputs; viewRequest ] [ record inputs; viewFailed ]
+        let byId = p.Tests |> List.map (fun t -> t.TestId, t) |> Map.ofList
+        let store = byId["store-roundtrip"]
+        Assert.False(isRun store, $"%A{store.Reasons}")
+        assertRun "REUSE.PRIOR_NOT_PASSED" byId["view-render"]
+
+    [<Fact>]
+    let ``a forged failing record cannot block reuse but a genuine one can`` () =
+        // A failing record whose identity is not the digest of its inputs is
+        // not evidence about this identity, so it contradicts nothing.
+        let forged = { record inputs with EvidenceId = "EV-forged"; Outcome = OutcomeFailed; Inputs = Some { inputs with ToolVersion = "other" } }
+        let d = planFor ContentAddressed revB None inputs [ record inputs; forged ] |> single
+        Assert.False(isRun d, $"%A{d.Reasons}")
+
+    [<Fact>]
+    let ``only complete, self-consistent records can be published`` () =
+        let r = record inputs
+        Assert.Equal(None, recordProblem r)
+        Assert.Equal(None, recordProblem { r with Outcome = OutcomeFailed })
+        for incomplete in [ { r with Inputs = None }; { r with ProducedAtRevision = Some "main" }; { r with Freshness = None }
+                            { r with Inputs = Some { inputs with ToolVersion = "" }; EvidenceIdentity = Some(identity { inputs with ToolVersion = "" }) } ] do
+            match recordProblem incomplete with
+            | Some(RecordIncomplete _) -> ()
+            | other -> failwith $"expected incomplete, got %A{other}"
+        match recordProblem { r with EvidenceIdentity = Some(h 'f') } with
+        | Some(RecordIdentityNotDerived(claimed, derived)) ->
+            Assert.Equal(h 'f', claimed)
+            Assert.Equal(identity inputs, derived)
+        | other -> failwith $"expected identity mismatch, got %A{other}"
 
     // ---- affected-test selection --------------------------------------------------------------------------------
 

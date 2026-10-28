@@ -25,6 +25,7 @@
         "properties": {
           "TestId": { "type": "string", "minLength": 1 },
           "Freshness": { "$ref": "#/$defs/freshness" },
+          "Category": { "enum": ["functional", "security", "independent-acceptance"], "description": "Optional (added after Dokimos 0.8.0); absent means functional. Security and independent-acceptance evidence is never reused (REUSE.SECURITY_NEVER_REUSED, REUSE.ACCEPTANCE_NEVER_REUSED)." },
           "Inputs": {
             "type": "object",
             "additionalProperties": false,
@@ -52,7 +53,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": ["SchemaVersion", "EvidenceId", "TestId", "Outcome"],
-      "description": "dokimos.evidence-provenance/1. Members after Outcome are optional at intake so a record lacking them is refused for reuse (REUSE.PROVENANCE_MISSING) rather than dropped.",
+      "description": "dokimos.evidence-provenance/1, the record a host publishes after running a planned test, passing or failing (`dokimos evidence record`; stored under provenance/ in the evidence store). Members after Outcome are optional at intake so a record lacking them is refused for reuse (REUSE.PROVENANCE_MISSING) rather than dropped; the store accepts only complete, self-consistent records.",
       "properties": {
         "SchemaVersion": { "const": "dokimos.evidence-provenance/1" },
         "EvidenceId": { "type": "string", "minLength": 1 },

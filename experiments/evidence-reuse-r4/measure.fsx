@@ -76,6 +76,7 @@ let request (files: Map<string, string>) (id, freshness, contract, patterns) =
     let sources = files |> Map.filter (fun f _ -> matches present f)
     { TestId = id
       Freshness = freshness
+      Category = Functional
       Patterns = Some(contract :: patterns)
       Inputs =
         if sources.IsEmpty || not (files.ContainsKey contract) then Error "unresolved"

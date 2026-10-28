@@ -164,6 +164,114 @@ let ``malformed or duplicate requests are refused`` () =
     Assert.Equal(3, (run [ "evidence"; "plan"; "--request"; bad; "--root"; repo ]).ExitCode)
     Assert.Equal(2, (run [ "evidence"; "plan" ]).ExitCode)
 
+// ---- EII-G: passing and failing runs published to the evidence store ------------------------------------------
+
+let private newStore () =
+    let dir = tempDirectory ()
+    Assert.Equal(0, (run [ "store"; "init"; "--store"; dir ]).ExitCode)
+    dir
+
+let private planWithStore repo requestJson store =
+    let dir = tempDirectory ()
+    let path = write dir "request.json" requestJson
+    assertSchemaValid "dokimos-evidence-reuse-request.schema.json" requestJson
+    run [ "evidence"; "plan"; "--request"; path; "--root"; repo; "--store"; store ]
+
+let private recordFromPlan store (planJson: string) test outcome evidenceId =
+    let planFile = write (tempDirectory ()) "plan.json" planJson
+    run [ "evidence"; "record"; "--store"; store; "--plan"; planFile; "--test"; test; "--outcome"; outcome; "--evidence-id"; evidenceId ]
+
+let private reasonCodes (planJson: string) test =
+    use document = JsonDocument.Parse planJson
+    document.RootElement.GetProperty("Tests").EnumerateArray()
+    |> Seq.find (fun t -> t.GetProperty("TestId").Text = test)
+    |> fun t -> t.GetProperty("Reasons").EnumerateArray() |> Seq.map (fun r -> r.GetProperty("Code").Text) |> Set.ofSeq
+
+[<Fact>]
+let ``failing and passing runs are published independently and a same-identity failure blocks reuse`` () =
+    let repo, first = repository ()
+    let store = newStore ()
+    let firstPlan = stdout (planWithStore repo (request first None []) store)
+    let stored = recordFromPlan store firstPlan "store-roundtrip" "passed" "EV-store-1"
+    Assert.Equal(0, stored.ExitCode)
+    assertSchemaValid "dokimos-store-result.schema.json" (stdout stored)
+    Assert.Equal(0, (recordFromPlan store firstPlan "view-render" "failed" "EV-view-1").ExitCode)
+    Assert.Equal(0, (recordFromPlan store firstPlan "live-write" "passed" "EV-live-1").ExitCode)
+    // A plan cannot record a test with no resolved inputs.
+    Assert.Equal(3, (recordFromPlan store firstPlan "unmapped" "passed" "EV-unmapped-1").ExitCode)
+    write repo "docs/notes.md" "more notes\n" |> ignore
+    let second = commitAll repo "docs"
+    let secondPlan = stdout (planWithStore repo (request second (Some [ "docs/notes.md" ]) []) store)
+    assertSchemaValid "dokimos-evidence-reuse-plan.schema.json" secondPlan
+    let d = decisions secondPlan
+    // The view failure neither hides nor invalidates the store evidence.
+    Assert.Equal("reuse", d["store-roundtrip"])
+    Assert.Equal("run", d["view-render"])
+    Assert.Contains("REUSE.PRIOR_NOT_PASSED", reasonCodes secondPlan "view-render")
+    Assert.Equal("run", d["live-write"])
+    // A reused test produced no evidence, so its "run" cannot be recorded.
+    Assert.Equal(3, (recordFromPlan store secondPlan "store-roundtrip" "passed" "EV-store-2").ExitCode)
+    // A failure at the very same identity is published and blocks the reuse.
+    Assert.Equal(0, (recordFromPlan store firstPlan "store-roundtrip" "failed" "EV-store-3").ExitCode)
+    let thirdPlan = stdout (planWithStore repo (request second (Some [ "docs/notes.md" ]) []) store)
+    Assert.Equal("run", (decisions thirdPlan)["store-roundtrip"])
+    Assert.Contains("REUSE.CONFLICTING_PRIOR", reasonCodes thirdPlan "store-roundtrip")
+
+[<Fact>]
+let ``published records are immutable and must agree with the request`` () =
+    let repo, first = repository ()
+    let store = newStore ()
+    let firstPlan = stdout (planWithStore repo (request first None []) store)
+    Assert.Equal(0, (recordFromPlan store firstPlan "store-roundtrip" "passed" "EV-store-1").ExitCode)
+    Assert.Contains("already-stored", stdout (recordFromPlan store firstPlan "store-roundtrip" "passed" "EV-store-1"))
+    // Rewriting a recorded pass as a failure under the same EvidenceId: store conflict.
+    Assert.Equal(5, (recordFromPlan store firstPlan "store-roundtrip" "failed" "EV-store-1").ExitCode)
+    // The same EvidenceId carried in the request with different content is refused.
+    let forged = provenance firstPlan first |> List.map (fun r -> r.Replace("EV-store-roundtrip", "EV-store-1").Replace("\"passed\"", "\"failed\""))
+    Assert.Equal(3, (planWithStore repo (request first None forged) store).ExitCode)
+
+[<Fact>]
+let ``a provenance file is published as is, but only when complete and self-consistent`` () =
+    let repo, first = repository ()
+    let store = newStore ()
+    let firstPlan = stdout (plan repo (request first None []))
+    let records = provenance firstPlan first
+    let dir = tempDirectory ()
+    let file = write dir "record.json" (records |> List.find (fun r -> r.Contains "EV-store-roundtrip"))
+    Assert.Equal(0, (run [ "evidence"; "record"; "--store"; store; "--record"; file ]).ExitCode)
+    let incomplete = write dir "incomplete.json" """{ "SchemaVersion": "dokimos.evidence-provenance/1", "EvidenceId": "EV-x", "TestId": "t", "Outcome": "failed" }"""
+    Assert.Equal(3, (run [ "evidence"; "record"; "--store"; store; "--record"; incomplete ]).ExitCode)
+    let tampered = write dir "tampered.json" ((records |> List.find (fun r -> r.Contains "EV-view-render")).Replace("dotnet-sdk 10.0.402", "dotnet-sdk 10.0.500"))
+    Assert.Equal(5, (run [ "evidence"; "record"; "--store"; store; "--record"; tampered ]).ExitCode)
+    Assert.Equal(2, (run [ "evidence"; "record"; "--store"; store ]).ExitCode)
+    Assert.Equal(2, (run [ "evidence"; "record"; "--store"; store; "--record"; file; "--plan"; file ]).ExitCode)
+    Assert.Equal(2, (run [ "evidence"; "record"; "--record"; file ]).ExitCode)
+    let planFile = write dir "plan.json" firstPlan
+    Assert.Equal(2, (run [ "evidence"; "record"; "--store"; store; "--plan"; planFile; "--test"; "view-render"; "--outcome"; "green"; "--evidence-id"; "E" ]).ExitCode)
+    Assert.Equal(3, (run [ "evidence"; "record"; "--store"; tempDirectory (); "--record"; file ]).ExitCode)
+
+[<Fact>]
+let ``security and independent-acceptance tests always run`` () =
+    let repo, first = repository ()
+    let priors = provenance (stdout (plan repo (request first None []))) first
+    write repo "docs/notes.md" "more notes\n" |> ignore
+    let second = commitAll repo "docs"
+    let categorized =
+        (request second (Some [ "docs/notes.md" ]) priors)
+            .Replace("\"TestId\":\"store-roundtrip\",\"Freshness\":\"content-addressed\"", "\"TestId\":\"store-roundtrip\",\"Freshness\":\"content-addressed\",\"Category\":\"security\"")
+            .Replace("\"TestId\":\"view-render\",\"Freshness\":\"content-addressed\"", "\"TestId\":\"view-render\",\"Freshness\":\"content-addressed\",\"Category\":\"independent-acceptance\"")
+    Assert.Contains("\"Category\":\"security\"", categorized)
+    let output = stdout (plan repo categorized)
+    let d = decisions output
+    Assert.Equal("run", d["store-roundtrip"])
+    Assert.Contains("REUSE.SECURITY_NEVER_REUSED", reasonCodes output "store-roundtrip")
+    Assert.Equal("run", d["view-render"])
+    Assert.Contains("REUSE.ACCEPTANCE_NEVER_REUSED", reasonCodes output "view-render")
+    // An unknown category is refused at intake.
+    let unknown = categorized.Replace("\"security\"", "\"cosmetic\"")
+    let dir = tempDirectory ()
+    Assert.Equal(3, (run [ "evidence"; "plan"; "--request"; write dir "r.json" unknown; "--root"; repo ]).ExitCode)
+
 module Completion =
     let private revision = String('b', 40)
     let private digest (c: char) = "sha256:" + String(c, 64)
