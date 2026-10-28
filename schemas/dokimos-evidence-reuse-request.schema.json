@@ -9,6 +9,10 @@
   "properties": {
     "SchemaVersion": { "const": "dokimos.evidence-reuse-request/1" },
     "Revision": { "$ref": "#/$defs/revision", "description": "The commit being verified. --root must be a checkout at exactly this commit with no tracked modifications." },
+    "Checkpoint": {
+      "enum": ["incremental", "release"],
+      "description": "Optional (Echelon development speed optimization, Priority Four); absent means incremental. At the release checkpoint (final verification) nothing is reused: every test runs (REUSE.FINAL_VERIFICATION_REQUIRED). `dokimos evidence plan --checkpoint release` raises it; the command line can never lower it."
+    },
     "ChangedPaths": {
       "type": "array",
       "items": { "type": "string", "minLength": 1 },

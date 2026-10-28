@@ -272,6 +272,40 @@ let ``security and independent-acceptance tests always run`` () =
     let dir = tempDirectory ()
     Assert.Equal(3, (run [ "evidence"; "plan"; "--request"; write dir "r.json" unknown; "--root"; repo ]).ExitCode)
 
+[<Fact>]
+let ``the release checkpoint runs every test and the command line can raise but never lower it`` () =
+    let repo, first = repository ()
+    let priors = provenance (stdout (plan repo (request first None []))) first
+    write repo "docs/notes.md" "more notes\n" |> ignore
+    let second = commitAll repo "docs"
+    let incremental = request second (Some [ "docs/notes.md" ]) priors
+    // Control: during development the unchanged tests are reused.
+    let d = decisions (stdout (plan repo incremental))
+    Assert.Equal("reuse", d["store-roundtrip"])
+    Assert.Equal("reuse", d["view-render"])
+    let releaseRequest = incremental.Replace("\"Revision\":", "\"Checkpoint\":\"release\",\"Revision\":")
+    Assert.Contains("\"Checkpoint\":\"release\"", releaseRequest)
+    let dir = tempDirectory ()
+    let planWith (requestJson: string) (extra: string list) =
+        run ([ "evidence"; "plan"; "--request"; write dir "r.json" requestJson; "--root"; repo ] @ extra)
+    let assertFull (output: Dokimos.Cli.Output) =
+        Assert.Equal(0, output.ExitCode)
+        assertSchemaValid "dokimos-evidence-reuse-plan.schema.json" (stdout output)
+        Assert.True(decisions (stdout output) |> Map.forall (fun _ v -> v = "run"), stdout output)
+        for id in [ "store-roundtrip"; "view-render"; "live-write"; "unmapped" ] do
+            Assert.Contains("REUSE.FINAL_VERIFICATION_REQUIRED", reasonCodes (stdout output) id)
+        use document = JsonDocument.Parse(stdout output)
+        Assert.Equal("release", document.RootElement.GetProperty("Checkpoint").Text)
+        Assert.Equal(0, document.RootElement.GetProperty("Summary").GetProperty("Reuse").GetInt32())
+    assertSchemaValid "dokimos-evidence-reuse-request.schema.json" releaseRequest
+    assertFull (planWith releaseRequest [])
+    assertFull (planWith incremental [ "--checkpoint"; "release" ])
+    // A request that declares the release checkpoint stays a full run.
+    assertFull (planWith releaseRequest [ "--checkpoint"; "incremental" ])
+    // Unknown checkpoints are refused, on the command line and in the request.
+    Assert.Equal(2, (planWith incremental [ "--checkpoint"; "final" ]).ExitCode)
+    Assert.Equal(3, (planWith (releaseRequest.Replace("\"release\"", "\"final\"")) []).ExitCode)
+
 module Completion =
     let private revision = String('b', 40)
     let private digest (c: char) = "sha256:" + String(c, 64)

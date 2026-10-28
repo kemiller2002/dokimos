@@ -2,6 +2,7 @@ namespace Dokimos.Core
 
 open System
 open System.Text.Json
+open Dokimos.Core.EvidenceCheckpoint
 open Dokimos.Core.EvidenceReuse
 
 /// Strict intake of `dokimos.evidence-reuse-request/1` and the
@@ -25,6 +26,7 @@ module EvidenceReuseWire =
 
     type ReuseRequest =
         { Revision: string
+          Checkpoint: Checkpoint
           ChangedPaths: string list option
           GlobalInputs: string list
           IgnoredPaths: string list
@@ -151,11 +153,13 @@ module EvidenceReuseWire =
     let private request: Json.Decoder<ReuseRequest> =
         fun element ->
             Json.result {
-                do! exactWith [ "SchemaVersion"; "Revision"; "Tests"; "PriorEvidence" ] [ "ChangedPaths"; "GlobalInputs"; "IgnoredPaths" ] element
+                do! exactWith [ "SchemaVersion"; "Revision"; "Tests"; "PriorEvidence" ] [ "ChangedPaths"; "GlobalInputs"; "IgnoredPaths"; "Checkpoint" ] element
                 let! schema = Json.field "SchemaVersion" Json.nonEmptyString element
                 do! if schema = RequestSchemaVersion then Ok() else Error $"unsupported request schema '{schema}'"
                 let! revision = Json.field "Revision" Json.nonEmptyString element
                 do! if isImmutableRevision revision then Ok() else Error $"Revision: expected a 40- or 64-hex revision, found '{revision}'"
+                // Optional (Priority Four); absent means incremental.
+                let! checkpoint = optional "Checkpoint" (Json.oneOf checkpointCases) element
                 let! changed = optional "ChangedPaths" (Json.list Json.nonEmptyString) element
                 let! globals = optional "GlobalInputs" paths element
                 let! ignored = optional "IgnoredPaths" paths element
@@ -168,7 +172,7 @@ module EvidenceReuseWire =
                     | [] -> Ok()
                     | ids -> Error("duplicate EvidenceId: " + String.concat ", " ids)
                 return
-                    { Revision = revision; ChangedPaths = changed
+                    { Revision = revision; Checkpoint = Option.defaultValue Incremental checkpoint; ChangedPaths = changed
                       GlobalInputs = Option.defaultValue [] globals; IgnoredPaths = Option.defaultValue [] ignored
                       Tests = tests; PriorEvidence = priors }
             }
@@ -211,7 +215,7 @@ module EvidenceReuseWire =
 
     let planOf (files: string list) (digestOf: string -> string) (request: ReuseRequest) =
         let tests = request.Tests |> List.map (resolve files digestOf request.GlobalInputs)
-        EvidenceReuse.plan request.Revision request.ChangedPaths request.GlobalInputs request.IgnoredPaths tests request.PriorEvidence
+        FinalVerification.planAt request.Checkpoint request.Revision request.ChangedPaths request.GlobalInputs request.IgnoredPaths tests request.PriorEvidence
 
     /// Adds records read from the evidence store to the request's own. The same
     /// EvidenceId twice is one record only if both copies are identical; two
@@ -242,6 +246,7 @@ module EvidenceReuseWire =
            SchemaVersion = PlanSchemaVersion
            DokimosVersion = DokimosInfo.version
            Revision = plan.Revision
+           Checkpoint = checkpointName plan.Checkpoint
            Acceptance =
             "Reuse is not acceptance. Each reused test carries evidence produced at an earlier revision under an identical identity; the acceptor must judge it independently and can see it here and in the completion receipt's ReusedEvidenceIds."
            Summary =

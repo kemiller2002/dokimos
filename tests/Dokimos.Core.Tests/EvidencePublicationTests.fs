@@ -4,6 +4,8 @@ open System
 open Xunit
 open Dokimos.Core
 open Dokimos.Core.EvidenceReuse
+open Dokimos.Core.EvidenceCheckpoint
+open Dokimos.Core.FinalVerification
 
 /// EII Workstream G negative controls: categories that are never reused,
 /// the runtime environment as an identity input, and how a published failure
@@ -125,3 +127,33 @@ module EvidencePublicationTests =
             Assert.Equal(identity inputs, derived)
         | other -> failwith $"expected identity mismatch, got %A{other}"
 
+    // ---- Echelon development speed optimization, Priority Four: mandatory final verification ---------------------
+
+    [<Fact>]
+    let ``the release checkpoint refuses reuse of otherwise valid evidence`` () =
+        // Control: identical inputs, valid passing record: reused during development.
+        let incremental = planFor ContentAddressed revB None inputs [ record inputs ] |> single
+        Assert.False(isRun incremental, $"%A{incremental.Reasons}")
+        let release (freshness, revision, prior) =
+            planAt Release revision None [] [] [ request freshness inputs ] [ prior ]
+        for case in [ ContentAddressed, revB, record inputs
+                      // per-commit evidence at its own revision is otherwise reusable too
+                      PerCommit, revA, { record inputs with Freshness = Some PerCommit } ] do
+            let p = release case
+            Assert.Equal(Release, p.Checkpoint)
+            let d = single p
+            assertRun "REUSE.FINAL_VERIFICATION_REQUIRED" d
+            // The only reason is the checkpoint: the evidence itself was valid.
+            Assert.Equal<Set<string>>(Set [ "REUSE.FINAL_VERIFICATION_REQUIRED" ], codes d)
+
+    [<Fact>]
+    let ``plan is the incremental checkpoint and the request checkpoint is read strictly`` () =
+        Assert.Equal(Incremental, (planFor ContentAddressed revB None inputs [ record inputs ]).Checkpoint)
+        let requestJson (checkpoint: string option) =
+            let member' = checkpoint |> Option.map (fun c -> $"\"Checkpoint\":\"{c}\",") |> Option.defaultValue ""
+            "{\"SchemaVersion\":\"dokimos.evidence-reuse-request/1\"," + member' + "\"Revision\":\"" + revB + "\",\"Tests\":[],\"PriorEvidence\":[]}"
+        let checkpointOf c = EvidenceReuseWire.readRequest (requestJson c) |> Result.map _.Checkpoint
+        Assert.Equal(Ok Incremental, checkpointOf None)
+        Assert.Equal(Ok Incremental, checkpointOf (Some "incremental"))
+        Assert.Equal(Ok Release, checkpointOf (Some "release"))
+        Assert.True(checkpointOf (Some "final") |> Result.isError)

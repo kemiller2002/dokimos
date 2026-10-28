@@ -14,7 +14,13 @@
 // script loads the Release Dokimos.Core assembly, and --tool names a copy of
 // the Release Dokimos.Cli.dll so the replay never runs the tool under test):
 //   dotnet fsi replay.fsx prepare   --source REPO --work DIR --commits N --defects DIR
-//   dotnet fsi replay.fsx run       --work DIR --tool DLL --sequence clean|defects --strategy full|select|reuse
+//   dotnet fsi replay.fsx run       --work DIR --tool DLL --sequence clean|defects --strategy full|select|reuse [--final-release]
+//
+// Optional (Echelon development speed optimization, Priority Four):
+//   prepare --windows D3:2-3,D1:5-7,D2:9-11   defect windows for a shorter sequence
+//   run --final-release                       the last step is the release checkpoint:
+//                                             select runs every unit, reuse plans with
+//                                             `--checkpoint release` (mandatory final verification)
 //   dotnet fsi replay.fsx summarize --work DIR --out FILE.json
 //
 // Everything is measured: wall-clock comes from a Stopwatch around each real
@@ -111,7 +117,19 @@ type Step = { Step: int; Sha: string; Original: string; Defects: string[] }
 /// Defect windows: (patch-file prefix, first step, last step). Each window
 /// applies the patch to the tree of every real commit in it, so the defect is
 /// present for several consecutive commits and removed at the next one.
-let windows = [ "D3", 2, 4; "D1", 11, 13; "D2", 16, 18 ]
+let windows =
+    match opt "windows" with
+    | None -> [ "D3", 2, 4; "D1", 11, 13; "D2", 16, 18 ]
+    | Some text ->
+        text.Split(',', StringSplitOptions.RemoveEmptyEntries)
+        |> Array.map (fun w ->
+            match w.Split(':') with
+            | [| id; range |] ->
+                match range.Split('-') with
+                | [| a; b |] -> id, int a, int b
+                | _ -> failwithf "window %s: expected ID:FIRST-LAST" w
+            | _ -> failwithf "window %s: expected ID:FIRST-LAST" w)
+        |> Array.toList
 
 let stepsJson (steps: Step list) = JsonSerializer.Serialize(Array.ofList steps, JsonSerializerOptions(WriteIndented = true))
 
@@ -248,7 +266,10 @@ let run () =
     let toolVersion = "dotnet-sdk " + (exec wc "dotnet" [ "--version" ]).Out.Trim()
     let output = Collections.Generic.List<obj>()
     let mutable previous: string option = None
+    let finalRelease = args |> Array.contains "--final-release"
+    let lastStep = (List.last steps).Step
     for s in steps do
+        let release = finalRelease && s.Step = lastStep
         if strategy = "full" && sequence = "defects" && Array.isEmpty s.Defects then
             // Outside the defect windows the tree is the clean sequence's commit;
             // full verification of it is measured in the clean replay.
@@ -266,7 +287,10 @@ let run () =
             let requestFile = Path.Combine(trxRoot, $"step-{s.Step:D2}-request.json")
             let planChanged = if strategy = "full" then None else changed
             File.WriteAllText(requestFile, requestJson s.Sha planChanged tests [])
-            let planArgs = [ tool; "evidence"; "plan"; "--request"; requestFile; "--root"; wc ] @ (if strategy = "reuse" then [ "--store"; store ] else [])
+            let planArgs =
+                [ tool; "evidence"; "plan"; "--request"; requestFile; "--root"; wc ]
+                @ (if strategy = "reuse" then [ "--store"; store ] else [])
+                @ (if release && strategy <> "full" then [ "--checkpoint"; "release" ] else [])
             let plan = exec wc "dotnet" planArgs
             if plan.Exit <> 0 then failwithf "plan at step %d: %s" s.Step plan.Err
             File.WriteAllText(planFile, plan.Out)
@@ -287,7 +311,7 @@ let run () =
                 |> List.filter (fun u ->
                     match strategy with
                     | "full" -> true
-                    | "select" -> changed.IsNone || unmapped > 0 || decisions[u.Id].PathAffected = Some true
+                    | "select" -> release || changed.IsNone || unmapped > 0 || decisions[u.Id].PathAffected = Some true
                     | _ -> decisions[u.Id].Decision = "run")
             let runs =
                 selected
@@ -312,7 +336,7 @@ let run () =
             let strategySeconds =
                 checkout.Seconds + (if strategy = "full" then 0.0 else plan.Seconds) + (runs |> List.sumBy _.Seconds) + List.sum records
             output.Add
-                {| Step = s.Step; Sha = s.Sha; Original = s.Original; Defects = s.Defects; ChangedPaths = changed
+                {| Step = s.Step; Sha = s.Sha; Original = s.Original; Defects = s.Defects; ChangedPaths = changed; Release = release
                    UnmappedChangedPaths = unmapped; Decisions = decisions; Runs = runs
                    CheckoutSeconds = checkout.Seconds; PlanSeconds = plan.Seconds; RecordSeconds = List.sum records
                    StrategySeconds = strategySeconds; Battery = attempts |}
@@ -381,9 +405,20 @@ let summarize () =
                     let stepNo (s: JsonElement) = s.GetProperty("Step").GetInt32()
                     let failed (s: JsonElement) = runsOf s |> List.exists (fun r -> not (r.GetProperty("Passed").GetBoolean()))
                     let ordered = ss |> List.map snd |> List.sortBy stepNo
+                    let first = ordered |> List.tryFind failed
+                    // Strategy seconds from the start of the introducing step to the end of the first step that reports it.
+                    let secondsToDetect =
+                        first
+                        |> Option.map (fun f ->
+                            steps
+                            |> List.filter (fun s -> stepNo s >= stepNo ordered.Head && stepNo s <= stepNo f)
+                            |> List.sumBy (fun s -> s.GetProperty("StrategySeconds").GetDouble()))
                     {| Defect = d; Steps = ordered |> List.map stepNo
                        StepsWithFailureReported = ordered |> List.filter failed |> List.map stepNo
-                       DetectedAtIntroduction = failed ordered.Head |})
+                       DetectedAtIntroduction = failed ordered.Head
+                       FirstDetectedStep = first |> Option.map stepNo |> Option.toNullable
+                       SecondsToDetect = secondsToDetect |> Option.toNullable
+                       Escaped = first.IsNone |})
             {| Label = label
                Steps = steps.Length
                ProjectRuns = runs.Length
@@ -409,6 +444,13 @@ let summarize () =
                PositiveControlsReused = controls |> List.filter (fun b -> b.GetProperty("Reused").GetBoolean()) |> List.length
                DefectSteps = defectSteps.Length
                DefectStepsWithFailureReported = detected.Length
+               DefectStepsMasked = defectSteps.Length - detected.Length
+               ReleaseSteps =
+                steps
+                |> List.filter (fun s -> match s.TryGetProperty "Release" with | true, v -> v.GetBoolean() | _ -> false)
+                |> List.map (fun s -> {| Step = s.GetProperty("Step").GetInt32(); ProjectRuns = (runsOf s).Length
+                                         Tests = runsOf s |> List.sumBy (fun r -> r.GetProperty("Total").GetInt32())
+                                         Seconds = s.GetProperty("StrategySeconds").GetDouble() |})
                Defects = byDefect |})
     let summary =
         {| Contract = "dokimos.experiment.incremental-verification"

@@ -8,7 +8,7 @@ must run. It extends the existing completion-verification evidence contract
 is not a second evidence system.
 
 ```text
-dokimos evidence plan --request request.json [--root CHECKOUT] [--store DIR]
+dokimos evidence plan --request request.json [--root CHECKOUT] [--store DIR] [--checkpoint incremental|release]
 dokimos evidence record --store DIR --plan plan.json --test ID --outcome passed|failed|unavailable --evidence-id ID
 dokimos evidence record --store DIR --record provenance.json
 ```
@@ -120,6 +120,7 @@ following applies. Every reason is reported (`REUSE.*` codes, sorted):
 | `PATH_AFFECTED` | a changed path matches the mapping (or a global input) |
 | `UNMAPPED_CHANGE` | a changed path is covered by no mapping, no global input and no ignored pattern: every test runs |
 | `MAPPING_INCOMPLETE` | informational: source identity changed but no changed path matched the mapping |
+| `FINAL_VERIFICATION_REQUIRED` | the plan is made at the `release` checkpoint: every test runs |
 
 Affected-test selection is conservative: `ChangedPaths` can only add tests to
 the run set. Identity comparison alone already refuses reuse when an input
@@ -141,6 +142,46 @@ means `functional`). Only functional evidence is ever carried forward:
 
 Both refusals hold even with a valid passing record at the identical identity
 and revision.
+
+## Mandatory final verification (Echelon development speed optimization, Priority Four)
+
+Incremental reuse speeds up development; it must never replace the full run
+of the release candidate. The request may declare a delivery `Checkpoint`
+(optional, absent means `incremental`):
+
+| Checkpoint | Effect |
+| --- | --- |
+| `incremental` | reuse wherever every other rule allows it (the behavior of Dokimos 0.8.0) |
+| `release` | final verification: every test runs, whatever evidence exists, with `REUSE.FINAL_VERIFICATION_REQUIRED`; the plan's `Summary.Reuse` is 0 |
+
+`dokimos evidence plan --checkpoint release` raises the checkpoint for a
+release workflow without editing the request. The command line can never
+lower it: a request that declares `release` stays a full run under
+`--checkpoint incremental`. An unknown value is refused (exit 2 on the
+command line, exit 3 in the request). The plan states its `Checkpoint`, so
+the acceptor can see that a release plan carried nothing. Runs scheduled at
+release are recorded with `dokimos evidence record` like any other run, so the
+release run's own evidence (passing or failing) is in the store afterwards.
+
+### Priority Four coverage
+
+What the verification identity contains, and which rule refuses reuse when
+it changes (each refusal has a negative test in
+`tests/Dokimos.Core.Tests/EvidenceReuseTests.fs`,
+`EvidencePublicationTests.fs` or `tests/Dokimos.Cli.Tests/EvidencePlanCliTests.fs`):
+
+| Required | Where | Refusal |
+| --- | --- | --- |
+| source SHA | `ProducedAtRevision` (immutable 40/64-hex) plus the `sha256:` of every mapped file's committed bytes in `Sources` | `INPUT_CHANGED` (`:source:`), `PATH_AFFECTED`, `UNMAPPED_CHANGE` |
+| dependency versions | `Dependencies`; lock files as `GlobalInputs` | `INPUT_CHANGED` (`:dependency:`) |
+| build configuration | `Configuration` (for example `Configuration=Release`) | `INPUT_CHANGED` (`:configuration:`) |
+| test identity | `TestId` keys every record (store path, plan grouping; a record filed under another test is refused) | no record for the test: `NO_PRIOR_EVIDENCE` |
+| test contract version | `TestContract` (`sha256:` of the contract file) | `INPUT_CHANGED` (`test-contract`) |
+| runtime environment | `Configuration` (`runtime.os`, `runtime.framework`), `ToolVersion` | `INPUT_CHANGED` |
+| security-relevant configuration | `Configuration` entries the host declares; security tests by `Category` | `INPUT_CHANGED`; `SECURITY_NEVER_REUSED` |
+| live verification requires freshness | `Freshness: live` | `LIVE_NEVER_REUSED` |
+| independent acceptance requires new evidence | `Category: independent-acceptance` | `ACCEPTANCE_NEVER_REUSED` |
+| final (release) verification | `Checkpoint: release` | `FINAL_VERIFICATION_REQUIRED` |
 
 ## Publishing passing and failing evidence (EII Workstream G)
 
@@ -377,3 +418,8 @@ dotnet fsi replay.fsx summarize --work WORK --out results.json
   `functional` would be reusable; the declaration is visible in the request.
 - The completion verifier does not yet see `Category`: refusing carried
   security or acceptance evidence there needs an additive `Provenance` member.
+- The release checkpoint is declared by the host (in the request or with
+  `--checkpoint release`). Dokimos cannot tell that a run is a release run;
+  the release workflow must declare it. The completion verifier does not see
+  the checkpoint either. Reuse stays opt-in: nothing in Dokimos plans or
+  reuses evidence unless a host calls `dokimos evidence plan`.

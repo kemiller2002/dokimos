@@ -121,6 +121,7 @@ module EvidenceReuse =
 
     type Plan =
         { Revision: string
+          Checkpoint: EvidenceCheckpoint.Checkpoint
           ChangedPaths: string list option
           UnmappedChangedPaths: string list
           Tests: TestDecision list }
@@ -387,6 +388,7 @@ module EvidenceReuse =
                   CurrentInputs = currentInputs
                   PathAffected = affectedBy |> Option.map (List.isEmpty >> not) })
         { Revision = revision
+          Checkpoint = EvidenceCheckpoint.Incremental
           ChangedPaths = changedPaths |> Option.map (List.distinct >> List.sort)
           UnmappedChangedPaths = unmapped
           Tests = decisions }
