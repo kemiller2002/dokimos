@@ -903,10 +903,10 @@
       "description": null,
       "tags": [],
       "priority": "medium",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-10-28T12:29:08.181Z",
-      "updatedAt": "2026-10-28T12:29:18Z",
+      "updatedAt": "2026-10-28T12:30:50Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
