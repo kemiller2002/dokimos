@@ -12,7 +12,11 @@ mkdir -p "$out"
 store="${RUNNER_TEMP:-/tmp}/dokimos-evidence-store"
 branch="${DOKIMOS_EVIDENCE_BRANCH:-dokimos-evidence}"
 repo="${GITHUB_REPOSITORY:?}"
-sha="${GITHUB_SHA:?}"
+# The commit the evidence identifies. On pull_request runs GITHUB_SHA is
+# GitHub's test merge commit; a caller that binds evidence to the candidate
+# head (Praxis unattended merges, docs/operations/INTEGRATION.md) passes it
+# as the `revision` input.
+sha="${DOKIMOS_REVISION:-${GITHUB_SHA:?}}"
 ref="${GITHUB_REF_NAME:-}"
 
 dok() { $DOKIMOS "$@"; }  # DOKIMOS may be "dotnet path/Dokimos.Cli.dll": split on purpose
@@ -42,6 +46,11 @@ stage_failed() {
   # Invalid invocation stays 2; everything else is unavailable evidence.
   if [ "$code" = "2" ]; then finish 2 "${stage}-invalid"; else finish 3 "${stage}-unavailable"; fi
 }
+
+if ! [[ "$sha" =~ ^[0-9a-f]{40}$ ]]; then
+  echo "::error title=Dokimos::revision must be a full 40-character lowercase commit SHA (got '${sha}')"
+  finish 2 revision-invalid
+fi
 
 dok version > "$out/version.json" 2> "$out/version.stderr.json" || stage_failed version $?
 

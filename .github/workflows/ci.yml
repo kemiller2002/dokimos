@@ -56,6 +56,8 @@ jobs:
         env:
           DOKIMOS_VERSION: "0.3.0"
         run: tests/actions/install-with-source-mapping.sh
+      - name: Quality-gate revision binding
+        run: tests/actions/gate-revision.sh
 
   build-test-gate:
     needs: debounce
