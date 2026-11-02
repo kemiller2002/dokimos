@@ -1,0 +1,54 @@
+{
+  "probes": [
+    {
+      "detail": null,
+      "id": "P-B2-STALE",
+      "obligations": [
+        "EVD-003-O2"
+      ],
+      "outcome": "detected"
+    },
+    {
+      "detail": null,
+      "id": "P-B2-LEAK-DIAG",
+      "obligations": [
+        "EVD-005-O1"
+      ],
+      "outcome": "detected"
+    },
+    {
+      "detail": null,
+      "id": "P-B2-UNAUTH",
+      "obligations": [
+        "EVD-002-O2"
+      ],
+      "outcome": "detected"
+    },
+    {
+      "detail": null,
+      "id": "P-B2-TRUNCATE",
+      "obligations": [
+        "EVD-004-O1"
+      ],
+      "outcome": "detected"
+    },
+    {
+      "detail": null,
+      "id": "P-B2-TOKEN-URL",
+      "obligations": [
+        "EVD-002-O3"
+      ],
+      "outcome": "detected"
+    },
+    {
+      "detail": null,
+      "id": "P-B2-ATTRIBUTION",
+      "obligations": [
+        "EVD-001-O1"
+      ],
+      "outcome": "detected"
+    }
+  ],
+  "schema": "dokimos.fault-probe-results/1",
+  "sourceSha": "b63bb3c6e80aedc8aab70a7bc22532e5fb798751"
+}

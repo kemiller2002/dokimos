@@ -1,0 +1,14 @@
+{
+  "probes": [
+    {
+      "detail": null,
+      "id": "CAL-B2-NEUTRAL",
+      "obligations": [
+        "EVD-005-O1"
+      ],
+      "outcome": "survived"
+    }
+  ],
+  "schema": "dokimos.fault-probe-results/1",
+  "sourceSha": "b63bb3c6e80aedc8aab70a7bc22532e5fb798751"
+}

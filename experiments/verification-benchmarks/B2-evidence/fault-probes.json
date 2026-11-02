@@ -1,0 +1,143 @@
+{
+  "schema": "dokimos.fault-probes/1",
+  "probes": [
+    {
+      "id": "P-B2-STALE",
+      "description": "Load returns stored data without verifying its hash (stale/tampered data accepted)",
+      "obligations": [
+        "EVD-003-O2"
+      ],
+      "file": "src/Evidence/Evidence.fs",
+      "find": "if not (String.Equals(Internal.sha256Hex content, meta.Sha256, StringComparison.Ordinal)) then",
+      "replace": "if false then",
+      "command": [
+        "/root/.dotnet/dotnet",
+        "test",
+        "tests/Evidence.Tests",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~Evidence.Tests.EVD003Tests"
+      ],
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "tests/Evidence.Tests"
+      ]
+    },
+    {
+      "id": "P-B2-LEAK-DIAG",
+      "description": "diagnostic lines carry the credential (redaction bypassed)",
+      "obligations": [
+        "EVD-005-O1"
+      ],
+      "file": "src/Evidence/Evidence.fs",
+      "find": "lines <- Internal.redact client.Secret line :: lines",
+      "replace": "lines <- (line + \" auth=\" + client.Secret) :: lines",
+      "command": [
+        "/root/.dotnet/dotnet",
+        "test",
+        "tests/Evidence.Tests",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~Evidence.Tests.EVD005Tests"
+      ],
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "tests/Evidence.Tests"
+      ]
+    },
+    {
+      "id": "P-B2-UNAUTH",
+      "description": "401/403 misreported as not found",
+      "obligations": [
+        "EVD-002-O2"
+      ],
+      "file": "src/Evidence/Evidence.fs",
+      "find": "| 401 | 403 -> ProviderUnauthorized",
+      "replace": "| 401 | 403 -> ProviderNotFound id",
+      "command": [
+        "/root/.dotnet/dotnet",
+        "test",
+        "tests/Evidence.Tests",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~Evidence.Tests.EVD002Tests"
+      ],
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "tests/Evidence.Tests"
+      ]
+    },
+    {
+      "id": "P-B2-TRUNCATE",
+      "description": "large read-back truncated to the first MiB",
+      "obligations": [
+        "EVD-004-O1"
+      ],
+      "file": "src/Evidence/Evidence.fs",
+      "find": "return Ok body",
+      "replace": "return Ok (Array.truncate (1024 * 1024) body)",
+      "command": [
+        "/root/.dotnet/dotnet",
+        "test",
+        "tests/Evidence.Tests",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~Evidence.Tests.EVD004Tests"
+      ],
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "tests/Evidence.Tests"
+      ]
+    },
+    {
+      "id": "P-B2-TOKEN-URL",
+      "description": "credential sent in the query string as well",
+      "obligations": [
+        "EVD-002-O3"
+      ],
+      "file": "src/Evidence/Evidence.fs",
+      "find": "Uri(baseUrl.TrimEnd('/') + \"/evidence/\" + Uri.EscapeDataString id)",
+      "replace": "Uri(baseUrl.TrimEnd('/') + \"/evidence/\" + Uri.EscapeDataString id + \"?access_token=\" + token)",
+      "command": [
+        "/root/.dotnet/dotnet",
+        "test",
+        "tests/Evidence.Tests",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~Evidence.Tests.EVD002Tests"
+      ],
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "tests/Evidence.Tests"
+      ]
+    },
+    {
+      "id": "P-B2-ATTRIBUTION",
+      "description": "a record without Source is accepted",
+      "obligations": [
+        "EVD-001-O1"
+      ],
+      "file": "src/Evidence/Evidence.fs",
+      "find": "if Internal.isBlank source then Error(MissingAttribution \"Source\")",
+      "replace": "if false then Error(MissingAttribution \"Source\")",
+      "command": [
+        "/root/.dotnet/dotnet",
+        "test",
+        "tests/Evidence.Tests",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~Evidence.Tests.EVD001Tests"
+      ],
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "tests/Evidence.Tests"
+      ]
+    }
+  ]
+}

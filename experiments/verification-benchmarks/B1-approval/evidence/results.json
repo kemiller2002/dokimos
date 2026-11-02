@@ -1,0 +1,1 @@
+{"schema":"dokimos.verification-results/1","candidate":"b63bb3c6e80aedc8aab70a7bc22532e5fb798751","runs":[{"suite":"SU-UNIT","format":"trx","path":"r.trx","sourceSha":"b63bb3c6e80aedc8aab70a7bc22532e5fb798751"},{"suite":"SU-BROWSER","format":"playwright-json","path":"playwright.json","sourceSha":"b63bb3c6e80aedc8aab70a7bc22532e5fb798751"}]}

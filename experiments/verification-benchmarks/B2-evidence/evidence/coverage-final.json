@@ -1,0 +1,176 @@
+{
+  "bySuite": [
+    {
+      "identities": 4,
+      "status": {
+        "passed": 4
+      },
+      "suite": "SU-UNIT"
+    },
+    {
+      "identities": 5,
+      "status": {
+        "passed": 5
+      },
+      "suite": "SU-PROVIDER"
+    }
+  ],
+  "candidate": "b63bb3c6e80aedc8aab70a7bc22532e5fb798751",
+  "causes": [],
+  "obligations": [
+    {
+      "id": "EVD-001-O1",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O1",
+          "location": "tests/Evidence.Tests/EVD001Tests.fs:26",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "EVD-001",
+      "status": "verified"
+    },
+    {
+      "id": "EVD-001-O2",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O2",
+          "location": "tests/Evidence.Tests/EVD001Tests.fs:35",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "passing (fault sensitivity not demonstrated)",
+      "reasons": [],
+      "requirement": "EVD-001",
+      "status": "verified"
+    },
+    {
+      "id": "EVD-002-O1",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O1",
+          "location": "tests/Evidence.Tests/EVD002Tests.fs:82",
+          "status": "passed",
+          "suite": "SU-PROVIDER"
+        }
+      ],
+      "quality": "passing (fault sensitivity not demonstrated)",
+      "reasons": [],
+      "requirement": "EVD-002",
+      "status": "verified"
+    },
+    {
+      "id": "EVD-002-O2",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O2",
+          "location": "tests/Evidence.Tests/EVD002Tests.fs:108",
+          "status": "passed",
+          "suite": "SU-PROVIDER"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "EVD-002",
+      "status": "verified"
+    },
+    {
+      "id": "EVD-002-O3",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O3",
+          "location": "tests/Evidence.Tests/EVD002Tests.fs:140",
+          "status": "passed",
+          "suite": "SU-PROVIDER"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "EVD-002",
+      "status": "verified"
+    },
+    {
+      "id": "EVD-003-O1",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O1",
+          "location": "tests/Evidence.Tests/EVD003Tests.fs:31",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "passing (fault sensitivity not demonstrated)",
+      "reasons": [],
+      "requirement": "EVD-003",
+      "status": "verified"
+    },
+    {
+      "id": "EVD-003-O2",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O2",
+          "location": "tests/Evidence.Tests/EVD003Tests.fs:57",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "EVD-003",
+      "status": "verified"
+    },
+    {
+      "id": "EVD-004-O1",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD004Tests.EVD-004-O1",
+          "location": "tests/Evidence.Tests/EVD004Tests.fs:82",
+          "status": "passed",
+          "suite": "SU-PROVIDER"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "EVD-004",
+      "status": "verified"
+    },
+    {
+      "id": "EVD-005-O1",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD005Tests.EVD-005-O1",
+          "location": "tests/Evidence.Tests/EVD005Tests.fs:107",
+          "status": "passed",
+          "suite": "SU-PROVIDER"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "EVD-005",
+      "status": "verified"
+    }
+  ],
+  "planDigest": "",
+  "planId": "VP-B2-EVIDENCE",
+  "rejectedRuns": [],
+  "schema": "dokimos.verification-coverage/1",
+  "scope": [],
+  "summary": {
+    "faultSensitive": 6,
+    "identityStatus": {
+      "passed": 9
+    },
+    "obligationStatus": {
+      "verified": 9
+    },
+    "obligations": 9,
+    "requirements": 5,
+    "requirementsVerified": 5,
+    "unplannedResults": 0
+  },
+  "verified": true
+}

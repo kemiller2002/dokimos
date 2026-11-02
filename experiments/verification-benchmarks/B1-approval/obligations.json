@@ -1,0 +1,254 @@
+{
+  "schema": "dokimos.verification-obligations/1",
+  "planId": "VP-B1-APPROVAL",
+  "planDigest": "",
+  "namespaceRoots": [
+    {
+      "namespace": "Approval.Tests",
+      "directory": "tests/Approval.Tests"
+    }
+  ],
+  "suites": [
+    {
+      "id": "SU-UNIT",
+      "runner": "dotnet-test",
+      "command": "dotnet test tests/Approval.Tests",
+      "paths": [
+        "tests/Approval.Tests"
+      ],
+      "fixture": "temporary directory store; in-process web app on a free port"
+    },
+    {
+      "id": "SU-BROWSER",
+      "runner": "playwright",
+      "command": "npx playwright test --project=chromium tests/browser/acceptance",
+      "paths": [
+        "tests/browser/acceptance"
+      ],
+      "testRoot": "tests/browser",
+      "fixture": "the real server process on a free port",
+      "requiredBoundary": [
+        "page"
+      ]
+    }
+  ],
+  "obligations": [
+    {
+      "id": "APR-001-O1",
+      "requirement": "APR-001",
+      "priority": "P0",
+      "criterion": "each of the four legal transitions reaches exactly the next state in the table, and increments the version by one.",
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "APR-001-O2",
+      "requirement": "APR-001",
+      "priority": "P0",
+      "criterion": "every other (state, command) pair fails closed with `InvalidTransition(state, command)`. The request, including its state, version and note, is unchanged.",
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "APR-002-O1",
+      "requirement": "APR-002",
+      "priority": "P0",
+      "criterion": "a request that is saved and then loaded is equal to the request that was saved: id, title, state, version and note.",
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "APR-002-O2",
+      "requirement": "APR-002",
+      "priority": "P0",
+      "criterion": "when the read-back differs from the written bytes, `save` returns `Error ReadBackMismatch` and never `Ok`.",
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "APR-003-O1",
+      "requirement": "APR-003",
+      "priority": "P0",
+      "criterion": "saving with an expected version that differs from the stored version returns `Error(Conflict(expected, actual))`.",
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "APR-003-O2",
+      "requirement": "APR-003",
+      "priority": "P0",
+      "criterion": "after a conflict, the stored request is byte-for-byte unchanged.",
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "APR-004-O1",
+      "requirement": "APR-004",
+      "priority": "P0",
+      "criterion": "after `Approve note` or `Reject note`, save and load, the loaded request carries that exact note (including non-ASCII text).",
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "APR-005-O1",
+      "requirement": "APR-005",
+      "priority": "P0",
+      "criterion": "in a real browser, create a request, submit it and approve it with a note. After a full page reload, the page shows state `Approved` and the note.",
+      "categories": [
+        "browser",
+        "integration"
+      ]
+    },
+    {
+      "id": "APR-005-O2",
+      "requirement": "APR-005",
+      "priority": "P0",
+      "criterion": "the page offers only the commands that are legal in the request's current state. In `Draft` there is no Approve button; in `Approved` there is no command button at all.",
+      "categories": [
+        "browser",
+        "integration"
+      ]
+    },
+    {
+      "id": "APR-005-O3",
+      "requirement": "APR-005",
+      "priority": "P0",
+      "criterion": "two tabs open the same request, and the first tab submits it. When the second tab then submits, the page reports a conflict, and after reload the request is still exactly once `Submitted` at version 1.",
+      "categories": [
+        "browser",
+        "integration"
+      ]
+    },
+    {
+      "id": "APR-006-O1",
+      "requirement": "APR-006",
+      "priority": "P0",
+      "criterion": "the token's value never appears in any HTTP response body, response header or stored request file, including error pages.",
+      "categories": [
+        "security"
+      ]
+    }
+  ],
+  "tests": [
+    {
+      "id": "dotnet:Approval.Tests.APR001Tests.APR-001-O1",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "APR-001-O1"
+      ],
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "dotnet:Approval.Tests.APR001Tests.APR-001-O2",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "APR-001-O2"
+      ],
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "dotnet:Approval.Tests.APR002Tests.APR-002-O1",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "APR-002-O1"
+      ],
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "dotnet:Approval.Tests.APR002Tests.APR-002-O2",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "APR-002-O2"
+      ],
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "dotnet:Approval.Tests.APR003Tests.APR-003-O1",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "APR-003-O1"
+      ],
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "dotnet:Approval.Tests.APR003Tests.APR-003-O2",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "APR-003-O2"
+      ],
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "dotnet:Approval.Tests.APR004Tests.APR-004-O1",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "APR-004-O1"
+      ],
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "playwright:acceptance/APR-005.spec.js > APR-005-O1 [chromium]",
+      "suite": "SU-BROWSER",
+      "obligations": [
+        "APR-005-O1"
+      ],
+      "categories": [
+        "browser",
+        "integration"
+      ]
+    },
+    {
+      "id": "playwright:acceptance/APR-005.spec.js > APR-005-O2 [chromium]",
+      "suite": "SU-BROWSER",
+      "obligations": [
+        "APR-005-O2"
+      ],
+      "categories": [
+        "browser",
+        "integration"
+      ]
+    },
+    {
+      "id": "playwright:acceptance/APR-005.spec.js > APR-005-O3 [chromium]",
+      "suite": "SU-BROWSER",
+      "obligations": [
+        "APR-005-O3"
+      ],
+      "categories": [
+        "browser",
+        "integration"
+      ]
+    },
+    {
+      "id": "dotnet:Approval.Tests.APR006Tests.APR-006-O1",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "APR-006-O1"
+      ],
+      "categories": [
+        "security"
+      ]
+    }
+  ]
+}

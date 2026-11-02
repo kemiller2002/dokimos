@@ -1,0 +1,147 @@
+{
+  "schema": "dokimos.fault-probes/1",
+  "probes": [
+    {
+      "id": "P-B1-BODY",
+      "description": "the decision note (command body) is dropped when saving",
+      "obligations": [
+        "APR-004-O1"
+      ],
+      "file": "src/Approval/FileStore.fs",
+      "find": "Note = r.Note }",
+      "replace": "Note = \"\" }",
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "tests/Approval.Tests"
+      ],
+      "command": [
+        "/root/.dotnet/dotnet",
+        "test",
+        "tests/Approval.Tests",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~Approval.Tests.APR004Tests"
+      ]
+    },
+    {
+      "id": "P-B1-READBACK",
+      "description": "save reports success without comparing the read-back",
+      "obligations": [
+        "APR-002-O2"
+      ],
+      "file": "src/Approval/FileStore.fs",
+      "find": "if not (isNull seen) && seen = written then",
+      "replace": "if true then",
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "tests/Approval.Tests"
+      ],
+      "command": [
+        "/root/.dotnet/dotnet",
+        "test",
+        "tests/Approval.Tests",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~Approval.Tests.APR002Tests"
+      ]
+    },
+    {
+      "id": "P-B1-ILLEGAL",
+      "description": "an illegal transition (Approve from Draft) is accepted",
+      "obligations": [
+        "APR-001-O2"
+      ],
+      "file": "src/Approval/Domain.fs",
+      "find": "| Submitted, Approve note -> Ok(advance Approved note request)",
+      "replace": "| Draft, Approve note\n        | Submitted, Approve note -> Ok(advance Approved note request)",
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "tests/Approval.Tests"
+      ],
+      "command": [
+        "/root/.dotnet/dotnet",
+        "test",
+        "tests/Approval.Tests",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~Approval.Tests.APR001Tests"
+      ]
+    },
+    {
+      "id": "P-B1-STALE",
+      "description": "a stale expected version overwrites the stored request",
+      "obligations": [
+        "APR-003-O1",
+        "APR-003-O2"
+      ],
+      "file": "src/Approval/FileStore.fs",
+      "find": "if actual <> expectedVersion then",
+      "replace": "if false then",
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "tests/Approval.Tests"
+      ],
+      "command": [
+        "/root/.dotnet/dotnet",
+        "test",
+        "tests/Approval.Tests",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~Approval.Tests.APR003Tests"
+      ]
+    },
+    {
+      "id": "P-B1-LEAK",
+      "description": "the credential is exposed in a diagnostic response header",
+      "obligations": [
+        "APR-006-O1"
+      ],
+      "file": "src/Approval/Web.fs",
+      "find": "let _configuredToken = token",
+      "replace": "app.Use(Func<HttpContext, RequestDelegate, Task>(fun ctx next -> ctx.Response.Headers[\"X-Diagnostic\"] <- Microsoft.Extensions.Primitives.StringValues(\"auth=\" + token); next.Invoke(ctx))) |> ignore",
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "tests/Approval.Tests"
+      ],
+      "command": [
+        "/root/.dotnet/dotnet",
+        "test",
+        "tests/Approval.Tests",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~Approval.Tests.APR006Tests"
+      ]
+    },
+    {
+      "id": "P-B1-UI",
+      "description": "the page offers every command, legal or not",
+      "obligations": [
+        "APR-005-O2"
+      ],
+      "file": "src/Approval/Web.fs",
+      "find": "|> List.filter (fun (_, cmd) -> Domain.decide cmd request |> Result.isOk)",
+      "replace": "|> List.filter (fun _ -> true)",
+      "build": [
+        "/root/.dotnet/dotnet",
+        "build",
+        "src/Approval"
+      ],
+      "command": [
+        "env",
+        "PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers",
+        "npx",
+        "playwright",
+        "test",
+        "--project=chromium",
+        "tests/browser/acceptance",
+        "--grep",
+        "APR-005-O2"
+      ]
+    }
+  ]
+}
