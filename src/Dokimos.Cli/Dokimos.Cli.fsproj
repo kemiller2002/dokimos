@@ -18,6 +18,7 @@
     <Compile Include="Arguments.fs" />
     <Compile Include="RatchetCommand.fs" />
     <Compile Include="IdentityCommand.fs" />
+    <Compile Include="VerificationCommand.fs" />
     <Compile Include="CliInputs.fs" />
     <Compile Include="EcirCommand.fs" />
     <Compile Include="ConstructionGit.fs" />
