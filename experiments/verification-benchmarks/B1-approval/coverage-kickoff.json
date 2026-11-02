@@ -1,0 +1,237 @@
+{
+  "bySuite": [
+    {
+      "identities": 8,
+      "status": {
+        "invalid": 8
+      },
+      "suite": "SU-UNIT"
+    },
+    {
+      "identities": 3,
+      "status": {
+        "invalid": 3
+      },
+      "suite": "SU-BROWSER"
+    }
+  ],
+  "candidate": "unknown",
+  "causes": [
+    {
+      "cause": "SU-UNIT: invalid: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)",
+      "obligations": 8
+    },
+    {
+      "cause": "SU-BROWSER: invalid: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)",
+      "obligations": 3
+    }
+  ],
+  "obligations": [
+    {
+      "id": "APR-001-O1",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR001Tests.APR-001-O1",
+          "location": "tests/Approval.Tests/APR001Tests.fs:10",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Approval.Tests.APR001Tests.APR-001-O1: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "APR-001",
+      "status": "invalid"
+    },
+    {
+      "id": "APR-001-O2",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR001Tests.APR-001-O2",
+          "location": "tests/Approval.Tests/APR001Tests.fs:15",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Approval.Tests.APR001Tests.APR-001-O2: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "APR-001",
+      "status": "invalid"
+    },
+    {
+      "id": "APR-002-O1",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR002Tests.APR-002-O1",
+          "location": "tests/Approval.Tests/APR002Tests.fs:10",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Approval.Tests.APR002Tests.APR-002-O1: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "APR-002",
+      "status": "invalid"
+    },
+    {
+      "id": "APR-002-O2",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR002Tests.APR-002-O2",
+          "location": "tests/Approval.Tests/APR002Tests.fs:15",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Approval.Tests.APR002Tests.APR-002-O2: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "APR-002",
+      "status": "invalid"
+    },
+    {
+      "id": "APR-003-O1",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR003Tests.APR-003-O1",
+          "location": "tests/Approval.Tests/APR003Tests.fs:10",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Approval.Tests.APR003Tests.APR-003-O1: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "APR-003",
+      "status": "invalid"
+    },
+    {
+      "id": "APR-003-O2",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR003Tests.APR-003-O2",
+          "location": "tests/Approval.Tests/APR003Tests.fs:15",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Approval.Tests.APR003Tests.APR-003-O2: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "APR-003",
+      "status": "invalid"
+    },
+    {
+      "id": "APR-004-O1",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR004Tests.APR-004-O1",
+          "location": "tests/Approval.Tests/APR004Tests.fs:10",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Approval.Tests.APR004Tests.APR-004-O1: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "APR-004",
+      "status": "invalid"
+    },
+    {
+      "id": "APR-005-O1",
+      "identities": [
+        {
+          "id": "playwright:acceptance/APR-005.spec.js > APR-005-O1 [chromium]",
+          "location": "acceptance/APR-005.spec.js:5",
+          "status": "invalid",
+          "suite": "SU-BROWSER"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "playwright:acceptance/APR-005.spec.js > APR-005-O1 [chromium]: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "APR-005",
+      "status": "invalid"
+    },
+    {
+      "id": "APR-005-O2",
+      "identities": [
+        {
+          "id": "playwright:acceptance/APR-005.spec.js > APR-005-O2 [chromium]",
+          "location": "acceptance/APR-005.spec.js:10",
+          "status": "invalid",
+          "suite": "SU-BROWSER"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "playwright:acceptance/APR-005.spec.js > APR-005-O2 [chromium]: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "APR-005",
+      "status": "invalid"
+    },
+    {
+      "id": "APR-005-O3",
+      "identities": [
+        {
+          "id": "playwright:acceptance/APR-005.spec.js > APR-005-O3 [chromium]",
+          "location": "acceptance/APR-005.spec.js:15",
+          "status": "invalid",
+          "suite": "SU-BROWSER"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "playwright:acceptance/APR-005.spec.js > APR-005-O3 [chromium]: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "APR-005",
+      "status": "invalid"
+    },
+    {
+      "id": "APR-006-O1",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR006Tests.APR-006-O1",
+          "location": "tests/Approval.Tests/APR006Tests.fs:10",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Approval.Tests.APR006Tests.APR-006-O1: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "APR-006",
+      "status": "invalid"
+    }
+  ],
+  "planDigest": "",
+  "planId": "VP-B1-APPROVAL",
+  "rejectedRuns": [],
+  "schema": "dokimos.verification-coverage/1",
+  "scope": [],
+  "summary": {
+    "faultSensitive": 0,
+    "identityStatus": {
+      "invalid": 11
+    },
+    "obligationStatus": {
+      "invalid": 11
+    },
+    "obligations": 11,
+    "requirements": 6,
+    "requirementsVerified": 0,
+    "unplannedResults": 0
+  },
+  "verified": false
+}

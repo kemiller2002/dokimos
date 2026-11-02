@@ -1,0 +1,212 @@
+{
+  "bySuite": [
+    {
+      "identities": 4,
+      "status": {
+        "invalid": 4
+      },
+      "suite": "SU-UNIT"
+    },
+    {
+      "identities": 5,
+      "status": {
+        "invalid": 5
+      },
+      "suite": "SU-PROVIDER"
+    }
+  ],
+  "candidate": "unknown",
+  "causes": [
+    {
+      "cause": "SU-PROVIDER: invalid: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)",
+      "obligations": 5
+    },
+    {
+      "cause": "SU-PROVIDER: invalid: does not reach the suite boundary (HttpListener, WebApplication, ProviderClient, Collector, Fetch, Collect)",
+      "obligations": 5
+    },
+    {
+      "cause": "SU-UNIT: invalid: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)",
+      "obligations": 4
+    }
+  ],
+  "obligations": [
+    {
+      "id": "EVD-001-O1",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O1",
+          "location": "tests/Evidence.Tests/EVD001Tests.fs:10",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O1: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "EVD-001",
+      "status": "invalid"
+    },
+    {
+      "id": "EVD-001-O2",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O2",
+          "location": "tests/Evidence.Tests/EVD001Tests.fs:15",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O2: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "EVD-001",
+      "status": "invalid"
+    },
+    {
+      "id": "EVD-002-O1",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O1",
+          "location": "tests/Evidence.Tests/EVD002Tests.fs:10",
+          "status": "invalid",
+          "suite": "SU-PROVIDER"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O1: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)",
+        "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O1: does not reach the suite boundary (HttpListener, WebApplication, ProviderClient, Collector, Fetch, Collect): exercises only helpers or mocks"
+      ],
+      "requirement": "EVD-002",
+      "status": "invalid"
+    },
+    {
+      "id": "EVD-002-O2",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O2",
+          "location": "tests/Evidence.Tests/EVD002Tests.fs:15",
+          "status": "invalid",
+          "suite": "SU-PROVIDER"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O2: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)",
+        "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O2: does not reach the suite boundary (HttpListener, WebApplication, ProviderClient, Collector, Fetch, Collect): exercises only helpers or mocks"
+      ],
+      "requirement": "EVD-002",
+      "status": "invalid"
+    },
+    {
+      "id": "EVD-002-O3",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O3",
+          "location": "tests/Evidence.Tests/EVD002Tests.fs:20",
+          "status": "invalid",
+          "suite": "SU-PROVIDER"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O3: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)",
+        "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O3: does not reach the suite boundary (HttpListener, WebApplication, ProviderClient, Collector, Fetch, Collect): exercises only helpers or mocks"
+      ],
+      "requirement": "EVD-002",
+      "status": "invalid"
+    },
+    {
+      "id": "EVD-003-O1",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O1",
+          "location": "tests/Evidence.Tests/EVD003Tests.fs:10",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O1: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "EVD-003",
+      "status": "invalid"
+    },
+    {
+      "id": "EVD-003-O2",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O2",
+          "location": "tests/Evidence.Tests/EVD003Tests.fs:15",
+          "status": "invalid",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O2: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)"
+      ],
+      "requirement": "EVD-003",
+      "status": "invalid"
+    },
+    {
+      "id": "EVD-004-O1",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD004Tests.EVD-004-O1",
+          "location": "tests/Evidence.Tests/EVD004Tests.fs:10",
+          "status": "invalid",
+          "suite": "SU-PROVIDER"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Evidence.Tests.EVD004Tests.EVD-004-O1: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)",
+        "dotnet:Evidence.Tests.EVD004Tests.EVD-004-O1: does not reach the suite boundary (HttpListener, WebApplication, ProviderClient, Collector, Fetch, Collect): exercises only helpers or mocks"
+      ],
+      "requirement": "EVD-004",
+      "status": "invalid"
+    },
+    {
+      "id": "EVD-005-O1",
+      "identities": [
+        {
+          "id": "dotnet:Evidence.Tests.EVD005Tests.EVD-005-O1",
+          "location": "tests/Evidence.Tests/EVD005Tests.fs:10",
+          "status": "invalid",
+          "suite": "SU-PROVIDER"
+        }
+      ],
+      "quality": "none",
+      "reasons": [
+        "dotnet:Evidence.Tests.EVD005Tests.EVD-005-O1: placeholder body (DOKIMOS-UNIMPLEMENTED or not implemented)",
+        "dotnet:Evidence.Tests.EVD005Tests.EVD-005-O1: does not reach the suite boundary (HttpListener, WebApplication, ProviderClient, Collector, Fetch, Collect): exercises only helpers or mocks"
+      ],
+      "requirement": "EVD-005",
+      "status": "invalid"
+    }
+  ],
+  "planDigest": "",
+  "planId": "VP-B2-EVIDENCE",
+  "rejectedRuns": [],
+  "schema": "dokimos.verification-coverage/1",
+  "scope": [],
+  "summary": {
+    "faultSensitive": 0,
+    "identityStatus": {
+      "invalid": 9
+    },
+    "obligationStatus": {
+      "invalid": 9
+    },
+    "obligations": 9,
+    "requirements": 5,
+    "requirementsVerified": 0,
+    "unplannedResults": 0
+  },
+  "verified": false
+}

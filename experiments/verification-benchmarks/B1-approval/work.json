@@ -1,0 +1,193 @@
+{
+  "packages": [
+    {
+      "cost": 3,
+      "dependsOn": [],
+      "file": "tests/browser/acceptance/APR-005.spec.js",
+      "fixture": "the real server process on a free port",
+      "id": "WP-001",
+      "identities": [
+        "playwright:acceptance/APR-005.spec.js > APR-005-O1 [chromium]",
+        "playwright:acceptance/APR-005.spec.js > APR-005-O2 [chromium]",
+        "playwright:acceptance/APR-005.spec.js > APR-005-O3 [chromium]"
+      ],
+      "language": "javascript",
+      "obligations": [
+        {
+          "categories": [
+            "browser",
+            "integration"
+          ],
+          "criterion": "in a real browser, create a request, submit it and approve it with a note. After a full page reload, the page shows state `Approved` and the note.",
+          "id": "APR-005-O1",
+          "requirement": "APR-005"
+        },
+        {
+          "categories": [
+            "browser",
+            "integration"
+          ],
+          "criterion": "the page offers only the commands that are legal in the request's current state. In `Draft` there is no Approve button; in `Approved` there is no command button at all.",
+          "id": "APR-005-O2",
+          "requirement": "APR-005"
+        },
+        {
+          "categories": [
+            "browser",
+            "integration"
+          ],
+          "criterion": "two tabs open the same request, and the first tab submits it. When the second tab then submits, the page reports a conflict, and after reload the request is still exactly once `Submitted` at version 1.",
+          "id": "APR-005-O3",
+          "requirement": "APR-005"
+        }
+      ],
+      "rank": 1,
+      "suite": "SU-BROWSER"
+    },
+    {
+      "cost": 1,
+      "dependsOn": [],
+      "file": "tests/Approval.Tests/APR006Tests.fs",
+      "fixture": "temporary directory store; in-process web app on a free port",
+      "id": "WP-002",
+      "identities": [
+        "dotnet:Approval.Tests.APR006Tests.APR-006-O1"
+      ],
+      "language": "fsharp",
+      "obligations": [
+        {
+          "categories": [
+            "security"
+          ],
+          "criterion": "the token's value never appears in any HTTP response body, response header or stored request file, including error pages.",
+          "id": "APR-006-O1",
+          "requirement": "APR-006"
+        }
+      ],
+      "rank": 2,
+      "suite": "SU-UNIT"
+    },
+    {
+      "cost": 2,
+      "dependsOn": [],
+      "file": "tests/Approval.Tests/APR001Tests.fs",
+      "fixture": "temporary directory store; in-process web app on a free port",
+      "id": "WP-003",
+      "identities": [
+        "dotnet:Approval.Tests.APR001Tests.APR-001-O1",
+        "dotnet:Approval.Tests.APR001Tests.APR-001-O2"
+      ],
+      "language": "fsharp",
+      "obligations": [
+        {
+          "categories": [
+            "unit"
+          ],
+          "criterion": "each of the four legal transitions reaches exactly the next state in the table, and increments the version by one.",
+          "id": "APR-001-O1",
+          "requirement": "APR-001"
+        },
+        {
+          "categories": [
+            "unit"
+          ],
+          "criterion": "every other (state, command) pair fails closed with `InvalidTransition(state, command)`. The request, including its state, version and note, is unchanged.",
+          "id": "APR-001-O2",
+          "requirement": "APR-001"
+        }
+      ],
+      "rank": 3,
+      "suite": "SU-UNIT"
+    },
+    {
+      "cost": 2,
+      "dependsOn": [],
+      "file": "tests/Approval.Tests/APR002Tests.fs",
+      "fixture": "temporary directory store; in-process web app on a free port",
+      "id": "WP-004",
+      "identities": [
+        "dotnet:Approval.Tests.APR002Tests.APR-002-O1",
+        "dotnet:Approval.Tests.APR002Tests.APR-002-O2"
+      ],
+      "language": "fsharp",
+      "obligations": [
+        {
+          "categories": [
+            "unit"
+          ],
+          "criterion": "a request that is saved and then loaded is equal to the request that was saved: id, title, state, version and note.",
+          "id": "APR-002-O1",
+          "requirement": "APR-002"
+        },
+        {
+          "categories": [
+            "unit"
+          ],
+          "criterion": "when the read-back differs from the written bytes, `save` returns `Error ReadBackMismatch` and never `Ok`.",
+          "id": "APR-002-O2",
+          "requirement": "APR-002"
+        }
+      ],
+      "rank": 4,
+      "suite": "SU-UNIT"
+    },
+    {
+      "cost": 2,
+      "dependsOn": [],
+      "file": "tests/Approval.Tests/APR003Tests.fs",
+      "fixture": "temporary directory store; in-process web app on a free port",
+      "id": "WP-005",
+      "identities": [
+        "dotnet:Approval.Tests.APR003Tests.APR-003-O1",
+        "dotnet:Approval.Tests.APR003Tests.APR-003-O2"
+      ],
+      "language": "fsharp",
+      "obligations": [
+        {
+          "categories": [
+            "unit"
+          ],
+          "criterion": "saving with an expected version that differs from the stored version returns `Error(Conflict(expected, actual))`.",
+          "id": "APR-003-O1",
+          "requirement": "APR-003"
+        },
+        {
+          "categories": [
+            "unit"
+          ],
+          "criterion": "after a conflict, the stored request is byte-for-byte unchanged.",
+          "id": "APR-003-O2",
+          "requirement": "APR-003"
+        }
+      ],
+      "rank": 5,
+      "suite": "SU-UNIT"
+    },
+    {
+      "cost": 1,
+      "dependsOn": [],
+      "file": "tests/Approval.Tests/APR004Tests.fs",
+      "fixture": "temporary directory store; in-process web app on a free port",
+      "id": "WP-006",
+      "identities": [
+        "dotnet:Approval.Tests.APR004Tests.APR-004-O1"
+      ],
+      "language": "fsharp",
+      "obligations": [
+        {
+          "categories": [
+            "unit"
+          ],
+          "criterion": "after `Approve note` or `Reject note`, save and load, the loaded request carries that exact note (including non-ASCII text).",
+          "id": "APR-004-O1",
+          "requirement": "APR-004"
+        }
+      ],
+      "rank": 6,
+      "suite": "SU-UNIT"
+    }
+  ],
+  "planId": "VP-B1-APPROVAL",
+  "schema": "dokimos.verification-work/1",
+  "unmapped": []
+}

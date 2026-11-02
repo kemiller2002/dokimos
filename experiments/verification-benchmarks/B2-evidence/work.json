@@ -1,0 +1,162 @@
+{
+  "packages": [
+    {
+      "cost": 1,
+      "dependsOn": [],
+      "file": "tests/Evidence.Tests/EVD004Tests.fs",
+      "fixture": "a real HTTP provider on 127.0.0.1",
+      "id": "WP-001",
+      "identities": [
+        "dotnet:Evidence.Tests.EVD004Tests.EVD-004-O1"
+      ],
+      "language": "fsharp",
+      "obligations": [
+        {
+          "categories": [
+            "live-provider",
+            "integration"
+          ],
+          "criterion": "a record whose content is larger than 2 MiB, fetched from the provider over HTTP and then saved and loaded, loads back with every byte equal.",
+          "id": "EVD-004-O1",
+          "requirement": "EVD-004"
+        }
+      ],
+      "rank": 1,
+      "suite": "SU-PROVIDER"
+    },
+    {
+      "cost": 1,
+      "dependsOn": [],
+      "file": "tests/Evidence.Tests/EVD005Tests.fs",
+      "fixture": "a real HTTP provider on 127.0.0.1",
+      "id": "WP-002",
+      "identities": [
+        "dotnet:Evidence.Tests.EVD005Tests.EVD-005-O1"
+      ],
+      "language": "fsharp",
+      "obligations": [
+        {
+          "categories": [
+            "security"
+          ],
+          "criterion": "the token's value never appears in any `ProviderError`, any exception message, or any line written to the collector's diagnostic log (`Collector.Diagnostics`), including for 401 and network failures.",
+          "id": "EVD-005-O1",
+          "requirement": "EVD-005"
+        }
+      ],
+      "rank": 2,
+      "suite": "SU-PROVIDER"
+    },
+    {
+      "cost": 3,
+      "dependsOn": [],
+      "file": "tests/Evidence.Tests/EVD002Tests.fs",
+      "fixture": "a real HTTP provider on 127.0.0.1",
+      "id": "WP-003",
+      "identities": [
+        "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O1",
+        "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O2",
+        "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O3"
+      ],
+      "language": "fsharp",
+      "obligations": [
+        {
+          "categories": [
+            "live-provider",
+            "integration"
+          ],
+          "criterion": "a 200 answer returns `Ok` with exactly the response body bytes.",
+          "id": "EVD-002-O1",
+          "requirement": "EVD-002"
+        },
+        {
+          "categories": [
+            "live-provider",
+            "integration"
+          ],
+          "criterion": "404 maps to `Error(ProviderNotFound id)`, 401 or 403 to `Error ProviderUnauthorized`, and 429 to `Error ProviderRateLimited`. None of them ever returns `Ok`.",
+          "id": "EVD-002-O2",
+          "requirement": "EVD-002"
+        },
+        {
+          "categories": [
+            "live-provider",
+            "integration"
+          ],
+          "criterion": "every request carries the bearer token, and a request to the provider never carries it anywhere else (not in the URL or query).",
+          "id": "EVD-002-O3",
+          "requirement": "EVD-002"
+        }
+      ],
+      "rank": 3,
+      "suite": "SU-PROVIDER"
+    },
+    {
+      "cost": 2,
+      "dependsOn": [],
+      "file": "tests/Evidence.Tests/EVD001Tests.fs",
+      "fixture": "temporary directory store",
+      "id": "WP-004",
+      "identities": [
+        "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O1",
+        "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O2"
+      ],
+      "language": "fsharp",
+      "obligations": [
+        {
+          "categories": [
+            "unit"
+          ],
+          "criterion": "`Evidence.create` refuses a record whose `Source` or `CollectedBy` is empty or whitespace with `MissingAttribution field`, naming the missing field.",
+          "id": "EVD-001-O1",
+          "requirement": "EVD-001"
+        },
+        {
+          "categories": [
+            "unit"
+          ],
+          "criterion": "a record with both attribution fields is created, and its `Sha256` is the lowercase hex SHA-256 of its `Content`.",
+          "id": "EVD-001-O2",
+          "requirement": "EVD-001"
+        }
+      ],
+      "rank": 4,
+      "suite": "SU-UNIT"
+    },
+    {
+      "cost": 2,
+      "dependsOn": [],
+      "file": "tests/Evidence.Tests/EVD003Tests.fs",
+      "fixture": "temporary directory store",
+      "id": "WP-005",
+      "identities": [
+        "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O1",
+        "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O2"
+      ],
+      "language": "fsharp",
+      "obligations": [
+        {
+          "categories": [
+            "unit"
+          ],
+          "criterion": "a saved record loads back equal to the saved record.",
+          "id": "EVD-003-O1",
+          "requirement": "EVD-003"
+        },
+        {
+          "categories": [
+            "unit"
+          ],
+          "criterion": "if the stored content is altered after saving, `load` returns `Error(IntegrityFailure id)`, never `Ok`.",
+          "id": "EVD-003-O2",
+          "requirement": "EVD-003"
+        }
+      ],
+      "rank": 5,
+      "suite": "SU-UNIT"
+    }
+  ],
+  "planId": "VP-B2-EVIDENCE",
+  "schema": "dokimos.verification-work/1",
+  "unmapped": []
+}

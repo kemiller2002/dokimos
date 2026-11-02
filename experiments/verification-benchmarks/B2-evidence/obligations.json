@@ -1,0 +1,222 @@
+{
+  "schema": "dokimos.verification-obligations/1",
+  "planId": "VP-B2-EVIDENCE",
+  "planDigest": "",
+  "namespaceRoots": [
+    {
+      "namespace": "Evidence.Tests",
+      "directory": "tests/Evidence.Tests"
+    }
+  ],
+  "suites": [
+    {
+      "id": "SU-UNIT",
+      "runner": "dotnet-test",
+      "command": "dotnet test tests/Evidence.Tests --filter FullyQualifiedName~Evidence.Tests.EVD00",
+      "paths": [
+        "tests/Evidence.Tests"
+      ],
+      "fixture": "temporary directory store"
+    },
+    {
+      "id": "SU-PROVIDER",
+      "runner": "dotnet-test",
+      "command": "dotnet test tests/Evidence.Tests --filter FullyQualifiedName~Evidence.Tests.EVD00",
+      "paths": [
+        "tests/Evidence.Tests"
+      ],
+      "fixture": "a real HTTP provider on 127.0.0.1",
+      "requiredBoundary": [
+        "HttpListener",
+        "WebApplication",
+        "ProviderClient",
+        "Collector",
+        "Fetch",
+        "Collect"
+      ]
+    }
+  ],
+  "obligations": [
+    {
+      "id": "EVD-001-O1",
+      "requirement": "EVD-001",
+      "priority": "P0",
+      "criterion": "`Evidence.create` refuses a record whose `Source` or `CollectedBy` is empty or whitespace with `MissingAttribution field`, naming the missing field.",
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "EVD-001-O2",
+      "requirement": "EVD-001",
+      "priority": "P0",
+      "criterion": "a record with both attribution fields is created, and its `Sha256` is the lowercase hex SHA-256 of its `Content`.",
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "EVD-002-O1",
+      "requirement": "EVD-002",
+      "priority": "P0",
+      "criterion": "a 200 answer returns `Ok` with exactly the response body bytes.",
+      "categories": [
+        "live-provider",
+        "integration"
+      ]
+    },
+    {
+      "id": "EVD-002-O2",
+      "requirement": "EVD-002",
+      "priority": "P0",
+      "criterion": "404 maps to `Error(ProviderNotFound id)`, 401 or 403 to `Error ProviderUnauthorized`, and 429 to `Error ProviderRateLimited`. None of them ever returns `Ok`.",
+      "categories": [
+        "live-provider",
+        "integration"
+      ]
+    },
+    {
+      "id": "EVD-002-O3",
+      "requirement": "EVD-002",
+      "priority": "P0",
+      "criterion": "every request carries the bearer token, and a request to the provider never carries it anywhere else (not in the URL or query).",
+      "categories": [
+        "live-provider",
+        "integration"
+      ]
+    },
+    {
+      "id": "EVD-003-O1",
+      "requirement": "EVD-003",
+      "priority": "P0",
+      "criterion": "a saved record loads back equal to the saved record.",
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "EVD-003-O2",
+      "requirement": "EVD-003",
+      "priority": "P0",
+      "criterion": "if the stored content is altered after saving, `load` returns `Error(IntegrityFailure id)`, never `Ok`.",
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "EVD-004-O1",
+      "requirement": "EVD-004",
+      "priority": "P0",
+      "criterion": "a record whose content is larger than 2 MiB, fetched from the provider over HTTP and then saved and loaded, loads back with every byte equal.",
+      "categories": [
+        "live-provider",
+        "integration"
+      ]
+    },
+    {
+      "id": "EVD-005-O1",
+      "requirement": "EVD-005",
+      "priority": "P0",
+      "criterion": "the token's value never appears in any `ProviderError`, any exception message, or any line written to the collector's diagnostic log (`Collector.Diagnostics`), including for 401 and network failures.",
+      "categories": [
+        "security"
+      ]
+    }
+  ],
+  "tests": [
+    {
+      "id": "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O1",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "EVD-001-O1"
+      ],
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O2",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "EVD-001-O2"
+      ],
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O1",
+      "suite": "SU-PROVIDER",
+      "obligations": [
+        "EVD-002-O1"
+      ],
+      "categories": [
+        "live-provider",
+        "integration"
+      ]
+    },
+    {
+      "id": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O2",
+      "suite": "SU-PROVIDER",
+      "obligations": [
+        "EVD-002-O2"
+      ],
+      "categories": [
+        "live-provider",
+        "integration"
+      ]
+    },
+    {
+      "id": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O3",
+      "suite": "SU-PROVIDER",
+      "obligations": [
+        "EVD-002-O3"
+      ],
+      "categories": [
+        "live-provider",
+        "integration"
+      ]
+    },
+    {
+      "id": "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O1",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "EVD-003-O1"
+      ],
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O2",
+      "suite": "SU-UNIT",
+      "obligations": [
+        "EVD-003-O2"
+      ],
+      "categories": [
+        "unit"
+      ]
+    },
+    {
+      "id": "dotnet:Evidence.Tests.EVD004Tests.EVD-004-O1",
+      "suite": "SU-PROVIDER",
+      "obligations": [
+        "EVD-004-O1"
+      ],
+      "categories": [
+        "live-provider",
+        "integration"
+      ]
+    },
+    {
+      "id": "dotnet:Evidence.Tests.EVD005Tests.EVD-005-O1",
+      "suite": "SU-PROVIDER",
+      "obligations": [
+        "EVD-005-O1"
+      ],
+      "categories": [
+        "security"
+      ]
+    }
+  ]
+}
