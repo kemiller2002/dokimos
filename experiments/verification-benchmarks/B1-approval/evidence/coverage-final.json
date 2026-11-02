@@ -1,0 +1,206 @@
+{
+  "bySuite": [
+    {
+      "identities": 8,
+      "status": {
+        "passed": 8
+      },
+      "suite": "SU-UNIT"
+    },
+    {
+      "identities": 3,
+      "status": {
+        "passed": 3
+      },
+      "suite": "SU-BROWSER"
+    }
+  ],
+  "candidate": "b63bb3c6e80aedc8aab70a7bc22532e5fb798751",
+  "causes": [],
+  "obligations": [
+    {
+      "id": "APR-001-O1",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR001Tests.APR-001-O1",
+          "location": "tests/Approval.Tests/APR001Tests.fs:44",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "passing (fault sensitivity not demonstrated)",
+      "reasons": [],
+      "requirement": "APR-001",
+      "status": "verified"
+    },
+    {
+      "id": "APR-001-O2",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR001Tests.APR-001-O2",
+          "location": "tests/Approval.Tests/APR001Tests.fs:90",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "APR-001",
+      "status": "verified"
+    },
+    {
+      "id": "APR-002-O1",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR002Tests.APR-002-O1",
+          "location": "tests/Approval.Tests/APR002Tests.fs:30",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "passing (fault sensitivity not demonstrated)",
+      "reasons": [],
+      "requirement": "APR-002",
+      "status": "verified"
+    },
+    {
+      "id": "APR-002-O2",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR002Tests.APR-002-O2",
+          "location": "tests/Approval.Tests/APR002Tests.fs:72",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "APR-002",
+      "status": "verified"
+    },
+    {
+      "id": "APR-003-O1",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR003Tests.APR-003-O1",
+          "location": "tests/Approval.Tests/APR003Tests.fs:39",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "APR-003",
+      "status": "verified"
+    },
+    {
+      "id": "APR-003-O2",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR003Tests.APR-003-O2",
+          "location": "tests/Approval.Tests/APR003Tests.fs:65",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "APR-003",
+      "status": "verified"
+    },
+    {
+      "id": "APR-004-O1",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR004Tests.APR-004-O1",
+          "location": "tests/Approval.Tests/APR004Tests.fs:40",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "APR-004",
+      "status": "verified"
+    },
+    {
+      "id": "APR-005-O1",
+      "identities": [
+        {
+          "id": "playwright:acceptance/APR-005.spec.js > APR-005-O1 [chromium]",
+          "location": "acceptance/APR-005.spec.js:43",
+          "status": "passed",
+          "suite": "SU-BROWSER"
+        }
+      ],
+      "quality": "passing (fault sensitivity not demonstrated)",
+      "reasons": [],
+      "requirement": "APR-005",
+      "status": "verified"
+    },
+    {
+      "id": "APR-005-O2",
+      "identities": [
+        {
+          "id": "playwright:acceptance/APR-005.spec.js > APR-005-O2 [chromium]",
+          "location": "acceptance/APR-005.spec.js:67",
+          "status": "passed",
+          "suite": "SU-BROWSER"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "APR-005",
+      "status": "verified"
+    },
+    {
+      "id": "APR-005-O3",
+      "identities": [
+        {
+          "id": "playwright:acceptance/APR-005.spec.js > APR-005-O3 [chromium]",
+          "location": "acceptance/APR-005.spec.js:96",
+          "status": "passed",
+          "suite": "SU-BROWSER"
+        }
+      ],
+      "quality": "passing (fault sensitivity not demonstrated)",
+      "reasons": [],
+      "requirement": "APR-005",
+      "status": "verified"
+    },
+    {
+      "id": "APR-006-O1",
+      "identities": [
+        {
+          "id": "dotnet:Approval.Tests.APR006Tests.APR-006-O1",
+          "location": "tests/Approval.Tests/APR006Tests.fs:74",
+          "status": "passed",
+          "suite": "SU-UNIT"
+        }
+      ],
+      "quality": "fault-sensitive",
+      "reasons": [],
+      "requirement": "APR-006",
+      "status": "verified"
+    }
+  ],
+  "planDigest": "",
+  "planId": "VP-B1-APPROVAL",
+  "rejectedRuns": [],
+  "schema": "dokimos.verification-coverage/1",
+  "scope": [],
+  "summary": {
+    "faultSensitive": 7,
+    "identityStatus": {
+      "passed": 11
+    },
+    "obligationStatus": {
+      "verified": 11
+    },
+    "obligations": 11,
+    "requirements": 6,
+    "requirementsVerified": 6,
+    "unplannedResults": 0
+  },
+  "verified": true
+}

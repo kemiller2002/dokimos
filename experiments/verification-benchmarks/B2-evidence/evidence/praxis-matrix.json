@@ -1,0 +1,118 @@
+{
+  "rows": [
+    {
+      "dimension": "happy-path",
+      "evidence": [
+        {
+          "kind": "command",
+          "reference": "dokimos verification coverage --candidate b63bb3c6e80aedc8aab70a7bc22532e5fb798751 (plan VP-B2-EVIDENCE)",
+          "result": "verified"
+        },
+        {
+          "kind": "unit-test",
+          "reference": "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O1",
+          "result": "passed"
+        },
+        {
+          "kind": "unit-test",
+          "reference": "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O2",
+          "result": "passed"
+        },
+        {
+          "kind": "integration-test",
+          "reference": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O1",
+          "result": "passed"
+        },
+        {
+          "kind": "integration-test",
+          "reference": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O2",
+          "result": "passed"
+        },
+        {
+          "kind": "integration-test",
+          "reference": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O3",
+          "result": "passed"
+        },
+        {
+          "kind": "unit-test",
+          "reference": "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O1",
+          "result": "passed"
+        },
+        {
+          "kind": "unit-test",
+          "reference": "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O2",
+          "result": "passed"
+        },
+        {
+          "kind": "integration-test",
+          "reference": "dotnet:Evidence.Tests.EVD004Tests.EVD-004-O1",
+          "result": "passed"
+        },
+        {
+          "kind": "unit-test",
+          "reference": "dotnet:Evidence.Tests.EVD005Tests.EVD-005-O1",
+          "result": "passed"
+        }
+      ],
+      "status": "met"
+    },
+    {
+      "dimension": "negative",
+      "evidence": [
+        {
+          "kind": "command",
+          "reference": "dokimos verification coverage --candidate b63bb3c6e80aedc8aab70a7bc22532e5fb798751 (plan VP-B2-EVIDENCE)",
+          "result": "verified"
+        },
+        {
+          "kind": "unit-test",
+          "reference": "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O1",
+          "result": "passed"
+        },
+        {
+          "kind": "unit-test",
+          "reference": "dotnet:Evidence.Tests.EVD001Tests.EVD-001-O2",
+          "result": "passed"
+        },
+        {
+          "kind": "integration-test",
+          "reference": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O1",
+          "result": "passed"
+        },
+        {
+          "kind": "integration-test",
+          "reference": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O2",
+          "result": "passed"
+        },
+        {
+          "kind": "integration-test",
+          "reference": "dotnet:Evidence.Tests.EVD002Tests.EVD-002-O3",
+          "result": "passed"
+        },
+        {
+          "kind": "unit-test",
+          "reference": "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O1",
+          "result": "passed"
+        },
+        {
+          "kind": "unit-test",
+          "reference": "dotnet:Evidence.Tests.EVD003Tests.EVD-003-O2",
+          "result": "passed"
+        },
+        {
+          "kind": "integration-test",
+          "reference": "dotnet:Evidence.Tests.EVD004Tests.EVD-004-O1",
+          "result": "passed"
+        },
+        {
+          "kind": "unit-test",
+          "reference": "dotnet:Evidence.Tests.EVD005Tests.EVD-005-O1",
+          "result": "passed"
+        }
+      ],
+      "status": "met"
+    }
+  ],
+  "schema": "praxis.verification-matrix/1",
+  "workItem": "B2"
+}

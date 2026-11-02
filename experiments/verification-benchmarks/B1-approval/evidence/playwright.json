@@ -1,0 +1,198 @@
+{
+  "config": {
+    "argv": [
+      "/opt/node22/bin/node",
+      "/home/user/dokimos/experiments/verification-benchmarks/B1-approval/node_modules/.bin/playwright",
+      "test",
+      "--project=chromium",
+      "tests/browser/acceptance"
+    ],
+    "configFile": "/home/user/dokimos/experiments/verification-benchmarks/B1-approval/playwright.config.js",
+    "rootDir": "/home/user/dokimos/experiments/verification-benchmarks/B1-approval/tests/browser",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/user/dokimos/experiments/verification-benchmarks/B1-approval/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/user/dokimos/experiments/verification-benchmarks/B1-approval/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "out/playwright.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": {
+      "command": "dotnet run --project src/Approval --no-launch-profile -- --urls http://127.0.0.1:5180 --data /tmp/approval-data-0KETsL",
+      "url": "http://127.0.0.1:5180/",
+      "timeout": 180000,
+      "reuseExistingServer": false,
+      "env": {
+        "APPROVAL_TOKEN": "b1-secret-token-7f3a9c",
+        "DOTNET_ROLL_FORWARD": "Major"
+      }
+    }
+  },
+  "suites": [
+    {
+      "title": "acceptance/APR-005.spec.js",
+      "file": "acceptance/APR-005.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "APR-005-O1",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 713,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:33:43.842Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "08b52cea85892f18a3be-2e8b86bd854668d97440",
+          "file": "acceptance/APR-005.spec.js",
+          "line": 43,
+          "column": 5
+        },
+        {
+          "title": "APR-005-O2",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1129,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:33:44.687Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "08b52cea85892f18a3be-6b06d6fd66112832f26c",
+          "file": "acceptance/APR-005.spec.js",
+          "line": 67,
+          "column": 5
+        },
+        {
+          "title": "APR-005-O3",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 640,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-02T01:33:45.837Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "08b52cea85892f18a3be-c023eba6e52ab8dcf897",
+          "file": "acceptance/APR-005.spec.js",
+          "line": 96,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-02T01:33:39.261Z",
+    "duration": 7292.564,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

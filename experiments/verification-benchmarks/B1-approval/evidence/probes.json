@@ -1,0 +1,55 @@
+{
+  "probes": [
+    {
+      "detail": null,
+      "id": "P-B1-BODY",
+      "obligations": [
+        "APR-004-O1"
+      ],
+      "outcome": "detected"
+    },
+    {
+      "detail": null,
+      "id": "P-B1-READBACK",
+      "obligations": [
+        "APR-002-O2"
+      ],
+      "outcome": "detected"
+    },
+    {
+      "detail": null,
+      "id": "P-B1-ILLEGAL",
+      "obligations": [
+        "APR-001-O2"
+      ],
+      "outcome": "detected"
+    },
+    {
+      "detail": null,
+      "id": "P-B1-STALE",
+      "obligations": [
+        "APR-003-O1",
+        "APR-003-O2"
+      ],
+      "outcome": "detected"
+    },
+    {
+      "detail": null,
+      "id": "P-B1-LEAK",
+      "obligations": [
+        "APR-006-O1"
+      ],
+      "outcome": "detected"
+    },
+    {
+      "detail": null,
+      "id": "P-B1-UI",
+      "obligations": [
+        "APR-005-O2"
+      ],
+      "outcome": "detected"
+    }
+  ],
+  "schema": "dokimos.fault-probe-results/1",
+  "sourceSha": "b63bb3c6e80aedc8aab70a7bc22532e5fb798751"
+}
