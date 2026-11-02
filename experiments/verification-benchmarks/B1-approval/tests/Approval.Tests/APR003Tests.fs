@@ -2,16 +2,88 @@
 // it is written; `dokimos verification coverage` reports DOKIMOS-UNIMPLEMENTED as a placeholder.
 namespace Approval.Tests
 
+open System
+open System.IO
 open Xunit
+open Approval
 
 module APR003Tests =
+    /// Runs `f` with a fresh, empty store directory that is removed afterwards.
+    let private withTempDir (f: string -> unit) =
+        let dir = Path.Combine(Path.GetTempPath(), "apr003-" + Guid.NewGuid().ToString("N"))
+        Directory.CreateDirectory dir |> ignore
+
+        try
+            f dir
+        finally
+            try Directory.Delete(dir, true) with _ -> ()
+
+    let private ok label =
+        function
+        | Ok v -> v
+        | Error e -> failwithf "%s failed: %A" label e
+
+    let private decide command req = Domain.decide command req |> ok (sprintf "decide %A" command)
+
+    /// Stores a request and advances it to Submitted, so the stored version is 1.
+    let private storeSubmitted (store: FileStore) id =
+        let draft = Domain.create id "Version conflict"
+        store.Save(draft, -1) |> ok "save draft" |> ignore
+        let submitted = decide Submit draft
+        store.Save(submitted, 0) |> ok "save submitted"
+
+    let private filePath dir id = Path.Combine(dir, id + ".json")
+
     /// APR-003-O1: saving with an expected version that differs from the stored version returns `Error(Conflict(expected, actual))`.
     [<Fact>]
     let ``APR-003-O1`` () : unit =
-        failwith "DOKIMOS-UNIMPLEMENTED dotnet:Approval.Tests.APR003Tests.APR-003-O1"
+        withTempDir (fun dir ->
+            let store = FileStore(dir)
+            let submitted = storeSubmitted store "vc0001"
+            Assert.Equal(1, submitted.Version)
+            let approved = decide (Approve "fine") submitted
+
+            [ 0; -1; 2; 5 ]
+            |> List.iter (fun expected ->
+                match store.Save(approved, expected) with
+                | Error(Conflict(e, a)) ->
+                    Assert.Equal(expected, e)
+                    Assert.Equal(1, a)
+                | other -> failwithf "expected Conflict(%d, 1), got %A" expected other)
+
+            // The matching expected version still succeeds afterwards.
+            store.Save(approved, 1) |> ok "save with correct expected version" |> ignore
+            Assert.Equal(approved, store.Load "vc0001" |> ok "load")
+
+            // Now the stored version is 2; the previously correct expectation is stale.
+            match store.Save(decide (Approve "again") submitted, 1) with
+            | Error(Conflict(1, 2)) -> ()
+            | other -> failwithf "expected Conflict(1, 2), got %A" other)
 
     /// APR-003-O2: after a conflict, the stored request is byte-for-byte unchanged.
     [<Fact>]
     let ``APR-003-O2`` () : unit =
-        failwith "DOKIMOS-UNIMPLEMENTED dotnet:Approval.Tests.APR003Tests.APR-003-O2"
+        withTempDir (fun dir ->
+            let store = FileStore(dir)
+            let submitted = storeSubmitted store "vc0002"
+            let path = filePath dir "vc0002"
+            let before = File.ReadAllBytes path
+            let beforeLoaded = store.Load "vc0002" |> ok "load before"
 
+            let attempts =
+                [ decide (Approve "stale approve") submitted, 0
+                  decide (Reject "stale reject") submitted, 0
+                  { submitted with Title = "Overwritten title"; Note = "overwritten" }, -1
+                  decide (Approve "future") submitted, 7 ]
+
+            attempts
+            |> List.iter (fun (req, expected) ->
+                match store.Save(req, expected) with
+                | Error(Conflict _) ->
+                    let after = File.ReadAllBytes path
+                    Assert.Equal<byte[]>(before, after)
+                    Assert.Equal(beforeLoaded, store.Load "vc0002" |> ok "load after")
+                | other -> failwithf "expected a Conflict for expected=%d, got %A" expected other)
+
+            // No stray extra request files were produced by the failed saves.
+            Assert.Equal<string[]>([| path |], Directory.GetFiles(dir, "*.json")))

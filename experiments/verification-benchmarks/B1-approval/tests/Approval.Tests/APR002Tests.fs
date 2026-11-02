@@ -2,16 +2,107 @@
 // it is written; `dokimos verification coverage` reports DOKIMOS-UNIMPLEMENTED as a placeholder.
 namespace Approval.Tests
 
+open System
+open System.IO
 open Xunit
+open Approval
 
 module APR002Tests =
+    /// Runs `f` with a fresh, empty store directory that is removed afterwards.
+    let private withTempDir (f: string -> unit) =
+        let dir = Path.Combine(Path.GetTempPath(), "apr002-" + Guid.NewGuid().ToString("N"))
+        Directory.CreateDirectory dir |> ignore
+
+        try
+            f dir
+        finally
+            try Directory.Delete(dir, true) with _ -> ()
+
+    let private ok label =
+        function
+        | Ok v -> v
+        | Error e -> failwithf "%s failed: %A" label e
+
+    let private decide command req = Domain.decide command req |> ok (sprintf "decide %A" command)
+
     /// APR-002-O1: a request that is saved and then loaded is equal to the request that was saved: id, title, state, version and note.
     [<Fact>]
     let ``APR-002-O1`` () : unit =
-        failwith "DOKIMOS-UNIMPLEMENTED dotnet:Approval.Tests.APR002Tests.APR-002-O1"
+        withTempDir (fun dir ->
+            let store = FileStore(dir)
+            let draft = Domain.create "rt0001" "Conference travel \"Berlin\" / 2026"
+
+            let assertRoundTrip (saved: Request) =
+                let loaded = store.Load saved.Id |> ok "load"
+                Assert.Equal(saved, loaded)
+                Assert.Equal(saved.Id, loaded.Id)
+                Assert.Equal(saved.Title, loaded.Title)
+                Assert.Equal(saved.State, loaded.State)
+                Assert.Equal(saved.Version, loaded.Version)
+                Assert.Equal(saved.Note, loaded.Note)
+
+            // Save each successive version (expected = previously stored version) and round-trip it.
+            [ Submit; Reject "needs a cheaper hotel"; Revise; Submit; Approve "ok, approved" ]
+            |> List.fold
+                (fun (prev: Request, expected: int) command ->
+                    let saved = store.Save(prev, expected) |> ok "save"
+                    Assert.Equal(prev, saved)
+                    assertRoundTrip prev
+                    (decide command prev, prev.Version))
+                (draft, -1)
+            |> fun (last, expected) ->
+                store.Save(last, expected) |> ok "save final" |> ignore
+                assertRoundTrip last
+
+            // The file store is durable: a second store instance on the same root sees the same request.
+            let reopened = FileStore(dir).Load draft.Id |> ok "load via new store"
+            Assert.Equal(Approved, reopened.State)
+            Assert.Equal("ok, approved", reopened.Note)
+            Assert.True(File.Exists(Path.Combine(dir, draft.Id + ".json")))
+
+            // Several independent requests are kept apart.
+            let others =
+                [ for i in 1..3 -> { Domain.create (sprintf "other%d" i) (sprintf "Other %d" i) with Note = sprintf "n%d" i } ]
+
+            others |> List.iter (fun r -> store.Save(r, -1) |> ok "save other" |> ignore)
+            others |> List.iter assertRoundTrip)
 
     /// APR-002-O2: when the read-back differs from the written bytes, `save` returns `Error ReadBackMismatch` and never `Ok`.
     [<Fact>]
     let ``APR-002-O2`` () : unit =
-        failwith "DOKIMOS-UNIMPLEMENTED dotnet:Approval.Tests.APR002Tests.APR-002-O2"
+        let filters: (string * (byte[] -> byte[])) list =
+            [ "flip last byte", (fun b -> b |> Array.mapi (fun i x -> if i = b.Length - 1 then x ^^^ 0xFFuy else x))
+              "flip first byte", (fun b -> b |> Array.mapi (fun i x -> if i = 0 then x ^^^ 0x01uy else x))
+              "truncate", (fun b -> b |> Array.truncate (max 0 (b.Length - 1)))
+              "append byte", (fun b -> Array.append b [| 0x20uy |])
+              "empty", (fun _ -> [||]) ]
 
+        filters
+        |> List.iter (fun (label, filter) ->
+            withTempDir (fun dir ->
+                let store = FileStore(dir)
+                let draft = Domain.create "mm0001" "Mismatch"
+
+                // Sanity: with the default (identity) read-back the save is confirmed.
+                store.Save(draft, -1) |> ok "baseline save" |> ignore
+
+                store.ReadBackFilter <- filter
+                let submitted = decide Submit draft
+
+                match store.Save(submitted, 0) with
+                | Error ReadBackMismatch -> ()
+                | other -> failwithf "[%s] expected Error ReadBackMismatch on update, got %A" label other
+
+                // A brand-new request is not confirmed either.
+                let fresh = Domain.create "mm0002" "Mismatch new"
+
+                match store.Save(fresh, -1) with
+                | Error ReadBackMismatch -> ()
+                | other -> failwithf "[%s] expected Error ReadBackMismatch on create, got %A" label other
+
+                // Repeated attempts never report Ok while the read-back differs.
+                [ 1..3 ]
+                |> List.iter (fun _ ->
+                    match store.Save({ fresh with Title = "retry" }, -1) with
+                    | Ok r -> failwithf "[%s] save reported Ok (%A) although read-back differed" label r
+                    | Error _ -> ())))

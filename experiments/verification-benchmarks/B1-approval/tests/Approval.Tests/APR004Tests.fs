@@ -2,11 +2,62 @@
 // it is written; `dokimos verification coverage` reports DOKIMOS-UNIMPLEMENTED as a placeholder.
 namespace Approval.Tests
 
+open System
+open System.IO
 open Xunit
+open Approval
 
 module APR004Tests =
+    /// Runs `f` with a fresh, empty store directory that is removed afterwards.
+    let private withTempDir (f: string -> unit) =
+        let dir = Path.Combine(Path.GetTempPath(), "apr004-" + Guid.NewGuid().ToString("N"))
+        Directory.CreateDirectory dir |> ignore
+
+        try
+            f dir
+        finally
+            try Directory.Delete(dir, true) with _ -> ()
+
+    let private ok label =
+        function
+        | Ok v -> v
+        | Error e -> failwithf "%s failed: %A" label e
+
+    let private notes =
+        [ "Approved within budget"
+          "Genehmigt – Größe passt, Übernachtung in Köln"
+          "承認します。予算内です"
+          "Отклонено: слишком дорого"
+          "ok 👍 🚀 — naïve café, “quoted” and \"escaped\""
+          "line one\nline two\ttabbed \\ backslash"
+          "  leading and trailing spaces  "
+          "<script>alert('x')</script> & </note>" ]
+
+    let private decisions = [ (fun n -> Approve n), Approved; (fun n -> Reject n), Rejected ]
+
     /// APR-004-O1: after `Approve note` or `Reject note`, save and load, the loaded request carries that exact note (including non-ASCII text).
     [<Fact>]
     let ``APR-004-O1`` () : unit =
-        failwith "DOKIMOS-UNIMPLEMENTED dotnet:Approval.Tests.APR004Tests.APR-004-O1"
+        withTempDir (fun dir ->
+            let store = FileStore(dir)
 
+            [ for (mk, expectedState) in decisions do
+                  for note in notes -> mk, expectedState, note ]
+            |> List.iteri (fun i (mk, expectedState, note) ->
+                let id = sprintf "note%04d" i
+                let draft = Domain.create id "Decision note"
+                store.Save(draft, -1) |> ok "save draft" |> ignore
+                let submitted = Domain.decide Submit draft |> ok "submit"
+                store.Save(submitted, 0) |> ok "save submitted" |> ignore
+                let decided = Domain.decide (mk note) submitted |> ok "decide"
+                Assert.Equal(note, decided.Note)
+                store.Save(decided, 1) |> ok "save decided" |> ignore
+
+                // Load through the same store and through a fresh store on the same root.
+                [ store; FileStore(dir) ]
+                |> List.iter (fun s ->
+                    let loaded = s.Load id |> ok "load"
+                    Assert.Equal(expectedState, loaded.State)
+                    Assert.Equal(note, loaded.Note)
+                    Assert.Equal(2, loaded.Version)
+                    Assert.Equal(decided, loaded))))
