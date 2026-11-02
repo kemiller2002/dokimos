@@ -160,7 +160,7 @@ module VerificationCommand =
     /// `coverage`: exact per-obligation status at the candidate. With `--require-verified` it is
     /// a gate: exit 4 unless every in-scope obligation is verified.
     let coverage args =
-        withArgs [ "obligations"; "root"; "results"; "candidate"; "probes"; "scope"; "require-verified"; "out" ] args (fun parsed ->
+        withArgs [ "obligations"; "root"; "results"; "candidate"; "probes"; "scope"; "require-verified"; "out"; "praxis-matrix"; "work-item"; "dimensions" ] args (fun parsed ->
             let root = Arguments.tryOne "root" parsed |> Option.defaultValue "."
             match loadObligations parsed with
             | Error e -> Output.unavailable "obligations-unreadable" e
@@ -172,6 +172,11 @@ module VerificationCommand =
                     let report = Coverage.reconcile set (scan root set) results probes scope
                     let json = Coverage.toJson set report
                     write (Arguments.tryOne "out" parsed) json
+                    match Arguments.tryOne "praxis-matrix" parsed, Arguments.tryOne "work-item" parsed with
+                    | Some path, Some workItem ->
+                        let dimensions = Arguments.tryOne "dimensions" parsed |> Option.map (fun d -> d.Split(',') |> List.ofArray) |> Option.defaultValue [ "happy-path" ]
+                        write (Some path) (Coverage.toPraxisMatrix set report workItem dimensions)
+                    | _ -> ()
                     let gate = Arguments.tryOne "require-verified" parsed = Some "true"
                     Output.dataWithCode (if gate && not (Coverage.allVerified report) then ExitCodes.PolicyFailure else ExitCodes.Continue) json)
 
@@ -290,4 +295,4 @@ module VerificationCommand =
         | _ ->
             Output.invalid
                 "invalid-arguments"
-                "usage: dokimos verification compile (--indy-execution-plan F --indy-verification-plan F | --obligations F) [--out F]\n       dokimos verification scaffold --obligations F [--root .] [--first REQ,...] [--write true] [--append true] [--import MODULE] [--work F]\n       dokimos verification coverage --obligations F [--root .] [--results MANIFEST] [--candidate SHA] [--probes F]... [--scope REQ,...] [--require-verified true] [--out F]\n       dokimos verification probe --spec F --sha SHA [--root .] [--timeout-seconds N] [--out F]"
+                "usage: dokimos verification compile (--indy-execution-plan F --indy-verification-plan F | --obligations F) [--out F]\n       dokimos verification scaffold --obligations F [--root .] [--first REQ,...] [--write true] [--append true] [--import MODULE] [--work F]\n       dokimos verification coverage --obligations F [--root .] [--results MANIFEST] [--candidate SHA] [--probes F]... [--scope REQ,...] [--require-verified true] [--out F] [--praxis-matrix F --work-item ID [--dimensions happy-path,...]]\n       dokimos verification probe --spec F --sha SHA [--root .] [--timeout-seconds N] [--out F]"

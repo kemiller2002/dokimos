@@ -321,3 +321,37 @@ module Coverage =
                        identities =
                         o.Identities
                         |> List.map (fun r -> {| id = r.Identity; suite = r.Suite; status = identityStatusText r.Status; location = r.Location |> Option.toObj |}) |}) |}
+
+    [<Literal>]
+    let PraxisMatrixSchema = "praxis.verification-matrix/1"
+
+    /// The coverage as a `praxis.verification-matrix/1` for one work item, so Praxis's existing
+    /// `verification-matrix-satisfied` facet enforces it at `work complete`. Each requested
+    /// dimension is `met` only when every in-scope obligation is verified at the candidate;
+    /// otherwise `not-met`, citing each unverified identity. Evidence kinds follow the suite:
+    /// browser and integration tests are `integration-test`, live suites `live`, others `unit-test`,
+    /// and the coverage run itself is cited as a `command` bound to the candidate SHA.
+    let toPraxisMatrix (set: ObligationSet) (report: CoverageReport) (workItem: string) (dimensions: string list) =
+        let suiteOf id = set.Suites |> List.tryFind (fun s -> s.Id = id)
+        let kindOf (row: IdentityRow) =
+            match suiteOf row.Suite with
+            | Some s when s.Id.Contains "LIVE" || s.Environment.Contains "live" -> "live"
+            | Some s when s.Runner = PlaywrightTest -> "integration-test"
+            | _ ->
+                let categories = set.Tests |> List.tryFind (fun t -> t.Id = row.Identity) |> Option.map _.Categories |> Option.defaultValue []
+                if List.contains "integration" categories || List.contains "live-provider" categories then "integration-test" else "unit-test"
+        let rows = report.Obligations |> List.collect _.Identities |> List.distinctBy (fun r -> r.Identity, r.Suite)
+        let verified = allVerified report && not report.Obligations.IsEmpty
+        let command =
+            {| kind = "command"
+               reference = $"dokimos verification coverage --candidate {report.Candidate} (plan {report.PlanId})"
+               result = (if verified then "verified" else "not verified") |}
+        let evidence =
+            command
+            :: (rows
+                |> List.filter (fun r -> verified || r.Status <> IdentityPassed)
+                |> List.map (fun r -> {| kind = kindOf r; reference = r.Identity; result = identityStatusText r.Status |}))
+        Contracts.serialize
+            {| schema = PraxisMatrixSchema
+               workItem = workItem
+               rows = dimensions |> List.map (fun d -> {| dimension = d; status = (if verified then "met" else "not-met"); evidence = evidence |}) |}

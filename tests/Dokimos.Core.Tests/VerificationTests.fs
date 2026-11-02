@@ -359,3 +359,17 @@ module SaveTests =
         Assert.Equal(Detected, FaultProbe.classify 0 1)
         Assert.Equal(Survived, FaultProbe.classify 0 0)
         Assert.True(match FaultProbe.classify 1 1 with ProbeError _ -> true | _ -> false)
+
+    [<Fact>]
+    let ``praxis matrix: met only when every scoped obligation is verified at the candidate`` () =
+        let real = scanFs "        Assert.Equal(2, save 1)"
+        let matrix report = Coverage.toPraxisMatrix oneObligation report "WI-1" [ "happy-path"; "negative" ]
+        let verified = matrix (reconcile (scanOf real) (resultsAt sha Passed))
+        Assert.Contains("\"status\": \"met\"", verified)
+        Assert.Contains("praxis.verification-matrix/1", verified)
+        Assert.Contains(sha, verified)
+        let stub = matrix (reconcile (scanOf (scanFs "        failwith \"DOKIMOS-UNIMPLEMENTED\"")) (resultsAt sha Passed))
+        Assert.Contains("\"status\": \"not-met\"", stub)
+        Assert.DoesNotContain("\"status\": \"met\"", stub)
+        let stale = matrix (reconcile (scanOf real) (resultsAt "c61bfe2c61bfe2c61bfe2c61bfe2c61bfe2c61bf" Passed))
+        Assert.DoesNotContain("\"status\": \"met\"", stale)

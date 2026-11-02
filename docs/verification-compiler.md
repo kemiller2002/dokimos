@@ -55,6 +55,24 @@ Re-run it after each merge and only the remaining work comes back. There is no g
 
 Skeletons fail by construction, and `coverage` classifies them as placeholders, so a scaffold can never be counted as verified. It shows as `invalid`, never as a silent *not run*.
 
+## Praxis enforcement
+
+`coverage --praxis-matrix F --work-item ID --dimensions D,...` writes a `praxis.verification-matrix/1`. Praxis already gates `work complete` on that contract (facet `verification-matrix-satisfied`), so no Praxis change is needed.
+
+- Every requested dimension is `met` only when every in-scope obligation is verified at the candidate. Otherwise it is `not-met`, with every unverified identity cited.
+- Supply the dimensions Praxis requires for the item's risk. A medium-risk persistence item requires `happy-path,negative,corruption,compatibility,recovery,concurrency`.
+
+Demonstrated with Praxis 3.24.0 (the `indy-init` preset's pin), a real xUnit project and real `dotnet test` TRX:
+
+| Case | Dokimos | `praxis work complete` |
+|---|---|---|
+| Implementation done, no matrix | — | exit 3 refused: no verification-matrix evidence |
+| Bound test is a bootstrap stub | `invalid` | exit 3 refused: dimensions not met |
+| Real test, TRX from the previous SHA | `blocked` | exit 3 refused |
+| Real test, TRX at the candidate | `verified` | exit 0, complete |
+
+Praxis keeps implementation and verification as separate facets: `implementation` evidence alone does not complete a gated item.
+
 ## Fault probes
 
 ```json
