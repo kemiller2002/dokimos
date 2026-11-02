@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 15,
+  "nextSeq": 16,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -928,6 +928,27 @@
       "attachments": [],
       "createdAt": "2026-10-28T22:19:16.425Z",
       "updatedAt": "2026-10-28T22:57:38.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0015",
+      "title": "Verification-compiler benchmarks B1/B2 (Rehearsal 9 preparation)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-11-02T01:42:53.533Z",
+      "updatedAt": "2026-11-02T01:43:07Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",

@@ -29,6 +29,7 @@
 | DOK-OPS-025 | Second-repository proof | complete | operational | medium |
 | DOK-OPS-026 | Conditor: lifecycle distribution for .NET tool / GitHub-release components (Dokimos install) | captured | operational, external | medium |
 | DOK-OPS-027 | Echelon Registry: add dokimos to registry/systems.json | complete | operational, external | medium |
+| DOK-VC-001 | DOK-VC-001 | complete |  |  |
 | DOK-WEB-001 | Public Dokimos website on GitHub Pages | active | website | high |
 | DOK-WEB-002 | Adopt the Echelon Foundry stylesheet and background on the Dokimos site | active | website | high |
 | DOKIMOS-REL-001 | Implement independent completion-evidence verification | complete | requirements, implementation | high |
@@ -54,3 +55,4 @@
 | WI-0012 | EII Workstream G: independent publication of passing and failing evidence in the evidence store; capability declaration; replay measurement | complete |  | high |
 | WI-0013 | Release Dokimos 0.9.0 (mandatory final verification, PR #59) for the Rehearsal 6 dependency set | complete |  | medium |
 | WI-0014 | Quality-gate revision input: bind evidence to the pull-request head an unattended merge is authorized for (praxis WI-0104) | complete |  | medium |
+| WI-0015 | Verification-compiler benchmarks B1/B2 (Rehearsal 9 preparation) | ready |  | medium |
