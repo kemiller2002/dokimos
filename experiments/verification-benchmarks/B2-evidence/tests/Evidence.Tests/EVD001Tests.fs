@@ -2,16 +2,56 @@
 // it is written; `dokimos verification coverage` reports DOKIMOS-UNIMPLEMENTED as a placeholder.
 namespace Evidence.Tests
 
+open System
+open System.Security.Cryptography
 open Xunit
+open Evidence
 
 module EVD001Tests =
+    let private blanks = [ ""; " "; "   "; "\t"; "\r\n"; " \t \n " ]
+
+    let private content = [| 0uy; 1uy; 2uy; 255uy; 128uy; 42uy |]
+
+    let private expectMissing (field: string) (result: Result<EvidenceRecord, EvidenceError>) =
+        match result with
+        | Error (MissingAttribution f) -> Assert.Equal(field, f)
+        | Error other -> failwithf "expected MissingAttribution %s, got %A" field other
+        | Ok record -> failwithf "expected MissingAttribution %s, got Ok %A" field record
+
+    let private lowerHexSha256 (bytes: byte[]) =
+        SHA256.HashData(bytes) |> Convert.ToHexString |> fun s -> s.ToLowerInvariant()
+
     /// EVD-001-O1: `Evidence.create` refuses a record whose `Source` or `CollectedBy` is empty or whitespace with `MissingAttribution field`, naming the missing field.
     [<Fact>]
     let ``EVD-001-O1`` () : unit =
-        failwith "DOKIMOS-UNIMPLEMENTED dotnet:Evidence.Tests.EVD001Tests.EVD-001-O1"
+        blanks
+        |> List.iter (fun blank ->
+            Evidence.create "ev-1" blank "collector-a" content |> expectMissing "Source"
+            Evidence.create "ev-1" "https://provider.example/evidence/ev-1" blank content
+            |> expectMissing "CollectedBy")
 
     /// EVD-001-O2: a record with both attribution fields is created, and its `Sha256` is the lowercase hex SHA-256 of its `Content`.
     [<Fact>]
     let ``EVD-001-O2`` () : unit =
-        failwith "DOKIMOS-UNIMPLEMENTED dotnet:Evidence.Tests.EVD001Tests.EVD-001-O2"
+        let rng = Random(1001)
+        let payloads =
+            [ Array.empty<byte>
+              content
+              Text.Encoding.UTF8.GetBytes "hello evidence"
+              Array.init 4096 (fun _ -> byte (rng.Next 256)) ]
 
+        payloads
+        |> List.iteri (fun i bytes ->
+            let id = sprintf "ev-%d" i
+            match Evidence.create id "https://provider.example/evidence/x" "collector-a" bytes with
+            | Ok record ->
+                Assert.Equal(id, record.Id)
+                Assert.Equal("https://provider.example/evidence/x", record.Source)
+                Assert.Equal("collector-a", record.CollectedBy)
+                Assert.True((record.Content = bytes), "content must be preserved")
+                let expected = lowerHexSha256 bytes
+                Assert.Equal(expected, record.Sha256)
+                Assert.Equal(64, record.Sha256.Length)
+                Assert.True(record.Sha256 |> Seq.forall (fun c -> Char.IsDigit c || (c >= 'a' && c <= 'f')),
+                            "Sha256 must be lowercase hex")
+            | Error e -> failwithf "expected Ok, got %A" e)

@@ -2,21 +2,172 @@
 // it is written; `dokimos verification coverage` reports DOKIMOS-UNIMPLEMENTED as a placeholder.
 namespace Evidence.Tests
 
+open System
+open System.Collections.Concurrent
+open System.IO
+open System.Net
+open System.Net.Http
+open System.Net.Sockets
+open System.Threading.Tasks
 open Xunit
+open Evidence
 
 module EVD002Tests =
+    type private Recorded =
+        { Path: string
+          Query: string
+          RawUrl: string
+          Headers: (string * string) list }
+
+    type private Provider =
+        { BaseUrl: string
+          Requests: unit -> Recorded list
+          Stop: unit -> unit }
+
+    let private freePort () =
+        let l = TcpListener(IPAddress.Loopback, 0)
+        l.Start()
+        let port = (l.LocalEndpoint :?> IPEndPoint).Port
+        l.Stop()
+        port
+
+    let private record (req: HttpListenerRequest) =
+        { Path = req.Url.AbsolutePath
+          Query = req.Url.Query
+          RawUrl = req.RawUrl
+          Headers =
+            req.Headers.AllKeys
+            |> Array.map (fun k -> k, req.Headers.[k])
+            |> Array.toList }
+
+    /// Starts a real HTTP provider on 127.0.0.1; `respond` maps the request path to (status, body).
+    let private startProvider (respond: string -> int * byte[]) : Provider =
+        let port = freePort ()
+        let listener = new HttpListener()
+        listener.Prefixes.Add(sprintf "http://127.0.0.1:%d/" port)
+        listener.Start()
+        let log = ConcurrentQueue<Recorded>()
+        let handle (ctx: HttpListenerContext) =
+            try
+                log.Enqueue(record ctx.Request)
+                let status, body = respond ctx.Request.Url.AbsolutePath
+                ctx.Response.StatusCode <- status
+                ctx.Response.ContentType <- "application/octet-stream"
+                ctx.Response.ContentLength64 <- int64 body.Length
+                ctx.Response.OutputStream.Write(body, 0, body.Length)
+                ctx.Response.OutputStream.Close()
+            with _ -> (try ctx.Response.Abort() with _ -> ())
+        let rec loop () =
+            match (try Some(listener.GetContext()) with _ -> None) with
+            | Some ctx ->
+                handle ctx
+                loop ()
+            | None -> ()
+        Task.Run(fun () -> loop ()) |> ignore
+        { BaseUrl = sprintf "http://127.0.0.1:%d" port
+          Requests = fun () -> log.ToArray() |> Array.toList
+          Stop = fun () -> (try listener.Stop(); listener.Close() with _ -> ()) }
+
+    let private withProvider (respond: string -> int * byte[]) (f: Provider -> unit) =
+        let provider = startProvider respond
+        try f provider
+        finally provider.Stop()
+
+    let private run (t: Task<'a>) = t.GetAwaiter().GetResult()
+
+    let private token = "tok-EVD002-7c1e9a4b5d"
+
     /// EVD-002-O1: a 200 answer returns `Ok` with exactly the response body bytes.
     [<Fact>]
     let ``EVD-002-O1`` () : unit =
-        failwith "DOKIMOS-UNIMPLEMENTED dotnet:Evidence.Tests.EVD002Tests.EVD-002-O1"
+        let rng = Random(2001)
+        let body = Array.init 10000 (fun _ -> byte (rng.Next 256))
+        let bodies = Map.ofList [ "/evidence/doc-1", body; "/evidence/empty", Array.empty<byte> ]
+        withProvider
+            (fun path ->
+                match Map.tryFind path bodies with
+                | Some b -> 200, b
+                | None -> 404, Array.empty)
+            (fun provider ->
+                use http = new HttpClient()
+                let client = ProviderClient(http, provider.BaseUrl, token)
+                bodies
+                |> Map.iter (fun path expected ->
+                    let id = path.Substring("/evidence/".Length)
+                    match run (client.Fetch id) with
+                    | Ok bytes ->
+                        Assert.Equal(expected.Length, bytes.Length)
+                        Assert.Equal<byte>(expected, bytes)
+                    | Error e -> failwithf "expected Ok for %s, got %A" id e)
+                let paths = provider.Requests() |> List.map (fun r -> r.Path)
+                Assert.Contains("/evidence/doc-1", paths)
+                Assert.Contains("/evidence/empty", paths))
 
     /// EVD-002-O2: 404 maps to `Error(ProviderNotFound id)`, 401 or 403 to `Error ProviderUnauthorized`, and 429 to `Error ProviderRateLimited`. None of them ever returns `Ok`.
     [<Fact>]
     let ``EVD-002-O2`` () : unit =
-        failwith "DOKIMOS-UNIMPLEMENTED dotnet:Evidence.Tests.EVD002Tests.EVD-002-O2"
+        let statusOf (path: string) =
+            match path with
+            | "/evidence/missing-404" -> 404
+            | "/evidence/denied-401" -> 401
+            | "/evidence/forbidden-403" -> 403
+            | "/evidence/limited-429" -> 429
+            | _ -> 500
+        let cases : (string * (EvidenceError -> bool)) list =
+            [ "missing-404", (fun e -> e = ProviderNotFound "missing-404")
+              "denied-401", (fun e -> e = ProviderUnauthorized)
+              "forbidden-403", (fun e -> e = ProviderUnauthorized)
+              "limited-429", (fun e -> e = ProviderRateLimited) ]
+        withProvider
+            // A non-empty body on each error answer: it must never be surfaced as Ok.
+            (fun path -> statusOf path, Text.Encoding.UTF8.GetBytes "{\"error\":\"nope\"}")
+            (fun provider ->
+                use http = new HttpClient()
+                let client = ProviderClient(http, provider.BaseUrl, token)
+                cases
+                |> List.iter (fun (id, expected) ->
+                    // Repeat each to make sure the mapping is stable, never Ok.
+                    [ 1; 2 ]
+                    |> List.iter (fun _ ->
+                        match run (client.Fetch id) with
+                        | Ok bytes -> failwithf "%s: expected Error, got Ok (%d bytes)" id bytes.Length
+                        | Error e -> Assert.True(expected e, sprintf "%s: unexpected error %A" id e)))
+                let paths = provider.Requests() |> List.map (fun r -> r.Path) |> Set.ofList
+                cases |> List.iter (fun (id, _) -> Assert.Contains("/evidence/" + id, paths)))
 
     /// EVD-002-O3: every request carries the bearer token, and a request to the provider never carries it anywhere else (not in the URL or query).
     [<Fact>]
     let ``EVD-002-O3`` () : unit =
-        failwith "DOKIMOS-UNIMPLEMENTED dotnet:Evidence.Tests.EVD002Tests.EVD-002-O3"
-
+        let statusOf (path: string) =
+            if path.EndsWith "-404" then 404
+            elif path.EndsWith "-401" then 401
+            elif path.EndsWith "-429" then 429
+            else 200
+        withProvider
+            (fun path -> statusOf path, Text.Encoding.UTF8.GetBytes "payload")
+            (fun provider ->
+                use http = new HttpClient()
+                let client = ProviderClient(http, provider.BaseUrl, token)
+                let collector = Collector(client, provider.BaseUrl, "collector-a")
+                let ids = [ "a-1"; "b-2"; "c-404"; "d-401"; "e-429" ]
+                ids |> List.iter (fun id -> run (client.Fetch id) |> ignore)
+                ids |> List.iter (fun id -> run (collector.Collect id) |> ignore)
+                let requests = provider.Requests()
+                Assert.Equal(2 * List.length ids, List.length requests)
+                requests
+                |> List.iter (fun r ->
+                    let auth =
+                        r.Headers
+                        |> List.filter (fun (k, _) -> String.Equals(k, "Authorization", StringComparison.OrdinalIgnoreCase))
+                        |> List.map snd
+                    Assert.Equal<string list>([ "Bearer " + token ], auth)
+                    Assert.DoesNotContain(token, r.Path)
+                    Assert.DoesNotContain(token, r.Query)
+                    Assert.DoesNotContain(token, r.RawUrl)
+                    Assert.DoesNotContain(token, Uri.UnescapeDataString r.RawUrl)
+                    r.Headers
+                    |> List.filter (fun (k, _) -> not (String.Equals(k, "Authorization", StringComparison.OrdinalIgnoreCase)))
+                    |> List.iter (fun (k, v) ->
+                        Assert.False((v <> null && v.Contains token), sprintf "token leaked in header %s" k)))
+                let paths = requests |> List.map (fun r -> r.Path) |> Set.ofList
+                ids |> List.iter (fun id -> Assert.Contains("/evidence/" + id, paths)))

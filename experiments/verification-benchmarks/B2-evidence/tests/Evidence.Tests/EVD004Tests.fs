@@ -2,11 +2,121 @@
 // it is written; `dokimos verification coverage` reports DOKIMOS-UNIMPLEMENTED as a placeholder.
 namespace Evidence.Tests
 
+open System
+open System.Collections.Concurrent
+open System.IO
+open System.Net
+open System.Net.Http
+open System.Net.Sockets
+open System.Threading.Tasks
 open Xunit
+open Evidence
 
 module EVD004Tests =
+    type private Recorded =
+        { Path: string
+          Query: string
+          RawUrl: string
+          Headers: (string * string) list }
+
+    type private Provider =
+        { BaseUrl: string
+          Requests: unit -> Recorded list
+          Stop: unit -> unit }
+
+    let private freePort () =
+        let l = TcpListener(IPAddress.Loopback, 0)
+        l.Start()
+        let port = (l.LocalEndpoint :?> IPEndPoint).Port
+        l.Stop()
+        port
+
+    let private record (req: HttpListenerRequest) =
+        { Path = req.Url.AbsolutePath
+          Query = req.Url.Query
+          RawUrl = req.RawUrl
+          Headers =
+            req.Headers.AllKeys
+            |> Array.map (fun k -> k, req.Headers.[k])
+            |> Array.toList }
+
+    /// Starts a real HTTP provider on 127.0.0.1; `respond` maps the request path to (status, body).
+    let private startProvider (respond: string -> int * byte[]) : Provider =
+        let port = freePort ()
+        let listener = new HttpListener()
+        listener.Prefixes.Add(sprintf "http://127.0.0.1:%d/" port)
+        listener.Start()
+        let log = ConcurrentQueue<Recorded>()
+        let handle (ctx: HttpListenerContext) =
+            try
+                log.Enqueue(record ctx.Request)
+                let status, body = respond ctx.Request.Url.AbsolutePath
+                ctx.Response.StatusCode <- status
+                ctx.Response.ContentType <- "application/octet-stream"
+                ctx.Response.ContentLength64 <- int64 body.Length
+                ctx.Response.OutputStream.Write(body, 0, body.Length)
+                ctx.Response.OutputStream.Close()
+            with _ -> (try ctx.Response.Abort() with _ -> ())
+        let rec loop () =
+            match (try Some(listener.GetContext()) with _ -> None) with
+            | Some ctx ->
+                handle ctx
+                loop ()
+            | None -> ()
+        Task.Run(fun () -> loop ()) |> ignore
+        { BaseUrl = sprintf "http://127.0.0.1:%d" port
+          Requests = fun () -> log.ToArray() |> Array.toList
+          Stop = fun () -> (try listener.Stop(); listener.Close() with _ -> ()) }
+
+    let private withProvider (respond: string -> int * byte[]) (f: Provider -> unit) =
+        let provider = startProvider respond
+        try f provider
+        finally provider.Stop()
+
+    let private run (t: Task<'a>) = t.GetAwaiter().GetResult()
+
+    let private token = "tok-EVD004-3f8d2c6a1b"
+
     /// EVD-004-O1: a record whose content is larger than 2 MiB, fetched from the provider over HTTP and then saved and loaded, loads back with every byte equal.
     [<Fact>]
     let ``EVD-004-O1`` () : unit =
-        failwith "DOKIMOS-UNIMPLEMENTED dotnet:Evidence.Tests.EVD004Tests.EVD-004-O1"
-
+        let size = 2 * 1024 * 1024 + 123457
+        let rng = Random(4004)
+        let body = Array.zeroCreate<byte> size
+        rng.NextBytes body
+        // Non-repeating: the first and second MiB must differ.
+        Assert.False((Array.sub body 0 (1024 * 1024) = Array.sub body (1024 * 1024) (1024 * 1024)))
+        let dir = Path.Combine(Path.GetTempPath(), "evd004-" + Guid.NewGuid().ToString("N"))
+        Directory.CreateDirectory dir |> ignore
+        try
+            withProvider
+                (fun path -> if path = "/evidence/big-1" then 200, body else 404, Array.empty)
+                (fun provider ->
+                    use http = new HttpClient()
+                    let client = ProviderClient(http, provider.BaseUrl, token)
+                    let collector = Collector(client, provider.BaseUrl, "collector-large")
+                    let collected =
+                        match run (collector.Collect "big-1") with
+                        | Ok r -> r
+                        | Error e -> failwithf "Collect failed: %A" e
+                    Assert.Equal("big-1", collected.Id)
+                    Assert.Equal(provider.BaseUrl + "/evidence/big-1", collected.Source)
+                    Assert.Equal("collector-large", collected.CollectedBy)
+                    Assert.Equal(size, collected.Content.Length)
+                    Assert.True((collected.Content = body), "collected content differs from served bytes")
+                    let store = EvidenceStore(dir)
+                    match store.Save collected with
+                    | Ok () -> ()
+                    | Error e -> failwithf "Save failed: %A" e
+                    match EvidenceStore(dir).Load "big-1" with
+                    | Ok loaded ->
+                        Assert.Equal(size, loaded.Content.Length)
+                        let firstDiff =
+                            Array.zip body loaded.Content |> Array.tryFindIndex (fun (a, b) -> a <> b)
+                        Assert.True(firstDiff.IsNone, sprintf "byte mismatch at %A" firstDiff)
+                        Assert.Equal(collected.Sha256, loaded.Sha256)
+                        Assert.True((loaded = collected))
+                    | Error e -> failwithf "Load failed: %A" e
+                    Assert.Contains("/evidence/big-1", provider.Requests() |> List.map (fun r -> r.Path)))
+        finally
+            (try Directory.Delete(dir, true) with _ -> ())
