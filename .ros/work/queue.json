@@ -945,10 +945,10 @@
       "description": null,
       "tags": [],
       "priority": "medium",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-11-02T01:42:53.533Z",
-      "updatedAt": "2026-11-02T01:43:07Z",
+      "updatedAt": "2026-11-02T01:43:24Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
