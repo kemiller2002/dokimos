@@ -279,7 +279,8 @@ module VerificationCommand =
                                 | Error e -> ProbeError e
                                 | Ok faulted ->
                                     File.WriteAllText(target, faulted)
-                                    FaultProbe.classify control (run copy p.Command timeout))
+                                    let built = if p.Build.IsEmpty then 0 else run copy p.Build timeout
+                                    FaultProbe.classifyBuilt control built (if built = 0 then run copy p.Command timeout else 1))
                         { ProbeId = p.Id; Obligations = p.Obligations; SourceSha = sha; Outcome = outcome })
                 let json = FaultProbe.resultsJson sha results
                 write (Arguments.tryOne "out" parsed) json

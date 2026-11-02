@@ -352,13 +352,16 @@ module SaveTests =
 
     [<Fact>]
     let ``fault probes apply exactly once and classify against a passing control`` () =
-        let probe = { Id = "P1"; Description = ""; Obligations = [ "SAVE-001-O1" ]; File = "Save.fs"; Find = "readBack bytes"; Replace = "Ok ()"; Command = [ "dotnet"; "test" ] }
+        let probe = { Id = "P1"; Description = ""; Obligations = [ "SAVE-001-O1" ]; File = "Save.fs"; Find = "readBack bytes"; Replace = "Ok ()"; Build = []; Command = [ "dotnet"; "test" ] }
         Assert.Equal(Ok "let r = Ok ()", FaultProbe.apply probe "let r = readBack bytes")
         Assert.True(Result.isError (FaultProbe.apply probe "nothing here"))
         Assert.True(Result.isError (FaultProbe.apply probe "readBack bytes; readBack bytes"))
         Assert.Equal(Detected, FaultProbe.classify 0 1)
         Assert.Equal(Survived, FaultProbe.classify 0 0)
         Assert.True(match FaultProbe.classify 1 1 with ProbeError _ -> true | _ -> false)
+        // A fault that breaks the build proves nothing about the tests.
+        Assert.True(match FaultProbe.classifyBuilt 0 1 1 with ProbeError e -> e.Contains "does not build" | _ -> false)
+        Assert.Equal(Detected, FaultProbe.classifyBuilt 0 0 1)
 
     [<Fact>]
     let ``praxis matrix: met only when every scoped obligation is verified at the candidate`` () =

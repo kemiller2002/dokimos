@@ -13,6 +13,9 @@ type FaultProbe =
       File: string
       Find: string
       Replace: string
+      /// Optional: builds the faulted copy first. A fault that does not build is a probe error,
+      /// never a detection (a compile failure says nothing about the tests).
+      Build: string list
       Command: string list }
 
 module FaultProbe =
@@ -34,7 +37,8 @@ module FaultProbe =
                     let! replace = Json.field "replace" Json.string e
                     let! command = Json.field "command" (Json.list Json.nonEmptyString) e
                     do! if command.IsEmpty then Error "command must not be empty" else Ok()
-                    return { Id = id; Description = description; Obligations = obligations; File = file; Find = find; Replace = replace; Command = command }
+                    let! build = Json.fieldOr "build" [] (Json.list Json.nonEmptyString) e
+                    return { Id = id; Description = description; Obligations = obligations; File = file; Find = find; Replace = replace; Build = build; Command = command }
                 }
         let root =
             fun e ->
@@ -58,11 +62,15 @@ module FaultProbe =
             Error $"{probe.Id}: the fault anchor occurs more than once in {probe.File}"
         else Ok(content.Substring(0, first) + probe.Replace + content.Substring(first + probe.Find.Length))
 
-    /// Control must pass (the unfaulted copy) and the faulted run must fail.
-    let classify (controlExit: int) (faultedExit: int) =
+    /// Control must pass (the unfaulted copy), the faulted copy must build (when a build is
+    /// declared), and the faulted run must fail.
+    let classifyBuilt (controlExit: int) (faultedBuildExit: int) (faultedExit: int) =
         if controlExit <> 0 then ProbeError $"control run failed (exit {controlExit}): the probe proves nothing"
+        elif faultedBuildExit <> 0 then ProbeError $"the faulted copy does not build (exit {faultedBuildExit}): a compile failure is not a detection"
         elif faultedExit = 0 then Survived
         else Detected
+
+    let classify (controlExit: int) (faultedExit: int) = classifyBuilt controlExit 0 faultedExit
 
     let resultsJson (sourceSha: string) (results: ProbeResult list) =
         Contracts.serialize
