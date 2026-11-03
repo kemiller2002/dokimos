@@ -4,7 +4,7 @@
   "repository": "dokimos",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-11-03T19:19:19Z",
+  "updatedAt": "2026-11-03T19:21:55Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1606,13 +1606,43 @@
     {
       "id": "DOK-REL-0110",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-11-03T19:19:19Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "Directory.Build.props"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Cli.Tests"
+        }
+      ],
+      "updatedAt": "2026-11-03T19:21:55Z",
       "telemetryExecutionIds": [
         "EXE-20261103T191919478Z-fa0a9140"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "834767098ab78623be6882cd",
+        "recordedAt": "2026-11-03T19:21:53Z",
+        "executionId": "EXE-20261103T191919478Z-fa0a9140",
+        "repository": "dokimos",
+        "branch": "claude/rehearsal-009-preflight-smoke-c69xgt",
+        "commit": "4b7f53cced59f6de3e2c4673520094490d3c2596",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "claude/rehearsal-009-preflight-smoke-c69xgt",
+        "remoteCommit": "4b7f53cced59f6de3e2c4673520094490d3c2596",
+        "summary": "Version bumped to 0.11.0; 593 tests pass",
+        "nextAction": "Merge the PR, then dispatch Release 0.11.0",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "completedAt": "2026-11-03T19:21:55Z"
     }
   ]
 }
