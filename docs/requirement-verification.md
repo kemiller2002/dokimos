@@ -113,3 +113,68 @@ each defect below and requires that it is not accepted:
 - a tampered manifest;
 - another commit;
 - a test-infrastructure failure.
+
+## Adopting it in another Echelon application
+
+Four steps, one per system, with nothing application-specific in the tools.
+The example application needs a required "Customer name" field.
+
+**1. Requirements repository: declare the requirement.** Add it to a
+`praxis.requirement-catalog/1` file that lives with the authoritative
+requirements, not with the application:
+
+```json
+{ "id": "CUS-001", "type": "ui-field", "screen": "customer-create", "name": "Customer name",
+  "component": "text-input", "required": true, "editable": true,
+  "validation": { "minLength": 1, "maxLength": 120 },
+  "verification": ["mapped", "exists", "visible", "accessible", "editable", "enter", "validation", "rejects", "save", "reload"],
+  "sources": [{ "document": "docs/SCREENS.md", "requirement": "S03" }] }
+```
+
+`praxis requirements manifest compile` now creates ten mandatory obligations,
+`CUS-001/V1/mapped` through `CUS-001/V5/reload`. Until each one passes, the
+application is not accepted.
+
+**2. Application: render the identity on the control itself.** With Forma
+markup in F#:
+
+```fsharp
+RequirementIdentity.identify TextInput "CUS-001" (field "customer-name" "Customer name" input)
+```
+
+With hand-written HTML:
+
+```html
+<input data-requirement-id="CUS-001" …>
+```
+
+Then map it in a `praxis.requirement-implementation-map/1`:
+
+```json
+{ "requirement": "CUS-001", "location": "web/index.html" }
+```
+
+**3. Application: probe it.** Copy `tests/browser/requirements/support/probe.js`
+from kemiller2002/indy-init-rehearsal-008. Then write a Playwright test that
+drives the real page and records facts per obligation:
+
+- `probe.elements(page, "CUS-001", ["exists", "visible", "accessible", "editable"])`;
+- the values it entered and read back (`enter`);
+- the manifest's own boundary values (`validation`, `rejects`; take them from
+  `requirement("CUS-001").validation`);
+- what the store held after save, and what the page showed after reload.
+
+The test records and does not assert, and it flushes in `finally`.
+
+**4. CI: compile, probe, verify, schedule.** Copy
+`.github/workflows/requirement-verification.yml` from the same repository and
+change the catalog pin. It compiles the manifest from the pinned
+requirements commit and runs the probes. Then it verifies with this command,
+publishes the evidence and fails acceptance unless every mandatory obligation
+passed. `tools/requirement-mutations.fsx` shows how to prove that the
+pipeline catches a removed, hidden, disabled or duplicated field and a
+removed test.
+
+Nothing in steps 2 to 4 can shrink the obligations. Leaving out the field,
+the mapping or the probe turns obligations into FAIL or NOT_RUN, never into
+PASS.
