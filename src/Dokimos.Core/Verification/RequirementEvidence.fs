@@ -84,6 +84,7 @@ type ManifestRequirement =
       /// None: always applicable. Some facts: applicable when every fact has the value.
       AppliesWhen: (string * bool) list option
       Repeated: bool
+      DependsOn: string list
       Obligations: ManifestObligation list
       Mappings: string list }
 
@@ -253,6 +254,7 @@ module RequirementEvidence =
                         |> Option.map (arr "facts" >> List.map (fun f -> strOr "fact" "" f, boolOr "equals" true f))
                     | _ -> None
                   Repeated = (prop "instancing" e |> Option.bind (str "scope")) = Some "repeated"
+                  DependsOn = strings "dependsOn" e
                   Obligations =
                     arr "obligations" e
                     |> List.map (fun o ->

@@ -366,8 +366,13 @@ module VerificationCommand =
                     Directory.CreateDirectory directory |> ignore
                     let runId = Arguments.tryOne "run-id" parsed |> Option.orElse report.RunId |> Option.defaultValue "unrecorded"
 
-                    for name, content in RequirementVerification.ordoEvidence report runId do
+                    let evidenceFiles = RequirementOrdo.ordoEvidence report runId
+
+                    for name, content in evidenceFiles do
                         File.WriteAllText(Path.Combine(directory, name), content)
+
+                    File.WriteAllText(Path.Combine(directory, "evidence-manifest.json"), RequirementOrdo.ordoEvidenceManifest evidenceFiles)
+                    File.WriteAllText(Path.Combine(directory, "verification-plan.json"), RequirementOrdo.ordoPlan report manifest.CatalogId)
 
                 eprintfn "%s" (RequirementVerification.toText report)
                 eprintfn "verified in %d ms" stopwatch.ElapsedMilliseconds

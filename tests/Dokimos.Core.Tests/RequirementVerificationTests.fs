@@ -18,7 +18,7 @@ module RequirementVerificationTests =
     let statement: ManifestRequirement =
         { Id = "INV-002"; Kind = "ui-field"; Screen = "investigation-start"; Name = "Problem statement"
           Component = Some "textarea"; Required = true; MinLength = Some 1; MaxLength = Some 20; Pattern = None; Options = []
-          AppliesWhen = None; Repeated = false; Mappings = [ "web/index.html" ]
+          AppliesWhen = None; Repeated = false; DependsOn = []; Mappings = [ "web/index.html" ]
           Obligations =
             [ obligation "INV-002" "V1" "mapped"; obligation "INV-002" "V1" "exists"; obligation "INV-002" "V2" "visible"
               obligation "INV-002" "V2" "accessible"; obligation "INV-002" "V3" "editable"; obligation "INV-002" "V3" "enter"
@@ -263,7 +263,7 @@ module RequirementVerificationTests =
 
     [<Fact>]
     let ``ordo evidence carries one requirement result in the shape ordo verification schedule ingests`` () =
-        let files = RequirementVerification.ordoEvidence (verify [ statement ] correct) "run-1"
+        let files = RequirementOrdo.ordoEvidence (verify [ statement ] correct) "run-1"
         let name, body = List.exactlyOne files
         Assert.Equal("INV-002.json", name)
         Assert.Contains("\"schema\": \"causa.acceptance-evidence/1\"", body)
@@ -294,3 +294,12 @@ module RequirementVerificationTests =
         Assert.False whole.Accepted
         let unknown = RequirementVerification.verifyScoped (manifest [ statement ]) [] [ "INV-404" ] correct
         Assert.False unknown.Accepted
+
+    [<Fact>]
+    let ``the mapped obligation is bound to the source-mapping check, so Ordo sees a test identity`` () =
+        let report = verify [ statement ] correct
+        let mappedResult = report.Requirements.Head.Obligations |> List.find (fun o -> o.Obligation.Check = "mapped")
+        Assert.Equal<string list>([ RequirementVerification.SourceMappingCheck ], mappedResult.Tests)
+        let plan = RequirementOrdo.ordoPlan report "CAT-TEST"
+        Assert.Contains("\"status\": \"bound\"", plan)
+        Assert.DoesNotContain("\"status\": \"missing\"", plan)

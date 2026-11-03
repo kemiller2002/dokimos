@@ -22,6 +22,10 @@ module RequirementVerification =
     let accepts = RequirementJudging.accepts
     let private judge = RequirementJudging.judge
 
+    /// The identity of Dokimos's static source-mapping check (V1 `mapped`).
+    [<Literal>]
+    let SourceMappingCheck = "dokimos:source-mapping"
+
     // ------------------------------------------------------------------ obligations
 
     let private mapped (evidence: Evidence) (requirement: ManifestRequirement) =
@@ -91,8 +95,9 @@ module RequirementVerification =
         | Ok true ->
             match obligation.Check with
             | "mapped" ->
+                // Verified by Dokimos's own source check, which always runs: that check is the obligation's test.
                 let status, reason = mapped evidence requirement
-                result status reason []
+                result status reason [ SourceMappingCheck ]
             | _ ->
                 match evidence.Observations, problems with
                 | Error reason, _ -> result Blocked $"observations unavailable: {reason}" []
@@ -292,36 +297,6 @@ module RequirementVerification =
 
         let options = JsonSerializerOptions(WriteIndented = true, Encoder = Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping)
         body.ToJsonString(options).Replace("\r\n", "\n") + "\n"
-
-    /// One `causa.acceptance-evidence/1` result per requirement, the evidence shape
-    /// `ordo verification schedule --evidence-manifest` already ingests (kemiller2002/ordo
-    /// src/Ordo.Core/VerificationPlanWire.fs). NOT_APPLICABLE requirements produce none.
-    let ordoEvidence (report: VerificationReport) (runId: string) : (string * string) list =
-        let options = JsonSerializerOptions(WriteIndented = true)
-
-        report.Requirements
-        |> List.filter (fun r -> r.Status <> NotApplicable)
-        |> List.map (fun r ->
-            let status =
-                match r.Status with
-                | Pass -> "PASS"
-                | Fail -> "FAIL"
-                | Blocked -> "BLOCKED"
-                | _ -> "NOT_RUN"
-
-            let body =
-                obj
-                    [ "schema", node "causa.acceptance-evidence/1"
-                      "subject_type", node "requirement"
-                      "subject_id", node r.Requirement.Id
-                      "status", node status
-                      "run_id", node runId
-                      "source_sha", node (report.Candidate |> Option.defaultValue report.Manifest.SourceCommit)
-                      "input_digest", node report.Manifest.ContentHash
-                      "failed_obligations",
-                      arrayOf (r.Obligations |> List.filter (fun o -> o.Status <> Pass && o.Status <> NotApplicable) |> List.map (fun o -> node o.Obligation.Id)) ]
-
-            $"{r.Requirement.Id}.json", body.ToJsonString(options).Replace("\r\n", "\n") + "\n")
 
     let toText (report: VerificationReport) : string =
         let s = summary report
