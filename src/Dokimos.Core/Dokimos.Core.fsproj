@@ -79,6 +79,9 @@
     <Compile Include="Verification/Coverage.fs" />
     <Compile Include="Verification/Scaffold.fs" />
     <Compile Include="Verification/FaultProbe.fs" />
+    <Compile Include="Verification/RequirementEvidence.fs" />
+    <Compile Include="Verification/RequirementJudging.fs" />
+    <Compile Include="Verification/RequirementVerification.fs" />
     <EmbeddedResource Include="ConstructionHarness.fsx" LogicalName="Dokimos.Core.ConstructionHarness.fsx" />
     <EmbeddedResource Include="BehaviorDriver.fsx" LogicalName="Dokimos.Core.BehaviorDriver.fsx" />
   </ItemGroup>

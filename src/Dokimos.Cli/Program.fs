@@ -461,7 +461,7 @@ module Program =
               "  upgrade [--root .] [--version v] [--action-ref sha] [--source dir]...   upgrade Dokimos-owned repository state"
               "  history [findings] --store dir [--repository r] [--metric id [--scope s]] [--file path]"
               "  ratchet check|baseline init|baseline update|baseline diff|rules   baseline-derived change-quality ratchet (see `dokimos ratchet`)"
-              "  verification compile|scaffold|coverage|probe ...   verification compiler: plan intake, test scaffolds, exact coverage, fault probes (see `dokimos verification`)"
+              "  verification compile|scaffold|coverage|probe|requirements ...   verification compiler: plan intake, test scaffolds, exact coverage, fault probes, manifest-driven requirement verification (see `dokimos verification`)"
               "  identity [--root .] [--expected id] [--remote url]   ros.json repository identity conformance (0 consistent, 4 mismatch, 3 undetermined)"
               "exit codes: 0 continue, 1 unexpected fault, 2 invalid invocation, 3 evidence unavailable/invalid, 4 policy failure or ratchet regression, 5 store conflict, 6 invalid or expired quality exceptions" ]
 

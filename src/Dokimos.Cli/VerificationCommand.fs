@@ -287,8 +287,95 @@ module VerificationCommand =
                 let failed = results |> List.exists (fun r -> r.Outcome <> Detected)
                 Output.dataWithCode (if failed then ExitCodes.PolicyFailure else ExitCodes.Continue) json)
 
+    // ---------------------------------------------------------------- requirements
+
+    /// `dokimos verification requirements`: verify a Praxis verification manifest against
+    /// application source, browser observations and executed test results. Exit 0 accepted,
+    /// 4 not accepted, 3 the manifest itself is unavailable, 2 bad arguments.
+    let private requirements args =
+        withArgs [ "manifest"; "observations"; "results"; "root"; "candidate"; "screen"; "requirement"; "fact"; "out"; "text"; "ordo-evidence"; "run-id" ] args (fun parsed ->
+            let stopwatch = Stopwatch.StartNew()
+
+            match Arguments.required "manifest" parsed |> Result.bind readFile |> Result.bind RequirementVerification.parseManifest with
+            | Error message -> Output.unavailable "manifest-unavailable" message
+            | Ok manifest ->
+                let root = Arguments.tryOne "root" parsed |> Option.defaultValue "." |> Path.GetFullPath
+
+                let source (location: string) =
+                    let full = Path.GetFullPath(Path.Combine(root, location))
+                    if full.StartsWith(root, StringComparison.Ordinal) && File.Exists full then Some(File.ReadAllText full) else None
+
+                let observations =
+                    match Arguments.tryOne "observations" parsed with
+                    | None -> Error "no --observations file was given"
+                    | Some path when Directory.Exists path ->
+                        // One file per test: parse each, then merge (same run, manifest and commit only).
+                        Directory.GetFiles(path, "*.json")
+                        |> Array.sort
+                        |> Array.toList
+                        |> List.map (fun file -> readFile file |> Result.bind RequirementVerification.parseObservations |> Result.mapError (fun e -> $"{file}: {e}"))
+                        |> List.fold (fun acc next -> acc |> Result.bind (fun xs -> next |> Result.map (fun x -> xs @ [ x ]))) (Ok [])
+                        |> Result.bind RequirementVerification.mergeObservations
+                    | Some path -> readFile path |> Result.bind RequirementVerification.parseObservations
+
+                let results =
+                    match Arguments.tryOne "results" parsed with
+                    | None -> Error "no --results file was given"
+                    | Some path ->
+                        readFile path
+                        |> Result.bind TestResults.parsePlaywrightJson
+                        |> Result.map (fun outcomes ->
+                            // A test identity seen twice with different outcomes (two projects share
+                            // nothing, so this is a retry) keeps its worst outcome.
+                            outcomes
+                            |> List.groupBy fst
+                            |> List.map (fun (identity, seen) ->
+                                let all = seen |> List.map snd |> List.distinct
+                                identity, (match all with [ one ] -> one | _ -> Failed "outcomes differed between attempts"))
+                            |> Map.ofList)
+
+                let facts =
+                    Arguments.many "fact" parsed
+                    |> List.choose (fun text ->
+                        match text.Split('=', 2) with
+                        | [| name; "true" |] -> Some(name, true)
+                        | [| name; "false" |] -> Some(name, false)
+                        | _ -> None)
+                    |> Map.ofList
+
+                let evidence: Evidence =
+                    { Observations = observations
+                      Results = results
+                      Source = source
+                      Candidate = Arguments.tryOne "candidate" parsed
+                      Facts = facts }
+
+                let screens =
+                    Arguments.many "screen" parsed |> List.collect (fun s -> s.Split(',', StringSplitOptions.RemoveEmptyEntries) |> List.ofArray)
+
+                let scope =
+                    Arguments.many "requirement" parsed |> List.collect (fun s -> s.Split(',', StringSplitOptions.RemoveEmptyEntries) |> List.ofArray)
+
+                let report = RequirementVerification.verifyScoped manifest screens scope evidence
+                let json = RequirementVerification.toJson report
+                write (Arguments.tryOne "out" parsed) json
+
+                match Arguments.tryOne "ordo-evidence" parsed with
+                | None -> ()
+                | Some directory ->
+                    Directory.CreateDirectory directory |> ignore
+                    let runId = Arguments.tryOne "run-id" parsed |> Option.orElse report.RunId |> Option.defaultValue "unrecorded"
+
+                    for name, content in RequirementVerification.ordoEvidence report runId do
+                        File.WriteAllText(Path.Combine(directory, name), content)
+
+                eprintfn "%s" (RequirementVerification.toText report)
+                eprintfn "verified in %d ms" stopwatch.ElapsedMilliseconds
+                Output.dataWithCode (if report.Accepted then ExitCodes.Continue else ExitCodes.PolicyFailure) json)
+
     let dispatch (args: string list) =
         match args with
+        | "requirements" :: rest -> requirements rest
         | "compile" :: rest -> compile rest
         | "coverage" :: rest -> coverage rest
         | "scaffold" :: rest -> scaffold rest
@@ -296,4 +383,4 @@ module VerificationCommand =
         | _ ->
             Output.invalid
                 "invalid-arguments"
-                "usage: dokimos verification compile (--indy-execution-plan F --indy-verification-plan F | --obligations F) [--out F]\n       dokimos verification scaffold --obligations F [--root .] [--first REQ,...] [--write true] [--append true] [--import MODULE] [--work F]\n       dokimos verification coverage --obligations F [--root .] [--results MANIFEST] [--candidate SHA] [--probes F]... [--scope REQ,...] [--require-verified true] [--out F] [--praxis-matrix F --work-item ID [--dimensions happy-path,...]]\n       dokimos verification probe --spec F --sha SHA [--root .] [--timeout-seconds N] [--out F]"
+                "usage: dokimos verification requirements --manifest F [--observations F] [--results PLAYWRIGHT_JSON] [--root .] [--candidate SHA] [--screen S]... [--requirement ID]... [--fact NAME=true|false]... [--out F] [--ordo-evidence DIR] [--run-id ID]\n       dokimos verification compile (--indy-execution-plan F --indy-verification-plan F | --obligations F) [--out F]\n       dokimos verification scaffold --obligations F [--root .] [--first REQ,...] [--write true] [--append true] [--import MODULE] [--work F]\n       dokimos verification coverage --obligations F [--root .] [--results MANIFEST] [--candidate SHA] [--probes F]... [--scope REQ,...] [--require-verified true] [--out F] [--praxis-matrix F --work-item ID [--dimensions happy-path,...]]\n       dokimos verification probe --spec F --sha SHA [--root .] [--timeout-seconds N] [--out F]"
