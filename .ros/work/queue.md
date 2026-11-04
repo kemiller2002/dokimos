@@ -31,6 +31,7 @@
 | DOK-OPS-027 | Echelon Registry: add dokimos to registry/systems.json | complete | operational, external | medium |
 | DOK-REL-0100 | DOK-REL-0100 | complete |  |  |
 | DOK-REL-0110 | DOK-REL-0110 | complete |  |  |
+| DOK-REL-0111 | Release 0.11.1: url-input requirement component (dokimos#67) for Rehearsal 010 | complete | release | high |
 | DOK-VC-001 | DOK-VC-001 | complete |  |  |
 | DOK-WEB-001 | Public Dokimos website on GitHub Pages | active | website | high |
 | DOK-WEB-002 | Adopt the Echelon Foundry stylesheet and background on the Dokimos site | active | website | high |
