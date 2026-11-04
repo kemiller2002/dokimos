@@ -966,10 +966,10 @@
       "description": null,
       "tags": [],
       "priority": "medium",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-11-04T05:43:17.214Z",
-      "updatedAt": "2026-11-04T05:43:26.000Z",
+      "updatedAt": "2026-11-04T05:45:30.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
