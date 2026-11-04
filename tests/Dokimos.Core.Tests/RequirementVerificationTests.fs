@@ -303,3 +303,47 @@ module RequirementVerificationTests =
         let plan = RequirementOrdo.ordoPlan report "CAT-TEST"
         Assert.Contains("\"status\": \"bound\"", plan)
         Assert.DoesNotContain("\"status\": \"missing\"", plan)
+
+    /// url-input (CAT-CAUSA-INVESTIGATION INV-029): Dokimos 0.11.0 had no case for it, so every element failed V1
+    /// exists, and a correct URL field could never verify (Indy-init docs/release-gate-repair).
+    module UrlInput =
+        let fact tag inputType : ElementFact =
+            { Tag = tag; InputType = inputType; Role = "textbox"; AccessibleName = "Source URL"; Visible = true
+              Disabled = false; ReadOnly = false; Instance = Some "new"; Options = [] }
+
+        [<Fact>]
+        let ``a url-input is an input of type url, text or unspecified`` () =
+            for t in [ "url"; "text"; "" ] do
+                Assert.True(RequirementJudging.componentMatches (Some "url-input") (fact "input" t), $"input type={t}")
+
+        [<Fact>]
+        let ``any other element is not a url-input`` () =
+            for tag, t in [ "textarea", ""; "input", "checkbox"; "input", "number"; "input", "hidden"; "span", ""; "a", ""; "select", "" ] do
+                Assert.False(RequirementJudging.componentMatches (Some "url-input") (fact tag t), $"<{tag} type={t}>")
+
+        [<Fact>]
+        let ``an unknown component still matches nothing`` () =
+            Assert.False(RequirementJudging.componentMatches (Some "colour-wheel") (fact "input" "url"))
+
+        [<Fact>]
+        let ``a url-input field verifies end to end, and the same probe on a textarea fails exists`` () =
+            let url: ManifestRequirement =
+                { statement with
+                    Id = "INV-029"; Name = "Evidence source URL"; Component = Some "url-input"; Required = false
+                    MinLength = None; MaxLength = Some 2000; Pattern = Some "^https?://[^\\s]+$"; Repeated = true
+                    Obligations = [ obligation "INV-029" "V1" "exists"; obligation "INV-029" "V2" "accessible"; obligation "INV-029" "V3" "enter" ] }
+            let probesFor (e: ElementFact) =
+                [ { Obligation = "INV-029/V1/exists"; Test = test; Elements = Some [ e ]; Attempts = []; Expected = None; Observed = None }
+                  { Obligation = "INV-029/V2/accessible"; Test = test; Elements = Some [ e ]; Attempts = []; Expected = None; Observed = None }
+                  { Obligation = "INV-029/V3/enter"; Test = test; Elements = Some [ e ]; Attempts = [ attempt "https://example.com/a" "https://example.com/a" true ]; Expected = None; Observed = None } ]
+            let verdict (e: ElementFact) =
+                RequirementVerification.verify
+                    (manifest [ url ])
+                    []
+                    { Observations = Ok(observations (probesFor e)); Results = Ok(Map.ofList [ test, Passed ]); Source = (fun _ -> None)
+                      Candidate = Some commit; Facts = Map.empty }
+            let statusOf (r: VerificationReport) = r.Requirements.Head.Obligations |> List.map (fun o -> o.Obligation.Check, o.Status)
+            Assert.All(statusOf (verdict (fact "input" "url")), fun (_, st) -> Assert.Equal(Pass, st))
+            Assert.All(statusOf (verdict (fact "input" "text")), fun (_, st) -> Assert.Equal(Pass, st))
+            Assert.Contains(("exists", Fail), statusOf (verdict (fact "textarea" "")))
+

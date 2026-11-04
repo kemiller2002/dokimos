@@ -21,6 +21,10 @@ module RequirementJudging =
 
         match comp with
         | Some "text-input" -> fact.Tag = "input" && textTypes.Contains fact.InputType
+        // A URL field (Praxis catalogs use `url-input`, e.g. CAT-CAUSA-INVESTIGATION INV-029). Forma renders it as a text-type
+        // input (RequirementIdentity.TextInput accepts type=url); an application may keep type=text so that its own URL
+        // rule, not the browser's constraint check, decides. Any other element is not a URL field.
+        | Some "url-input" -> fact.Tag = "input" && List.contains fact.InputType [ ""; "text"; "url" ]
         | Some "textarea" -> fact.Tag = "textarea"
         | Some "select" -> fact.Tag = "select"
         | Some "checkbox" -> fact.Tag = "input" && fact.InputType = "checkbox"

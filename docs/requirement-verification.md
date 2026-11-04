@@ -63,7 +63,7 @@ The summary keeps three counts apart:
 
 | Check | Requires |
 |---|---|
-| `exists` | Exactly one element in the probed state carries the ID, or distinct `data-requirement-instance` keys for a repeated requirement. Each element must be a kind the component allows (`RequirementJudging.componentMatches`). An ID on a hidden `<span>` does not satisfy a `text-input`. |
+| `exists` | Exactly one element in the probed state carries the ID, or distinct `data-requirement-instance` keys for a repeated requirement. Each element must be a kind the component allows (`RequirementJudging.componentMatches`). An ID on a hidden `<span>` does not satisfy a `text-input`. A `url-input` is an `<input>` of type `url`, `text` or unspecified (since 0.11.1; 0.11.0 had no `url-input` case, so every element failed). |
 | `visible` | `exists`, and every carrying element is visible. |
 | `accessible` | `visible`, plus a non-empty accessible name and a semantic role. |
 | `editable` | `visible`, not disabled and not read-only. |
