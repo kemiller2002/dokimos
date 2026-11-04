@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 16,
+  "nextSeq": 17,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -949,6 +949,27 @@
       "attachments": [],
       "createdAt": "2026-11-02T01:42:53.533Z",
       "updatedAt": "2026-11-02T01:43:24Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0016",
+      "title": "Dokimos componentMatches lacks url-input (Indy Init Rehearsal 009: INV-029 fails V1 exists)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-11-04T05:43:17.214Z",
+      "updatedAt": "2026-11-04T05:45:30.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
