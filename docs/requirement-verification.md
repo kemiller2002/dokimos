@@ -73,6 +73,31 @@ The summary keeps three counts apart:
 | `rejects` | Every invalid value is rejected, each rule is violated at least once, and state is unchanged. |
 | `outcome`, `save`, `reload`, `update`, `isolation` | The recorded expected value equals the observed value: what the store holds, or what the page shows after reload. |
 
+### Which elements satisfy a component
+
+`exists` accepts an element only when its kind matches the requirement's
+`component` (`RequirementJudging.componentMatches`, mirroring Forma's
+`RequirementIdentity`). A component with no entry here fails every element.
+
+| Component | Elements that satisfy it |
+|---|---|
+| `text-input` | `<input>` of type text, search, email, url, tel, number, date, datetime-local, password, or no type |
+| `url-input` | `<input>` of type `url`, `text`, or no type |
+| `textarea` | `<textarea>` |
+| `select` | `<select>` |
+| `checkbox` | `<input type=checkbox>` |
+| `radio-group` | `<fieldset>`, or any element with role `radiogroup` |
+| `button` | `<button>`, or `<input>` of type submit or button |
+| `link` | `<a>` |
+| `display` | any element except input, textarea, select, button, script, style, template |
+| `region` | section, form, main, nav, aside, dialog, div, fieldset |
+
+`url-input` also accepts `type=text` and a missing type (which renders as
+text) because a URL field rendered as text with pattern validation is common.
+No Forma or Praxis record in this repository constrains the element type
+further; whether the value is a valid URL is the manifest's `pattern` rule,
+judged by `validation` and `rejects`, not by the element kind.
+
 `required` makes a requirement's obligations mandatory. It does not make the
 value non-empty: emptiness is decided by `minLength` alone.
 

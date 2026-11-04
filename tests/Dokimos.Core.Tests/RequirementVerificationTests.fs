@@ -303,3 +303,30 @@ module RequirementVerificationTests =
         let plan = RequirementOrdo.ordoPlan report "CAT-TEST"
         Assert.Contains("\"status\": \"bound\"", plan)
         Assert.DoesNotContain("\"status\": \"missing\"", plan)
+
+    // ------------------------------------------------------------------ component contract
+
+    let element tag inputType : ElementFact = { textarea with Tag = tag; InputType = inputType }
+
+    [<Fact>]
+    let ``url-input is satisfied by an input of type url, text or no type`` () =
+        [ element "input" "url"; element "input" "text"; element "input" "" ]
+        |> List.iter (fun e -> Assert.True(RequirementJudging.componentMatches (Some "url-input") e, $"{e.Tag} type={e.InputType}"))
+
+    [<Fact>]
+    let ``url-input is not satisfied by a div, a textarea or a non-URL input type`` () =
+        [ element "div" ""; element "textarea" ""; element "input" "checkbox"; element "input" "email" ]
+        |> List.iter (fun e -> Assert.False(RequirementJudging.componentMatches (Some "url-input") e, $"{e.Tag} type={e.InputType}"))
+
+    [<Fact>]
+    let ``INV-029: a url-input on an input of type url passes V1 exists`` () =
+        let source' = { statement with Id = "INV-029"; Name = "Evidence source URL"; Component = Some "url-input"; Obligations = [ obligation "INV-029" "V1" "exists" ] }
+        let urlField = { element "input" "url" with Role = "textbox"; AccessibleName = "Evidence source URL" }
+        let exists' = { Obligation = "INV-029/V1/exists"; Test = test; Elements = Some [ urlField ]; Attempts = []; Expected = None; Observed = None }
+        let report = verify [ source' ] (evidence [ exists' ])
+        Assert.Equal(Pass, statusOf report "INV-029/V1/exists")
+
+    [<Fact>]
+    let ``regression: an unknown component still fails every element`` () =
+        [ element "input" "url"; element "input" "text"; element "textarea" ""; element "div" "" ]
+        |> List.iter (fun e -> Assert.False(RequirementJudging.componentMatches (Some "colour-wheel") e, $"{e.Tag} type={e.InputType}"))

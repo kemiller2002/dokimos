@@ -16,11 +16,18 @@ module RequirementJudging =
     /// The elements that may carry a requirement ID for a component. An ID on any
     /// other element (a hidden span, a wrapper div) does not satisfy the requirement.
     /// Mirrors Forma.Workflow.RequirementIdentity (kemiller2002/forma).
+    ///
+    /// `url-input` (accepted by praxis.requirement-catalog/1 since Praxis 3.25.0) is an
+    /// `<input>` of type `url`, `text` or no type. A missing type renders as `text`, and a
+    /// URL field rendered as `type=text` with pattern validation is common; the URL rules
+    /// themselves are the manifest's `pattern`, judged by V4, not by the element kind.
     let componentMatches (comp: string option) (fact: ElementFact) =
         let textTypes = set [ ""; "text"; "search"; "email"; "url"; "tel"; "number"; "date"; "datetime-local"; "password" ]
+        let urlTypes = set [ ""; "text"; "url" ]
 
         match comp with
         | Some "text-input" -> fact.Tag = "input" && textTypes.Contains fact.InputType
+        | Some "url-input" -> fact.Tag = "input" && urlTypes.Contains fact.InputType
         | Some "textarea" -> fact.Tag = "textarea"
         | Some "select" -> fact.Tag = "select"
         | Some "checkbox" -> fact.Tag = "input" && fact.InputType = "checkbox"
