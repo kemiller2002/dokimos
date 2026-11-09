@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 17,
+  "nextSeq": 18,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -997,6 +997,29 @@
       "createdByActor": {
         "kind": "agent",
         "id": "claude",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0017",
+      "title": "DOK-URL-001: repoint the pinned Forma 0.3.0 release URL (old echelon-design-system URL now 404)",
+      "description": "Source: .praxis/inbox/documents/2026-11-09-DOK-URL-001-forma-release-url.md",
+      "tags": [
+        "dependencies"
+      ],
+      "priority": "high",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-11-09T14:29:47.000Z",
+      "updatedAt": "2026-11-09T14:29:47.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
         "provider": "anthropic",
         "model": "unknown",
         "runtime": "claude-code"
