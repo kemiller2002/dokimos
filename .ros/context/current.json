@@ -1721,7 +1721,27 @@
       "updatedAt": "2026-11-09T14:29:47.000Z",
       "telemetryExecutionIds": [
         "EXE-20261109T142948234Z-acd26e36"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "8f7bccaffec65ceaf8fbaf0d",
+        "recordedAt": "2026-11-09T14:30:06.000Z",
+        "executionId": "EXE-20261109T142948234Z-acd26e36",
+        "repository": "dokimos",
+        "branch": "claude/repoint-forma-url",
+        "commit": "73f7ebf2521620ea8c72b4af4f3e218a16ae55fa",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "claude/repoint-forma-url",
+        "remoteCommit": "73f7ebf2521620ea8c72b4af4f3e218a16ae55fa",
+        "summary": "Forma 0.3.0 pinned at canonical forma release URL; integrity unchanged; clean npm ci passes",
+        "nextAction": "Complete work item, open PR, observe CI, merge",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      }
     }
   ]
 }
