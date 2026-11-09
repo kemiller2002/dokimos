@@ -1012,10 +1012,10 @@
         "dependencies"
       ],
       "priority": "high",
-      "status": "ready",
+      "status": "complete",
       "attachments": [],
       "createdAt": "2026-11-09T14:29:47.000Z",
-      "updatedAt": "2026-11-09T14:29:47.000Z",
+      "updatedAt": "2026-11-09T14:30:10.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",

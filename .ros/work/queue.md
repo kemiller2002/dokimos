@@ -60,4 +60,4 @@
 | WI-0014 | Quality-gate revision input: bind evidence to the pull-request head an unattended merge is authorized for (praxis WI-0104) | complete |  | medium |
 | WI-0015 | Verification-compiler benchmarks B1/B2 (Rehearsal 9 preparation) | complete |  | medium |
 | WI-0016 | Dokimos componentMatches lacks url-input (Indy Init Rehearsal 009: INV-029 fails V1 exists) | complete |  | medium |
-| WI-0017 | DOK-URL-001: repoint the pinned Forma 0.3.0 release URL (old echelon-design-system URL now 404) | ready | dependencies | high |
+| WI-0017 | DOK-URL-001: repoint the pinned Forma 0.3.0 release URL (old echelon-design-system URL now 404) | complete | dependencies | high |
