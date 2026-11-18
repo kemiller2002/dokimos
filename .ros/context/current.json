@@ -4,7 +4,7 @@
   "repository": "dokimos",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-11-18T15:22:40.000Z",
+  "updatedAt": "2026-11-18T15:22:55.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1757,13 +1757,44 @@
     {
       "id": "WI-0018",
       "type": "task",
-      "state": "active",
-      "semanticState": "active",
-      "evidence": [],
-      "updatedAt": "2026-11-18T15:22:40.000Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/Verification/TestResults.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/AdversarialVerificationTests.fs"
+        }
+      ],
+      "updatedAt": "2026-11-18T15:22:55.000Z",
       "telemetryExecutionIds": [
         "EXE-20261118T152240985Z-30eca2b9"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "2d6cfb502a011c9f68042106",
+        "recordedAt": "2026-11-18T15:22:53.000Z",
+        "executionId": "EXE-20261118T152240985Z-30eca2b9",
+        "repository": "dokimos",
+        "branch": "claude/verification-worst-outcome",
+        "commit": "d3d88b2691d6bf087706fda56e73d076457c93bc",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "claude/verification-worst-outcome",
+        "remoteCommit": "d3d88b2691d6bf087706fda56e73d076457c93bc",
+        "summary": "Worst-outcome merge implemented with adversarial tests; full suite 602/602",
+        "nextAction": "Complete work item and open draft PR",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      },
+      "completedAt": "2026-11-18T15:22:55.000Z",
+      "conclusion": "Repeated test identities keep their worst outcome; reproduction and full-suite evidence under quality/evidence/WI-0018-*"
     }
   ]
 }
