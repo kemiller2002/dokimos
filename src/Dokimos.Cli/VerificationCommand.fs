@@ -217,9 +217,9 @@ module VerificationCommand =
     let rec private copyTree (source: string) (target: string) =
         Directory.CreateDirectory target |> ignore
         for file in Directory.GetFiles source do
-            File.Copy(file, Path.Combine(target, Path.GetFileName file |> nonNull), true)
+            File.Copy(file, Path.Combine(target, (Path.GetFileName file : string | null) |> nonNull), true)
         for dir in Directory.GetDirectories source do
-            let name = Path.GetFileName dir |> nonNull
+            let name = (Path.GetFileName dir : string | null) |> nonNull
             if name <> ".git" && name <> "bin" && name <> "obj" then
                 copyTree dir (Path.Combine(target, name))
 

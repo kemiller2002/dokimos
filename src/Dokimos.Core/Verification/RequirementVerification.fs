@@ -200,7 +200,7 @@ module RequirementVerification =
 
     // ------------------------------------------------------------------ rendering
 
-    let private node (value: string) : JsonNode = JsonValue.Create value |> nonNull :> JsonNode
+    let private node (value: string) : JsonNode = (JsonValue.Create value : JsonValue | null) |> nonNull :> JsonNode
     let private optional (value: string option) : JsonNode | null =
         match value with
         | Some text -> node text

@@ -1,0 +1,17 @@
+  Failed Dokimos.Core.Tests.VerificationTests.adversarial: a skipped duplicate cannot launder a failure and a passed duplicate cannot launder a skip [342 ms]
+   Assert.Equal() Failure: Values differ
+Expected: ObligationFailed
+Actual:   ObligationInvalid
+  Failed Dokimos.Core.Tests.VerificationTests.adversarial: a rerun that passes at the same SHA does not erase an earlier failed run [2 ms]
+   Assert.Equal() Failure: Values differ
+Expected: ObligationFailed
+Actual:   Verified
+  Failed Dokimos.Core.Tests.VerificationTests.adversarial: a failed then passed result for one identity in one run is a failure, not a pass [< 1 ms]
+   Assert.Equal() Failure: Values differ
+Expected: ObligationFailed
+Actual:   Verified
+  Failed Dokimos.Core.Tests.VerificationTests.adversarial: TRX data-driven rows share one identity, so one failing row fails the identity [13 ms]
+   Assert.Equal() Failure: Values differ
+Expected: ObligationFailed
+Actual:   Verified
+Failed!  - Failed:     4, Passed:    10, Skipped:     0, Total:    14, Duration: 352 ms - Dokimos.Core.Tests.dll (net8.0)

@@ -9,7 +9,7 @@ open System.Text.Json.Nodes
 /// `ordo verification schedule` turns failed requirement IDs into ranked, bounded corrective work.
 [<RequireQualifiedAccess>]
 module RequirementOrdo =
-    let private node (value: string) : JsonNode = JsonValue.Create value |> nonNull :> JsonNode
+    let private node (value: string) : JsonNode = (JsonValue.Create value : JsonValue | null) |> nonNull :> JsonNode
 
     let private obj (members: (string * (JsonNode | null)) list) =
         let o = JsonObject()
