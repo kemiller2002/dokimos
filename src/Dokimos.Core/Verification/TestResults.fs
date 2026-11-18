@@ -31,6 +31,27 @@ type ResultsManifest =
 
 /// Test outcomes keyed by rendered identity. Parsers are pure (text in, map out).
 module TestResults =
+    /// Severity rank: a failure dominates a skip, a skip dominates a run that never
+    /// executed, and only those dominate a pass (DOK-VC-ADV-001).
+    let private rank outcome =
+        match outcome with
+        | Failed _ -> 0
+        | Skipped -> 1
+        | NotExecuted -> 2
+        | Passed -> 3
+
+    /// The worst of several outcomes recorded for one identity (theory rows, retries or reruns
+    /// at the same SHA). Ties keep the first, so a failure keeps its first message. An empty
+    /// list never executed.
+    let worst (outcomes: Outcome list) : Outcome =
+        match outcomes |> List.sortBy rank with
+        | first :: _ -> first
+        | [] -> NotExecuted
+
+    /// Collapses repeated identities to their worst outcome, preserving first-seen order.
+    let mergeWorst (outcomes: (string * Outcome) list) : (string * Outcome) list =
+        outcomes |> List.groupBy fst |> List.map (fun (identity, seen) -> identity, worst (seen |> List.map snd))
+
     let private outcomeOfTrx (text: string) (message: string) =
         match text.ToLowerInvariant() with
         | "passed" -> Passed

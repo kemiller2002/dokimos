@@ -88,7 +88,9 @@ module Coverage =
           Accepted =
             accepted
             |> List.groupBy (fun (run, _) -> run.Suite)
-            |> List.map (fun (suite, group) -> suite, group |> List.collect snd |> Map.ofList)
+            // Every run of a suite at the candidate SHA counts: an identity recorded more than once
+            // (data-driven rows, retries, reruns) keeps its worst outcome, never the last one written.
+            |> List.map (fun (suite, group) -> suite, group |> List.collect snd |> TestResults.mergeWorst |> Map.ofList)
             |> Map.ofList
           Rejected = rejected |> List.map (fun (run, _) -> run, $"results are for {run.SourceSha}, candidate is {candidate}") }
 

@@ -58,6 +58,7 @@
     <Compile Include="ConstructionDecisionTests.fs" />
     <Compile Include="BehaviorOracleTests.fs" />
     <Compile Include="VerificationTests.fs" />
+    <Compile Include="AdversarialVerificationTests.fs" />
     <Compile Include="RequirementVerificationTests.fs" />
   </ItemGroup>
 </Project>

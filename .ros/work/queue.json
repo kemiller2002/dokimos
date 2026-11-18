@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 18,
+  "nextSeq": 19,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -1016,6 +1016,27 @@
       "attachments": [],
       "createdAt": "2026-11-09T14:29:47.000Z",
       "updatedAt": "2026-11-09T14:30:10.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0018",
+      "title": "DOK-VC-ADV-001: coverage keeps the worst outcome for a repeated test identity (TRX theory rows, retries, reruns) instead of the last one written",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-11-18T15:22:25.913Z",
+      "updatedAt": "2026-11-18T15:22:39.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
