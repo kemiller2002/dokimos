@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 22,
+  "nextSeq": 23,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -1100,6 +1100,27 @@
       "attachments": [],
       "createdAt": "2026-11-25T17:56:28.492Z",
       "updatedAt": "2026-11-25T18:12:03.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0022",
+      "title": "INIT-012: draft architectural reliability verification requirements (RQ-DOKIMOS-ARCH-001) — automatable subset only",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-11-25T20:14:30.404Z",
+      "updatedAt": "2026-11-25T20:14:47Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",
