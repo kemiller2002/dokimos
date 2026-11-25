@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 18,
+  "nextSeq": 21,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -1016,6 +1016,69 @@
       "attachments": [],
       "createdAt": "2026-11-09T14:29:47.000Z",
       "updatedAt": "2026-11-09T14:30:10.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0018",
+      "title": "Upgrade Aegis 1.0.0 -> 2.0.0 (echelon-current 1.40.0)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-11-25T12:17:20.426Z",
+      "updatedAt": "2026-11-25T13:10:48.928Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0019",
+      "title": "Make F# nullness handling compile cleanly on both .NET 10 and .NET 11 SDKs (FS3262)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-11-25T15:21:29.026Z",
+      "updatedAt": "2026-11-25T15:25:54.000Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0020",
+      "title": "Move Aegis 2.0.1 pins to 2.0.2 (WebAssembly detached-capture hang fix)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "complete",
+      "attachments": [],
+      "createdAt": "2026-11-25T15:39:36.072Z",
+      "updatedAt": "2026-11-25T15:56:34Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",

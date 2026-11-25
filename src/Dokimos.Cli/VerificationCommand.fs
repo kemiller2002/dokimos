@@ -214,12 +214,20 @@ module VerificationCommand =
 
     // ---------------------------------------------------------------- probes
 
+    /// `Path.GetFileName` on a non-null path is `string | null` to F# 10 but non-null to F# 11, so a `nonNull`
+    /// there is required by one SDK and rejected (FS3262) by the other. Receiving the result through a
+    /// `string | null` parameter is valid under both.
+    let private nameOr (fallback: string) (name: string | null) : string =
+        match name with
+        | null -> fallback
+        | text -> text
+
     let rec private copyTree (source: string) (target: string) =
         Directory.CreateDirectory target |> ignore
         for file in Directory.GetFiles source do
-            File.Copy(file, Path.Combine(target, Path.GetFileName file |> nonNull), true)
+            File.Copy(file, Path.Combine(target, Path.GetFileName file |> nameOr (Path.GetRelativePath(source, file))), true)
         for dir in Directory.GetDirectories source do
-            let name = Path.GetFileName dir |> nonNull
+            let name = Path.GetFileName dir |> nameOr (Path.GetRelativePath(source, dir))
             if name <> ".git" && name <> "bin" && name <> "obj" then
                 copyTree dir (Path.Combine(target, name))
 
