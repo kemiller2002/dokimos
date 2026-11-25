@@ -44,7 +44,7 @@ const auditPage = async (browser, origin, file, shots) => {
 
   await page.keyboard.press("Tab");
   const skip = await page.evaluate(() => document.activeElement?.className ?? "");
-  if (!String(skip).includes("ef-skip-link")) failures.push("first Tab does not reach the skip link");
+  if (!String(skip).includes("forma-skip-link")) failures.push("first Tab does not reach the skip link");
 
   for (const viewport of VIEWPORTS) {
     await page.setViewportSize(viewport);
@@ -65,7 +65,7 @@ const auditPage = async (browser, origin, file, shots) => {
   const forcedPage = await forced.newPage();
   await forcedPage.goto(`${origin}/${file}`, { waitUntil: "load" });
   const lozengeText = await forcedPage.evaluate(() =>
-    [...document.querySelectorAll(".ef-status-lozenge")].every((el) => el.textContent.trim().length > 0),
+    [...document.querySelectorAll(".forma-status-lozenge")].every((el) => el.textContent.trim().length > 0),
   );
   if (!lozengeText) failures.push("forced colors: a status lozenge has no text label");
   await forced.close();

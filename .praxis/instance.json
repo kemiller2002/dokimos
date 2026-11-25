@@ -1,0 +1,12 @@
+{
+  "schema": "praxis.instance/1",
+  "instanceId": "pxi-771404db634c444c8d8cbce19776af9a",
+  "createdAt": "2026-11-25T17:59:36.760Z",
+  "createdWith": "3.25.0",
+  "repository": {
+    "provider": "github",
+    "repositoryId": null,
+    "repository": "kemiller2002/dokimos"
+  },
+  "predecessors": []
+}

@@ -1,7 +1,8 @@
 // Dokimos results UI (DOK-OPS-019).
 //
 // Renders the `dokimos.results` contract into static, zero-JavaScript pages
-// built from pinned Forma 0.3.0 patterns. This module only formats: every
+// built from pinned Forma 1.0.1 patterns, branded with the pinned Echelon
+// theme 1.1.0. This module only formats: every
 // value, state and judgment shown here is read from the contract produced by
 // the Dokimos CLI. Nothing is recomputed, reclassified or defaulted to zero.
 //
@@ -13,6 +14,18 @@ import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
 import { html, raw, toString } from "../site/lib/html.mjs";
+
+/** Stylesheets in cascade order: Forma, then the Echelon theme in its
+ * documented order (echelon.css, echelon-fonts.css, echelon-app.css), then the
+ * few results-only rules. `module` names a pinned package file; without one the
+ * file ships beside this module. */
+export const STYLESHEETS = [
+  { asset: "forma.css", module: "@echelon-foundry/design-system/all.css" },
+  { asset: "echelon.css", module: "@echelon-foundry/echelon-theme/echelon.css" },
+  { asset: "echelon-fonts.css", module: "@echelon-foundry/echelon-theme/echelon-fonts.css" },
+  { asset: "echelon-app.css", module: "@echelon-foundry/echelon-theme/echelon-app.css" },
+  { asset: "results.css" },
+];
 
 export const CONTRACT = "dokimos.results";
 export const SUPPORTED_SCHEMAS = ["1.0.0"];
@@ -60,7 +73,7 @@ const LIFECYCLE = {
 
 const lozenge = (table, tag) => {
   const entry = table[tag] ?? { state: "unknown", label: tag };
-  return html`<span class="ef-status-lozenge" data-state="${entry.state}">${entry.label}</span>`;
+  return html`<span class="forma-status-lozenge" data-state="${entry.state}">${entry.label}</span>`;
 };
 
 // --- formatting -------------------------------------------------------------
@@ -81,25 +94,25 @@ const slug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(
 const seriesId = (series) => `series-${slug(`${series.MetricId}-${series.Scope}`)}`;
 
 const dataGrid = (label, headers, rows) => html`
-<div class="ef-data-grid" role="region" tabindex="0" aria-label="${label}">
+<div class="forma-data-grid" role="region" tabindex="0" aria-label="${label}">
   <table>
-    <caption class="ef-visually-hidden">${label}</caption>
+    <caption class="forma-visually-hidden">${label}</caption>
     <thead><tr>${headers.map((h) => html`<th scope="col">${h}</th>`)}</tr></thead>
     <tbody>${rows.map((cells) => html`<tr>${cells.map((cell, i) => html`<td data-label="${headers[i]}">${cell}</td>`)}</tr>`)}</tbody>
   </table>
 </div>`;
 
 const emptyState = (title, text) => html`
-<section class="ef-empty-state" aria-labelledby="${slug(title)}-empty">
+<section class="forma-empty-state" aria-labelledby="${slug(title)}-empty">
   <h3 id="${slug(title)}-empty">${title}</h3>
   <p>${text}</p>
 </section>`;
 
 const metricCard = (label, value, context) => html`
-<article class="ef-metric-card">
-  <div class="ef-metric-card__label">${label}</div>
-  <div class="ef-metric-card__value">${value}</div>
-  ${context ? html`<div class="ef-metric-card__context">${context}</div>` : ""}
+<article class="forma-metric-card">
+  <div class="forma-metric-card__label">${label}</div>
+  <div class="forma-metric-card__value">${value}</div>
+  ${context ? html`<div class="forma-metric-card__context">${context}</div>` : ""}
 </article>`;
 
 // --- charts: geometry only; the table beside each chart carries the data -----
@@ -140,7 +153,7 @@ const overview = (r) => {
   const notPassed = r.Outcomes.filter((o) => o.State !== "passed");
   return html`
 <header class="dokimos-record-header">
-  <p class="ef-eyebrow">${r.Current.Repository} at ${shortRevision(r.Current.Revision)}${r.Current.Ref ? ` (${r.Current.Ref})` : ""}</p>
+  <p class="forma-eyebrow">${r.Current.Repository} at ${shortRevision(r.Current.Revision)}${r.Current.Ref ? ` (${r.Current.Ref})` : ""}</p>
   <h1>Quality gate: ${d.label}</h1>
   <p>${lozenge(DISPOSITIONS, r.Overview.Disposition)} Exit code ${r.Overview.ExitCode}. Compared with baseline ${shortRevision(r.Baseline.Revision)} collected ${date(r.Baseline.CollectedAt)}.</p>
 </header>
@@ -235,11 +248,11 @@ const trend = (s) => html`
 <section class="dokimos-series" id="${seriesId(s)}" aria-labelledby="${seriesId(s)}-title">
   <h2 id="${seriesId(s)}-title">${s.MetricId} <small>at ${s.Scope}</small></h2>
   ${sparkline(s)}
-  <dl class="ef-facts">
-    <div class="ef-facts__item"><dt>Direction</dt><dd>${s.Preference}</dd></div>
-    <div class="ef-facts__item"><dt>Latest</dt><dd>${measurementText(s.Latest?.Measurement, s.Unit)}</dd></div>
-    <div class="ef-facts__item"><dt>Best demonstrated</dt><dd>${s.Best ? `${measurementText(s.Best.Measurement, s.Unit)} at ${shortRevision(s.Best.Revision)}` : "not claimed"}</dd></div>
-    <div class="ef-facts__item"><dt>Baseline distance</dt><dd>${s.BaselineDistance === null ? "unavailable" : signed(s.BaselineDistance)}</dd></div>
+  <dl class="forma-facts">
+    <div class="forma-facts__item"><dt>Direction</dt><dd>${s.Preference}</dd></div>
+    <div class="forma-facts__item"><dt>Latest</dt><dd>${measurementText(s.Latest?.Measurement, s.Unit)}</dd></div>
+    <div class="forma-facts__item"><dt>Best demonstrated</dt><dd>${s.Best ? `${measurementText(s.Best.Measurement, s.Unit)} at ${shortRevision(s.Best.Revision)}` : "not claimed"}</dd></div>
+    <div class="forma-facts__item"><dt>Baseline distance</dt><dd>${s.BaselineDistance === null ? "unavailable" : signed(s.BaselineDistance)}</dd></div>
   </dl>
   ${s.Notes.length ? html`<ul>${s.Notes.map((n) => html`<li>${n}</li>`)}</ul>` : ""}
   ${seriesTable(s)}
@@ -278,13 +291,13 @@ const provenance = (r) => {
   const p = r.Provenance;
   return html`
 <h1>Provenance</h1>
-<section class="ef-provenance-trail" aria-labelledby="trail-title">
+<section class="forma-provenance-trail" aria-labelledby="trail-title">
   <h2 id="trail-title">How this result was produced</h2>
   <ol>
-    <li><span class="ef-provenance-trail__kind">Source</span><strong>${p.Repository}</strong><small>Revision ${p.Revision}${p.Ref ? ` on ${p.Ref}` : ""}</small></li>
-    <li><span class="ef-provenance-trail__kind">Collection</span><strong>Dokimos ${p.DokimosVersion ?? "version not recorded"}</strong><small>${date(p.CollectedAt)}; configuration ${p.ConfigurationId ?? "not recorded"}; scope ${p.AnalyzedScope.join(", ") || "not recorded"}</small></li>
-    <li><span class="ef-provenance-trail__kind">Policy</span><strong>Schema ${p.Policy.SchemaVersion}, baseline ${p.Policy.Baseline}</strong><small>${p.Policy.Identity}</small></li>
-    <li><span class="ef-provenance-trail__kind">Presentation</span><strong>${r.Contract} ${r.SchemaVersion}</strong><small>Rendered by Dokimos results UI with Forma 0.3.0; nothing recomputed</small></li>
+    <li><span class="forma-provenance-trail__kind">Source</span><strong>${p.Repository}</strong><small>Revision ${p.Revision}${p.Ref ? ` on ${p.Ref}` : ""}</small></li>
+    <li><span class="forma-provenance-trail__kind">Collection</span><strong>Dokimos ${p.DokimosVersion ?? "version not recorded"}</strong><small>${date(p.CollectedAt)}; configuration ${p.ConfigurationId ?? "not recorded"}; scope ${p.AnalyzedScope.join(", ") || "not recorded"}</small></li>
+    <li><span class="forma-provenance-trail__kind">Policy</span><strong>Schema ${p.Policy.SchemaVersion}, baseline ${p.Policy.Baseline}</strong><small>${p.Policy.Identity}</small></li>
+    <li><span class="forma-provenance-trail__kind">Presentation</span><strong>${r.Contract} ${r.SchemaVersion}</strong><small>Rendered by Dokimos results UI with Forma 1.0.1 and the Echelon theme 1.1.0; nothing recomputed</small></li>
   </ol>
 </section>
 <section aria-labelledby="analyzers-title">
@@ -298,12 +311,12 @@ const provenance = (r) => {
 <section aria-labelledby="performance-title">
   <h2 id="performance-title">Collection performance</h2>
   ${p.Performance
-    ? html`<dl class="ef-facts">
-    <div class="ef-facts__item"><dt>Total</dt><dd>${p.Performance.TotalMilliseconds} ms</dd></div>
-    <div class="ef-facts__item"><dt>Files</dt><dd>${p.Performance.FileCount}</dd></div>
-    <div class="ef-facts__item"><dt>Observations</dt><dd>${p.Performance.ObservationCount}</dd></div>
-    <div class="ef-facts__item"><dt>Collectors not run</dt><dd>${p.Performance.UnavailableCollectors.join(", ") || "none"}</dd></div>
-    <div class="ef-facts__item"><dt>Collectors failed</dt><dd>${p.Performance.FailedCollectors.join(", ") || "none"}</dd></div>
+    ? html`<dl class="forma-facts">
+    <div class="forma-facts__item"><dt>Total</dt><dd>${p.Performance.TotalMilliseconds} ms</dd></div>
+    <div class="forma-facts__item"><dt>Files</dt><dd>${p.Performance.FileCount}</dd></div>
+    <div class="forma-facts__item"><dt>Observations</dt><dd>${p.Performance.ObservationCount}</dd></div>
+    <div class="forma-facts__item"><dt>Collectors not run</dt><dd>${p.Performance.UnavailableCollectors.join(", ") || "none"}</dd></div>
+    <div class="forma-facts__item"><dt>Collectors failed</dt><dd>${p.Performance.FailedCollectors.join(", ") || "none"}</dd></div>
   </dl>`
     : html`<p>Not recorded for this snapshot.</p>`}
 </section>
@@ -321,24 +334,24 @@ const BODIES = { "index.html": overview, "changes.html": changes, "hotspots.html
 const layout = (page, body, results) => {
   const nav = html`${PAGES.map((p) => html`<a href="${p.file}"${p.file === page.file ? raw(' aria-current="page"') : ""}>${p.label}</a>`)}`;
   return `<!doctype html>
-${toString(html`<html lang="en">
+${toString(html`<html lang="en" data-forma-brand="echelon">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${page.label} · Dokimos results · ${results.Current.Repository}</title>
-<link rel="stylesheet" href="assets/forma.css">
-<link rel="stylesheet" href="assets/results.css">
+${STYLESHEETS.map((sheet) => html`<link rel="stylesheet" href="assets/${sheet.asset}">
+`)}
 </head>
 <body>
-<a class="ef-skip-link" href="#content">Skip to content</a>
-<div class="ef-container dokimos-page" data-ef-width="wide">
-<div class="ef-navigation-shell">
-  <details class="ef-navigation-shell__compact">
+<a class="forma-skip-link" href="#content">Skip to content</a>
+<div class="forma-container dokimos-page" data-forma-width="wide">
+<div class="forma-navigation-shell">
+  <details class="forma-navigation-shell__compact">
     <summary>Navigation</summary>
     <nav aria-label="Results">${nav}</nav>
   </details>
-  <nav class="ef-navigation-shell__persistent" aria-label="Results">${nav}</nav>
-  <main class="ef-navigation-shell__content" id="content">
+  <nav class="forma-navigation-shell__persistent" aria-label="Results">${nav}</nav>
+  <main class="forma-navigation-shell__content" id="content">
     ${body}
     <footer class="dokimos-footer"><p>${results.Contract} ${results.SchemaVersion} · Dokimos ${results.DokimosVersion}</p></footer>
   </main>
@@ -364,10 +377,13 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 
 export const writeSite = (results, outDir) => {
   const require = createRequire(import.meta.url);
-  const forma = require.resolve("@echelon-foundry/design-system/all.css");
-  fs.mkdirSync(path.join(outDir, "assets"), { recursive: true });
-  fs.copyFileSync(forma, path.join(outDir, "assets", "forma.css"));
-  fs.copyFileSync(path.join(here, "results.css"), path.join(outDir, "assets", "results.css"));
+  const assets = path.join(outDir, "assets");
+  const source = (sheet) => (sheet.module ? require.resolve(sheet.module) : path.join(here, sheet.asset));
+  fs.mkdirSync(assets, { recursive: true });
+  STYLESHEETS.forEach((sheet) => fs.copyFileSync(source(sheet), path.join(assets, sheet.asset)));
+  // echelon-fonts.css loads its self-hosted faces from fonts/ beside it; the
+  // OFL licences travel with them.
+  fs.cpSync(path.join(path.dirname(require.resolve("@echelon-foundry/echelon-theme/echelon-fonts.css")), "fonts"), path.join(assets, "fonts"), { recursive: true });
   render(results).forEach((page) => fs.writeFileSync(path.join(outDir, page.file), page.html));
 };
 

@@ -11,11 +11,11 @@ It reports `file`, one-indexed `line`, `rule`, `severity`, and `message`. Errors
 
 Checks include:
 
-- **icon-unknown**: static `data-ef-icon` values and local `/icons/name.svg` are absent from the pinned registry.
+- **icon-unknown**: static `data-forma-icon` values and local `/icons/name.svg` are absent from the pinned registry.
 - **icon-deprecated**: optional map marks an obsolete name with an explicit current replacement (no implicit behavior migration).
 - **icon-control-name**: static native `button` or `a` containing icons has no readable text, `aria-label`, or resolvable nonempty `aria-labelledby`.
 - **icon-link-target**: a native icon link lacks an `href`.
-- **icon-size**: an explicit pixel `--ef-icon-size` is not 16, 20, 24, 32 or 48.
+- **icon-size**: an explicit pixel `--forma-icon-size` is not 16, 20, 24, 32 or 48.
 - **icon-dynamic** / **icon-size-review**: values that cannot be proven statically are reported as warnings, not pretended to be valid.
 
 Optional configuration (e.g. `--deprecated icon-audit-policy.json`):

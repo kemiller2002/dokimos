@@ -4,7 +4,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { render, PAGES, measurementText, assertContract } from "../render.mjs";
+import os from "node:os";
+
+import { render, writeSite, PAGES, STYLESHEETS, measurementText, assertContract } from "../render.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const load = (name) => JSON.parse(fs.readFileSync(path.join(here, "fixtures", name), "utf8"));
@@ -19,7 +21,7 @@ for (const [name, results] of Object.entries(fixtures)) {
     assert.deepEqual(pages.map((p) => p.file), PAGES.map((p) => p.file));
     for (const p of pages) {
       assert.match(p.html, new RegExp(`href="${p.file}" aria-current="page"`));
-      assert.match(p.html, /<main class="ef-navigation-shell__content" id="content">/);
+      assert.match(p.html, /<main class="forma-navigation-shell__content" id="content">/);
       assert.doesNotMatch(p.html, /undefined|NaN|\[object Object\]/);
     }
   });
@@ -73,4 +75,29 @@ test("measurement text never turns unavailable or failed evidence into a number"
 test("unsupported contract versions are rejected before rendering", () => {
   assert.throws(() => assertContract({ ...fixtures.self, SchemaVersion: "9.0.0" }), /unsupported dokimos.results schema 9.0.0/);
   assert.throws(() => assertContract({ ...fixtures.self, Contract: "dokimos.snapshot" }), /expected Contract/);
+});
+
+test("every page is Echelon-branded and loads Forma, then the Echelon theme in its documented order", () => {
+  const order = ["forma.css", "echelon.css", "echelon-fonts.css", "echelon-app.css", "results.css"];
+  assert.deepEqual(STYLESHEETS.map((sheet) => sheet.asset), order);
+  for (const p of render(fixtures.self)) {
+    assert.match(p.html, /<html lang="en" data-forma-brand="echelon">/);
+    const links = [...p.html.matchAll(/<link rel="stylesheet" href="assets\/([^"]+)">/g)].map((m) => m[1]);
+    assert.deepEqual(links, order, p.file);
+    assert.doesNotMatch(p.html, /\bef-[a-z]|data-ef-|--ef-/, p.file);
+  }
+});
+
+test("the written site carries every stylesheet and the theme's self-hosted fonts", () => {
+  const out = fs.mkdtempSync(path.join(os.tmpdir(), "dokimos-results-ui-"));
+  try {
+    writeSite(fixtures.self, out);
+    for (const sheet of STYLESHEETS) assert.ok(fs.existsSync(path.join(out, "assets", sheet.asset)), sheet.asset);
+    const fonts = fs.readFileSync(path.join(out, "assets", "echelon-fonts.css"), "utf8");
+    const faces = [...fonts.matchAll(/url\("([^"]+)"\)/g)].map((m) => m[1]);
+    assert.ok(faces.length > 0);
+    for (const face of faces) assert.ok(fs.existsSync(path.join(out, "assets", face)), face);
+  } finally {
+    fs.rmSync(out, { recursive: true, force: true });
+  }
 });
