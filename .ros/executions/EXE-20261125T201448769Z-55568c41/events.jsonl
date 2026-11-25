@@ -1,1 +1,2 @@
 {"entry":"transition","transition":"execution.start","state":"active","origin":"work-transition","originReference":"work.begin","actor":"anthropic/claude-code","actorKind":"agent","at":"2026-11-25T20:14:49.196Z"}
+{"entry":"transition","transition":"work.block","state":"blocked","reason":"Draft requirements pushed; awaiting owner review of the PR. Completion needs implementation+tests evidence (no 'requirements' completion type configured), which belong to a later implementation work item.","actor":"anthropic/claude-code","actorKind":"agent","at":"2026-11-25T20:15:24.573Z"}
