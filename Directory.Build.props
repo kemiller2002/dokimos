@@ -17,7 +17,7 @@
     <PackageLicenseExpression>PolyForm-Noncommercial-1.0.0</PackageLicenseExpression>
     <!-- FSharp.Core is pinned rather than implied by whichever SDK builds the
          solution, so every toolchain produces the same dependency graph.
-         Aegis.Core 2.0.1 requires FSharp.Core >= 10.1.400. -->
+         Aegis.Core 2.0.2 requires FSharp.Core >= 10.1.400. -->
     <DisableImplicitFSharpCoreReference>true</DisableImplicitFSharpCoreReference>
   </PropertyGroup>
   <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.fsproj'">

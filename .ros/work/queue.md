@@ -63,3 +63,4 @@
 | WI-0017 | DOK-URL-001: repoint the pinned Forma 0.3.0 release URL (old echelon-design-system URL now 404) | complete | dependencies | high |
 | WI-0018 | Upgrade Aegis 1.0.0 -> 2.0.0 (echelon-current 1.40.0) | complete |  | medium |
 | WI-0019 | Make F# nullness handling compile cleanly on both .NET 10 and .NET 11 SDKs (FS3262) | complete |  | medium |
+| WI-0020 | Move Aegis 2.0.1 pins to 2.0.2 (WebAssembly detached-capture hang fix) | ready |  | medium |
