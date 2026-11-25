@@ -9,7 +9,15 @@ open System.Text.Json.Nodes
 /// `ordo verification schedule` turns failed requirement IDs into ranked, bounded corrective work.
 [<RequireQualifiedAccess>]
 module RequirementOrdo =
-    let private node (value: string) : JsonNode = JsonValue.Create value |> nonNull :> JsonNode
+    /// `JsonValue.Create` on a non-null string is `JsonValue | null` to F# 10 but non-null to F# 11, so a
+    /// `nonNull` there is required by one SDK and rejected (FS3262) by the other. Receiving the result through
+    /// a `JsonValue | null` parameter is valid under both.
+    let private present (created: JsonValue | null) : JsonNode =
+        match created with
+        | null -> invalidOp "JsonValue.Create returned null for a non-null string"
+        | value -> value :> JsonNode
+
+    let private node (value: string) : JsonNode = JsonValue.Create value |> present
 
     let private obj (members: (string * (JsonNode | null)) list) =
         let o = JsonObject()

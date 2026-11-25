@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "dokimos",
-  "nextSeq": 19,
+  "nextSeq": 20,
   "items": [
     {
       "id": "DOK-WEB-001",
@@ -1037,6 +1037,27 @@
       "attachments": [],
       "createdAt": "2026-11-25T12:17:20.426Z",
       "updatedAt": "2026-11-25T13:10:48.928Z",
+      "createdBy": "unknown",
+      "createdByActor": {
+        "kind": "agent",
+        "id": "anthropic/claude-code",
+        "provider": "anthropic",
+        "model": "unknown",
+        "runtime": "claude-code"
+      },
+      "source": "manual",
+      "sourceReference": null
+    },
+    {
+      "id": "WI-0019",
+      "title": "Make F# nullness handling compile cleanly on both .NET 10 and .NET 11 SDKs (FS3262)",
+      "description": null,
+      "tags": [],
+      "priority": "medium",
+      "status": "ready",
+      "attachments": [],
+      "createdAt": "2026-11-25T15:21:29.026Z",
+      "updatedAt": "2026-11-25T15:21:35.000Z",
       "createdBy": "unknown",
       "createdByActor": {
         "kind": "agent",

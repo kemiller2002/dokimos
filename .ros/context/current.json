@@ -4,7 +4,7 @@
   "repository": "dokimos",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-11-25T13:10:48.928Z",
+  "updatedAt": "2026-11-25T15:21:36.000Z",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -1795,6 +1795,17 @@
       },
       "blockReason": "Blocked on Aegis 2.0.1: Aegis 2.0.0 nuspec requires FSharp.Core >= 11.0.101, so restore fails with NU1605 against the repository FSharp.Core pin; pins will be retargeted to 2.0.1",
       "completedAt": "2026-11-25T13:10:48.928Z"
+    },
+    {
+      "id": "WI-0019",
+      "type": "task",
+      "state": "active",
+      "semanticState": "active",
+      "evidence": [],
+      "updatedAt": "2026-11-25T15:21:36.000Z",
+      "telemetryExecutionIds": [
+        "EXE-20261125T152137090Z-0b4b8f20"
+      ]
     }
   ]
 }
