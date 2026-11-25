@@ -1936,7 +1936,27 @@
       "updatedAt": "2026-11-25T20:14:48Z",
       "telemetryExecutionIds": [
         "EXE-20261125T201448769Z-55568c41"
-      ]
+      ],
+      "latestCheckpoint": {
+        "id": "7bbd64d85b7d7c4d98857a12",
+        "recordedAt": "2026-11-25T20:15:08Z",
+        "executionId": "EXE-20261125T201448769Z-55568c41",
+        "repository": "dokimos",
+        "branch": "claude/echelon-availability-architecture-ezhitq",
+        "commit": "ac45bb657d34a8c11e69bf282055230b9a57241d",
+        "remote": {
+          "name": "origin",
+          "url": "https://github.com/kemiller2002/dokimos"
+        },
+        "remoteBranch": "claude/echelon-availability-architecture-ezhitq",
+        "remoteCommit": "ac45bb657d34a8c11e69bf282055230b9a57241d",
+        "summary": "Draft RQ-DOKIMOS-ARCH-001 committed and pushed",
+        "nextAction": "Owner review via PR; implement rules in a separate work item",
+        "verification": {
+          "status": "verified",
+          "mechanism": "git-remote-observation"
+        }
+      }
     }
   ]
 }
