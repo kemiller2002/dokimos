@@ -22,9 +22,13 @@ committed fixtures, which are real CLI output.
   unavailable explanations all come from the contract. Sparkline geometry is
   presentation only, and every chart is followed by a table of the same
   points.
-- **Forma 0.3.0** is pinned through its immutable release tarball
-  (`package.json`, integrity in `package-lock.json`) and copied into the output,
-  never vendored. The patterns used are `navigation-shell`, `container`,
+- **Forma 1.0.1** is pinned through its immutable release tarball
+  (`package.json`, integrity in `package-lock.json`, governed by Conditor) and
+  copied into the output, never vendored. Pages set
+  `data-forma-brand="echelon"` and load the **Echelon theme 1.1.0**
+  (`@echelon-foundry/echelon-theme`, pinned the same way) after Forma, in the
+  theme's documented order: `echelon.css`, `echelon-fonts.css` (with its
+  self-hosted fonts and their OFL licences), then `echelon-app.css`. The patterns used are `navigation-shell`, `container`,
   `data-grid`, `metric-card`, `status-lozenge`, `facts`, `provenance-trail`,
   `empty-state` and `skip-link`. `results-ui/results.css` holds only the
   sparkline, card grid, page gutter and identifier wrapping, using Forma
@@ -61,8 +65,8 @@ committed fixtures, which are real CLI output.
   - Forma has no sparkline pattern, so a local 12-line SVG treatment is used.
     This should be recorded as a Forma gap if other applications need trend
     lines.
-  - Forma's gutter lives on the marketing `.ef-site__main`. The application
-    page applies the same `--ef-layout-gutter` token locally.
+  - Forma's gutter lives on the marketing `.forma-site__main`. The application
+    page applies the same `--forma-layout-gutter` token locally.
 - **Open questions:** interactive filtering and sorting of large file lists
   would need Limen behaviour. It is not implemented, because the static
   tables satisfy the current tasks.
@@ -80,9 +84,11 @@ printable document built from Folio primitives:
 
 It uses no separate calculation logic.
 
-Folio has no published release yet. It is therefore pinned the way other
-Folio consumers pin it: by exact commit (`github:kemiller2002/folio#8fd8516…`,
-package 0.3.0, integrity recorded in `package-lock.json`).
+Folio 0.4.1 is pinned through its immutable GitHub release tarball
+(`package.json`, integrity in `package-lock.json`), as the echelon-current
+1.42.0 set selects it; Conditor governs the pin (`conditor.json`). Folio keeps
+its own `ef-print-*` element names: Forma 1.0's `ef-` to `forma-` rename does
+not apply to them.
 
 ```bash
 npm run results:report -- results.json out/

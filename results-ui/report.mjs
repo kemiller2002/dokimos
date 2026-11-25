@@ -1,8 +1,8 @@
 // Dokimos printable report (DOK-OPS-020).
 //
 // Renders the same `dokimos.results` contract as the results UI into one
-// printable HTML document built from Folio print primitives (pinned by
-// commit). Like the UI, it only formats: no value or judgment is computed
+// printable HTML document built from Folio print primitives (pinned to the
+// Folio 0.4.1 release). Like the UI, it only formats: no value or judgment is computed
 // here. Provenance is carried into the document; renderer name/version and
 // output hash belong to whoever exports the PDF.
 //

@@ -33,7 +33,7 @@ export function auditHtml(html,filename,policy) {
     else if(Object.hasOwn(policy.deprecated,name))add(i,"icon-deprecated",name+" is deprecated; use "+policy.deprecated[name]);
     else if(!policy.names.has(name))add(i,"icon-unknown","Unknown Forma icon: "+name);
   };
-  for(const m of html.matchAll(/<[\w:-]+\b[^>]*\bdata-ef-icon\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))[^>]*>/gi))iconId(m[1]??m[2]??m[3],m.index);
+  for(const m of html.matchAll(/<[\w:-]+\b[^>]*\bdata-forma-icon\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))[^>]*>/gi))iconId(m[1]??m[2]??m[3],m.index);
   for(const m of html.matchAll(/<img\b[^>]*>/gi)){
     const src=attr(m[0],"src");
     const match=src?.match(/(?:^|\/)icons\/([a-z0-9-]+)\.svg(?:[?#].*)?$/i);
@@ -41,7 +41,7 @@ export function auditHtml(html,filename,policy) {
   }
   for(const m of html.matchAll(/<(button|a)\b([^>]*)>([\s\S]*?)<\/\1\s*>/gi)){
     const [,tag,attrs,inside]=m;
-    if(!/(?:<ef-icon\b|data-ef-icon\s*=|\/icons\/[\w-]+\.svg)/i.test(inside))continue;
+    if(!/(?:<forma-icon\b|data-forma-icon\s*=|\/icons\/[\w-]+\.svg)/i.test(inside))continue;
     const labeled=Boolean(plain(inside))||Boolean(attr(attrs,"aria-label")?.trim());
     const by=attr(attrs,"aria-labelledby");
     // Cross-referenced accessible name is confirmed by static matching ID+text.
@@ -55,7 +55,7 @@ export function auditHtml(html,filename,policy) {
     if(!labeled&&!refsValid)add(m.index,"icon-control-name",tag+" contains an icon without a verifiable accessible name");
     if(tag==="a"&&!attr(attrs,"href"))add(m.index,"icon-link-target","Icon link lacks an href");
   }
-  for(const m of html.matchAll(/--ef-icon-size\s*:\s*([^;"'}]+)/gi)){
+  for(const m of html.matchAll(/--forma-icon-size\s*:\s*([^;"'}]+)/gi)){
     const size=m[1].trim(), px=/^(\d+(?:\.\d+)?)px$/.exec(size);
     if(px&&![16,20,24,32,48].includes(Number(px[1])))add(m.index,"icon-size",size+" is not an approved optical size");
     else if(!px&&!/^(?:\d+(?:\.\d+)?(?:rem|em)|var\(--[\w-]+\))$/.test(size))
