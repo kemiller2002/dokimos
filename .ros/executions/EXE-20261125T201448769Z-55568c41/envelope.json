@@ -50,8 +50,8 @@
   "humanOnlyTransitions": [],
   "parentExecution": null,
   "startedAt": "2026-11-25T20:14:49.179Z",
-  "state": "blocked",
-  "stateReason": "Draft requirements pushed; awaiting owner review of the PR. Completion needs implementation+tests evidence (no 'requirements' completion type configured), which belong to a later implementation work item.",
+  "state": "active",
+  "stateReason": null,
   "origin": {
     "kind": "work-transition",
     "reference": "work.begin"

@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Include="Arguments.fs" />
     <Compile Include="RatchetCommand.fs" />
+    <Compile Include="ArchitectureCommand.fs" />
     <Compile Include="IdentityCommand.fs" />
     <Compile Include="VerificationCommand.fs" />
     <Compile Include="CliInputs.fs" />

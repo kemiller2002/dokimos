@@ -7,7 +7,7 @@ open Dokimos.Core
 /// Baseline-derived ratchet, exceptions and baseline lifecycle (#16).
 module QualityRatchetTests =
     let asOf = DateTimeOffset.Parse "2026-10-05T12:00:00Z"
-    let configuration = { Sources = [ "src" ]; Generated = []; LargeFileLines = 100; ForbiddenReferences = [] }
+    let configuration = { Sources = [ "src" ]; Generated = []; LargeFileLines = 100; ForbiddenReferences = []; ApiBoundaries = [] }
 
     let scopes (pairs: (string * decimal) list) =
         pairs |> List.map (fun (s, v) -> s, { Value = v; Evidence = [ $"{s}: evidence" ] }) |> Map.ofList
@@ -194,7 +194,8 @@ module QualityRatchetTests =
     let ``the rule catalog has stable unique ids`` () =
         let ids = QualityRules.all |> List.map _.Id
         Assert.Equal<string list>(
-            [ "DOK-R001"; "DOK-R002"; "DOK-R003"; "DOK-R004"; "DOK-R005"; "DOK-R006"; "DOK-R007"; "DOK-R008"; "DOK-G001" ],
+            [ "DOK-R001"; "DOK-R002"; "DOK-R003"; "DOK-R004"; "DOK-R005"; "DOK-R006"; "DOK-R007"; "DOK-R008"; "DOK-G001"
+              "DOK-ARCH-001"; "DOK-ARCH-005"; "DOK-ARCH-006" ],
             ids
         )
         Assert.True(QualityRules.all |> List.forall (fun r -> r.Description <> "" && r.Remediation <> "" && r.Rationale <> ""))

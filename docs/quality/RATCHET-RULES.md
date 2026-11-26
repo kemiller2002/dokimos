@@ -121,6 +121,9 @@ scope.
 | DOK-R007 | package-references | file | `<PackageReference Include=...>` per `.fsproj` / `Directory.Build.props` / `Directory.Packages.props` | Each dependency adds supply-chain, upgrade and boundary cost | Remove it, or except it with justification and owner |
 | DOK-R008 | architecture-violations | repository | `<ProjectReference>` edges forbidden by the baseline's `forbiddenReferences` layer map (`Architecture.boundaryViolations`) | Dependency direction is the architecture | Move the shared concept down a layer or invert the dependency |
 | DOK-G001 | introduced-finding | finding id | Correlation finding introduced since the baseline snapshot (`dokimos evaluate`) | One validated waiver mechanism for the gate too | Reduce the contributing signals |
+| DOK-ARCH-001 | thin-api-boundary | dependency (`Api->Project`) | `<ProjectReference>` from a `configuration.apiBoundaries` API project to a non-contract project; judged by `dokimos architecture check`, not the ratchet ([doc](../rules/DOK-ARCH-001.md)) | EAR-API-001 | Reference the domain through a declared contract |
+| DOK-ARCH-005 | cache-dependency-ban | dependency (`file#Package`) | Cache-provider package references; active only where `.echelon/reliability.json` declares `cacheReadiness` ([doc](../rules/DOK-ARCH-005.md)) | EAR-QRY-008 | Remove it, or record a DF-/ADR- decision and an exception naming it |
+| DOK-ARCH-006 | infrastructure-dependency-ban | dependency (`file#Package`) | Broker and distributed-lock client references; active only where `continuousAvailability` is declared ([doc](../rules/DOK-ARCH-006.md)) | INIT-012 infrastructure minimalism | Remove it, or record a DF-/ADR- decision and an exception naming it |
 
 ### Semantics and scopes
 
@@ -173,6 +176,8 @@ Validation:
   `rationale`, `owner`, `created` (not in the future) and `evidence` (at least
   one entry).
 - Either `expires` or `reviewCondition` is required. Both may be given.
+- DOK-ARCH exceptions need no `allowedValue` but their `evidence` must name a
+  decision record id (`DF-...` or `ADR-...`); otherwise they are invalid.
 - `allowedValue` is required for DOK-R rules. It accepts the regression only up
   to that value. Any further worsening is a regression again.
 - Repository-scoped rules need `scope: "repository"`.

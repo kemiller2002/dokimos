@@ -543,14 +543,30 @@
     },
     {
       "metricId": "agent.resumes",
-      "status": "unknown",
-      "reason": "runtime capability not reported or mapped",
-      "discoveredAt": "2026-11-25T20:14:48.769Z",
+      "status": "derived",
+      "reason": "normalized measurement recorded",
+      "discoveredAt": "2026-11-26T00:22:23.000Z",
       "source": {
-        "type": "environment",
-        "name": "runtime-identity",
-        "mechanism": "whitelisted-claude-environment"
-      }
+        "type": "calculated",
+        "name": "ros-work-protocol",
+        "mechanism": "resume-transition"
+      },
+      "lastAssessedAt": "2026-11-26T00:22:23.000Z",
+      "recordedAt": "2026-11-26T00:22:23.000Z",
+      "history": [
+        {
+          "status": "unknown",
+          "reason": "runtime capability not reported or mapped",
+          "source": {
+            "type": "environment",
+            "name": "runtime-identity",
+            "mechanism": "whitelisted-claude-environment"
+          },
+          "discoveredAt": "2026-11-25T20:14:48.769Z",
+          "lastAssessedAt": "2026-11-25T20:14:48.769Z",
+          "recordedAt": "2026-11-25T20:14:48.769Z"
+        }
+      ]
     },
     {
       "metricId": "agent.human_escalations",
@@ -1401,6 +1417,26 @@
       },
       "collectedAt": "2026-11-25T20:15:23Z",
       "schemaVersion": "1.0.0"
+    },
+    {
+      "measurementId": "MEAS-4b5f4d5691c0e24a202baaaa",
+      "id": "agent.resumes",
+      "value": 1,
+      "unit": "count",
+      "currency": null,
+      "quality": "derived",
+      "confidence": null,
+      "scope": "execution",
+      "aggregation": "sum",
+      "dimensions": {},
+      "pricing": null,
+      "source": {
+        "type": "calculated",
+        "name": "ros-work-protocol",
+        "mechanism": "resume-transition"
+      },
+      "collectedAt": "2026-11-26T00:22:23.000Z",
+      "schemaVersion": "1.0.0"
     }
   ],
   "rawTelemetry": [],
@@ -1424,6 +1460,17 @@
         "mechanism": "work-lifecycle"
       },
       "eventId": "TEVT-41e79b2d630cd3570fea69f3"
+    },
+    {
+      "type": "work.resumed",
+      "occurredAt": "2026-11-26T00:22:23.000Z",
+      "reason": null,
+      "source": {
+        "type": "ros-clock",
+        "name": "ros",
+        "mechanism": "work-lifecycle"
+      },
+      "eventId": "TEVT-af4f5b74ded6d3a6b9f20461"
     }
   ],
   "repository": {

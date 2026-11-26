@@ -13,7 +13,8 @@ module QualitySignalsTests =
         { Sources = [ "src" ]
           Generated = [ "**/obj/**"; "src/Generated/**" ]
           LargeFileLines = 5
-          ForbiddenReferences = [ { From = "App.Domain"; To = "App.Cli" } ] }
+          ForbiddenReferences = [ { From = "App.Domain"; To = "App.Cli" } ]
+          ApiBoundaries = [] }
 
     let file path content : SourceFile = { Path = path; Content = content }
 

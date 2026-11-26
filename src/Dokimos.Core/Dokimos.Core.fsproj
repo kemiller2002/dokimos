@@ -50,6 +50,8 @@
     <Compile Include="Ratchet.fs" />
     <Compile Include="RatchetDtos.fs" />
     <Compile Include="RatchetContract.fs" />
+    <Compile Include="ReliabilityArchitecture.fs" />
+    <Compile Include="ReliabilityArchitectureContract.fs" />
     <Compile Include="EcirAudit.fs" />
     <Compile Include="ConstructionCanonical.fs" />
     <Compile Include="ConstructionDecisionModel.fs" />

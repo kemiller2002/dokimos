@@ -170,7 +170,7 @@ module RatchetCommand =
             | _ when write && File.Exists baselineFile ->
                 Output.invalid "baseline-exists" $"{baselineArg} exists; the baseline can only be tightened with `dokimos ratchet baseline update`"
             | Ok repository, Ok largeFileLines, Ok forbidden, Ok asOf ->
-                let configuration = { Sources = sources; Generated = generated; LargeFileLines = largeFileLines; ForbiddenReferences = forbidden }
+                let configuration = { Sources = sources; Generated = generated; LargeFileLines = largeFileLines; ForbiddenReferences = forbidden; ApiBoundaries = [] }
                 match measureWith root parsed configuration with
                 | Error reasons -> Output.unavailable "ratchet-measurement-unavailable" (String.Join("; ", reasons))
                 | Ok measurement ->

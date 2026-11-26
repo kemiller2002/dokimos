@@ -80,6 +80,31 @@
               }
             }
           }
+        },
+        "apiBoundaries": {
+          "description": "DOK-ARCH-001 thin API boundaries: each API project may reference only its listed contract projects. Omitted when empty.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "api",
+              "contracts"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "api": {
+                "type": "string",
+                "minLength": 1
+              },
+              "contracts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
         }
       }
     },

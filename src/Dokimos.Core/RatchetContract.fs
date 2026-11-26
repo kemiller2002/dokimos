@@ -53,7 +53,11 @@ module RatchetContract =
             { Sources = b.Configuration.Sources
               Generated = b.Configuration.Generated
               LargeFileLines = b.Configuration.LargeFileLines
-              ForbiddenReferences = b.Configuration.ForbiddenReferences |> List.map (fun r -> { From = r.From; To = r.To }) }
+              ForbiddenReferences = b.Configuration.ForbiddenReferences |> List.map (fun r -> { From = r.From; To = r.To })
+              ApiBoundaries =
+                match b.Configuration.ApiBoundaries with
+                | [] -> None
+                | boundaries -> Some(boundaries |> List.map (fun x -> ({ Api = x.Api; Contracts = x.Contracts }: ApiBoundaryFileDto))) }
           Rules = b.Rules }
 
     let writeBaseline (b: RatchetBaseline) = JsonSerializer.Serialize(baselineFileDto b, fileOptions) + "\n"
@@ -71,6 +75,14 @@ module RatchetContract =
                 return { From = from; To = into }
             }
 
+    let private apiBoundaryDecoder: Decoder<ApiBoundary> =
+        fun e ->
+            result {
+                let! api = field "api" nonEmptyString e
+                let! contracts = field "contracts" (list nonEmptyString) e
+                return { Api = api; Contracts = contracts }
+            }
+
     let private configurationDecoder: Decoder<RatchetConfiguration> =
         fun e ->
             result {
@@ -79,7 +91,13 @@ module RatchetContract =
                 let! large = field "largeFileLines" int e
                 do! if large > 0 then Ok() else Error "largeFileLines must be positive"
                 let! forbidden = fieldOr "forbiddenReferences" [] (list forbiddenDecoder) e
-                return { Sources = sources; Generated = generated; LargeFileLines = large; ForbiddenReferences = forbidden }
+                let! boundaries = fieldOr "apiBoundaries" [] (list apiBoundaryDecoder) e
+                return
+                    { Sources = sources
+                      Generated = generated
+                      LargeFileLines = large
+                      ForbiddenReferences = forbidden
+                      ApiBoundaries = boundaries }
             }
 
     let private scopeValues: Decoder<Map<string, decimal>> =
@@ -366,13 +384,14 @@ module RatchetContract =
             |> List.map (fun r ->
                 { RuleId = r.Id
                   Name = r.Name
-                  Engine = (match r.Engine with RatchetEngine _ -> "ratchet" | GateEngine -> "gate")
+                  Engine = (match r.Engine with RatchetEngine _ -> "ratchet" | GateEngine -> "gate" | ArchitectureEngine -> "architecture")
                   Semantics =
                     (match r.Engine with
                      | RatchetEngine CountMustNotGrow -> Some "count-must-not-grow"
                      | RatchetEngine SizeOverThresholdMustNotGrow -> Some "size-over-threshold-must-not-grow"
-                     | GateEngine -> None)
-                  Scope = (match r.ScopeKind with RepositoryScoped -> "repository" | FileScoped -> "file")
+                     | GateEngine
+                     | ArchitectureEngine -> None)
+                  Scope = (match r.ScopeKind with RepositoryScoped -> "repository" | FileScoped -> "file" | DependencyScoped -> "dependency")
                   Signal = r.Signal
                   Description = r.Description
                   Rationale = r.Rationale
