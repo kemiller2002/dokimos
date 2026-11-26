@@ -4,7 +4,7 @@
   "repository": "dokimos",
   "actor": "anthropic/claude-code",
   "startedAt": "2026-09-28T15:17:34.602Z",
-  "updatedAt": "2026-11-26T00:37:35.000Z",
+  "updatedAt": "2026-11-26T00:37:35.0000000\u002B00:00",
   "baselineDirtyPaths": [],
   "workItems": [
     {
@@ -785,7 +785,7 @@
         },
         "remoteBranch": "chore/ordo-1.5.0",
         "remoteCommit": "dbe8b6cb0230802b8d7a547ef0df4eb57b8fa4c3",
-        "summary": "conditor upgrade --current to echelon-current 1.2.0 (Ordo 1.4.2 -> 1.5.0) committed and pushed; local checks passed",
+        "summary": "conditor upgrade --current to echelon-current 1.2.0 (Ordo 1.4.2 -\u003E 1.5.0) committed and pushed; local checks passed",
         "nextAction": "Open the PR, get CI green and merge",
         "verification": {
           "status": "verified",
@@ -1786,14 +1786,14 @@
         },
         "remoteBranch": "claude/vigila-implementation-jdeps1",
         "remoteCommit": "eaf02cf4cd973be1528f4316ae9b64077f2599be",
-        "summary": "Aegis pins retargeted 2.0.0 -> 2.0.1; restore, build and tests green on the global.json SDK",
+        "summary": "Aegis pins retargeted 2.0.0 -\u003E 2.0.1; restore, build and tests green on the global.json SDK",
         "nextAction": "Complete WI-0018; update PR to 2.0.1 and confirm CI",
         "verification": {
           "status": "verified",
           "mechanism": "git-remote-observation"
         }
       },
-      "blockReason": "Blocked on Aegis 2.0.1: Aegis 2.0.0 nuspec requires FSharp.Core >= 11.0.101, so restore fails with NU1605 against the repository FSharp.Core pin; pins will be retargeted to 2.0.1",
+      "blockReason": "Blocked on Aegis 2.0.1: Aegis 2.0.0 nuspec requires FSharp.Core \u003E= 11.0.101, so restore fails with NU1605 against the repository FSharp.Core pin; pins will be retargeted to 2.0.1",
       "completedAt": "2026-11-25T13:10:48.928Z"
     },
     {
@@ -1836,7 +1836,7 @@
         },
         "remoteBranch": "claude/vigila-implementation-jdeps1",
         "remoteCommit": "3202d434fe1cfb14dcc25e628ab9a3001e68cfe1",
-        "summary": "Nullness helpers replace nonNull at the four FS3262 sites; build 0/0 on SDK 10.0.404 and 11.0.100; tests pass on SDK 10 (4+436+157)",
+        "summary": "Nullness helpers replace nonNull at the four FS3262 sites; build 0/0 on SDK 10.0.404 and 11.0.100; tests pass on SDK 10 (4\u002B436\u002B157)",
         "nextAction": "Complete WI-0019 and confirm PR #72 CI build-test-gate",
         "verification": {
           "status": "verified",
@@ -1918,7 +1918,7 @@
         },
         "remoteBranch": "claude/vigila-implementation-jdeps1",
         "remoteCommit": "ba2c7e419b8bf6b3e9a98341d4d6b62e6da50458",
-        "summary": "Upgraded to echelon-current 1.42.0 (Praxis 3.25.0, Ordo 1.20.0, Forma 1.0.1 + Echelon theme 1.1.0, Folio 0.4.1); results UI migrated; .NET 597 and node 101 tests pass",
+        "summary": "Upgraded to echelon-current 1.42.0 (Praxis 3.25.0, Ordo 1.20.0, Forma 1.0.1 \u002B Echelon theme 1.1.0, Folio 0.4.1); results UI migrated; .NET 597 and node 101 tests pass",
         "nextAction": "Open a draft PR and watch CI",
         "verification": {
           "status": "verified",
@@ -1930,34 +1930,44 @@
     {
       "id": "WI-0022",
       "type": "requirements",
-      "state": "blocked",
-      "semanticState": "blocked",
-      "evidence": [],
-      "updatedAt": "2026-11-25T20:15:23Z",
+      "state": "complete",
+      "semanticState": "complete",
+      "evidence": [
+        {
+          "type": "implementation",
+          "path": "src/Dokimos.Core/ReliabilityArchitecture.fs"
+        },
+        {
+          "type": "tests",
+          "path": "tests/Dokimos.Core.Tests/ReliabilityArchitectureTests.fs"
+        }
+      ],
+      "updatedAt": "2026-11-26T00:34:33.000Z",
       "telemetryExecutionIds": [
         "EXE-20261125T201448769Z-55568c41"
       ],
       "latestCheckpoint": {
-        "id": "7bbd64d85b7d7c4d98857a12",
-        "recordedAt": "2026-11-25T20:15:08Z",
+        "id": "794a2f2b7e5aea734c7169b7",
+        "recordedAt": "2026-11-26T00:34:32.000Z",
         "executionId": "EXE-20261125T201448769Z-55568c41",
         "repository": "dokimos",
         "branch": "claude/echelon-availability-architecture-ezhitq",
-        "commit": "ac45bb657d34a8c11e69bf282055230b9a57241d",
+        "commit": "fa904dec8cd8d6554927196985a8ed17184f83f6",
         "remote": {
           "name": "origin",
           "url": "https://github.com/kemiller2002/dokimos"
         },
         "remoteBranch": "claude/echelon-availability-architecture-ezhitq",
-        "remoteCommit": "ac45bb657d34a8c11e69bf282055230b9a57241d",
-        "summary": "Draft RQ-DOKIMOS-ARCH-001 committed and pushed",
-        "nextAction": "Owner review via PR; implement rules in a separate work item",
+        "remoteCommit": "fa904dec8cd8d6554927196985a8ed17184f83f6",
+        "summary": "DOK-ARCH-001/005/006 implemented with fixtures, tests (629 passing), rule docs and FP measurement",
+        "nextAction": "Owner review via PR",
         "verification": {
           "status": "verified",
           "mechanism": "git-remote-observation"
         }
       },
-      "blockReason": "Draft requirements pushed; awaiting owner review of the PR. Completion needs implementation+tests evidence (no 'requirements' completion type configured), which belong to a later implementation work item."
+      "blockReason": "Draft requirements pushed; awaiting owner review of the PR. Completion needs implementation\u002Btests evidence (no \u0027requirements\u0027 completion type configured), which belong to a later implementation work item.",
+      "completedAt": "2026-11-26T00:34:33.000Z"
     },
     {
       "id": "WI-0023",
@@ -1995,7 +2005,7 @@
         },
         "remoteBranch": "claude/vigila-implementation-jdeps1",
         "remoteCommit": "07809b421f7f659e4cff28153f1dfc72da816312",
-        "summary": "Moved dokimos to echelon-current 1.43.0 via Conditor 0.10.30 (Praxis 3.25.0 -> 3.26.0); Release build, 597 .NET tests, 101 site tests, site build/audit and results-UI render/audit/pdf, praxis validate pass.",
+        "summary": "Moved dokimos to echelon-current 1.43.0 via Conditor 0.10.30 (Praxis 3.25.0 -\u003E 3.26.0); Release build, 597 .NET tests, 101 site tests, site build/audit and results-UI render/audit/pdf, praxis validate pass.",
         "nextAction": "Open draft PR and watch CI",
         "verification": {
           "status": "verified",

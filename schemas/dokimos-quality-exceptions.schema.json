@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://echelonfoundry.com/dokimos/schemas/quality-exceptions",
   "title": "Dokimos quality exceptions (quality/exceptions.json)",
-  "description": "Reviewed, owned, expiring exceptions. Each accepts one regression of one rule in one scope up to allowedValue (required for DOK-R rules). Expired or incomplete exceptions fail `dokimos ratchet check` with verdict invalid-exceptions (exit 6). Exceptions never modify the baseline. DOK-G001 exceptions (scope = finding id) replace policy suppressions for `dokimos evaluate --exceptions`.",
+  "description": "Reviewed, owned, expiring exceptions. Each accepts one regression of one rule in one scope up to allowedValue (required for DOK-R rules). Expired or incomplete exceptions fail `dokimos ratchet check` with verdict invalid-exceptions (exit 6). Exceptions never modify the baseline. DOK-G001 exceptions (scope = finding id) replace policy suppressions for `dokimos evaluate --exceptions`. DOK-ARCH exceptions (scope = `<project-file>#<PackageId>` or `<ApiProject>-><Project>`) accept one dependency for `dokimos architecture check` and must name a decision record (DF-... or ADR-...) in evidence.",
   "type": "object",
   "required": [
     "contract",
@@ -41,7 +41,7 @@
           },
           "ruleId": {
             "type": "string",
-            "pattern": "^DOK-(R|G)\\d{3}$"
+            "pattern": "^DOK-((R|G)\\d{3}|ARCH-\\d{3})$"
           },
           "scope": {
             "type": "string",

@@ -9,6 +9,11 @@ type SourceFile = { Path: string; Content: string }
 
 type ForbiddenReference = { From: string; To: string }
 
+/// A thin API boundary (DOK-ARCH-001): the API project may reference only
+/// the listed contract projects. Names are project names, as in
+/// ForbiddenReference.
+type ApiBoundary = { Api: string; Contracts: string list }
+
 /// What the ratchet measures and how. Part of the accepted baseline, so a
 /// change to it is reviewed like a change to the baseline values.
 type RatchetConfiguration =
@@ -16,7 +21,10 @@ type RatchetConfiguration =
       /// Generated files are declared explicitly; nothing is inferred.
       Generated: string list
       LargeFileLines: int
-      ForbiddenReferences: ForbiddenReference list }
+      ForbiddenReferences: ForbiddenReference list
+      /// Optional; omitted from the baseline file when empty, so baselines
+      /// without it keep their digest.
+      ApiBoundaries: ApiBoundary list }
 
 type ScopeMeasure = { Value: decimal; Evidence: string list }
 

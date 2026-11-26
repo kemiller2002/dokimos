@@ -1,0 +1,435 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://echelonfoundry.com/dokimos/schemas/architecture",
+  "title": "Dokimos architecture report (dokimos.architecture 1.0.0)",
+  "description": "Output of `dokimos architecture check` (RQ-DOKIMOS-ARCH-001). Rules activate only where .echelon/reliability.json declares their tenet applicable or partially-applicable; otherwise they are not-applicable, which is never a pass. Static evidence only.",
+  "type": "object",
+  "required": [
+    "Contract",
+    "SchemaVersion",
+    "DokimosVersion",
+    "CheckedAt",
+    "Verdict",
+    "ExitCode",
+    "Reasons",
+    "Declaration",
+    "Exceptions",
+    "Summary",
+    "Rules",
+    "Findings",
+    "ProjectFiles",
+    "Limitations"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "Contract": {
+      "const": "dokimos.architecture"
+    },
+    "SchemaVersion": {
+      "const": "1.0.0"
+    },
+    "DokimosVersion": {
+      "type": "string"
+    },
+    "CheckedAt": {
+      "type": "string"
+    },
+    "Verdict": {
+      "enum": [
+        "pass",
+        "violation",
+        "invalid-exceptions",
+        "unavailable",
+        "not-evaluated"
+      ]
+    },
+    "ExitCode": {
+      "enum": [
+        0,
+        3,
+        4,
+        6
+      ]
+    },
+    "Reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Declaration": {
+      "type": "object",
+      "required": [
+        "Path",
+        "State",
+        "Reason",
+        "SystemClass",
+        "Tenets"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Path": {
+          "type": "string"
+        },
+        "State": {
+          "enum": [
+            "absent",
+            "invalid",
+            "declared"
+          ]
+        },
+        "Reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "SystemClass": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Tenets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "Tenet",
+              "Applicability",
+              "Reason"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "Tenet": {
+                "enum": [
+                  "continuousAvailability",
+                  "cacheReadiness",
+                  "reliabilityByConstruction"
+                ]
+              },
+              "Applicability": {
+                "enum": [
+                  "applicable",
+                  "partially-applicable",
+                  "not-applicable"
+                ]
+              },
+              "Reason": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "Exceptions": {
+      "type": "object",
+      "required": [
+        "Path",
+        "Digest",
+        "Active",
+        "Expired",
+        "Invalid",
+        "Unused"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Path": {
+          "type": "string"
+        },
+        "Digest": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Active": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/exception"
+          }
+        },
+        "Expired": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/exception"
+          }
+        },
+        "Invalid": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "Id",
+              "Problems"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "Id": {
+                "type": "string"
+              },
+              "Problems": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Unused": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Summary": {
+      "type": "object",
+      "required": [
+        "Violations",
+        "Accepted",
+        "RulesEvaluated",
+        "RulesNotApplicable",
+        "RulesNotConfigured",
+        "RulesUnavailable",
+        "ProjectFilesAnalyzed"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Violations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "Accepted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "RulesEvaluated": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "RulesNotApplicable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "RulesNotConfigured": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "RulesUnavailable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ProjectFilesAnalyzed": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "Rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "RuleId",
+          "Name",
+          "Tenet",
+          "State",
+          "Reason",
+          "Violations",
+          "Accepted"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "RuleId": {
+            "type": "string",
+            "pattern": "^DOK-ARCH-\\d{3}$"
+          },
+          "Name": {
+            "type": "string"
+          },
+          "Tenet": {
+            "type": "string"
+          },
+          "State": {
+            "enum": [
+              "not-applicable",
+              "not-configured",
+              "unavailable",
+              "evaluated"
+            ]
+          },
+          "Reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Violations": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "Accepted": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "Findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "RuleId",
+          "RuleName",
+          "Scope",
+          "Kind",
+          "File",
+          "Line",
+          "Subject",
+          "Detail",
+          "Description",
+          "Remediation",
+          "ExceptionProcess",
+          "ExceptionId",
+          "DecisionRecords"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "RuleId": {
+            "type": "string",
+            "pattern": "^DOK-ARCH-\\d{3}$"
+          },
+          "RuleName": {
+            "type": "string"
+          },
+          "Scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "Kind": {
+            "enum": [
+              "violation",
+              "accepted"
+            ]
+          },
+          "File": {
+            "type": "string"
+          },
+          "Line": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "Subject": {
+            "type": "string"
+          },
+          "Detail": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "Remediation": {
+            "type": "string"
+          },
+          "ExceptionProcess": {
+            "type": "string"
+          },
+          "ExceptionId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "DecisionRecords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "ProjectFiles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "exception": {
+      "type": "object",
+      "required": [
+        "Id",
+        "RuleId",
+        "Scope",
+        "Rationale",
+        "Owner",
+        "Created",
+        "Expires",
+        "ReviewCondition",
+        "Evidence",
+        "AllowedValue"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "RuleId": {
+          "type": "string"
+        },
+        "Scope": {
+          "type": "string"
+        },
+        "Rationale": {
+          "type": "string"
+        },
+        "Owner": {
+          "type": "string"
+        },
+        "Created": {
+          "type": "string"
+        },
+        "Expires": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ReviewCondition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "AllowedValue": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

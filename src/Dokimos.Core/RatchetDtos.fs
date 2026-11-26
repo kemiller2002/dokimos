@@ -10,11 +10,15 @@ open System.Text.Json.Serialization
 
 type ForbiddenReferenceFileDto = { From: string; To: string }
 
+type ApiBoundaryFileDto = { Api: string; Contracts: string list }
+
 type RatchetConfigurationFileDto =
     { Sources: string list
       Generated: string list
       LargeFileLines: int
-      ForbiddenReferences: ForbiddenReferenceFileDto list }
+      ForbiddenReferences: ForbiddenReferenceFileDto list
+      [<JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)>]
+      ApiBoundaries: ApiBoundaryFileDto list option }
 
 type RatchetBaselineFileDto =
     { [<JsonPropertyName("$schema")>]

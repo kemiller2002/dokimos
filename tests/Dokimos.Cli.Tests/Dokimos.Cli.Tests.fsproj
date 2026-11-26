@@ -18,6 +18,7 @@
     <Compile Include="ResultsCliTests.fs" />
     <Compile Include="IdentityCliTests.fs" />
     <Compile Include="RatchetCliTests.fs" />
+    <Compile Include="ArchitectureCliTests.fs" />
     <Compile Include="ConstructionVerifyCliTests.fs" />
     <Compile Include="BehaviorVerifyCliTests.fs" />
     <Compile Include="MechanicalFirstCliTests.fs" />

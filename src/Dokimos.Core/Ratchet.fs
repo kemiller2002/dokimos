@@ -40,6 +40,8 @@ module QualityRatchet =
               match rule.Engine, e.AllowedValue with
               | RatchetEngine _, None -> $"allowedValue is required for ratchet rule {e.RuleId}"
               | RatchetEngine _, Some v when v < 0m -> "allowedValue must not be negative"
+              | ArchitectureEngine, _ when (QualityRules.decisionRecordsIn e.Evidence).IsEmpty ->
+                  $"evidence must name an accepted decision record (DF-... or ADR-...) for architecture rule {e.RuleId}"
               | _ -> ()
               match rule.ScopeKind with
               | RepositoryScoped when e.Scope <> QualitySignals.RepositoryScope -> $"{e.RuleId} is repository-scoped; scope must be \"repository\""
@@ -277,6 +279,26 @@ module QualityRatchet =
                   Changes = perRule |> List.collect (fun (_, c, _) -> c)
                   Refused = perRule |> List.collect (fun (_, _, r) -> r) }
 
+    let private contractsOf (boundaries: ApiBoundary list) api =
+        boundaries |> List.tryFind (fun b -> b.Api = api) |> Option.map _.Contracts
+
+    /// Dropping an API boundary or widening its contracts loosens DOK-ARCH-001.
+    let private apiBoundaryLoosening (older: ApiBoundary list) (newer: ApiBoundary list) =
+        older
+        |> List.collect (fun o ->
+            match contractsOf newer o.Api with
+            | None -> [ $"api boundary removed: {o.Api}" ]
+            | Some contracts ->
+                contracts |> List.filter (fun c -> not (List.contains c o.Contracts)) |> List.map (fun c -> $"api boundary {o.Api} contract added: {c}"))
+
+    let private apiBoundaryTightening (older: ApiBoundary list) (newer: ApiBoundary list) =
+        newer
+        |> List.collect (fun n ->
+            match contractsOf older n.Api with
+            | None -> [ $"api boundary added: {n.Api}" ]
+            | Some contracts ->
+                contracts |> List.filter (fun c -> not (List.contains c n.Contracts)) |> List.map (fun c -> $"api boundary {n.Api} contract removed: {c}"))
+
     /// Compares two accepted baselines. Any raised value, added scope,
     /// dropped rule, or weakened configuration is a loosening.
     let diff (older: RatchetBaseline) (newer: RatchetBaseline) =
@@ -307,12 +329,14 @@ module QualityRatchet =
             [ for g in added oc.Generated nc.Generated -> $"generated glob added: {g}"
               for s in added nc.Sources oc.Sources -> $"source root removed: {s}"
               if nc.LargeFileLines > oc.LargeFileLines then yield $"largeFileLines raised from {oc.LargeFileLines} to {nc.LargeFileLines}"
-              for r in added nc.ForbiddenReferences oc.ForbiddenReferences -> $"forbidden reference removed: {r.From} -> {r.To}" ]
+              for r in added nc.ForbiddenReferences oc.ForbiddenReferences -> $"forbidden reference removed: {r.From} -> {r.To}"
+              yield! apiBoundaryLoosening oc.ApiBoundaries nc.ApiBoundaries ]
         let configTightened =
             [ for g in added nc.Generated oc.Generated -> $"generated glob removed: {g}"
               for s in added oc.Sources nc.Sources -> $"source root added: {s}"
               if nc.LargeFileLines < oc.LargeFileLines then yield $"largeFileLines lowered from {oc.LargeFileLines} to {nc.LargeFileLines}"
-              for r in added oc.ForbiddenReferences nc.ForbiddenReferences -> $"forbidden reference added: {r.From} -> {r.To}" ]
+              for r in added oc.ForbiddenReferences nc.ForbiddenReferences -> $"forbidden reference added: {r.From} -> {r.To}"
+              yield! apiBoundaryTightening oc.ApiBoundaries nc.ApiBoundaries ]
         { Loosened = deltas |> List.filter snd |> List.map fst
           Tightened = deltas |> List.filter (snd >> not) |> List.map fst
           ConfigurationLoosened = configLoosened
