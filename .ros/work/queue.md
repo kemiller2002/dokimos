@@ -65,4 +65,5 @@
 | WI-0019 | Make F# nullness handling compile cleanly on both .NET 10 and .NET 11 SDKs (FS3262) | complete |  | medium |
 | WI-0020 | Move Aegis 2.0.1 pins to 2.0.2 (WebAssembly detached-capture hang fix) | complete |  | medium |
 | WI-0021 | Upgrade to echelon-current 1.42.0 (Praxis 3.25.0, Ordo 1.20.0, Forma 1.0.1 with Echelon theme 1.1.0, Folio 0.4.1) | complete |  | medium |
-| WI-0022 | INIT-012: draft architectural reliability verification requirements (RQ-DOKIMOS-ARCH-001) — automatable subset only | active |  | medium |
+| WI-0022 | INIT-012: draft architectural reliability verification requirements (RQ-DOKIMOS-ARCH-001) — automatable subset only | blocked |  | medium |
+| WI-0023 | Upgrade to echelon-current 1.43.0 (Praxis 3.25.0 -> 3.26.0) | complete |  | medium |
